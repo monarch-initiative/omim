@@ -19,7 +19,7 @@ class OmimClient:
     api_key: str
     omim_ids: List[str]
 
-    def fetch_ids(self):
+    def fetch_all(self):
         total_to_fetch = min(self.total, MAX_TOTAL)
         count = 0
         result = []
@@ -37,7 +37,7 @@ class OmimClient:
             count += BATCH_SIZE
         return result
 
-    def request_batch(self, ids):
+    def fetch_ids(self, ids):
         params = {'format': 'json', 'apiKey': self.api_key, 'mimNumber': ','.join(ids), 'include': 'all'}
         try:
             response = requests.get(OMIM_API, params)
