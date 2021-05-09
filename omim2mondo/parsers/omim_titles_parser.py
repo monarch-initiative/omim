@@ -8,30 +8,32 @@ import re
 LOG = logging.getLogger('omim2mondo.parser.omim_titles_parser')
 
 
-def retrieve_mim_titles():
+def retrieve_mim_titles(download: bool = False):
     """
     Retrieve the mimTitles.txt file from the OMIM download server
     :return:
     """
     updated = False
     mim_titles_file = DATA_DIR / 'mimTitles.txt'
-    url = f'https://data.omim.org/downloads/{config["API_KEY"]}/mimTitles.txt'
-    resp = requests.get(url)
-    if resp.status_code == 200:
-        text = resp.text
-        if not text.startswith('<!DOCTYPE html>'):
-            with open(mim_titles_file, 'w') as fout:
-                fout.write(text)
-            lines = text.split('\n')
-            updated = True
-            LOG.info('mimTitles.txt retrieved and updated')
+    if download:
+        url = f'https://data.omim.org/downloads/{config["API_KEY"]}/mimTitles.txt'
+        resp = requests.get(url)
+        if resp.status_code == 200:
+            text = resp.text
+            if not text.startswith('<!DOCTYPE html>'):
+                with open(mim_titles_file, 'w') as fout:
+                    fout.write(text)
+                lines = text.split('\n')
+                updated = True
+                LOG.info('mimTitles.txt retrieved and updated')
+        else:
+            LOG.warning('Response from server: ' + resp.text)
     if not updated:
         # The server request failed. Use the cached file
         lines = []
         with open(mim_titles_file, 'r') as fin:
             lines = fin.readlines()
         LOG.warning('Failed to retrieve mimTitles.txt. Using the cached file. ')
-        LOG.warning('Response from server: ' + resp.text)
     return lines
 
 
@@ -76,7 +78,7 @@ def parse_mim_titles(lines):
         'Plus': 'GENO:0000418',  # has_affected_feature
     }
     for line in lines:
-        if line[0] == '#':
+        if len(line) == 0 or line.isspace() or line[0] == '#':
             continue  # skip the comment lines
         declared, omim_id, pref_label, alt_label, inc_label = [i.strip() for i in line.split('\t')]
         if declared in declared_to_type:
