@@ -27,7 +27,7 @@ class OmimClient:
             current = self.start + count
             end = self.start + min(count + BATCH_SIZE, total_to_fetch)
             ids = self.omim_ids[current:end]
-            entries = self.request_batch(ids)
+            entries = self.fetch_ids(ids)
             if entries:
                 result += entries
             else:
@@ -50,7 +50,7 @@ class OmimClient:
                 return None
             resp = response.json()
         except Exception as err:
-            LOG.error(f'Error occurred: {err}')
+            LOG.error(f'Error occurred: {err}.')
             return None
 
         entries = resp['omim']['entryList']
