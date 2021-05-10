@@ -5,6 +5,8 @@ from omim2mondo.config import config
 import requests
 import re
 
+from omim2mondo.omim_type import OmimType
+
 LOG = logging.getLogger('omim2mondo.parser.omim_titles_parser')
 
 
@@ -70,12 +72,12 @@ def parse_mim_titles(lines):
     omim_type = {}
     omim_replaced = {}
     declared_to_type = {
-        'Caret': 'HP:0031859',  # obsolete
-        'Asterisk': 'SO:0000704',  # gene
-        'NULL': 'NCIT:C71458',  # Suspected
-        'Number Sign': 'UPHENO:0001001',  # phenotype
-        'Percent': 'SO:0001500',  # heritable_phenotypic_marker
-        'Plus': 'GENO:0000418',  # has_affected_feature
+        'Caret': OmimType.OBSOLETE,  # 'HP:0031859',  # obsolete
+        'Asterisk': OmimType.GENE,  # 'SO:0000704',  # gene
+        'NULL': OmimType.SUSPECTED,  # 'NCIT:C71458',  # Suspected
+        'Number Sign': OmimType.PHENOTYPE,  # 'UPHENO:0001001',  # phenotype
+        'Percent': OmimType.HERITABLE_PHENOTYPIC_MARKER,  # 'SO:0001500',  # heritable_phenotypic_marker
+        'Plus': OmimType.HAS_AFFECTED_FEATURE,  # 'GENO:0000418',  # has_affected_feature
     }
     for line in lines:
         if len(line) == 0 or line.isspace() or line[0] == '#':
