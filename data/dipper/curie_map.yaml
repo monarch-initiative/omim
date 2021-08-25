@@ -12,7 +12,8 @@
 # other semantic-web items
 'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'                # Resource Description Framework
 'rdfs': 'http://www.w3.org/2000/01/rdf-schema#'                     # Resource Description Framework Schema
-'dc': 'http://purl.org/dc/terms/'                                   # Dublin Core (metadata) (terms is superset of elements)
+'dc': 'http://purl.org/dc/elements/1.1/'
+'dcterm': 'http://purl.org/dc/terms/'                                   # Dublin Core (metadata) (terms is superset of elements)
 'foaf': 'http://xmlns.com/foaf/0.1/'                                # Friend Of A Friend (social)
 'xml': 'http://www.w3.org/XML/1998/namespace'                       # Extensible Markup Language
 'xsd': 'http://www.w3.org/2001/XMLSchema#'                          # XML Schema Definition

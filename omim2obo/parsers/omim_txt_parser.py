@@ -113,6 +113,11 @@ def parse_mim_titles(lines):
 def parse_phenotypic_series_titles(lines):
     ...
 
+
 def parse_gene_map(lines):
+    ...
+
+
+def parse_morbid_map(lines):
     ...
 
