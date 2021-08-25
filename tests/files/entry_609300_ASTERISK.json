@@ -1,0 +1,1183 @@
+{
+  "omim": {
+    "version": "1.0",
+    "entryList": [
+      {
+        "entry": {
+          "prefix": "*",
+          "mimNumber": 609300,
+          "status": "live",
+          "titles": {
+            "preferredTitle": "CYTOCHROME P450, FAMILY 17, SUBFAMILY A, POLYPEPTIDE 1; CYP17A1",
+            "alternativeTitles": "STEROID 17-ALPHA-MONOOXYGENASE;;\nCYTOCHROME P450, SUBFAMILY XVII;;\nCYP17;;\nP450C17;;\nS17AH;;\nSTEROID 17-HYDROXYLASE/17,20-LYASE"
+          },
+          "textSectionList": [
+            {
+              "textSection": {
+                "textSectionName": "description",
+                "textSectionTitle": "Description",
+                "textSectionContent": "The CYP17 gene encodes steroid 17-alpha-hydroxylase, also referred to as steroid 17-alpha-monooxygenase ({EC 1.14.99.9}), which mediates both 17-alpha-hydroxylase and 17,20-lyase activity. These functions allow the adrenal glands and gonads to synthesize both 17-alpha-hydroxylated glucocorticoids (via 17-alpha-hydroxylase activity) and sex steroids (via 17,20-lyase activity) ({8:Chung et al., 1987}; {22:Kagimoto et al., 1988}; {43:Van Den Akker et al., 2002})."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "cloning",
+                "textSectionTitle": "Cloning and Expression",
+                "textSectionContent": "{8:Chung et al. (1987)} isolated several human adrenal cDNAs corresponding to the P450C17 gene. The deduced 508-amino acid protein has a predicted molecular mass of 57 kD. High-stringency screening of a human testicular cDNA library yielded a partial clone. RNA gel blots and nuclease S1-protection experiments showed that the adrenal and testicular P450C17 mRNAs are indistinguishable. Comparison of the amino acid sequence of P450C17 with 2 other human steroidogenic P450 cytochromes showed much greater homology with P450C21 ({613815}) (28.9%), another microsomal enzyme, than with P450SCC (12.3%), a mitochondrial enzyme.\n\n{36:Picado-Leonard and Miller (1987)} showed that the CYP17 and the CYP21B genes are very similar and presumably originated from a common ancestral gene. The 2 genes share an average homology of almost 30%, there being some regions of high homology and others of low homology. The main difference is that CYP17 has lost 2 exons present in CYP21B.\n\n{51:Youngblood et al. (1991)} isolated and characterized the mouse homolog."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "geneStructure",
+                "textSectionTitle": "Gene Structure",
+                "textSectionContent": "{36:Picado-Leonard and Miller (1987)} determined that the CYP17A1 gene contains 8 exons.\n\n{22:Kagimoto et al. (1988)} reported the exonic structure of the CYP17 gene as well as the sequences at the exon/intron boundaries at the site of initiation of transcription."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "mapping",
+                "textSectionTitle": "Mapping",
+                "textSectionContent": "{30:Matteson et al. (1986)} concluded that the human genome has at least 2 P450C17 genes and that the adrenal P450C17 gene lies on chromosome 10.\n\n{40:Sparkes et al. (1991)} mapped the CYP17 gene to 10q24-q25 by in situ hybridization. By fluorescence in situ hybridization, {13:Fan et al. (1992)} mapped the CYP17 gene to 10q24.3.\n\n{51:Youngblood et al. (1991)} localized the homologous mouse gene to chromosome 19, distal to Got-1, by interspecific testcross. This finding added to a conserved syntenic group on mouse chromosome 19 and human chromosome 10 and predicted that the CYP17 gene is distal to GOT1 ({138180}) on human chromosome 10."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "geneFunction",
+                "textSectionTitle": "Gene Function",
+                "textSectionContent": "{24:Krohn et al. (1992)} demonstrated that an autoantigen associated with Addison disease in the type I polyendocrine autoimmunity syndrome ({240300}) is steroid 17-alpha-hydroxylase. Patients with type I polyendocrine disease without Addison disease did not show this autoantibody and patients with adult-type isolated Addison disease, like controls, also showed no reactivity.\n\n{39:Slominski et al. (1996)} presented evidence that the CYP17, CYP11A1 ({118485}), CYP21A2 ({613815}), and ACTHR ({202200}) genes are expressed in skin (see {202200}). The authors suggested that expression of these genes may play a role in skin physiology and pathology and that cutaneous proopiomelanocortin (POMC; {176830}) activity may be autoregulated by a feedback mechanism involving glucocorticoids synthesized locally.\n\nCYP17 expression in propagated theca cells isolated from the ovaries of women with PCO is persistently elevated, compared with theca cells isolated from normal ovaries. To investigate the mechanism for increased CYP17 mRNA accumulation in PCO theca cells, {44:Wickenheisser et al. (2000)} examined CYP17 and steroidogenic acute regulatory protein (StAR; {600617}) promoter activities in normal and PCO theca cells. Basal and forskolin-stimulated CYP17 promoter activity was 4-fold greater in PCO cells than in theca cells isolated from normal ovaries. The authors concluded from these data that: (1) basal and cAMP-dependent CYP17 gene transcription is increased in PCO theca cells; (2) there is differential regulation of promoters of genes required for steroidogenesis in PCO theca cells; and (3) passaged normal and PCO theca cells provide a model system for studying tissue-specific regulation of genes encoding steroidogenic enzymes and identifying the molecular mechanisms involved in increased androgen production in PCO.\n\nCorticosteroids have specific effects on cardiac structure and function mediated by mineralocorticoid and glucocorticoid receptors (MR and GR ({138040}), respectively). Aldosterone and corticosterone are synthesized in rat heart. To see whether they might also be synthesized in the human cardiovascular system, {23:Kayes-Wandover and White (2000)} examined the expression of genes for steroidogenic enzymes as well as genes for GR, MR, and 11-hydroxysteroid dehydrogenase (HSD11B2; {614232}), which maintains the specificity of MR. Human samples were from left and right atria, left and right ventricles, aorta, apex, intraventricular septum, and atrioventricular node, as well as whole adult and fetal heart. Using RT-PCR, mRNAs encoding CYP11A, CYP21, CYP11B1 ({610613}), GR, MR, and HSD11B2 were detected in all samples except ventricles, which did not express CYP11B1. CYP11B2 ({124080}) mRNA was detected in the aorta and fetal heart, but not in any region of the adult heart, and CYP17 was not detected in any cardiac sample. Levels of steroidogenic enzyme gene expression were typically 0.1% those in the adrenal gland. The authors concluded that these findings are consistent with autocrine or paracrine roles for corticosterone and deoxycorticosterone, but not cortisol or aldosterone, in the normal adult human heart.\n\n{17:Hanley et al. (2001)} investigated the regulation of the human CYP17 gene by 2 orphan nuclear receptors, SF1 ({184757}) and DAX1 (NR0B1; {300473}). In human embryos, SF1 and DAX1 are expressed throughout the developing adrenal cortex from its inception at 33 days postconception. In contrast, CYP17 expression, which commences between 41 and 44 days postconception, is limited to the fetal zone. The 5-prime-flanking region of the human CYP17 gene contains 3 functional SF1 elements that collectively mediate 25-fold or greater induction of promoter activity by SF1. In constructs containing all 3 functional SF1 elements, DAX1 inhibited this activation by at least 55%. In the presence of only 1 or 2 SF1 elements, DAX1 inhibition was lost even though SF1 transactivation persisted. The authors concluded that efficient repression of SF1-mediated activation of the human CYP17 gene by DAX1 requires multiple SF1 elements.\n\n{26:Lin et al. (2001)} studied the transcriptional regulation of CYPC17. Expression of deletion mutants of up to 2,500 bp of human 5-prime-flanking DNA in human adrenal NCI-H295A cells indicated that most regulatory activity was confined to the first 227 bp. DNase I footprinting of the proximal promoter identified the TATA box, a steroidogenic factor-1 site, and 3 previously uncharacterized sites at -107/-85, at -178/-152, and at -220/-185. EMSAs and methylation interference assays suggested that the -107/-85 site and the -178/-152 site bind members of the nuclear factor-1 (NF1; see {600727}) family of transcription factors. Mutation of both the -107/-85 and the -178/-152 NF1 sites reduced basal transcription by half. Supershift assays showed that the ubiquitous proteins Sp1 ({189906}) and Sp3 ({601804}) both bind to the -227/-184 region and that mutation of their binding sites reduced transcription by 75%. Mutation of the Sp1/Sp3 site plus the 2 NF1 sites eliminated almost all detectable transcription. The authors concluded that Sp1 and Sp3 binding to the -227/-184 site and NF1C proteins binding to the -107/-85 and the -178/-152 sites are crucial for adrenal transcription of the human gene for P450c17.\n\nCytochrome P450c17 catalyzes both 17-alpha-hydroxylation and 17,20-lyase conversion of 21-carbon steroids to 19-carbon precursors of sex steroids. In many species, the 17,20-lyase activity of P450c17 for one pathway dominates, reflecting the preferred steroidogenic pathway of that species. To elucidate the pathway leading to C19 testosterone precursors in the human testis, {14:Fluck et al. (2003)} assayed the conversion of 17-alpha-hydroxypregnenolone to dehydroepiandrosterone (delta-5 17,20-lyase activity) and of 17-alpha-hydroxyprogesterone to androstenedione (delta-4 17,20-lyase activity) by human fetal testicular microsomes. Apparent Michaelis constant (Km) and maximum velocity (Vmax) values indicated 11-fold higher preference for the delta-5 pathway. They concluded that the majority of testosterone biosynthesis in the human testis proceeds through the conversion of pregnenolone to dehydroepiandrosterone via the delta-5 pathway."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "biochemicalFeatures",
+                "textSectionTitle": "Biochemical Features",
+                "textSectionContent": "{2:Auchus and Miller (1999)} constructed a second-generation computer graphic model of human P450C17 in order to visualize its active site topology and to study the structural basis of its substrate specificity and catalytic selectivity. The hydrophobic active site accommodates both delta-4 and delta-5 steroid substrates in a catalytically favorable orientation. The predicted contributions of positively charged residues to the redox-partner binding site were confirmed by site-directed mutagenesis. Molecular dynamic simulations with pregnenolone, 17-OH-pregnenolone, progesterone, and 17-OH-progesterone docked into the substrate-binding pocket demonstrated that regioselectivity of the hydroxylation reactions is determined both by proximity of hydrogens to the iron-oxo complex and by the stability of the carbon radicals generated after hydrogen abstraction. The authors concluded that the model explains the activities of all known naturally occurring and synthetic human P450C17 mutants. The model also predicted that mutation of lys89 would disrupt 17,20-lyase activity to a greater extent than 17-alpha-hydroxylase activity."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "molecularGenetics",
+                "textSectionTitle": "Molecular Genetics",
+                "textSectionContent": "<Subhead> 17-Alpha-Hydroxylase/17,20-Lyase Deficiency\n\nIn a patient with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {22:Kagimoto et al. (1988)} identified a 4-base duplication in the CYP17A1 gene ({609300.0001}), resulting in the loss of both enzymatic activities.\n\nBy Northern blot analysis of 6 patients with combined 17-alpha-hydroxylase and 17,20-lyase deficiency demonstrated by enzymatic activity of less than 2% for both enzymes, {45:Winter et al. (1989)} found abundant amounts of testicular RNA that hybridized to a cDNA specific for this P450 enzyme. Moreover, immunoblot analysis showed an apparently normal content of an immunoreactive protein with a molecular weight similar to that of an authentic P450(c17). These results suggested that the patients had a point mutation in the gene for P450 and that the mutant gene was transcribed, but gave rise to a protein defective in the enzyme activities.\n\nHuman male sexual differentiation requires production of fetal testicular testosterone, whose biosynthesis requires steroid 17,20-lyase activity. The existence of true isolated 17,20-lyase deficiency has been questioned because 17-alpha-hydroxylase and 17,20-lyase activities are catalyzed by a single enzyme, microsomal cytochrome P450c17, and because combined deficiencies of both activities were found in a patient thought to have had isolated 17,20-lyase deficiency. In 2 patients with isolated 17,20-lyase deficiency from a small village in Brazil, {15:Geller et al. (1997)} identified 2 different homozygous mutations in the CYP17A1 gene ({609300.0012}; {609300.0013}). When expressed in COS-1 cells, the mutant proteins retained 17-alpha-hydroxylase activity, but had minimal 17,20-lyase activity. Substrate competition experiments suggested that the mutations did not alter the enzyme's substrate-binding capacity, but cotransfection of cells with P450 oxidoreductase, the electron donor used by P450c17, indicated that the mutants had a diminished ability to interact with redox partners. Computer graphic modeling of the enzymes suggested that both mutations lay in or near the redox-partner binding site, on the opposite side of the heme from the substrate-binding pocket. {15:Geller et al. (1997)} concluded that these mutations alter electrostatic charge distribution in the redox-partner binding site, so that the electron transfer for the 17,20-lyase reaction is selectively lost or diverted to uncoupling reactions. The authors stated that these were the first proven cases of isolated 17,20-lyase deficiency and represented a novel mechanism for loss of enzymatic activity. Up to that time 18 CYP17 mutations had been found in 28 patients; all mutations had affected the 2 activities equally. These observations can be added to those in Hurler syndrome ({607014}), metachromatic leukodystrophy ({250100}), and limb-girdle muscular dystrophy type 2A ({253600}), which led {52:Zlotogora et al. (1996)} to suggest that multiple mutations in a single gene in a restricted population may be a common phenomenon.\n\n<Subhead> Other Hormonal Associations\n\n{6:Carey et al. (1993)} described families in which the polycystic ovarian syndrome (PCO; {184700}) and premature male pattern baldness (MPB; {109200}) segregated as an autosomal dominant phenotype. {7:Carey et al. (1994)} studied 14 Caucasian families with 81 affected individuals and identified a -34T-C transition (A1 and A2 alleles, respectively) in the 5-prime promoter region of the CYP17 by heteroduplex analysis. The change created an additional SP1-type (CCACC box) promoter site that was thought to cause increased expression of the gene. The base change also created a recognition site for the restriction enzyme MspA1, allowing a simple screening procedure. There was a significant association between the A2 allele and the affected state for consecutively identified Caucasian women with PCO as compared either to consecutively matched controls or to a random population. Within the 14 families, members with polycystic ovaries or male pattern baldness had a significant association with the occurrence of at least 1 A2 allele compared to their normal relatives. The A2 allele did not cosegregate, however, with the affected phenotype in families showing association, demonstrating that the mutation in CYP17 is not the cause of PCO/MPB. Although variation represented by the A2 allele (-34C) of the CYP17 gene appeared to be a significant factor modifying the expression of PCO/MPB in families in which the phenotype was demonstrated to segregate as a single gene disorder, it was excluded as the primary genetic defect. {34:Nedelcheva Kristensen et al. (1999)} showed that the -34T-C polymorphism did not bind to SP1 ({189906}).\n\nIn a study to identify genetic factors affecting the onset of menarche and natural menopause in healthy postmenopausal Japanese women, {16:Gorai et al. (2003)} found that ages at menarche in women with the CYP17 genotype A1/A2 (higher activity of CYP17) were significantly earlier than in those with A1/A1 (lower activity of CYP17). There were no significant differences in age at natural menopause and years of menstruation among each CYP17, CYP1A1 ({108330}), or COMT ({116790}) genotype. The authors concluded that these results suggest that the estrogen-metabolizing CYP17 genotype influences age at menarche in healthy postmenopausal Japanese women.\n\nIn a genotype/haplotype association study involving a case-control sample of 1,117 brothers from 506 sibships with prostate cancer, {28:Loukola et al. (2004)} did not detect any associations with CYP17A1.\n\n{10:Costa-Santos et al. (2004)} described what they believed to be the first 2 cases of 17-hydroxylase deficiency resulting from mutations that alter splice acceptor sites ({609300.0034}, {609300.0035}). They provided direct evidence that the mutations disrupted mRNA splicing and that negligible active enzyme was produced from the alleles with the intronic mutations.\n\nAmong 153 Caucasian males, {38:Schulze et al. (2008)} found that the CYP17 A2 allele was associated with increased urinary excretion of epitestosterone glucuronide and its putative precursor 5-androstene-3-beta,17-alpha-diol. Those homozygous for A1/A1 had a 64% higher testosterone/epitestosterone ratio compared to those with an A2 allele. The findings indicated that CYP17 is involved in the production of epitestosterone. {38:Schulze et al. (2008)} concluded that the CYP17 promoter polymorphism may partly explain high natural testosterone/epitestosterone levels, which may have important implications for androgen testing in athletes."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "evolution",
+                "textSectionTitle": "Evolution",
+                "textSectionContent": "By combining a chromosome-scale genome assembly of the Iberian mole, Talpa occidentalis, with transcriptomic, epigenetic, and chromatin interaction datasets, {37:Real et al. (2020)} identified rearrangements that altered the regulatory landscape of genes with distinct gonadal expression patterns. These included a tandem triplication involving Cyp17a1, a gene controlling androgen synthesis, and an intrachromosomal inversion involving Fgf9 ({600921}), a protesticular growth factor gene that is heterochronically expressed in mole ovotestes. Transgenic mice with a knockin mole Cyp17a1 enhancer or overexpressing Fgf9 showed phenotypes recapitulating mole sexual features, including development of masculinizing ovotestes in females."
+              }
+            }
+          ],
+          "allelicVariantExists": true,
+          "allelicVariantList": [
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 1,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, 4-BP DUP, EX8",
+                "text": "In a patient with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {22:Kagimoto et al. (1988)} demonstrated a 4-base duplication in exon 8 of the CYP17A1 gene. The resultant protein had an altered C-terminal amino acid sequence which resulted in loss of both enzymatic activities. This mutation was also found in affected members of 2 presumably unrelated Canadian Mennonite families ({21:Kagimoto et al., 1989}).\n\n{19:Imai et al. (1992)} identified the CYP17A1 4-bp duplication in affected members of 6 families residing in the Friesland region of the Netherlands. Since the Mennonite sect derives its name from Menno Simons, the founder of the group in Friesland in the 16th century, the 4-bp duplication presumably appeared within the population before the migration of the Mennonites from the Netherlands to Canada.",
+                "dbSnps": "rs556794126",
+                "clinvarAccessions": "RCV000498913;;;RCV000001849;;;RCV000337017",
+                "gnomadSnps": "rs556794126"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 2,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, PHE53DEL",
+                "text": "In a female Japanese patient with partial combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {47:Yanase et al. (1989)} identified a homozygous deletion of the phenylalanine codon (TTC) at either amino acid position 53 or 54 in exon 1 of the CYP17A1 gene. Functional expression studies showed that 17-alpha-hydroxylase and 17,20-lyase activities were less than 37% and 8% of normal, respectively. On a visit to the hospital at the age of 20 because of occipital headache, the patient was found to have hypertension and hypokalemia. Menstruation was irregular. Physical examination showed hypoplastic breasts and no pubic or axillary hair.\n\nIn a follow-up study of the patient reported by {47:Yanase et al. (1989)}, {32:Miura et al. (1996)} stated that the woman developed decreased gonadal function in her forties. In addition, 4 of 11 young adult Japanese patients with this phenotype, including the previously reported woman, had the same mutation. {32:Miura et al. (1996)} concluded that while the PHE53/54DEL mutation is associated with well-preserved gonadal function in young adult patients, it is likely to cause early reduction of gonadal function with increasing age, and that this type of CYP17 mutation may have a high prevalence in Japanese patients with this disorder.",
+                "dbSnps": "rs121434319",
+                "clinvarAccessions": "RCV001382543;;;RCV000001850"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 3,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, 7-BP DUP, EX2",
+                "text": "In a Japanese child, born of consanguineous parents, with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {48:Yanase et al. (1990)} identified a 7-bp duplication (GCGCACA) in exon 2 of the CYP17A1 gene, resulting in a frameshift and premature stop codon N-terminal to the heme-binding sequence. The patient was genotypically male (46,XY), but phenotypically female. The mutation led to the absence of a functional protein in the adrenal cortex and testis. This lack of protein led to an absence of sex steroids, resulting in female external genitalia, and excessive secretion of steroids with mineralocorticoid activity, resulting in hypertension.",
+                "clinvarAccessions": "RCV000001851"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 4,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, SER106PRO",
+                "text": "In 2 unrelated patients from Guam with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {27:Lin et al. (1991)} identified a homozygous ser106-to-pro (S106P) substitution in the CYP17A1 gene. Functional expression studies showed that the mutation abolished both 17-alpha-hydroxylase and 17,20-lyase activity. {20:Jones et al. (1992)} reported clinical details of the patients, both of whom were phenotypic females with 46,XY karyotype and who had hypertension. The finding of the identical defect in 2 presumably unrelated individuals from a relatively small population suggested to {20:Jones et al. (1992)} that the gene might be frequent in that population.",
+                "dbSnps": "rs104894135",
+                "clinvarAccessions": "RCV000001852;;;RCV000763211;;;RCV000288112",
+                "gnomadSnps": "rs104894135"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 5,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, 469-BP INS, 518-BP DEL",
+                "text": "In a 14-year-old 46,XY Italian patient, born of consanguineous parents, with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {3:Biason et al. (1991)} identified a homozygous 518-bp deletion combined with a 469-bp insertion in the CYP17A1 gene. The deletion spanned much of exon 2, all of intron 2, and a portion of exon 3. A 156-bp segment of the inserted sequence showed 95.5% identity to the nuclear antigen-binding site on Marek disease virus DNA and sequences found in rearranged mitochondrial DNA of rat hepatoma cells. A similar degree of sequence identity (99%) was also found between the above sequences and part of the lac operon of E. coli. The mutated gene encoded a truncated nonfunctional steroid hydrolase. Two genotypically and phenotypically female sisters were also affected and had the same mutation. Both parents were heterozygous. The inserted sequence was not found in DNA from normal individuals or in the CYP17 gene of other Italian patients with 17-alpha-hydroxylase deficiency. This suggested that the mutation resulted from a sporadic event affecting an ancestor of this family and was not caused by transposition of genomic DNA. {3:Biason et al. (1991)} noted that the findings represent the intriguing possibility of a viral influence on the genome, presumably through the insertion of foreign DNA in the germinal cells of an ancestor.",
+                "clinvarAccessions": "RCV000001853"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 6,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "alternativeNames": "BREAST CANCER, SUSCEPTIBILITY TO, INCLUDED",
+                "mutations": "CYP17A1, ARG239TER",
+                "text": "In a 46,XY male with ambiguous external genitalia and combined partial 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {1:Ahlgren et al. (1992)} identified compound heterozygosity for mutations in the CYP17A1 gene: a C-to-T transition in exon 4, resulting in an arg239-to-ter (R239X) substitution, and a C-to-A transversion in exon 6, resulting in a pro342-to-thr substitution (P342T; {609300.0007}). The mutations were inherited from the mother and father, respectively. The R239X mutation occurred at the N-terminal side of the heme-binding sequence and the putative resultant truncated protein was nonfunctional. Reconstruction of the P342T mutation by site-directed mutagenesis into human CYP17 cDNA followed by expression in COS-1 cells led to a normal amount of immunodetectable P450-17-alpha protein, although both the hydroxylase and the lyase activities were reduced to 40 to 45% of normal. The presence of ambiguous external genitalia indicated that greater than 20% of the normal 17,20-lyase activity is required for complete virilization in the male.\n\nIn 3 sisters with breast cancer ({114480}) diagnosed at ages 34, 38, and 42 years, respectively, {18:Hopper et al. (2005)} identified a germline R239X mutation in the CYP17A1 gene. None of the 3 sisters carried a deleterious mutation in BRCA1 ({113705}) or BRCA2 ({600185}). A sister who was cancer-free at age 58 did not have the R239X mutation; the mutation was not found in 788 controls.",
+                "dbSnps": "rs104894136",
+                "clinvarAccessions": "RCV000497599;;;RCV000001855;;;RCV000709946;;;RCV000001854",
+                "gnomadSnps": "rs104894136"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 7,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, PRO342THR",
+                "text": "For discussion of the pro342-to-thr (P342T) mutation in the CYP17A1 gene that was found in compound heterozygous state in a patient with ambiguous external genitalia and combined partial 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}) by {1:Ahlgren et al. (1992)}, see {609300.0006}.",
+                "dbSnps": "rs104894137",
+                "clinvarAccessions": "RCV000001856"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 8,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, 1-BP DEL",
+                "text": "In a 32-year-old Japanese female with combined partial 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {35:Oshiro et al. (1995)} identified a 1-bp deletion of a G in amino acid 438 in the CYP17A1 gene. The deletion altered the reading frame and resulted in a premature stop codon at position 443. The ligand of heme iron, cystine-442, was absent. The truncated protein showed normal amino acid residues 1-437 and abnormal amino acid residues 438-442. The mutation caused loss of an AvaII restriction site which was used to demonstrate that the mother and a sister were heterozygous for the mutation. {35:Oshiro et al. (1995)} reported that 16 CYP17 allelic variants had been reported.",
+                "clinvarAccessions": "RCV000001857"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 9,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, ARG96TRP",
+                "text": "In 2 French Canadian sibs who were genotypically male with a female phenotype resulting from combined partial 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {25:Laflamme et al. (1996)} identified a homozygous C-to-T transition in exon 1 of the CYP17A1 gene, resulting in an arg96-to-trp (R96W) substitution. Functional expression studies showed that the mutation almost completely abolished the activity of the mutant protein. {25:Laflamme et al. (1996)} pointed out that 17-alpha-hydroxylase/17,20-lyase deficiency impairs steroid biosynthesis in the adrenals and gonads; in contrast to congenital adrenal hyperplasia ({201910}), caused by 21-alpha-hydroxylase or 11-beta-hydroxylase deficiency, in which steroid formation is impaired exclusively in the adrenals.\n\n{29:Martin et al. (2003)} identified the R96W mutation in a Brazilian child, born of consanguineous parents, with combined 17-alpha-hydroxylase/17,20-lyase deficiency.",
+                "dbSnps": "rs104894138",
+                "clinvarAccessions": "RCV000255053;;;RCV000501502;;;RCV000001858",
+                "gnomadSnps": "rs104894138"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 10,
+                "status": "removed",
+                "name": "REMOVED FROM DATABASE"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 11,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, IVS7+5G-A",
+                "text": "{46:Yamaguchi et al. (1997)} sequenced the CYP17 gene from a Japanese patient with combined complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}) previously reported by {50:Yazaki et al. (1982)}. The patient was homozygous for a G-to-A transition at position +5 of the 5-prime splice site of intron 7. In vitro expression analysis of an allelic minigene containing exons 6-8 of the mutant gene showed skipping of exon 7. This exon skipping alters the translational reading frame of exon 8 and introduces a premature stop codon at amino acid position 410, proximal to the heme iron-binding site essential for the enzymatic activity of CYP17. Restriction enzyme analysis showed that the patient was homozygous and the parents were heterozygous for the mutation.",
+                "dbSnps": "rs1564777724",
+                "clinvarAccessions": "RCV000001859"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 12,
+                "status": "live",
+                "name": "17,20-@LYASE DEFICIENCY, ISOLATED",
+                "mutations": "CYP17A1, ARG347HIS",
+                "text": "In a 46,XY patient with isolated 17,20-lyase deficiency ({202110}) from a small rural village in Bahia, Brazil, {15:Geller et al. (1997)} identified a homozygous G-to-A transition in the CYP17 gene, resulting in an arg347-to-his (R347H) substitution in the redox partner interaction domain. Both parents were heterozygous for the mutation.\n\n{43:Van den Akker et al. (2002)} reported 2 46,XY sibs, offspring of consanguineous parents, with isolated 17,20-lyase deficiency who were homozygous for the R347H mutation. One patient had been assigned the male sex and the other the female sex, designated by the parents at birth. There were no clinical signs of insufficient cortisol secretion. In vitro studies showed that the R347H mutant protein had 44% and less than 1% residual 17-alpha-hydroxylase and 17,20-lyase activities, respectively.",
+                "dbSnps": "rs61754278",
+                "clinvarAccessions": "RCV000185577;;;RCV000001860;;;RCV001387555",
+                "gnomadSnps": "rs61754278"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 13,
+                "status": "live",
+                "name": "17,20-@LYASE DEFICIENCY, ISOLATED",
+                "mutations": "CYP17A1, ARG358GLN",
+                "text": "In a 46,XY patient with isolated 17,20-lyase deficiency ({202110}) from a small village in Bahia, Brazil, {15:Geller et al. (1997)}, identified a homozygous G-to-A transition in the CYP17 gene, resulting in an arg358-to-gln (R358Q) substitution in the redox partner interaction domain. The father was heterozygous for the mutation and the parents denied consanguinity.",
+                "dbSnps": "rs104894139",
+                "clinvarAccessions": "RCV000001861",
+                "gnomadSnps": "rs104894139"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 14,
+                "status": "removed",
+                "name": "REMOVED FROM DATABASE"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 15,
+                "status": "removed",
+                "name": "REMOVED FROM DATABASE"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 16,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, TRP17TER",
+                "text": "In a Japanese patient with combined complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {41:Suzuki et al. (1998)} identified compound heterozygosity for mutations in the CYP17A1 gene: a G-to-A transition, resulting in a trp17-to-ter (W17X) substitution, and a G-to-T transversion at the fifth nucleotide from the splice donor site in intron 2 (IVS2+5G-T; {609300.0017}). The patient presented with female genitalia, a 46,XY karyotype, absent pubertal development, and hypertension. RT-PCR analysis using RNA isolated from the testes of the patient revealed that the IVS2+5G-T mutation caused abnormal splicing; exon 2 was spliced with intron 2. Skipping exon 2 alters the translational reading frame of exon 3 and introduces a premature termination codon. In semiquantitative analysis, the majority of the transcript for IVS2+5G-T skipped exon 2.",
+                "dbSnps": "rs104894141",
+                "clinvarAccessions": "RCV000001862"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 17,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, IVS2, G-T, +5",
+                "text": "For discussion of the splice site mutation in the CYP17A1 gene (IVS2+5G-T) that was found in compound heterozygous state in a patient with combined complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}) by {41:Suzuki et al. (1998)}, see {609300.0016}.",
+                "dbSnps": "rs786205061",
+                "clinvarAccessions": "RCV000001863"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 18,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, PHE93CYS",
+                "text": "{11:Di Cerbo et al. (2002)} reported 2 phenotypically and hormonally affected Italian patients with 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}). The family history revealed consanguinity of the parents. Mutation screening of the CYP17 gene in both patients identified a homozygous phe93-to-cys (F93C) substitution in a highly conserved region of the protein. In vitro functional studies showed that F93C mutant protein retained only 10% of both 17-alpha-hydroxylase and 17,20-lyase activities.",
+                "dbSnps": "rs104894146",
+                "clinvarAccessions": "RCV000001864"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 19,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, PHE114VAL",
+                "text": "{43:Van den Akker et al. (2002)} reported a phenotypic female patient (genotype 46,XY) with combined complete deficiency of 17-alpha-hydroxylase and 17,20-lyase ({202110}) who was a compound heterozygote for mutations in the CYP17A1 gene: a phe114-to-val (F114V) mutation in the steroid-binding domain, and a 4-bp duplication in exon 8 ({609300.0001}). In vitro studies showed that the F114V mutant protein had less than 2.2% and less than 1% residual activity of 17-alpha-hydroxylase and 17,20-lyase, respectively.",
+                "dbSnps": "rs104894147",
+                "clinvarAccessions": "RCV000001865"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 20,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, ASP116VAL",
+                "text": "{43:Van den Akker et al. (2002)} reported a phenotypic female patient (genotype 46,XY) with combined partial deficiency of 17-alpha-hydroxylase and 17,20-lyase ({202110}) who was compound heterozygous for mutations in the CYP17A1 gene: an asp116-to-val (D116V) mutation in the steroid-binding domain, and a 4-bp duplication in exon 8 ({609300.0001}). The patient was born with an enlarged clitoris and no uterus, consistent with ambiguous genitalia. Her gonads were removed at age 3 years. She had low-normal levels of androgens and cortisol, suggesting partial deficiency of the 2 enzymes. In vitro studies showed that the D116V mutant protein had 37.7% and 10.7% residual activities of 17-alpha-hydroxylase and 17,20-lyase, respectively.",
+                "dbSnps": "rs104894148",
+                "clinvarAccessions": "RCV000001866"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 21,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, ARG347CYS",
+                "text": "{43:Van den Akker et al. (2002)} reported 2 female patients with partial 17-alpha-hydroxylase deficiency and complete 17,20-lyase deficiency ({202110}) who were compound heterozygotes for 2 mutations in the CYP17A1 gene: an arg347-to-cys (R347C) mutation in the redox partner interaction domain of the CYP17 gene, resulting in complete 17,20-lyase deficiency, and a second mutation. In 1 patient, the second mutation was a 4-bp duplication in exon 8 ({609300.0001}) and in the other patient, it was a 25-bp deletion (nucleotides 204-228 of the coding sequence) in exon 1 ({609300.0022}). In vitro studies showed that the R347C mutant protein had 13.6% and less than 1% residual activities of 17-alpha-hydroxylase and 17,20-lyase, respectively. Both patients were phenotypic females (genotype 46,XY) with hypertension, normal renin levels, and low-normal cortisol levels.",
+                "dbSnps": "rs104894149",
+                "clinvarAccessions": "RCV000001867",
+                "gnomadSnps": "rs104894149"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 22,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, 25-BP DEL, NT204",
+                "text": "For discussion of the 25-bp deletion in the CYP17A1 gene that was found in compound heterozygous state in a patient with partial 17-alpha-hydroxylase deficiency and complete 17,20-lyase deficiency ({202110}) by {43:Van den Akker et al. (2002)}, see {609300.0021}.",
+                "dbSnps": "rs786205062",
+                "clinvarAccessions": "RCV000001868"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 23,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, ARG362CYS",
+                "text": "In 3 affected members of a nonconsanguineous Brazilian family with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {29:Martin et al. (2003)} identified compound heterozygosity for mutations in the CYP17A1 gene: a 6535G-A transition in exon 6, resulting in an arg362-to-cys (R362C) substitution, and a 7564T-C transition in exon 7, resulting in a trp406-to-arg substitution (W406R; {609300.0024}). In a note added in proof, the authors stated that both the R362C and W406R mutations independently result in functionally inactive proteins.\n\nIn a molecular genetic analysis of 24 subjects from 19 families with 17-hydroxylase deficiency in Brazil, {9:Costa-Santos et al. (2004)} found that the R362C mutation accounted for 32% of the mutant alleles. The R362C mutation was completely inactive when studied in COS-7 cells and yeast microsomes; however, phenotypic features varied among subjects. The authors found mutations R362C and W406R principally in families with Portuguese and Spanish ancestry, respectively, suggesting that 2 independent founder effects contribute to the increased prevalence of 17-hydroxylase deficiency in Brazil.",
+                "dbSnps": "rs104894142",
+                "clinvarAccessions": "RCV000810182;;;RCV000001869",
+                "gnomadSnps": "rs104894142"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 24,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, TRP406ARG",
+                "text": "For discussion of the trp406-to-arg (W406R) mutation in the CYP17A1 gene that was found in compound heterozygous state in patients with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}) by {29:Martin et al. (2003)}, see {609300.0023}.\n\nIn a molecular genetic analysis of 24 subjects from 19 families with 17-hydroxylase deficiency in Brazil, {9:Costa-Santos et al. (2004)} found that the W406R mutation accounted for 50% of the mutant alleles. The W406R mutation was completely inactive when studied in COS-7 cells and yeast microsomes; however, phenotypic features varied among subjects. The authors found mutations W406R and R362C ({609300.0023}) principally in families with Spanish and Portuguese ancestry, respectively, suggesting that 2 independent founder effects contribute to the increased prevalence of 17-hydroxylase deficiency in Brazil.",
+                "dbSnps": "rs104894143",
+                "clinvarAccessions": "RCV000001870"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 25,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, TYR329ASP",
+                "text": "In 2 members of a consanguineous Brazilian family with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {29:Martin et al. (2003)} identified homozygosity for a 6436T-G transversion in exon 6 of the CYP17A1 gene, resulting in a tyr329-to-asp (Y329D) substitution. In a note added in proof, the authors stated that the Y329D mutation results in a protein with approximately 5% residual activity.",
+                "dbSnps": "rs104894144",
+                "clinvarAccessions": "RCV000001871",
+                "gnomadSnps": "rs104894144"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 26,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, PRO428LEU",
+                "text": "In 5 individuals from 3 Brazilian families with combined 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {29:Martin et al. (2003)} identified homozygosity for an 8149C-T transition in exon 8 of the CYP17A1 gene, resulting in a pro428-to-leu (P428L) substitution. In a note added in proof, the authors stated that the P428L mutation results in a functionally inactive protein.",
+                "dbSnps": "rs104894145",
+                "clinvarAccessions": "RCV001220851;;;RCV000001872"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 27,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, TYR201ASN",
+                "text": "{42:Taniyama et al. (2005)} described a patient with subtle 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}) with homozygous mutation in the CYP17A1 gene. The patient came to medical attention in evaluation for low plasma renin activity. She had experienced menarche at age 13; menstrual cycles were regular until age 18 and irregular thereafter, and she was known to be infertile. Pubic hair was present (Tanner stage 3), and breast maturation was within normal range (Tanner stage 5). Resting blood pressure was normal, and hypokalemia was not observed despite high blood corticosterone levels and reduced plasma renin activity. Analysis of the CYP17 gene revealed a homozygous T-to-A transversion at nucleotide position 2472 in exon 3 of the CYP17A1 gene that resulted in a tyr201-to-asn (Y201N) amino acid change. In vitro expression of the mutated Y201N enzyme revealed reduced activities of both 17-alpha-hydroxylase and 17,20-lyase; however, these reductions were less than those of the F53/54del mutation ({609300.0002}), which also shows mild clinical deficiency of 17-alpha-hydroxylase/17,20-lyase. {42:Taniyama et al. (2005)} noted that this case raised the possibility that there are infertile, menstruating women with undiagnosed 17-alpha-hydroxylase deficiency.",
+                "dbSnps": "rs104894150",
+                "clinvarAccessions": "RCV000001873",
+                "gnomadSnps": "rs104894150"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 28,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, TYR27TER",
+                "text": "In a 20-year-old female Turkish 46,XX patient with complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}) who presented with primary amenorrhea, sexual infantilism, and easy fatigability, {33:Mussig et al. (2005)} detected homozygosity for a C-to-A transversion in exon 1 of the CYP17A1 gene that introduced a stop codon in place of tyrosine at codon 27 (Y27X). The patient's steroid metabolism showed increased levels of mineralocorticoid precursors and low or undetectable plasma concentrations of 17-alpha-hydroxycorticoids, androgens, and estrogens before and after ACTH stimulation. The gas chromatography-mass spectrometry urinary steroid profile was dominated by metabolites of corticosterone and its precursors, while cortisol and C19-steroid metabolites were lacking. ACTH, FSH (see {136530}), and LH (see {152780}) levels were elevated.",
+                "dbSnps": "rs104894152",
+                "clinvarAccessions": "RCV000001874"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 29,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, ARG96GLN",
+                "text": "In a 17-year-old female with combined complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {5:Brooke et al. (2006)} detected homozygosity for an arg96-to-gln substitution (R96Q) in P450c17 that affected an amino acid in a key substrate-binding region. The mutant enzyme showed complete loss of P450c17 function. The patient presented with a malignant mixed germ cell tumor with yolk sac elements and demonstrated clinical and biochemical features of combined 17-alpha-hydroxylase/17,20-lyase deficiency. Deficiency of 17-alpha-hydroxylase was confirmed by marked reductions in urinary and serum cortisol, androgens, and estradiol. {5:Brooke et al. (2006)} concluded that description of a second missense mutation at codon 96 (see R96W; {609300.0009}) in the substrate-binding region of P450c17 provided strong evidence for the key role of this amino acid in 17-alpha-hydroxylase/17,20-lyase function.",
+                "dbSnps": "rs104894153",
+                "clinvarAccessions": "RCV000001875;;;RCV001067683",
+                "gnomadSnps": "rs104894153"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 30,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, ARG125GLN",
+                "text": "In a 31.5-year-old female with combined complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {12:Ergun-Longmire et al. (2006)} detected compound heterozygosity for a G-to-A transition in exon 2 on the maternal allele of the CYP17A1 gene, resulting in an arg125-to-gln substitution (R125Q), and a G-to-A transition in exon 8 on the paternal allele, resulting in an arg416-to-his substitution (R416H). Both of these mutations completely eliminate enzyme activity.",
+                "dbSnps": "rs104894154",
+                "clinvarAccessions": "RCV001376810;;;RCV000001876",
+                "gnomadSnps": "rs104894154"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 31,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, ARG416HIS",
+                "text": "For discussion of the arg416-to-his (R416H) mutation in the CYP17A1 gene that was found in compound heterozygous state in a patient with combined complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}) by {12:Ergun-Longmire et al. (2006)}, see {609300.0030}.",
+                "dbSnps": "rs104894155",
+                "clinvarAccessions": "RCV000822737;;;RCV000001877",
+                "gnomadSnps": "rs104894155"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 32,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, 9-BP DEL",
+                "text": "In 4 of 8 Chinese patients with combined complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {49:Yang et al. (2006)} identified a 9-bp deletion (1517_1525del; D487_F489del) in the CYP17A1 gene; 2 patients were homozygous and the other 2 compound heterozygous for the mutation. The authors concluded that this may be a founder mutation.",
+                "clinvarAccessions": "RCV000001878"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 33,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, PHE453SER",
+                "text": "In a Chinese female with combined partial 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {49:Yang et al. (2006)} identified homozygosity for a 1418T-C transition in the CYP17A1 gene, resulting in a phe453-to-ser (F473S) substitution. The mutation resulted in partially reduced enzymatic activities and a subtle phenotype with regular menses, occasional hypertension, and hypokalemia.",
+                "dbSnps": "rs104894151",
+                "clinvarAccessions": "RCV000001879"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 34,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED PARTIAL",
+                "mutations": "CYP17A1, IVS2AS, A-C, -2",
+                "text": "In a 27-year old 46,XX Brazilian patient with combined partial 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {10:Costa-Santos et al. (2004)} identified compound heterozygosity for a Y329D substitution in exon 6 of the CYP17A1 gene ({609300.0025}) and an AG-to-CG substitution at the 3-prime end of intron 2 (IVS2ASA-C-2). In transfection studies, cells expressing the mutant gene had no 17-hydroxylase activity. The RT-PCR product derived from these cells showed that the mRNA derived from the AG-to-CG mutation used the first AG in exon 3 as the splice acceptor site, shifting the reading frame and introducing a stop codon. The patient had experienced spontaneous sexual development and irregular menses. {10:Costa-Santos et al. (2004)} attributed the development of secondary sexual characteristics to the presence of the Y329D mutation, which retains about 5% of wildtype 17-alpha-hydroxylase activity.",
+                "dbSnps": "rs1395913655",
+                "clinvarAccessions": "RCV000001880"
+              }
+            },
+            {
+              "allelicVariant": {
+                "mimNumber": 609300,
+                "number": 35,
+                "status": "live",
+                "name": "17-@ALPHA-HYDROXYLASE/17,20-LYASE DEFICIENCY, COMBINED COMPLETE",
+                "mutations": "CYP17A1, IVS3AS, 4-BP DEL",
+                "text": "In a 46,XY American subject with complete 17-alpha-hydroxylase/17,20-lyase deficiency ({202110}), {10:Costa-Santos et al. (2004)} identified homozygosity for a 4-bp deletion, TTTT, near the 3-prime end of intron 3 of the CYP17A1 gene. RNA derived from the TTTT deletion skipped exon 4 entirely, deleting 29 amino acids in-frame; cells expressing the mutant gene had no 17-hydroxylase activity. The diagnosis in the patient had been based on extremely elevated 11-deoxycorticosterone and corticosterone values, and failure of pubertal progression.",
+                "clinvarAccessions": "RCV000001881"
+              }
+            }
+          ],
+          "clinicalSynopsisExists": false,
+          "seeAlso": "Biason-Lauber et al. (2000); Miller et al. (1986)",
+          "referenceList": [
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 1,
+                "authors": "Ahlgren, A., Yanase, T., Simpson, E. R., Winter, J. S. D., Waterman, M. R.",
+                "title": "Compound heterozygous mutations (arg239-to-ter, pro342-to-thr) in the CYP17 (P45017-alpha) gene lead to ambiguous external genitalia in a male patient with partial combined 17-alpha-hydroxylase/17,20-lyase deficiency.",
+                "source": "J. Clin. Endocr. Metab. 74: 667-672, 1992.",
+                "pubmedID": 1740503,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.74.3.1740503",
+                "doi": "10.1210/jcem.74.3.1740503"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 2,
+                "authors": "Auchus, R. J., Miller, W. L.",
+                "title": "Molecular modeling of human P450c17 (17-alpha-hydroxylase/17,20-lyase): insights into reaction mechanisms and effects of mutations.",
+                "source": "Molec. Endocr. 13: 1169-1182, 1999.",
+                "pubmedID": 10406467,
+                "articleUrl": "https://academic.oup.com/mend/article-lookup/doi/10.1210/mend.13.7.0326",
+                "doi": "10.1210/mend.13.7.0326"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 3,
+                "authors": "Biason, A., Mantero, F., Scaroni, C., Simpson, E. R., Waterman, M. R.",
+                "title": "Deletion within the CYP17 gene together with insertion of foreign DNA is the cause of combined complete 17-alpha-hydroxylase/17,20-lyase deficiency in an Italian patient.",
+                "source": "Molec. Endocr. 5: 2037-2045, 1991.",
+                "pubmedID": 1665206,
+                "articleUrl": "https://academic.oup.com/mend/article-lookup/doi/10.1210/mend-5-12-2037",
+                "doi": "10.1210/mend-5-12-2037"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 4,
+                "authors": "Biason-Lauber, A., Kempken, B., Werder, E., Forest, M. G., Einaudi, S., Ranke, M. B., Matsuo, N., Brunelli, V., Schonle, E. J., Zachmann, M.",
+                "title": "17-alpha-hydroxylase/17,20-lyase deficiency as a model to study enzymatic activity regulation: role of phosphorylation.",
+                "source": "J. Clin. Endocr. Metab. 85: 1226-1231, 2000.",
+                "pubmedID": 10720067,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.85.3.6475",
+                "doi": "10.1210/jcem.85.3.6475"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 5,
+                "authors": "Brooke, A. M., Taylor, N. F., Shepherd, J. H., Gore, M. E., Ahmad, T., Lin, L., Rumsby, G., Papari-Zareei, M., Auchus, R. J., Achermann, J. C., Monson, J. P.",
+                "title": "A novel point mutation in P450c17 (CYP17) causing combined 17=E1-hydroxylase/17,20-lyase deficiency.",
+                "source": "J. Clin. Endocr. Metab. 91: 2428-2431, 2006.",
+                "pubmedID": 16569739,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2005-2653",
+                "doi": "10.1210/jc.2005-2653"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 6,
+                "authors": "Carey, A. H., Chan, K. L., Short, F., White, D., Williamson, R., Franks, S.",
+                "title": "Evidence for a single gene effect causing polycystic ovaries and male pattern baldness.",
+                "source": "Clin. Endocr. 38: 653-658, 1993.",
+                "pubmedID": 8334753,
+                "articleUrl": "https://onlinelibrary.wiley.com/resolve/openurl?genre=article&sid=nlm:pubmed&issn=0300-0664&date=1993&volume=38&issue=6&spage=653",
+                "doi": "10.1111/j.1365-2265.1993.tb02150.x"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 7,
+                "authors": "Carey, A. H., Waterworth, D., Patel, K., White, D., Little, J., Novelli, P., Franks, S., Williamson, R.",
+                "title": "Polycystic ovaries and premature male pattern baldness are associated with one allele of the steroid metabolism gene CYP17.",
+                "source": "Hum. Molec. Genet. 3: 1873-1876, 1994.",
+                "pubmedID": 7849715,
+                "articleUrl": "https://academic.oup.com/hmg/article-lookup/doi/10.1093/hmg/3.10.1873",
+                "doi": "10.1093/hmg/3.10.1873"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 8,
+                "authors": "Chung, B.-C., Picado-Leonard, J., Haniu, M., Bienkowski, M., Hall, P. F., Shively, J. E., Miller, W. L.",
+                "title": "Cytochrome P450c17 (steroid 17 alpha-hydroxylase/17,20 lyase): cloning of human adrenal and testis cDNAs indicates the same gene is expressed in both tissues.",
+                "source": "Proc. Nat. Acad. Sci. 84: 407-411, 1987.",
+                "pubmedID": 3025870,
+                "articleUrl": "http://www.pnas.org/cgi/pmidlookup?view=long&pmid=3025870",
+                "doi": "10.1073/pnas.84.2.407"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 9,
+                "authors": "Costa-Santos, M., Kater, C. E., Auchus, R. J., {Brazilian Congenital Adrenal Hyperplasia Multicenter Study Group}",
+                "title": "Two prevalent CYP17 mutations and genotype-phenotype correlations in 24 Brazilian patients with 17-hydroxylase deficiency.",
+                "source": "J. Clin. Endocr. Metab. 89: 49-60, 2004.",
+                "pubmedID": 14715827,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2003-031021",
+                "doi": "10.1210/jc.2003-031021"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 10,
+                "authors": "Costa-Santos, M., Kater, C. E., Dias, E. P., Auchus, R. J.",
+                "title": "Two intronic mutations cause 17-hydroxylase deficiency by disrupting splice acceptor sites: direct demonstration of aberrant splicing and absent enzyme activity by expression of the entire CYP17 gene in HEK-293 cells.",
+                "source": "J. Clin. Endocr. Metab. 89: 43-48, 2004.",
+                "pubmedID": 14715826,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2003-031020",
+                "doi": "10.1210/jc.2003-031020"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 11,
+                "authors": "Di Cerbo, A., Biason-Lauber, A., Savino, M., Piemontese, M. R., Di Giorgio, A., Perona, M., Savoia, A.",
+                "title": "Combined 17-alpha-hydroxylase/17,20-lyase deficiency caused by phe93cys mutation in the CYP17 gene.",
+                "source": "J. Clin. Endocr. Metab. 87: 898-905, 2002.",
+                "pubmedID": 11836339,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.87.2.8271",
+                "doi": "10.1210/jcem.87.2.8271"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 12,
+                "authors": "Ergun-Longmire, B., Auchus, R., Papari-Zareei, M., Tansil, S., Wilson, R. C., New, M. I.",
+                "title": "Two novel mutations found in a patient with 17-alpha-hydroxylase enzyme deficiency.",
+                "source": "J. Clin. Endocr. Metab. 91: 4179-4182, 2006.",
+                "pubmedID": 16849412,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2006-0469",
+                "doi": "10.1210/jc.2006-0469"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 13,
+                "authors": "Fan, Y.-S., Sasi, R., Lee, C., Winter, J. S. D., Waterman, M. R., Lin, C. C.",
+                "title": "Localization of the human CYP17 gene (cytochrome P450-17-alpha) to 10q24.3 by fluorescence in situ hybridization and simultaneous chromosome banding.",
+                "source": "Genomics 14: 1110-1111, 1992.",
+                "pubmedID": 1478654,
+                "doi": "10.1016/s0888-7543(05)80140-5"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 14,
+                "authors": "Fluck, C. E., Miller, W. L., Auchus, R. J.",
+                "title": "The 17,20-lyase activity of cytochrome P450c17 from human fetal testis favors the delta-5 steroidogenic pathway.",
+                "source": "J. Clin. Endocr. Metab. 88: 3762-3766, 2003.",
+                "pubmedID": 12915666,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2003-030143",
+                "doi": "10.1210/jc.2003-030143"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 15,
+                "authors": "Geller, D. H., Auchus, R. J., Mendonca, B. B., Miller, W. L.",
+                "title": "The genetic and functional basis of isolated 17,20-lyase deficiency.",
+                "source": "Nature Genet. 17: 201-205, 1997.",
+                "pubmedID": 9326943,
+                "articleUrl": "https://doi.org/10.1038/ng1097-201",
+                "doi": "10.1038/ng1097-201"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 16,
+                "authors": "Gorai, I., Tanaka, K., Inada, M., Morinaga, H., Uchiyama, Y., Kikuchi, R., Chaki, O., Hirahara, F.",
+                "title": "Estrogen-metabolizing gene polymorphisms, but not estrogen receptor-alpha gene polymorphisms, are associated with the onset of menarche in healthy postmenopausal Japanese women.",
+                "source": "J. Clin. Endocr. Metab. 88: 799-803, 2003.",
+                "pubmedID": 12574216,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2002-020353",
+                "doi": "10.1210/jc.2002-020353"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 17,
+                "authors": "Hanley, N. A., Rainey, W. E., Wilson, D. I., Ball, S. G., Parker, K. L.",
+                "title": "Expression profiles of SF-1, DAX1, and CYP17 in the human fetal adrenal gland: potential interactions in gene regulation.",
+                "source": "Molec. Endocr. 15: 57-68, 2001.",
+                "pubmedID": 11145739,
+                "articleUrl": "https://academic.oup.com/mend/article-lookup/doi/10.1210/mend.15.1.0585",
+                "doi": "10.1210/mend.15.1.0585"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 18,
+                "authors": "Hopper, J. L., Hayes, V. M., Spurdle, A. B., Chenevix-Trench, G., Jenkins, M. A., Milne, R. L., Dite, G. S., Tesoriero, A. A., McCredie, M. R. E., Giles, G. G., Southey, M. C.",
+                "title": "A protein-truncating mutation in CYP17A1 in three sisters with early-onset breast cancer.",
+                "source": "Hum. Mutat. 26: 298-302, 2005.",
+                "pubmedID": 16121340,
+                "articleUrl": "https://doi.org/10.1002/humu.20237",
+                "doi": "10.1002/humu.20237"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 19,
+                "authors": "Imai, T., Yanase, T., Waterman, M. R., Simpson, E. R., Pratt, J. J.",
+                "title": "Canadian Mennonites and individuals residing in the Friesland region of the Netherlands share the same molecular basis of 17-alpha-hydroxylase deficiency.",
+                "source": "Hum. Genet. 89: 95-96, 1992.",
+                "pubmedID": 1577471,
+                "doi": "10.1007/BF00207050"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 20,
+                "authors": "Jones, K. L., Freidenberg, G. R., Buchta, R., Derenoncourt, A.",
+                "title": "Male pseudohermaphroditism resulting from 17-alpha-monooxygenase (P-450C-17) deficiency in two unrelated Guamanians.",
+                "source": "Am. J. Dis. Child. 146: 592-595, 1992.",
+                "pubmedID": 1621662,
+                "doi": "10.1001/archpedi.1992.02160170072018"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 21,
+                "authors": "Kagimoto, K., Waterman, M. R., Kagimoto, M., Ferreira, P., Simpson, E. R., Winter, J. S. D.",
+                "title": "Identification of a common molecular basis for combined 17-alpha-hydroxylase/17,20-lyase deficiency in two Mennonite families.",
+                "source": "Hum. Genet. 82: 285-286, 1989.",
+                "pubmedID": 2786493,
+                "doi": "10.1007/BF00291172"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 22,
+                "authors": "Kagimoto, M., Winter, J. S. D., Kagimoto, K., Simpson, E. R., Waterman, M. R.",
+                "title": "Structural characterization of normal and mutant human steroid 17-alpha-hydroxylase genes: molecular basis of one example of combined 17-alpha-hydroxylase/17,20 lyase deficiency.",
+                "source": "Molec. Endocr. 2: 564-570, 1988.",
+                "pubmedID": 2843762,
+                "articleUrl": "https://academic.oup.com/mend/article-lookup/doi/10.1210/mend-2-6-564",
+                "doi": "10.1210/mend-2-6-564"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 23,
+                "authors": "Kayes-Wandover, K., White, P. C.",
+                "title": "Steroidogenic enzyme gene expression in the human heart.",
+                "source": "J. Clin. Endocr. Metab. 85: 2519-2525, 2000.",
+                "pubmedID": 10902803,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.85.7.6663",
+                "doi": "10.1210/jcem.85.7.6663"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 24,
+                "authors": "Krohn, K., Uibo, R., Aavik, E., Peterson, P., Savilahti, K.",
+                "title": "Identification of molecular cloning of an autoantigen associated with Addison's disease as steroid 17-alpha-hydroxylase.",
+                "source": "Lancet 339: 770-773, 1992.",
+                "pubmedID": 1347802,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/0140-6736(92)91894-E",
+                "doi": "10.1016/0140-6736(92)91894-e"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 25,
+                "authors": "Laflamme, N., Leblanc, J.-F., Mailloux, J., Faure, N., Labrie, F., Simard, J.",
+                "title": "Mutation R96W in cytochrome P450c17 gene causes combined 17-alpha-hydroxylase/17-20-lyase deficiency in two French Canadian patients.",
+                "source": "J. Clin. Endocr. Metab. 81: 264-268, 1996.",
+                "pubmedID": 8550762,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.81.1.8550762",
+                "doi": "10.1210/jcem.81.1.8550762"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 26,
+                "authors": "Lin, C. J., Martens, J. W. M., Miller, W. L.",
+                "title": "NF-1C, Sp1, and Sp3 are essential for transcription of the human gene for P450c17 (steroid 17-alpha-hydroxylase/17,20 lyase) in human adrenal NCI-H295A cells.",
+                "source": "Molec. Endocr. 15: 1277-1293, 2001.",
+                "pubmedID": 11463853,
+                "articleUrl": "https://academic.oup.com/mend/article-lookup/doi/10.1210/mend.15.8.0679",
+                "doi": "10.1210/mend.15.8.0679"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 27,
+                "authors": "Lin, D., Harikrishna, J. A., Moore, C. C. D., Jones, K. L., Miller, W. L.",
+                "title": "Missense mutation serine106-to-proline causes 17-alpha-hydroxylase deficiency.",
+                "source": "J. Biol. Chem. 266: 15992-15998, 1991.",
+                "pubmedID": 1714904,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0021-9258(18)98506-6"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 28,
+                "authors": "Loukola, A., Chadha, M., Penn, S. G., Rank, D., Conti, D. V., Thompson, D., Cicek, M., Love, B., Bivolarevic, V., Yang, Q., Jiang, Y., Hanzel, D. K., Dains, K., Paris, P. L., Casey, G., Witte, J. S.",
+                "title": "Comprehensive evaluation of the association between prostate cancer and genotypes/haplotypes in CYP17A1, CYP3A4, and SRD5A2.",
+                "source": "Europ. J. Hum. Genet. 12: 321-332, 2004.",
+                "pubmedID": 14560315,
+                "articleUrl": "https://doi.org/10.1038/sj.ejhg.5201101",
+                "doi": "10.1038/sj.ejhg.5201101"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 29,
+                "authors": "Martin, R. M., Lin, C. J., Costa, E. M. F., Leocadia de Oliveira, M., Carrilho, A., Villar, H., Longui, C. A., Mendonca, B. B.",
+                "title": "P450c17 deficiency in Brazilian patients: biochemical diagnosis through progesterone levels confirmed by CYP17 genotyping.",
+                "source": "J. Clin. Endocr. Metab. 88: 5739-5746, 2003.",
+                "pubmedID": 14671162,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2003-030988",
+                "doi": "10.1210/jc.2003-030988"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 30,
+                "authors": "Matteson, K. J., Picado-Leonard, J., Chung, B.-C., Mohandas, T. K., Miller, W. L.",
+                "title": "Assignment of the gene for adrenal P450C17 (steroid 17-alpha-hydroxylase/17,20 lyase) to human chromosome 10.",
+                "source": "J. Clin. Endocr. Metab. 63: 789-791, 1986.",
+                "pubmedID": 3488328,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem-63-3-789",
+                "doi": "10.1210/jcem-63-3-789"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 31,
+                "authors": "Miller, W. L., Chung, B.-C., Matteson, K. J., Voutilainen, R., Picado-Leonard, J.",
+                "title": "Molecular biology of steroid hormone synthesis. (Abstract)",
+                "source": "DNA 5: 61, 1986."
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 32,
+                "authors": "Miura, K., Yasuda, K., Yanase, T., Yamakita, N., Sasano, H., Nawata, H., Inoue, M., Fukaya, T., Shizuta, Y.",
+                "title": "Mutation of cytochrome P-45017 alpha gene (CYP17) in a Japanese patient previously reported as having glucocorticoid-responsive hyperaldosteronism: with a review of Japanese patients with mutations of CYP17.",
+                "source": "J. Clin. Endocr. Metab. 81: 3797-3801, 1996.",
+                "pubmedID": 8855840,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.81.10.8855840",
+                "doi": "10.1210/jcem.81.10.8855840"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 33,
+                "authors": "Mussig, K., Kaltenbach, S., Machicao, F., Maser-Gluth, C., Hartmann, M. F., Wudy, S. A., Schnauder, G., Haring, H.-U., Seif, F. J., Gallwitz, B.",
+                "title": "17-alpha-hydroxylase/17,20-lyase deficiency caused by a novel homozygous mutation (Y27stop) in the cytochrome CYP17 gene.",
+                "source": "J. Clin. Endocr. Metab. 90: 4362-4365, 2005.",
+                "pubmedID": 15811924,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2005-0136",
+                "doi": "10.1210/jc.2005-0136"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 34,
+                "authors": "Nedelcheva Kristensen, V. N., Haraldsen, E. K., Anderson, K. B., Lonning, P. E., Erikstein, B., Karesen, R., Gabrielsen, O. S., Borresen-Dale, A.-L.",
+                "title": "CYP17 and breast cancer risk: the polymorphism in the 5-prime flanking area of the gene does not influence binding to Sp-1.",
+                "source": "Cancer Res. 59: 2825-2828, 1999.",
+                "pubmedID": 10383140,
+                "articleUrl": "http://cancerres.aacrjournals.org/cgi/pmidlookup?view=long&pmid=10383140"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 35,
+                "authors": "Oshiro, C., Takasu, N., Wakugami, T., Komiya, I., Yamada, T., Eguchi, Y., Takei, H.",
+                "title": "Seventeen alpha-hydroxylase deficiency with one base pair deletion of the cytochrome P450c17 (CYP17) gene.",
+                "source": "J. Clin. Endocr. Metab. 80: 2526-2529, 1995.",
+                "pubmedID": 7629254,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.80.8.7629254",
+                "doi": "10.1210/jcem.80.8.7629254"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 36,
+                "authors": "Picado-Leonard, J., Miller, W. L.",
+                "title": "Structure of the human P450c17 gene is closely related to the P450c21 gene. (Abstract)",
+                "source": "Am. J. Hum. Genet. 41: A234, 1987."
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 37,
+                "authors": "Real, F. M., Haas, S. A., Franchini, P., Xiong, P., Simakov, O., Kuhl, H., Schopflin, R., Heller, D., Moeinzadeh, M-H., Heinrich, V., Krannich, T., Bressin, A., {and 17 others}",
+                "title": "The mole genome reveals regulatory rearrangements associated with adaptive intersexuality.",
+                "source": "Science 370: 208-214, 2020.",
+                "pubmedID": 33033216,
+                "articleUrl": "https://www.sciencemag.org/cgi/pmidlookup?view=long&pmid=33033216",
+                "doi": "10.1126/science.aaz2582"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 38,
+                "authors": "Schulze, J. J., Lorentzon, M., Ohlsson, C., Lundmark, J., Roh, H.-K., Rane, A., Ekstrom, L.",
+                "title": "Genetic aspects of epitestosterone formation and androgen disposition: influence of polymorphisms in CYP17 and UGT2B enzymes.",
+                "source": "Pharmacogenet. Genomics 18: 477-485, 2008.",
+                "pubmedID": 18496127,
+                "articleUrl": "https://doi.org/10.1097/FPC.0b013e3282fad38a",
+                "doi": "10.1097/FPC.0b013e3282fad38a"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 39,
+                "authors": "Slominski, A., Ermak, G., Mihm, M.",
+                "title": "ACTH receptor, CYP11A1, CYP17 and CYP21A2 genes are expressed in skin.",
+                "source": "J. Clin. Endocr. Metab. 81: 2746-2749, 1996.",
+                "pubmedID": 8675607,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.81.7.8675607",
+                "doi": "10.1210/jcem.81.7.8675607"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 40,
+                "authors": "Sparkes, R. S., Klisak, I., Miller, W. L.",
+                "title": "Regional mapping of genes encoding human steroidogenic enzymes: P450scc to 15q23-q24; adrenodoxin to 11q22; adrenodoxin reductase to 17q24-q25; and P450c17 to 10q24-q25.",
+                "source": "DNA Cell Biol. 10: 359-365, 1991.",
+                "pubmedID": 1863359,
+                "articleUrl": "https://www.liebertpub.com/doi/10.1089/dna.1991.10.359?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1089/dna.1991.10.359"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 41,
+                "authors": "Suzuki, Y., Nagashima, T., Nomura, Y., Onigata, K., Nagashima, K., Morikawa, A.",
+                "title": "A new compound heterozygous mutation (W17X, 436+5G-to-T) in the cytochrome P450c17 gene causes 17-alpha-hydroxylase/17,20-lyase deficiency.",
+                "source": "J. Clin. Endocr. Metab. 83: 199-202, 1998.",
+                "pubmedID": 9435441,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.83.1.4516",
+                "doi": "10.1210/jcem.83.1.4516"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 42,
+                "authors": "Taniyama, M., Tanabe, M., Saito, H., Ban, Y., Nawata, H., Yanase, T.",
+                "title": "Subtle 17-alpha-hydroxylase/17,20-lyase deficiency with homozygous Y201N mutation in an infertile woman.",
+                "source": "J. Clin. Endocr. Metab. 90: 2508-2511, 2005.",
+                "pubmedID": 15713706,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2004-2067",
+                "doi": "10.1210/jc.2004-2067"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 43,
+                "authors": "van den Akker, E. L. T., Koper, J. W., Boehmer, A. L. M., Themmen, A. P. N., Verhoef-Post, M., Timmerman, M. A., Otten, B. J., Drop, S. L. S., de Jong, F. H.",
+                "title": "Differential inhibition of 17-alpha-hydroxylase and 17,20-lyase activities by three novel missense CYP17 mutations identified in patients with P450c17 deficiency.",
+                "source": "J. Clin. Endocr. Metab. 87: 5714-5721, 2002.",
+                "pubmedID": 12466376,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2001-011880",
+                "doi": "10.1210/jc.2001-011880"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 44,
+                "authors": "Wickenheisser, J. K., Quinn, P. G., Nelson, V. L., Legro, R. S., Strauss, J. F., III, McAllister, J. M.",
+                "title": "Differential activity of the cytochrome P450 17-alpha-hydroxylase and steroidogenic acute regulatory protein gene promoters in normal and polycystic ovary syndrome theca cells.",
+                "source": "J. Clin. Endocr. Metab. 85: 2304-2311, 2000.",
+                "pubmedID": 10852468,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.85.6.6631",
+                "doi": "10.1210/jcem.85.6.6631"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 45,
+                "authors": "Winter, J. S. D., Couch, R. M., Muller, J., Perry, Y. S., Ferreira, P., Baydala, L., Shackleton, C. H. L.",
+                "title": "Combined 17-hydroxylase and 17,20-desmolase deficiencies: evidence for synthesis of a defective cytochrome P450(c17).",
+                "source": "J. Clin. Endocr. Metab. 68: 309-316, 1989.",
+                "pubmedID": 2493025,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem-68-2-309",
+                "doi": "10.1210/jcem-68-2-309"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 46,
+                "authors": "Yamaguchi, H., Nakazato, M., Miyazato, M., Kangawa, K., Matsukura, S.",
+                "title": "A 5-prime-splice site mutation in the cytochrome P450 steroid 17-alpha-hydroxylase gene in 17-alpha-hydroxylase deficiency.",
+                "source": "J. Clin. Endocr. Metab. 82: 1934-1938, 1997.",
+                "pubmedID": 9177409,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem.82.6.4027",
+                "doi": "10.1210/jcem.82.6.4027"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 47,
+                "authors": "Yanase, T., Kagimoto, M., Suzuki, S., Hashiba, K., Simpson, E. R., Waterman, M. R.",
+                "title": "Deletion of a phenylalanine in the N-terminal region of human cytochrome P-450(17a) results in partial combined 17-alpha-hydroxylase/17,20-lyase deficiency.",
+                "source": "J. Biol. Chem. 264: 18076-18082, 1989. Note: Erratum: J. Biol. Chem. 264: 21433 only, 1989.",
+                "pubmedID": 2808364,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0021-9258(19)84680-X"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 48,
+                "authors": "Yanase, T., Sanders, D., Shibata, A., Matsui, N., Simpson, E. R., Waterman, M. R.",
+                "title": "Combined 17-alpha-hydroxylase/17,20-lyase deficiency due to a 7-basepair duplication in the N-terminal region of the cytochrome P450(17-alpha) (CYP17) gene.",
+                "source": "J. Clin. Endocr. Metab. 70: 1325-1329, 1990.",
+                "pubmedID": 2335573,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jcem-70-5-1325",
+                "doi": "10.1210/jcem-70-5-1325"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 49,
+                "authors": "Yang, J., Cui, B., Sun, S., Shi, T., Zheng, S., Bi, Y., Liu, J., Zhao, Y., Chen, J., Ning, G., Li, X.",
+                "title": "Phenotype-genotype correlation in eight Chinese 17-alpha-hydroxylase/17,20 lyase-deficiency patients with five novel mutations of CYP17A1 gene.",
+                "source": "J. Clin. Endocr. Metab. 91: 3619-3625, 2006.",
+                "pubmedID": 16772352,
+                "articleUrl": "https://academic.oup.com/jcem/article-lookup/doi/10.1210/jc.2005-2283",
+                "doi": "10.1210/jc.2005-2283"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 50,
+                "authors": "Yazaki, K., Kuribayashi, T., Yamamura, Y., Kurihara, T., Araki, S.",
+                "title": "Hypokalemic myopathy associated with 17-alpha-hydroxylase deficiency: a case report.",
+                "source": "Neurology 32: 94-97, 1982.",
+                "pubmedID": 6976525,
+                "doi": "10.1212/wnl.32.1.94"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 51,
+                "authors": "Youngblood, G. L., Sartorius, C., Taylor, B. A., Payne, A. H.",
+                "title": "Isolation, characterization, and chromosomal mapping of mouse P450 17-alpha-hydroxylase/C17-20 lyase.",
+                "source": "Genomics 10: 270-275, 1991.",
+                "pubmedID": 1840559,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/0888-7543(91)90511-C",
+                "doi": "10.1016/0888-7543(91)90511-c"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 609300,
+                "referenceNumber": 52,
+                "authors": "Zlotogora, J., Gieselmann, V., Bach, G.",
+                "title": "Multiple mutations in a specific gene in a small geographic area: a common phenomenon? (Letter)",
+                "source": "Am. J. Hum. Genet. 58: 241-243, 1996.",
+                "pubmedID": 8554063
+              }
+            }
+          ],
+          "geneMapExists": true,
+          "geneMap": {
+            "sequenceID": 10145,
+            "chromosome": 10,
+            "chromosomeSymbol": "10",
+            "chromosomeSort": 507,
+            "chromosomeLocationStart": 102830530,
+            "chromosomeLocationEnd": 102837412,
+            "transcript": "ENST00000638190.1",
+            "cytoLocation": "10q24.3",
+            "computedCytoLocation": "10q24.32",
+            "mimNumber": 609300,
+            "geneSymbols": "CYP17A1, CYP17, P450C17",
+            "geneName": "Cytochrome P450, family 17, subfamily A, polypeptide 1 (steroid 17-alpha-hydroxylase)",
+            "comments": "at least 2 genes; distal to GOT1",
+            "mouseGeneSymbol": "Cyp17a1",
+            "mouseMgiID": "MGI:88586",
+            "geneIDs": "1586",
+            "ensemblIDs": "ENSG00000148795,ENST00000369887.4",
+            "approvedGeneSymbols": "CYP17A1",
+            "phenotypeMapList": [
+              {
+                "phenotypeMap": {
+                  "mimNumber": 609300,
+                  "phenotype": "17,20-lyase deficiency, isolated",
+                  "phenotypeMimNumber": 202110,
+                  "phenotypeMappingKey": 3,
+                  "phenotypeInheritance": "Autosomal recessive"
+                }
+              },
+              {
+                "phenotypeMap": {
+                  "mimNumber": 609300,
+                  "phenotype": "17-alpha-hydroxylase/17,20-lyase deficiency",
+                  "phenotypeMimNumber": 202110,
+                  "phenotypeMappingKey": 3,
+                  "phenotypeInheritance": "Autosomal recessive"
+                }
+              }
+            ]
+          },
+          "externalLinks": {
+            "geneIDs": "1586",
+            "hgncID": "2593",
+            "ensemblIDs": "ENSG00000148795,ENST00000369887.4",
+            "approvedGeneSymbols": "CYP17A1",
+            "ncbiReferenceSequences": "1519243254",
+            "genbankNucleotideSequences": "189442,4393409,255039926,23273062,189444,78452531,1036032361,86169481,1019366515,1019366518,1019366519,1019366516,164689638,1019366517,1019366522,1019366523,1019366520,1019366521,166706772,1019366526,95045142,158260818,1019366527,1019366524,1019366525,1019366530,21753099,1019366531,1019366528,1019366529,1019366534,1019366535,1019366532,1019366533,1019366538,1019366539,1130478248,1019366536,1019366537,1130478250,1019366542,1019366543,1130478252,1019366540,1019366541,1130478254,1019366546,108673322,1019366547,1019366544,78284280,1019366545,1019366550,1019366551,1019366548,1019366549,1019366554,1019366555,1019366552,1019366553,1019366558,1019366559,1019366556,1019366557,54696861,181341,1019366562,1019366563,39794238,1019366560,1019366561,164695220,1019366564,38648747,16972912,74230046",
+            "proteinSequences": "39794239,38648748,117283,181286,255039927,189445,1130478249,119570057,1130478251,1130478253,1130478255,108673323,189053367,386992,166706773,54696862,181342,95045143,158260819,4503195",
+            "swissProtIDs": "P05093",
+            "mgiIDs": "MGI:88586",
+            "mgiHumanDisease": false,
+            "wormbaseDO": false,
+            "zfinIDs": "ZDB-GENE-040213-2",
+            "hprdIDs": "01944",
+            "decipherGene": false,
+            "geneticsHomeReferenceIDs": "gene;;CYP17A1 gene;;cyp17a1",
+            "umlsIDs": "C3469522,C3277849,C4017190,C1413858,C4017189",
+            "gtr": true,
+            "cmgGene": false,
+            "keggPathways": true,
+            "gwasCatalog": true,
+            "clinGenDosage": false,
+            "clinGenValidity": false,
+            "monarch": true,
+            "newbornScreening": false,
+            "pharmgkbIDs": "PA27090"
+          },
+          "contributors": "Ada Hamosh - updated : 03/03/2021\nJohn A. Phillips, III - updated : 3/5/2009\nCassandra L. Kniffin - updated : 7/3/2008\nJohn A. Phillips, III - updated : 1/28/2008\nJohn A. Phillips, III - updated : 7/13/2007\nJohn A. Phillips, III - updated : 7/11/2007\nJohn A. Phillips, III - updated : 5/22/2007\nJohn A. Phillips, III - updated : 8/21/2006\nJohn A. Phillips, III - updated : 4/25/2006\nMarla J. F. O'Neill - updated : 11/4/2005",
+          "creationDate": "Cassandra L. Kniffin : 4/6/2005",
+          "editHistory": "mgross : 03/03/2021\ncarol : 05/18/2018\ncarol : 05/17/2018\nalopez : 10/05/2016\nalopez : 04/30/2015\nmcolton : 4/17/2015\ncarol : 2/20/2014\njoanna : 8/5/2013\ncarol : 4/19/2013\ncarol : 9/23/2011\nalopez : 3/23/2011\nalopez : 6/15/2009\nalopez : 6/15/2009\nwwang : 3/24/2009\nalopez : 3/5/2009\nwwang : 7/16/2008\nckniffin : 7/3/2008\ncarol : 1/28/2008\ncarol : 9/20/2007\nterry : 8/6/2007\nalopez : 7/13/2007\nalopez : 7/11/2007\nalopez : 5/22/2007\ncarol : 12/13/2006\nalopez : 8/21/2006\nalopez : 4/25/2006\nwwang : 11/4/2005\ntkritzer : 4/21/2005\nckniffin : 4/7/2005",
+          "epochCreated": 1112745600,
+          "dateCreated": "Wed, 06 Apr 2005 00:00:00 UTC",
+          "epochUpdated": 1614729600,
+          "dateUpdated": "Wed, 03 Mar 2021 00:00:00 UTC"
+        }
+      }
+    ]
+  }
+}

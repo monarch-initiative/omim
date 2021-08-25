@@ -1,0 +1,444 @@
+{
+  "omim": {
+    "version": "1.0",
+    "entryList": [
+      {
+        "entry": {
+          "prefix": "#",
+          "mimNumber": 193670,
+          "status": "live",
+          "titles": {
+            "preferredTitle": "WHIM SYNDROME 1; WHIMS1",
+            "alternativeTitles": "WARTS, HYPOGAMMAGLOBULINEMIA, INFECTIONS, AND MYELOKATHEXIS SYNDROME 1;;\nWHIMS"
+          },
+          "textSectionList": [
+            {
+              "textSection": {
+                "textSectionName": "text",
+                "textSectionTitle": "Text",
+                "textSectionContent": "A number sign (#) is used with this entry because of evidence that WHIM syndrome-1 (WHIMS1) is caused by heterozygous mutation in the CXCR4 gene ({162643}) on chromosome 2q22."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "description",
+                "textSectionTitle": "Description",
+                "textSectionContent": "WHIM syndrome-1 (WHIMS1) is an autosomal dominant immunologic disorder characterized by neutropenia, hypogammaglobulinemia, and warts due to human papillomavirus (HPV) infection. Despite the peripheral neutropenia, bone marrow aspirates from affected individuals contain abundant mature myeloid cells, a condition termed myelokathexis. The susceptibility to HPV is disproportionate compared with other immunodeficiency conditions (summary by {5:Hernandez et al., 2003}).\n\n{6:Heusinkveld et al. (2019)} provided a detailed review of the clinical features, proposed pathogenesis, and possible therapeutic treatments of WHIM syndrome. There is significant phenotypic variation among patients, such that some individuals may have an 'incomplete' form of the disorder in which one or more of the classic tetrad features are not present. In general, the WHIMS phenotype comprises a spectrum of manifestations with variable expressivity. The pathogenesis of WHIMS1 is postulated to result from impaired CXCL12 ({600835})-induced internalization of CXCR4, resulting in prolonged receptor presence at the cell surface that likely contributes to amplification of signaling with a gain-of-function effect.\n\n<Subhead> Genetic Heterogeneity of WHIM Syndrome\n\nSee also WHIMS2 ({619407}), caused by mutation in the CXCR2 gene ({146928}) on chromosome 2q35."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "clinicalFeatures",
+                "textSectionTitle": "Clinical Features",
+                "textSectionContent": "{14:Wetzler et al. (1990)} described a family in which 2 sisters and their father had a combination of chronic papillomavirus and bacterial sinopulmonary infections, low immunoglobulin levels, and peripheral neutropenia in the face of bone marrow hypercellularity, shift to the right in granulopoiesis, and distinctive neutrophil morphology. The occurrence of neutropenia and retention of bone marrow neutrophils has been called myelokathexis (kathexis = retention) ({15:Zuelzer, 1964}; {12:O'Regan et al., 1977}). In addition to extensive verrucae vulgaris of the hands, both sisters, aged 23 and 22 years, had cervical papillomatosis with severe dysplasia of the cervix, and 1 had vulval condylomata acuminata. Neutrophils had cytoplasmic vacuoles and hypersegmented nuclei with dense, pycnotic lobes connected by long filaments. There were no morphologic abnormalities observed in lymphoid cells, erythroid series or megakaryocytes and the karyotype was normal in both. The father had severe neutropenia and warts as well as frequent episodes of pneumonia necessitating partial lung resection. He died at the age of 31 years of meningitis and septicemia. A sister of the father died at age 1 month of pneumonia. The same disorder appears to have been described by {11:Mentzer et al. (1977)}. {14:Wetzler et al. (1990)} suggested that this disorder be designated the WHIM syndrome; the acronym stands for warts, hypogammaglobulinemia, infections, and myelokathexis.\n\n{13:Taniuchi et al. (1999)} reported dizygotic twin sisters who presented in infancy with neutropenia, hypogammaglobulinemia, and recurrent infections. Bone marrow examination showed abnormal mature neutrophils and apoptotic neutrophils consistent with myelokathexis. Neither had warts on the skin. One sister had congenital cardiac defects, including ventricular septal defect and pulmonary atresia with major aorticopulmonary collateral arteries. There were no other affected family members, so autosomal recessive inheritance was postulated at the time. In affected members of this family (family G), {5:Hernandez et al. (2003)} identified a heterozygous nonsense mutation in the CXCR4 gene (R334X; {162643.0001}). The apparent recessive inheritance pattern in this family was explained by paternal somatic and gonadal mosaicism.\n\n{4:Gorlin et al. (2000)} reported a kindred with 6 affected individuals in 4 sibships in 3 generations; there was no instance of male-to-male transmission. Affected individuals showed chronic noncyclic neutropenia and hypercellular bone marrow. The hypermature neutrophils were bizarre in shape. Condensed nuclei connected by long, stringy filaments and vacuolated cytoplasms suggested apoptosis. Fever or other stress increased the release of neutrophils. Hypogammaglobulinemia was marked and associated with recurrent upper respiratory infections. The patients had numerous warts, some venereal, with resultant cervical and vulval premalignant dysplasia. {4:Gorlin et al. (2000)} found approximately 20 reported examples under various designations, and included the report by {7:Krill et al. (1964)} in that number. Because of the lack of male-to-male transmission, they performed a linkage search of the entire X chromosome including the pseudoautosomal region and found no evidence of linkage. The birth of an unaffected daughter to the propositus confirmed that the gene is not X-linked and by exclusion can be considered autosomal dominant. The sex ratio among reported patients, including the kindred of {4:Gorlin et al. (2000)}, was 17 females to 8 males.\n\n{3:Beaussant Cohen et al. (2012)} reported 7 patients and 1 affected fetus from 3 unrelated French families with WHIMS. Family 4 had previously been reported by {1:Balabanian et al. (2005)}. The patients, who ranged from childhood to 76 years of age, presented with recurrent infections and neutropenia from early childhood. Five patients presented with recurrent bacterial infections, 1 with skin warts, and 2 with isolated neutropenia. They had upper respiratory tract infections, mastoiditis, skin abscesses, gastrointestinal infections, and pericarditis. Identified pathogens included Staphylococcus aureus, E. coli, Streptococcus pneumoniae, Pseudomonas, Proteus mirabilis, Candida albicans, and atypical mycobacteria. Five patients showed varying degrees of HPV-induced lesions that varied from skin or genital lesions to invasive carcinoma resulting in death. Two patients had conotruncal cardiac malformations, including tetralogy of Fallot and an abnormal aortic arch. Laboratory studies showed variably decreased white and red blood cell counts, with neutropenia, monocytopenia, and lymphopenia, as well as hypogammaglobulinemia. Bone marrow examination confirmed myelokathexis in all cases. Some patients responded well to prophylactic treatment with IVIg and GCSF. Three patients had died, including a 32-week-old fetus (elective termination) from family 1, and 2 sibs from family 4: a 39.5-year-old woman who died of invasive HPV-related vulvar carcinoma and her 40-year-old brother who died of EBV-negative cutaneous T-cell lymphoma.\n\n{9:McDermott et al. (2015)} reported follow-up of the original patient (WHIM-09) with WHIM syndrome reported by {7:Krill et al. (1964)} and {15:Zuelzer (1964)}. The patient reported that from childhood through age 38, she had had many serious infections, often requiring hospitalization, but then none in the 20 subsequent years. She also had a history of confluent warts that spontaneously resolved also in her thirties. At the time of presentation, laboratory studies showed no neutropenia, but a mild leukocytosis with increased neutrophil and monocyte counts, and decreased B cells and naive T cells. These findings were consistent with spontaneous and durable complete clinical remission. Her 2 daughters were affected with classic WHIM syndrome, consistent with autosomal dominant inheritance. Genetic analysis showed that the proband (WHIM-09) was a genetic mosaic for the R334X CXCR4 mutation ({162643.0001}), with the mutation present in lymphocytes and skin fibroblasts, but not in neutrophils or monocytes. Analysis of patient bone marrow cells showed chromothripsis with deletion of the mutant CXCR4 gene and loss of 1 copy of 163 additional annotated genes and other complex abnormalities of chromosome 2. Further analysis indicated that this occurred in a hematopoietic stem cell that repopulated the myeloid and erythroid cell lineage, but not the lymphoid lineage. In competitive mouse bone marrow transplantation experiments, Cxcr4 haploinsufficiency was sufficient to confer a strong long-term engraftment advantage of donor bone marrow over bone marrow from either wildtype or WHIM syndrome model mice, suggesting a potential mechanism for the patient's remission. The findings suggested that partial inactivation of CXCR4 may have general utility as a strategy to promote hematopoietic stem cell engraftment in transplantation.\n\n{6:Heusinkveld et al. (2019)} provided a review of the clinical features of 105 patients with WHIM syndrome through a literature search of published reports. Although WHIM syndrome is often classified as a severe congenital neutropenia, the authors suggested that it may also be classified as a severe combined immunodeficiency, since many patients had multiple leukocyte deficiencies, including of B cells, that may have contributed to hypogammaglobulinemia. However, the immunodeficiency was relatively benign; affected individuals survived into adulthood. Patients had an unusual susceptibility to HPV infection, often manifest as skin warts, with increased risk of progression to neoplasia. Infection with EBV, VZV, influenza, and Molluscum were reported. Myelokathexis was also present. Significant cardiovascular defects occurred in a subset of patients. The data indicated there is an increased risk of cancer, including HPV and EBV-related malignancies, lymphoma, and skin cancer."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "clinicalManagement",
+                "textSectionTitle": "Clinical Management",
+                "textSectionContent": "Patients with WHIM syndrome can be treated with granulocyte colony-stimulating factor (GCSF; {138970}), which can increase neutrophil counts but does not affect cytopenias other than neutropenia. {10:McDermott et al. (2019)} reported the treatment of 3 severely affected patients with WHIM syndrome who could not receive GCSF, but instead were treated with low-dose plerixafor, a CXCR4 antagonist, for 19 to 52 months. Myelofibrosis, panleukopenia, anemia, and thrombocytopenia were ameliorated, the wart burden and frequency of infection declined, human papillomavirus-associated oropharyngeal squamous cell carcinoma stabilized, and quality of life improved markedly. Adverse events were mainly infections attributable to the underlying immunodeficiency. One patient died from complications of elective reconstructive surgery."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "mapping",
+                "textSectionTitle": "Mapping",
+                "textSectionContent": "{5:Hernandez et al. (2003)} localized the gene mutant in WHIM syndrome-1 to a region of roughly 12 cM on chromosome 2q21."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "inheritance",
+                "textSectionTitle": "Inheritance",
+                "textSectionContent": "{5:Hernandez et al. (2003)} confirmed autosomal dominant inheritance of WHIM syndrome-1."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "molecularGenetics",
+                "textSectionTitle": "Molecular Genetics",
+                "textSectionContent": "In affected members of 5 unrelated families with WHIMS1, {5:Hernandez et al. (2003)} identified heterozygous truncating mutations in the cytoplasmic tail domain of the CXCR4 gene ({162643.0001}-{162643.0003}). In 1 family (family G), 2 dizygotic twin girls had myelokathexis and hypogammaglobulinemia associated with a heterozygous nonsense mutation (R334X; {162643.0001}). The apparent recessive inheritance pattern in this family was explained by paternal somatic and gonadal mosaicism. {5:Hernandez et al. (2003)} concluded that expression of the mutated allele in hematopoietic cells appeared to be required for disease occurrence.\n\n{1:Balabanian et al. (2005)} identified a heterozygous mutation in the CXCR4 gene ({162643.0004}) in 2 sibs with WHIM syndrome-1.\n\nIn 8 patients from 3 unrelated families with WHIMS1, {3:Beaussant Cohen et al. (2012)} identified heterozygous nonsense or frameshift mutations in the CXCR4 gene (see, e.g., {162643.0001}, {162643.0004}, {162643.0005}). The distal truncations of the C-tail of the protein were predicted to remove potential phosphorylation sites involved in the attenuation process. The findings were consistent with a gain-of-function effect. Family 4 had previously been reported by {1:Balabanian et al. (2005)}."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "pathogenesis",
+                "textSectionTitle": "Pathogenesis",
+                "textSectionContent": "{1:Balabanian et al. (2005)} observed that cells derived from patients with WHIM syndrome showed impaired desensitization and internalization of CXCR4 in response to its ligand CXCL12 ({600835}). This lack of response was believed to result in enhanced CXCR4 activity and increased chemotactic responsiveness, ultimately resulting in immunohematologic clinical manifestations.\n\n{8:Lagane et al. (2008)} demonstrated that the augmented CXCR4 responsiveness in WHIM leukocytes also resulted from enhanced ARRB2 ({107941})-dependent signaling downstream from the mutant CXCR4 receptor. ARRB2 is involved in the desensitization and internalization of G protein-coupled receptors. An SHSK motif in CXCR4 was necessary for ARRB2-dependent signaling. Mutant CXCR4 proteins were found to form functional heterodimers with wildtype CXCR4, consistent with a dominant-negative effect.\n\nIn cells derived from 2 unrelated patients with WHIM syndrome who lacked CXCR4 mutations ({1:Balabanian et al., 2005}), {2:Balabanian et al. (2008)} found that the defect was similar to that observed in patients with mutations: impaired CXCL12-induced internalization and desensitization of CXCR4. Overexpression of GRK3 (ADRBK2; {109636}) in both leukocytes and skin fibroblasts from these patients restored the CXCR4 defect and normalized chemotaxis, thus implicating GRK3 as a negative regulator of CXCR4 activation. Cells derived from 1 of the patients showed decreased GRK3 protein and mRNA synthesis, although no mutations were identified in the GRK3 gene. Cells from the other patient had normal GRK3 levels, but still responded to GRK3 overexpression. The results revealed a pivotal role for GRK3 in regulating CXCR4 attenuation and provided a mechanistic link between the GRK3 pathway and WHIM syndrome in patients without CXCR4 mutations."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "populationGenetics",
+                "textSectionTitle": "Population Genetics",
+                "textSectionContent": "In France, {3:Beaussant Cohen et al. (2012)} estimated that the incidence of WHIM syndrome was 0.23 per million births."
+              }
+            }
+          ],
+          "clinicalSynopsisExists": true,
+          "clinicalSynopsis": {
+            "inheritance": "Autosomal dominant {SNOMEDCT:771269000,263681008} {UMLS C1867440,C0443147 HP:0000006} {HPO HP:0000006 C0443147}",
+            "cardiovascularHeart": "Congenital heart defects (in some patients) {HPO HP:0001627 C0018798,C0152021};\nConotruncal defects {UMLS C1853238 HP:0001710};\nAortic defects {UMLS C4228163};\nSeptal defects {SNOMEDCT:396351009,253273004,59494005} {ICD10CM:Q21,Q21.9} {UMLS C0018816 HP:0001671} {HPO HP:0001671 C0018816};\nTetralogy of Fallot {SNOMEDCT:86299006} {ICD10CM:Q21.3} {ICD9CM:745.2} {UMLS C0039685 HP:0001636} {HPO HP:0001636 C0039685}",
+            "respiratory": "Recurrent infections {SNOMEDCT:451991000124106} {UMLS C0239998 HP:0002719} {HPO HP:0002719 C0239998}",
+            "respiratoryLung": "Bronchiectasis {SNOMEDCT:12295008} {ICD10CM:J47,J47.9} {ICD9CM:494} {UMLS C0006267 HP:0002110} {HPO HP:0002110 C0006267};\nChronic obstructive pulmonary disease {SNOMEDCT:13645005} {ICD10CM:J44.9} {UMLS C0024117 HP:0006510} {HPO HP:0006510 C0024117}",
+            "genitourinaryExternalGenitaliaFemale": "Vulval condylomata acuminata {UMLS C1860316}",
+            "genitourinaryInternalGenitaliaFemale": "Cervical papillomatosis with cervical dysplasia {UMLS C1860317}",
+            "skinNailsHairSkin": "Verrucae (warts), multiple {UMLS C1860323} {HPO HP:0200043 C3665596}",
+            "hematology": "Myelokathexis (retention of neutrophils in the bone marrow) {UMLS C1860319} {HPO HP:0031160};\nBone marrow hypercellularity {UMLS C1860320 HP:0031020} {HPO HP:0031020};\nPeripheral neutropenia {SNOMEDCT:165517008} {UMLS C0853697 HP:0001875} {HPO HP:0001875 C0853697};\nHypermature neutrophils have condensed nuclei connected by long, stringy filaments and vacuolated cytoplasm {UMLS C1860322}",
+            "immunology": "Chronic human papillomavirus (HPV) infection {UMLS C1860318};\nRecurrent upper respiratory infections {SNOMEDCT:195708003} {UMLS C0581381 HP:0002788} {HPO HP:0002788 C0581381};\nHypogammaglobulinemia {SNOMEDCT:119250001} {ICD10CM:D80.1} {ICD9CM:279.00} {UMLS C0086438 HP:0004313} {HPO HP:0004313 C0086438,C4048270};\nLymphopenia {SNOMEDCT:48813009} {ICD10CM:D72.810} {ICD9CM:288.51} {UMLS C1963164,C0024312,C0853986 HP:0001888} {HPO HP:0001888 C0024312}",
+            "neoplasia": "Lymphoma {SNOMEDCT:115244002,118600007,21964009,188676008} {ICD10CM:C85.9} {UMLS C1332979,C1332206,C0024299 HP:0002665} {HPO HP:0002665 C0024299};\nHPV-related carcinoma {UMLS C1334050}",
+            "miscellaneous": "Onset in infancy or early childhood;\nVariable expressivity {UMLS C1861403 HP:0003828} {HPO HP:0003828 C1861403,C1866862}",
+            "molecularBasis": "Caused by mutations in the chemokine (C-X-C motif) receptor 4 gene (CXCR4, {162643.0001})",
+            "inheritanceExists": true,
+            "growthExists": false,
+            "growthHeightExists": false,
+            "growthWeightExists": false,
+            "growthOtherExists": false,
+            "headAndNeckExists": false,
+            "headAndNeckHeadExists": false,
+            "headAndNeckFaceExists": false,
+            "headAndNeckEarsExists": false,
+            "headAndNeckEyesExists": false,
+            "headAndNeckNoseExists": false,
+            "headAndNeckMouthExists": false,
+            "headAndNeckTeethExists": false,
+            "headAndNeckNeckExists": false,
+            "cardiovascularExists": true,
+            "cardiovascularHeartExists": true,
+            "cardiovascularVascularExists": false,
+            "respiratoryExists": true,
+            "respiratoryNasopharynxExists": false,
+            "respiratoryLarynxExists": false,
+            "respiratoryAirwaysExists": false,
+            "respiratoryLungExists": true,
+            "chestExists": false,
+            "chestExternalFeaturesExists": false,
+            "chestRibsSternumClaviclesAndScapulaeExists": false,
+            "chestBreastsExists": false,
+            "chestDiaphragmExists": false,
+            "abdomenExists": false,
+            "abdomenExternalFeaturesExists": false,
+            "abdomenLiverExists": false,
+            "abdomenPancreasExists": false,
+            "abdomenBiliaryTractExists": false,
+            "abdomenSpleenExists": false,
+            "abdomenGastrointestinalExists": false,
+            "genitourinaryExists": true,
+            "genitourinaryExternalGenitaliaMaleExists": false,
+            "genitourinaryExternalGenitaliaFemaleExists": true,
+            "genitourinaryInternalGenitaliaMaleExists": false,
+            "genitourinaryInternalGenitaliaFemaleExists": true,
+            "genitourinaryKidneysExists": false,
+            "genitourinaryUretersExists": false,
+            "genitourinaryBladderExists": false,
+            "skeletalExists": false,
+            "skeletalSkullExists": false,
+            "skeletalSpineExists": false,
+            "skeletalPelvisExists": false,
+            "skeletalLimbsExists": false,
+            "skeletalHandsExists": false,
+            "skeletalFeetExists": false,
+            "skinNailsHairExists": true,
+            "skinNailsHairSkinExists": true,
+            "skinNailsHairSkinHistologyExists": false,
+            "skinNailsHairSkinElectronMicroscopyExists": false,
+            "skinNailsHairNailsExists": false,
+            "skinNailsHairHairExists": false,
+            "muscleSoftTissueExists": false,
+            "neurologicExists": false,
+            "neurologicCentralNervousSystemExists": false,
+            "neurologicPeripheralNervousSystemExists": false,
+            "neurologicBehavioralPsychiatricManifestationsExists": false,
+            "voiceExists": false,
+            "metabolicFeaturesExists": false,
+            "endocrineFeaturesExists": false,
+            "hematologyExists": true,
+            "immunologyExists": true,
+            "neoplasiaExists": true,
+            "prenatalManifestationsExists": false,
+            "prenatalManifestationsMovementExists": false,
+            "prenatalManifestationsAmnioticFluidExists": false,
+            "prenatalManifestationsPlacentaAndUmbilicalCordExists": false,
+            "prenatalManifestationsMaternalExists": false,
+            "prenatalManifestationsDeliveryExists": false,
+            "laboratoryAbnormalitiesExists": false,
+            "miscellaneousExists": true,
+            "molecularBasisExists": true,
+            "contributors": "Cassandra L. Kniffin - updated : 07/02/2021\nCassandra L. Kniffin - revised : 12/10/2003",
+            "creationDate": "John F. Jackson : 6/15/1995",
+            "editHistory": "joanna : 07/07/2021\nckniffin : 07/02/2021\njoanna : 01/13/2004\nckniffin : 12/10/2003\nalopez : 4/16/2003",
+            "epochCreated": 803174400,
+            "dateCreated": "Thu, 15 Jun 1995 00:00:00 UTC",
+            "epochUpdated": 1625616000,
+            "dateUpdated": "Wed, 07 Jul 2021 00:00:00 UTC"
+          },
+          "referenceList": [
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 1,
+                "authors": "Balabanian, K., Lagane, B., Pablos, J. L., Laurent, L., Planchenault, T., Verola, O., Lebbe, C., Kerob, D., Dupuy, A., Hermine, O., Nicolas, J.-F., Latger-Cannard, V., Bensoussan, D., Bordigoni, P., Baleux, F., Le Deist, F., Virelizier, J.-L., Arenzana-Seisdedos, F., Bachelerie, F.",
+                "title": "WHIM syndromes with different genetic anomalies are accounted for by impaired CXCR4 desensitization to CXCL12.",
+                "source": "Blood 105: 2449-2457, 2005.",
+                "pubmedID": 15536153,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0006-4971(20)45751-9",
+                "doi": "10.1182/blood-2004-06-2289"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 2,
+                "authors": "Balabanian, K., Levoye, A., Klemm, L., Lagane, B., Hermine, O., Harriague, J., Baleux, F., Arenzana-Seisdedos, F., Bachelerie, F.",
+                "title": "Leukocyte analysis from WHIM syndrome patients reveals a pivotal role for GRK3 in CXCR4 signaling.",
+                "source": "J. Clin. Invest. 118: 1074-1078, 2008.",
+                "pubmedID": 18274673,
+                "pubmedImages": "present",
+                "articleUrl": "https://doi.org/10.1172/JCI33187",
+                "doi": "10.1172/JCI33187"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 3,
+                "authors": "Beaussant Cohen, S., Fenneteau, O., Plouvier, E., Rohrlich, P.-S., Daltroff, G., Plantier, I., Dupuy, A., Kerob, D., Beaupain, B., Bordigoni, P., Fouyssac, F., Delezoide, A.-L., Devouassoux, G., Nicolas, J. F., Bensaid, P., Bertrand, Y., Balabanian, K., Chantelot, C. B., Bachelerie, F., Donadieu, J.",
+                "title": "Description and outcome of a cohort of 8 patients with WHIM syndrome from the French Severe Chronic Neutropenia Registry.",
+                "source": "Orphanet J. Rare Dis. 7: 71, 2012.",
+                "pubmedID": 23009155,
+                "articleUrl": "https://ojrd.biomedcentral.com/articles/10.1186/1750-1172-7-71",
+                "doi": "10.1186/1750-1172-7-71"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 4,
+                "authors": "Gorlin, R. J., Gelb, B., Diaz, G. A., Lofsness, K. G., Pittelkow, M. R., Fenyk, J. R., Jr.",
+                "title": "WHIM syndrome, an autosomal dominant disorder: clinical, hematological, and molecular studies.",
+                "source": "Am. J. Med. Genet. 91: 368-376, 2000.",
+                "pubmedID": 10767001,
+                "articleUrl": "https://onlinelibrary.wiley.com/resolve/openurl?genre=article&sid=nlm:pubmed&issn=0148-7299&date=2000&volume=91&issue=5&spage=368"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 5,
+                "authors": "Hernandez, P. A., Gorlin, R. J., Lukens, J. N., Taniuchi, S., Bohinjec, J., Francois, F., Klotman, M. E., Diaz, G. A.",
+                "title": "Mutations in the chemokine receptor gene CXCR4 are associated with WHIM syndrome, a combined immunodeficiency disease.",
+                "source": "Nature Genet. 34: 70-74, 2003.",
+                "pubmedID": 12692554,
+                "articleUrl": "https://doi.org/10.1038/ng1149",
+                "doi": "10.1038/ng1149"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 6,
+                "authors": "Heusinkveld, L. E., Majumdar, S., Gao, J.-L., McDermott, D. H., Murphy, P. M.",
+                "title": "WHIM syndrome: from pathogenesis towards personalized medicine and cure.",
+                "source": "J. Clin. Immun. 39: 532-556, 2019.",
+                "pubmedID": 31313072,
+                "articleUrl": "https://doi.org/10.1007/s10875-019-00665-w",
+                "doi": "10.1007/s10875-019-00665-w"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 7,
+                "authors": "Krill, C. E., Jr., Smith, H. D., Mauer, A. M.",
+                "title": "Chronic idiopathic granulocytopenia.",
+                "source": "New Eng. J. Med. 270: 973-979, 1964.",
+                "pubmedID": 14122792,
+                "articleUrl": "https://www.nejm.org/doi/10.1056/NEJM196405072701902?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1056/NEJM196405072701902"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 8,
+                "authors": "Lagane, B., Chow, K. Y. C., Balabanian, K., Levoye, A., Harriague, J., Planchenault, T., Baleux, F., Gunera-Saad, N., Arenzana-Seisdedos, F., Bachelerie, F.",
+                "title": "CXCR4 dimerization and beta-arrestin-mediated signaling account for the enhanced chemotaxis to CXCL12 in WHIM syndrome.",
+                "source": "Blood 112: 34-44, 2008.",
+                "pubmedID": 18436740,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0006-4971(20)47042-9",
+                "doi": "10.1182/blood-2007-07-102103"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 9,
+                "authors": "McDermott, D. H., Gao, J.-L., Liu, Q., Siwicki, M., Martens, C., Jacobs, P., Velez, D., Yim, E., Bryke, C. R., Hsu, N., Dai, Z., Marquesen, M. M., {and 16 others}",
+                "title": "Chromothriptic cure of WHIM syndrome.",
+                "source": "Cell 160: 686-699, 2015.",
+                "pubmedID": 25662009,
+                "pubmedImages": "present",
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0092-8674(15)00016-1",
+                "doi": "10.1016/j.cell.2015.01.014"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 10,
+                "authors": "McDermott, D. H., Pastrana, D. V., Calvo, K. R., Pittaluga, S., Velez, D., Cho, E., Liu, Q., Trout, H. H., III, Neves, J. F., Gardner, P. J., Bianchi, D. A., Blair, E. A., Landon, E. M., Silva, S. L., Buck, C. B., Murphy, P. M.",
+                "title": "Plerixafor for the treatment of WHIM syndrome.",
+                "source": "New Eng. J. Med. 380: 163-170, 2019.",
+                "pubmedID": 30625055,
+                "articleUrl": "https://www.nejm.org/doi/10.1056/NEJMoa1808575?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1056/NEJMoa1808575"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 11,
+                "authors": "Mentzer, W. C., Johnston, R. B., Jr., Baehner, R. L., Nathan, D. G.",
+                "title": "An unusual form of chronic neutropenia in a father and a daughter with hypogammaglobulinaemia.",
+                "source": "Brit. J. Haemat. 36: 313-322, 1977.",
+                "pubmedID": 889707,
+                "articleUrl": "https://onlinelibrary.wiley.com/resolve/openurl?genre=article&sid=nlm:pubmed&issn=0007-1048&date=1977&volume=36&issue=3&spage=313",
+                "doi": "10.1111/j.1365-2141.1977.tb00654.x"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 12,
+                "authors": "O'Regan, S., Newman, A. J., Graham, R. C.",
+                "title": "Myelokathexis: neutropenia with marrow hyperplasia.",
+                "source": "Am. J. Dis. Child. 131: 655-658, 1977.",
+                "pubmedID": 868817,
+                "doi": "10.1001/archpedi.1977.02120190049011"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 13,
+                "authors": "Taniuchi, S., Yamamoto, A., Fujiwara, T., Hasui, M., Tsuji, S., Kobayashi, Y.",
+                "title": "Dizygotic twin sisters with myelokathexis: mechanism of its neutropenia.",
+                "source": "Am. J. Hemat. 62: 106-111, 1999.",
+                "pubmedID": 10509006,
+                "articleUrl": "https://onlinelibrary.wiley.com/resolve/openurl?genre=article&sid=nlm:pubmed&issn=0361-8609&date=1999&volume=62&issue=2&spage=106",
+                "doi": "10.1002/(sici)1096-8652(199910)62:2<106::aid-ajh8>3.0.co;2-d"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 14,
+                "authors": "Wetzler, M., Talpaz, M., Kleinerman, E. S., King, A., Huh, Y. O., Gutterman, J. U., Kurzrock, R.",
+                "title": "A new familial immunodeficiency disorder characterized by severe neutropenia, a defective marrow release mechanism, and hypogammaglobulinemia.",
+                "source": "Am. J. Med. 89: 663-672, 1990.",
+                "pubmedID": 2239986,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/0002-9343(90)90187-I",
+                "doi": "10.1016/0002-9343(90)90187-i"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 193670,
+                "referenceNumber": 15,
+                "authors": "Zuelzer, W. W.",
+                "title": "Myelokathexis: a new form of chronic granulocytopenia.",
+                "source": "New Eng. J. Med. 270: 699-704, 1964.",
+                "pubmedID": 14101065,
+                "articleUrl": "https://www.nejm.org/doi/10.1056/NEJM196404022701402?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1056/NEJM196404022701402"
+              }
+            }
+          ],
+          "phenotypeMapExists": true,
+          "phenotypeMapList": [
+            {
+              "phenotypeMap": {
+                "mimNumber": 162643,
+                "phenotype": "WHIM syndrome 1",
+                "phenotypeMimNumber": 193670,
+                "phenotypeMappingKey": 3,
+                "phenotypeInheritance": "Autosomal dominant",
+                "phenotypicSeriesNumber": "PS193670",
+                "sequenceID": 17656,
+                "chromosome": 2,
+                "chromosomeSymbol": "2",
+                "chromosomeSort": 628,
+                "chromosomeLocationStart": 136114348,
+                "chromosomeLocationEnd": 136118148,
+                "transcript": "ENST00000241393.4",
+                "cytoLocation": "2q21",
+                "computedCytoLocation": "2q22.1",
+                "geneSymbols": "CXCR4, D2S201E, NPY3R, WHIMS1",
+                "mouseGeneSymbol": "Cxcr4",
+                "mouseMgiID": "MGI:109563",
+                "geneIDs": "7852",
+                "ensemblIDs": "ENSG00000121966,ENST00000409817.1",
+                "approvedGeneSymbols": "CXCR4"
+              }
+            },
+            {
+              "phenotypeMap": {
+                "mimNumber": 162643,
+                "phenotype": "Myelokathexis, isolated",
+                "phenotypeMimNumber": 193670,
+                "phenotypeMappingKey": 3,
+                "phenotypeInheritance": "Autosomal dominant",
+                "phenotypicSeriesNumber": "PS193670",
+                "sequenceID": 17656,
+                "chromosome": 2,
+                "chromosomeSymbol": "2",
+                "chromosomeSort": 628,
+                "chromosomeLocationStart": 136114348,
+                "chromosomeLocationEnd": 136118148,
+                "transcript": "ENST00000241393.4",
+                "cytoLocation": "2q21",
+                "computedCytoLocation": "2q22.1",
+                "geneSymbols": "CXCR4, D2S201E, NPY3R, WHIMS1",
+                "mouseGeneSymbol": "Cxcr4",
+                "mouseMgiID": "MGI:109563",
+                "geneIDs": "7852",
+                "ensemblIDs": "ENSG00000121966,ENST00000409817.1",
+                "approvedGeneSymbols": "CXCR4"
+              }
+            }
+          ],
+          "phenotypicSeriesExists": true,
+          "externalLinks": {
+            "swissProtIDs": "P61073",
+            "mgiHumanDisease": true,
+            "wormbaseDO": false,
+            "orphanetDiseases": "51636;;10676;;WHIM syndrome",
+            "ordrDiseases": "9297;;WHIM syndrome",
+            "decipherGene": false,
+            "geneticsHomeReferenceIDs": "gene;;CXCR4 gene;;cxcr4",
+            "snomedctIDs": "234571003",
+            "umlsIDs": "C0472817",
+            "diseaseOntologyIDs": "0060591",
+            "geneticAllianceIDs": "7481",
+            "gtr": true,
+            "cmgGene": false,
+            "keggPathways": false,
+            "gwasCatalog": false,
+            "clinGenDosage": false,
+            "clinGenValidity": false,
+            "monarch": false,
+            "newbornScreening": false
+          },
+          "contributors": "Cassandra L. Kniffin - updated : 07/02/2021\nAda Hamosh - updated : 02/06/2019\nCassandra L. Kniffin - updated : 9/3/2015\nCassandra L. Kniffin - updated : 3/10/2009\nCassandra L. Kniffin - updated : 6/3/2008\nVictor A. McKusick - updated : 4/14/2003\nVictor A. McKusick - updated : 4/19/2000\nVictor A. McKusick - updated : 2/24/2000\nVictor A. McKusick - updated : 3/23/1998",
+          "creationDate": "Victor A. McKusick : 12/6/1990",
+          "editHistory": "carol : 07/09/2021\nalopez : 07/07/2021\nckniffin : 07/02/2021\nalopez : 02/06/2019\ncarol : 09/07/2016\nalopez : 09/09/2015\nckniffin : 9/3/2015\ncarol : 2/9/2015\ncarol : 2/9/2015\nwwang : 6/13/2011\nwwang : 3/19/2009\nckniffin : 3/10/2009\nwwang : 6/17/2008\nckniffin : 6/3/2008\nmgross : 6/18/2007\nterry : 6/11/2007\nckniffin : 12/10/2003\nalopez : 4/30/2003\nalopez : 4/16/2003\nterry : 4/14/2003\ncarol : 4/19/2000\nterry : 4/19/2000\nmcapotos : 3/17/2000\nmcapotos : 3/8/2000\nterry : 2/24/2000\nalopez : 3/23/1998\nterry : 3/19/1998\nmimadm : 6/7/1995\nsupermim : 3/16/1992\ncarol : 2/18/1992\ncarol : 12/6/1990",
+          "epochCreated": 660441600,
+          "dateCreated": "Thu, 06 Dec 1990 00:00:00 UTC",
+          "epochUpdated": 1625788800,
+          "dateUpdated": "Fri, 09 Jul 2021 00:00:00 UTC"
+        }
+      }
+    ]
+  }
+}

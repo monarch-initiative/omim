@@ -1,0 +1,231 @@
+{
+  "omim": {
+    "version": "1.0",
+    "entryList": [
+      {
+        "entry": {
+          "prefix": "+",
+          "mimNumber": 104250,
+          "status": "live",
+          "titles": {
+            "preferredTitle": "ALPHA-2C-ADRENERGIC RECEPTOR; ADRA2C",
+            "alternativeTitles": "ALPHA-2-ADRENERGIC RECEPTOR, RENAL TYPE",
+            "includedTitles": "CONGESTIVE HEART FAILURE AND BETA-BLOCKER RESPONSE, MODIFIER OF, INCLUDED"
+          },
+          "textSectionList": [
+            {
+              "textSection": {
+                "textSectionName": "cloning",
+                "textSectionTitle": "Cloning and Expression",
+                "textSectionContent": "{5:Regan et al. (1988)} cloned ADRA2C from a human kidney cDNA library using the gene for the human platelet alpha-2-adrenergic receptor (ADRA2A; {104210}) as a probe. The deduced amino acid sequence resembled the human platelet alpha-2-adrenergic receptor. In this work, {5:Regan et al. (1988)} achieved expression of the receptor in cultured cells, free of other adrenergic receptor subtypes; this approach should help in developing more selective alpha-adrenergic ligands for pharmaceutical purposes.\n\nBy use of RT-PCR and Northern blotting, {1:Eason and Liggett (1993)} found that ADRAC2 is expressed in most tissues as a 2.8-kb mRNA, but is not expressed in liver, fat, stomach, or colon. {7:Schaak et al. (1997)} reported that the 5-prime untranslated region of the ADRA2C gene is 891 bp long and the 3-prime untranslated region 550 bp. Thus, the mRNA is approximately 2,840 bp long."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "geneStructure",
+                "textSectionTitle": "Gene Structure",
+                "textSectionContent": "By studying cosmid clones covering the entire gene, {6:Riess et al. (1994)} found that the ADRA2C gene is intronless."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "mapping",
+                "textSectionTitle": "Mapping",
+                "textSectionContent": "{3:Hoehe et al. (1989)} found close linkage between the G8 (D4S10) marker of Huntington disease (HD; {143100}) and a RFLP of the ADRA2C gene; thus, the ADRA2C gene is presumably in band 4p16.1.\n\nUsing 2 (GT)n repeats in close proximity to the ADRA2C gene, {6:Riess et al. (1994)} analyzed its precise location. Linkage disequilibrium (LD) studies of a microsatellite in HD families showed strong nonrandom association to the HD mutation, indicating tight linkage to the HD gene. The investigation of families carrying recombinant chromosomes, pulsed-field analysis, and genomic walking mapped the ADRA2C gene adjacent to D4S81, 500 kb proximal to the HD gene."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "molecularGenetics",
+                "textSectionTitle": "Molecular Genetics",
+                "textSectionContent": "In a study of 54 patients with congestive heart failure treated with the beta-blocker metoprolol, {4:Lobmeyer et al. (2007)} found that the ADRB1 ({109630}) R389G and the del322-325 ADRA2C polymorphisms synergistically influenced the ejection fraction response to beta-blocker therapy."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "animalModel",
+                "textSectionTitle": "Animal Model",
+                "textSectionContent": "Alpha-2-adrenergic receptors have a critical role in regulating neurotransmitter release from sympathetic nerves and from adrenergic neurons in the central nervous system. To help elucidate the individual roles of the 3 highly homologous alpha-2-adrenergic receptors (ADRA2A; ADRA2B, {104260}; and ADRA2C) in this process, {2:Hein et al. (1999)} studied neurotransmitter release in mice in which the genes encoding the 3 alpha-2-adrenergic receptor subtypes were disrupted. {2:Hein et al. (1999)} demonstrated that both the ADRA2A and ADRA2C subtypes are required for normal presynaptic control of transmitter release from sympathetic nerves in the heart and from central noradrenergic neurons. ADRA2A receptors inhibited transmitter release at high stimulation frequencies, whereas the ADRA2C subtype modulated neurotransmission at lower levels of nerve activity. Both low and high frequency regulation seemed to be physiologically important, as mice lacking both ADRA2A and ADRA2C receptor subtypes had elevated plasma noradrenaline concentrations and developed cardiac hypertrophy with decreased left ventricular contractility by 4 months of age."
+              }
+            }
+          ],
+          "allelicVariantExists": true,
+          "allelicVariantList": [
+            {
+              "allelicVariant": {
+                "mimNumber": 104250,
+                "number": 1,
+                "status": "live",
+                "name": "CONGESTIVE HEART FAILURE AND BETA-BLOCKER RESPONSE, MODIFIER OF",
+                "mutations": "ADRA2C, 12-BP DEL, NT964",
+                "text": "In transfected cells, a polymorphic alpha-2C-adrenergic receptor (322-325del) has decreased function, and a variant of the beta-1-adrenergic receptor (R389C; {109630.0001}) has increased function. {8:Small et al. (2002)} hypothesized that this combination of receptor variance, which results in increased synaptic norepinephrine release and enhanced receptor function at the myocyte, would predispose persons to heart failure. They performed genotyping at these loci in 159 patients with heart failure and 189 controls. Among black subjects, the adjusted odds ratio for heart failure among persons who were homozygous for the 322-325del as compared with those with the other alpha-2C-adrenergic receptor genotypes was 5.65. There was no increase in risk with the arg389 allele alone. However, there was a marked increase in the risk of heart failure among persons who were homozygous for both arg389 and 322-325del (adjusted odds ratio, 10.11). The patients with heart failure did not differ from the controls in the frequencies of 9 short tandem repeat alleles. Among white subjects, there were too few who were homozygous for both polymorphisms to allow an adequate assessment of risk. {8:Small et al. (2002)} concluded that these 2 polymorphisms act synergistically to increase the risk of heart failure in blacks. Genotyping at these loci may be a useful approach for identification of persons at risk for heart failure or its progression who may be candidates for early preventive measures.\n\n{4:Lobmeyer et al. (2007)} genotyped 54 patients with congestive heart failure for the R389G and del322-325 polymorphisms in the ADRB1 and ADRA2C genes, respectively, and performed echocardiography before and after treatment with the beta-blocker metoprolol. The authors found that patients homozygous for arg389 who also carried del322-325 showed a significantly higher ejection fraction increase with metoprolol than all the other genotype combination groups, and concluded that the ADRB1 and ADRA2C polymorphisms synergistically influence the ejection fraction response to beta-blocker therapy of heart failure patients.",
+                "dbSnps": "rs61767072",
+                "clinvarAccessions": "RCV000019790"
+              }
+            }
+          ],
+          "clinicalSynopsisExists": false,
+          "referenceList": [
+            {
+              "reference": {
+                "mimNumber": 104250,
+                "referenceNumber": 1,
+                "authors": "Eason, M. G., Liggett, S. B.",
+                "title": "Human alpha-2-adrenergic receptor subtype distribution: widespread and subtype-selective expression of alpha-2-C10, alpha-2-C4, and alpha-2-C2 mRNA in multiple tissues.",
+                "source": "Molec. Pharm. 44: 70-75, 1993.",
+                "pubmedID": 7688069,
+                "articleUrl": "http://molpharm.aspetjournals.org/cgi/pmidlookup?view=long&pmid=7688069"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104250,
+                "referenceNumber": 2,
+                "authors": "Hein, L., Altman, J. D., Kobilka, B. K.",
+                "title": "Two functionally distinct alpha-2-adrenergic receptors regulate sympathetic neurotransmission.",
+                "source": "Nature 402: 181-184, 1999.",
+                "pubmedID": 10647009,
+                "articleUrl": "https://doi.org/10.1038/46040",
+                "doi": "10.1038/46040"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104250,
+                "referenceNumber": 3,
+                "authors": "Hoehe, M., Berrettini, W., Leppert, M., Lalouel, J.-M., Byerley, W., Gershon, E., White, R.",
+                "title": "Genetic mapping of adrenergic receptor genes. (Abstract)",
+                "source": "Am. J. Hum. Genet. 45 (suppl.): A143 only, 1989."
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104250,
+                "referenceNumber": 4,
+                "authors": "Lobmeyer, M. T., Gong, Y., Terra, S. G., Beitelshees, A. L., Langaee, T. Y., Pauly, D. F., Schofield, R. S., Hamilton, K. K., Patterson, J. H., Adams, K. F., Jr., Hill, J. A., Aranda, J. M., Jr., Johnson, J. A.",
+                "title": "Synergistic polymorphisms of beta-1 and alpha-2C-adrenergic receptors and the influence on left ventricular ejection fraction response to beta-blocker therapy in heart failure.",
+                "source": "Pharmacogenet. Genomics 17: 277-282, 2007.",
+                "pubmedID": 17496726,
+                "articleUrl": "https://doi.org/10.1097/FPC.0b013e3280105245",
+                "doi": "10.1097/FPC.0b013e3280105245"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104250,
+                "referenceNumber": 5,
+                "authors": "Regan, J. W., Kobilka, T. S., Yang-Feng, T. L., Caron, M. G., Lefkowitz, R. J., Kobilka, B. K.",
+                "title": "Cloning and expression of a human kidney cDNA for an alpha-2-adrenergic receptor subtype.",
+                "source": "Proc. Nat. Acad. Sci. 85: 6301-6305, 1988.",
+                "pubmedID": 2842764,
+                "articleUrl": "http://www.pnas.org/cgi/pmidlookup?view=long&pmid=2842764",
+                "doi": "10.1073/pnas.85.17.6301"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104250,
+                "referenceNumber": 6,
+                "authors": "Riess, O., Thies, U., Siedlaczck, I., Potisek, S., Graham, R., Theilmann, J., Grimm, T., Epplen, J. T., Hayden, M. R.",
+                "title": "Precise mapping of the brain alpha-2-adrenergic receptor gene within chromosome 4p16.",
+                "source": "Genomics 19: 298-302, 1994.",
+                "pubmedID": 8188260,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0888-7543(84)71061-5",
+                "doi": "10.1006/geno.1994.1061"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104250,
+                "referenceNumber": 7,
+                "authors": "Schaak, S., Devedjian, J.-C., Cayla, C., Sender, Y., Paris, H.",
+                "title": "Molecular cloning, sequencing and functional study of the promoter region of the human alpha-2-C4-adrenergic receptor gene.",
+                "source": "Biochem. J. 328: 431-438, 1997.",
+                "pubmedID": 9371698,
+                "articleUrl": "https://portlandpress.com/biochemj/article-lookup/doi/10.1042/bj3280431",
+                "doi": "10.1042/bj3280431"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104250,
+                "referenceNumber": 8,
+                "authors": "Small, K. M., Wagoner, L. E., Levin, A. M., Kardia, S. L. R., Liggett, S. B.",
+                "title": "Synergistic polymorphisms of beta-1- and alpha-2C-adrenergic receptors and the risk of congestive heart failure.",
+                "source": "New Eng. J. Med. 347: 1135-1142, 2002.",
+                "pubmedID": 12374873,
+                "articleUrl": "https://www.nejm.org/doi/10.1056/NEJMoa020803?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1056/NEJMoa020803"
+              }
+            }
+          ],
+          "geneMapExists": true,
+          "geneMap": {
+            "sequenceID": 1036,
+            "chromosome": 4,
+            "chromosomeSymbol": "4",
+            "chromosomeSort": 49,
+            "chromosomeLocationStart": 3766384,
+            "chromosomeLocationEnd": 3768525,
+            "transcript": "ENST00000330055.7",
+            "cytoLocation": "4p16.1",
+            "computedCytoLocation": "4p16.3",
+            "mimNumber": 104250,
+            "geneSymbols": "ADRA2C, ADRA2L2",
+            "geneName": "Adrenergic, alpha-2C-, receptor",
+            "comments": "linked to D4S10",
+            "mouseGeneSymbol": "Adra2c",
+            "mouseMgiID": "MGI:87936",
+            "geneIDs": "152",
+            "ensemblIDs": "ENSG00000184160,ENST00000330055.7",
+            "approvedGeneSymbols": "ADRA2C",
+            "phenotypeMapList": [
+              {
+                "phenotypeMap": {
+                  "mimNumber": 104250,
+                  "phenotype": "{Congestive heart failure and beta-blocker response, modifier of}",
+                  "phenotypeMappingKey": 3,
+                  "phenotypeInheritance": null
+                }
+              }
+            ]
+          },
+          "externalLinks": {
+            "geneIDs": "152",
+            "hgncID": "283",
+            "ensemblIDs": "ENSG00000184160,ENST00000330055.7",
+            "approvedGeneSymbols": "ADRA2C",
+            "ncbiReferenceSequences": "1653967387",
+            "genbankNucleotideSequences": "38349096,219405,3914602,30409953,147836606,11055418,166706748,178193,11055420,458814,148744324,46812272,311866347",
+            "proteinSequences": "38349097,63996722,1628638,20141211,219406,147836607,178194,166706749,11055419,11055421,148744325,311866348,46812273,71773208",
+            "swissProtIDs": "P18825",
+            "mgiIDs": "MGI:87936",
+            "mgiHumanDisease": false,
+            "wormbaseIDs": "WBGene00006411,WBGene00142921,WBGene00034947,WBGene00110181,WBGene00132034",
+            "wormbaseDO": false,
+            "zfinIDs": "ZDB-GENE-021010-3",
+            "hprdIDs": "00085",
+            "decipherGene": false,
+            "umlsIDs": "C1412261,C2676080",
+            "gtr": true,
+            "cmgGene": false,
+            "keggPathways": true,
+            "gwasCatalog": false,
+            "clinGenDosage": false,
+            "clinGenValidity": false,
+            "monarch": false,
+            "newbornScreening": false,
+            "pharmgkbIDs": "PA37"
+          },
+          "contributors": "Marla J. F. O'Neill - updated : 2/5/2009\nVictor A. McKusick - updated : 10/16/2002\nAda Hamosh - updated : 2/9/2000\nRebekah S. Rasooly - updated : 8/7/1998",
+          "creationDate": "Victor A. McKusick : 9/15/1988",
+          "editHistory": "carol : 02/24/2009\nwwang : 2/19/2009\nterry : 2/5/2009\ncwells : 10/21/2002\nterry : 10/16/2002\nalopez : 2/9/2000\ncarol : 8/7/1998\ncarol : 2/10/1994\nsupermim : 3/16/1992\ncarol : 3/5/1992\ncarol : 9/9/1990\nsupermim : 3/20/1990\ncarol : 12/14/1989",
+          "epochCreated": 590284800,
+          "dateCreated": "Thu, 15 Sep 1988 00:00:00 UTC",
+          "epochUpdated": 1235433600,
+          "dateUpdated": "Tue, 24 Feb 2009 00:00:00 UTC"
+        }
+      }
+    ]
+  }
+}
