@@ -1,0 +1,586 @@
+{
+  "omim": {
+    "version": "1.0",
+    "entryList": [
+      {
+        "entry": {
+          "prefix": "%",
+          "mimNumber": 100070,
+          "status": "live",
+          "titles": {
+            "preferredTitle": "AORTIC ANEURYSM, FAMILIAL ABDOMINAL, 1; AAA1",
+            "alternativeTitles": "ANEURYSM, ABDOMINAL AORTIC; AAA;;\nABDOMINAL AORTIC ANEURYSM"
+          },
+          "textSectionList": [
+            {
+              "textSection": {
+                "textSectionName": "description",
+                "textSectionTitle": "Description",
+                "textSectionContent": "Abdominal aortic aneurysm is a multifactorial disorder with multiple genetic and environmental risk factors. The disorder may occur as part of a heritable syndrome or in isolation (summary by {16:Kuivaniemi et al., 2003}).\n\n<Subhead> Genetic Heterogeneity of Abdominal Aortic Aneurysm\n\nMapped loci for abdominal aortic aneurysm include AAA1 on chromosome 19q13; AAA2 ({609782}) on chromosome 4q31; AAA3 ({611891}) on chromosome 9p21; and AAA4 ({614375}) on chromosome 12q13."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "clinicalFeatures",
+                "textSectionTitle": "Clinical Features",
+                "textSectionContent": "{19:Loosemore et al. (1988)} described 2 brothers with abdominal aortic aneurysm at ages 58 and 62 years, whose father died of ruptured abdominal aortic aneurysm at the age of 72 years. Four other sibs died of myocardial infarction at ages 47 to 61 years. {19:Loosemore et al. (1988)} suggested that a deficiency of type III collagen (see {120180}) might be the basis for the aneurysm formation. The proportion of type III collagen in forearm skin biopsies was cited as accurately reflective of the proportion in the aorta and was said to have been low in the brothers.\n\n{31:Ward (1992)} looked for association of dilated peripheral arteries with aortic aneurysmal disease by measuring the diameters of the common femoral, popliteal, brachial, common carotid, internal carotid, and external carotid arteries by color-flow duplex scan in 30 control subjects and 36 patients with aortic aneurysm matched for age, sex, smoking habits, and hypertension. Mean peripheral artery diameter was significantly greater in patients with aortic aneurysms than in controls at all measurement sites. Peripheral artery dilatation was identified at sites that are seldom, if ever, involved in atherosclerosis. {31:Ward (1992)} concluded that there is a generalized dilating diathesis in aortic aneurysmal disease that may be unrelated to atherosclerosis.\n\nIn the study of {30:Verloes et al. (1995)}, familial male cases showed a significantly earlier age at rupture and a greater rupture rate as compared with sporadic male cases, as well as a tendency (p less than 0.05) towards earlier age of diagnosis.\n\nAAA occurs among approximately 1.5% of the male population older than 50 years of age. Several studies have indicated an increased frequency among first-degree relatives of patients with AAA. Aneurysms of the peripheral arteries (femoral, popliteal, and isolated iliac) are less common than aortic aneurysms ({17:Lawrence et al., 1995}), and arteriomegaly (diffuse aneurysmal disease) is even less common ({12:Hollier et al., 1983}). Peripheral aneurysms and arteriomegaly carry a high risk for complications such as rupture, embolism, or thrombosis."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "inheritance",
+                "textSectionTitle": "Inheritance",
+                "textSectionContent": "{28:Tilson and Seashore (1984)} reported 50 families in which abdominal aortic aneurysm had occurred in 2 or more first-degree relatives, mainly males. In 29 families, multiple sibs (up to 4) were affected; in 2 families, 3 generations were affected; and in 15 families, persons in 2 generations were affected. Three complex pedigrees were observed: one in which both parents and 3 sons were affected; one in which a man and his paternal uncle were affected; and one in which a man and his father and maternal great-uncle were affected. In the 'one-generation' families, there were 3 with only females affected, including a set of identical twins. The authors concluded that if a single gene is responsible, it is likely to be autosomal but that a multigenic mechanism cannot be excluded.\n\n{4:Clifton (1977)} reported 3 affected brothers.\n\nIn North Carolina, {15:Johnson et al. (1985)} found that white males have a frequency of abdominal aortic aneurysm about 3 times that in black males, black females, or white females; all 3 of the latter groups had about comparable frequencies. Frequency was ascertained by a survey of autopsies and a survey of abdominal computed tomographic scans in subjects over the age of 50 years.\n\n{14:Johansen and Koepsell (1986)} compared the family histories of 250 patients with abdominal aortic aneurysm with those of 250 control subjects. Among the control subjects, 2.4% reported a first-degree relative with an aneurysm, compared with 19.2% of the patients with abdominal aortic aneurysm. This was taken to represent an estimated 11.6-fold increase in abdominal aortic aneurysm risk among persons with an affected first-degree relative. The authors suggested that noninvasive screening to detect early abdominal aortic aneurysm may be warranted in the relatives of affected persons.\n\nBy ultrasound screening, {5:Collin et al. (1988)} found an abdominal aortic aneurysm in 5.4% of men aged 65 to 74, and in 2.3% of men in this age group the aneurysm was 4 cm or more in diameter.\n\n{3:Borkett-Jones et al. (1988)} brought to 4 the number of reported sets of identical twins concordant for abdominal aortic aneurysm. In a 9-year prospective study of 542 consecutive patients undergoing operation for abdominal aortic aneurysm, {6:Darling et al. (1989)} found that 82 (15.1%) had a first-degree relative with an aneurysm as compared to 9 (1.8%) of the control group of 500 patients of similar age and sex without aneurysmal disease. Patients with familial abdominal aortic aneurysm were more likely to be women (35% vs 14%), and men with familial abdominal aortic aneurysm tended to be about 5 years younger than the women. No significant difference was found between the patients with nonfamilial and familial abdominal aortic aneurysms in anatomic extent, multiplicity, associated occlusive disease, or blood type. The risk of rupture was strongly correlated with familial disease and the presence of a female member with aneurysm (63% vs 37%). {6:Darling et al. (1989)} suggested the term 'black widow syndrome' because of the grim significance of the presence of an affected female in the family.\n\nOn the basis of a study of first-degree relatives of 91 probands, {20:Majumder et al. (1991)} rejected the nongenetic model and concluded that the most parsimonious genetic model was that susceptibility to abdominal aortic aneurysm is determined by a recessive gene at an autosomal diallelic major locus.\n\n{9:Fitzgerald et al. (1995)} assessed the incidence of abdominal aortic aneurysm in the sibs of 120 patients known to have AAA. Twelve percent of the sibs were found to have an aneurysm, including 22% of male sibs but only 3% of female sibs. Male sibs with hypertension were more likely to have AAA.\n\nIn the study of {30:Verloes et al. (1995)}, relative risk for male sibs of a male patient was 18. Segregation analysis with the mixed model gave single gene effect with dominant inheritance as the most likely explanation for the familial occurrence. The frequency of the morbid allele was 1:250, and its age-related penetrance was not higher than 0.4.\n\nAs part of a review of abdominal aortic aneurysm as a multifactorial process, {11:Henney (1993)} reviewed family studies and the molecular genetics. In a review focused on surgical aspects, {8:Ernst (1993)} commented that 'there is little support for atherosclerosis as the unitary cause...several factors appear to have an important role, including familial clustering...'\n\nThrough questionnaire and telephone inquiries, {30:Verloes et al. (1995)} collected family data on 324 probands with abdominal aortic aneurysm and determined multigenerational pedigrees on 313 families, including 39 with multiple affected patients. There were 276 sporadic cases (264 men; 12 women); 81 cases belonged to multiplex pedigrees (76 men; 5 women).\n\n{2:Baird et al. (1995)} collected information from 126 probands with abdominal aortic aneurysm and 100 controls (cataract surgery patients) concerning AAA. Of 427 sibs of probands, 19 (4.4%) had probable or definite AAA, compared with 5 (1.1%) of 451 sibs of controls. The lifetime cumulative risks of AAA at age 83 were 11.7% and 7.5%, respectively. The risk of AAA began at an earlier age and increased more rapidly for probands' sibs than for controls' sibs. The risk comparison, based on the results of ultrasound screening of 54 geographically accessible sibs probands and the 100 controls, showed a similar pattern. AAA was found on ultrasound in 10 sibs of probands, or 19%, compared to 8% of controls.\n\n{18:Lawrence et al. (1998)} constructed pedigrees for first-degree relatives of 140 patients who received the diagnosis of peripheral arterial aneurysm, arteriomegaly, or AAA from 1988 through 1996 in Salt Lake City, Utah. Patients with peripheral arterial aneurysm (n = 40) had a 10% (4 of 40) familial incidence rate of an aneurysm, patients with AAA (n = 86) had a 22% (19 of 86) familial incidence rate, and patients with arteriomegaly (n = 14) had a 36% (5 of 14) familial incidence rate. AAA was the aneurysm diagnosed most commonly among first-degree relatives (86%; 24 of 28). Most aneurysms (85%) occurred among men. {18:Lawrence et al. (1998)} suggested that relatives of patients with AAA, peripheral arterial aneurysm, or arteriomegaly may be screened by means of a physical examination for peripheral aneurysmal disease. Screening by means of ultrasound examination of the aorta should be limited to first-degree relatives of patients with aortic aneurysms or arteriomegaly.\n\n{25:Rossaak et al. (2000)} cited a familial incidence of 11 to 20% for AAA.\n\n{16:Kuivaniemi et al. (2003)} identified 233 families with at least 2 individuals diagnosed with abdominal aortic aneurysms. The families originated from 9 different nationalities, but all were white. There were 653 aneurysm patients in these families, with an average of 2.8 cases per family. Most of the families were small, with only 2 affected individuals. There were, however, 6 families with 6, 3 with 7, and 1 with 8 affected individuals. Most of the probands (82%) and the affected relatives (77%) were male, and the most common relationship to the proband was brother. Most of the families (72%) appeared to show an autosomal recessive inheritance pattern, whereas in 58 families (25%), abdominal aortic aneurysms were inherited in an autosomal dominant manner, and in 8 families, the familial aggregation could be explained by autosomal dominant inheritance with incomplete penetrance. In the 66 families where abdominal aortic aneurysms were inherited in a dominant manner, 141 transmissions of the disease from 1 generation to another were identified, and male-to-male, male-to-female, female-to-male, and female-to-female transmissions occurred in 46%, 11%, 32%, and 11%, respectively. {16:Kuivaniemi et al. (2003)} concluded that abdominal aortic aneurysm is a multifactorial disorder with multiple genetic and environmental risk factors."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "pathogenesis",
+                "textSectionTitle": "Pathogenesis",
+                "textSectionContent": "{21:Newman et al. (1994)} and others have pointed to a role of matrix metalloproteinases (MMPs) in end-stage AAA. MMP activity is closely controlled by the balance of its activators, such as plasmin, and its inhibitors. A mutation that reduces the transcription of plasminogen activator inhibitor (PAI1; {173360}) would result in an increase in the activity of tissue plasminogen activator (PLAT; {173370}). This in turn would increase the conversion of inactive plasminogen ({173350}) to its active form, plasmin, and increase the zymogen activation of MMPs. {13:Jean-Claude et al. (1994)} observed increased levels of plasmin in AAAs.\n\nIt is possible that aneurysms develop due to structural alterations in extracellular matrix (ECM) proteins such as elastin ({130160}), collagens, and proteoglycans. Such alterations in type III collagen (see {120180}), however, have been shown to be rare causes of both abdominal aortic aneurysms and intracranial aneurysms (see {105800}). Another alternative is that the enzymes degrading the structural molecules contribute to aneurysm formation. Matrix metalloproteinases (MMPs) are connective tissue-degrading enzymes that could play a role in structural alterations of the arterial wall through the degradation of collagens and other extracellular matrix molecules. MMP3 ({185250}), MMP9 ({120361}), and PAI1 are present at increased levels in abdominal aortic aneurysms ({32:Yoon et al., 1999}). Promoters of these genes contain polymorphisms with alleles that exhibit different transcriptional activities in vitro.\n\n{29:Tromp et al. (2004)} determined the relative expression of MMP13 ({600108}) in aortic tissue samples from 36 patients who underwent abdominal aortic aneurysm repair operations and from 20 nonaneurysmal autopsy samples. MMP13 was expressed in all parts of the aorta, and its expression was elevated in the aneurysmal sac. In further studies using MMP13-specific antibody, {29:Tromp et al. (2004)} demonstrated that MMP13 protein was present in the aneurysmal wall.\n\n{33:Yoshimura et al. (2005)} observed a high level of phosphorylated JNK (MAPK8; {601158}) in human AAA tissue. By DNA microarray analysis of rat aortic vascular smooth muscle cells, they demonstrated that Jnk programs a gene expression pattern that cooperatively enhances degradation of the extracellular matrix, while suppressing biosynthetic enzymes of the ECM, such as Lox ({153455}) and Plod1 ({153454}). In human monocyte-macrophage cells and AAA tissue, JNK played a role in MMP9 secretion. Selective inhibition of Jnk in vivo not only prevented the development of AAA but also caused regression of established AAA in 2 mouse models. {33:Yoshimura et al. (2005)} concluded that JNK is a proximal signaling molecule in the pathogenesis of AAA that acts by promoting abnormal ECM metabolism.\n\nThere are suggestions from several sources that AAA and atherosclerosis may be different diseases. In their AAA population, {25:Rossaak et al. (2000)} found an incidence of diabetes mellitus of 6%. They suggested that this relatively low incidence in patients with AAA contrasted with that in atherosclerotic disease and lent support to the notion that these 2 disorders are indeed distinct. The apparent association of a PAI1 polymorphism (4G/5G; {173360.0002}) with familial AAA (see MOLECULAR GENETICS) was another observation that questioned the idea that atherosclerosis causes AAAs: whereas the 4G variant of PAI1 shows a protective role in AAA, it is undesirable in the context of coronary artery disease and atherosclerosis ({10:Harris, 2001})."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "mapping",
+                "textSectionTitle": "Mapping",
+                "textSectionContent": "{26:Shibamura et al. (2004)} performed a whole-genome scan of AAA using affected relative-pair (ARP) linkage analysis that included covariates to allow for genetic heterogeneity. They found strong evidence of linkage (lod = 4.64) to a region near marker D19S433 at 51.88 cM on chromosome 19 with 36 families (75 ARPs) when including sex and the number of affected first-degree relatives of the proband as covariates. They then genotyped 83 additional families for the same markers and typed additional markers for all families and obtained a lod score of 4.75 with sex, number of affected first-degree relatives, and their interaction as covariates, near marker D19S416 (58.69 cM).\n\n<Subhead> Pending Confirmation\n\n{7:Elmore et al. (2009)} conducted a genomewide association study in 123 AAA cases and 112 controls matched for age, sex, and smoking history, and identified 4 SNPs associated with AAA in strong LD within a haplotype block on chromosome 3p12.3. One of the SNPs from this region, {dbSNP rs7635818}, was genotyped in 502 AAA cases and 736 controls (p = 0.017) and a replication set of 448 cases and 410 controls (p = 0.013; combined p = 0.0028 and combined OR = 1.33); analysis in the subset of 391 cases and 241 controls with a smoking history showed an even stronger association (p = 0.00041; OR, 1.80). {7:Elmore et al. (2009)} noted that the AAA-associated region is located approximately 200 kbp upstream of the CNTN3 gene ({601325}) transcription start site."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "molecularGenetics",
+                "textSectionTitle": "Molecular Genetics",
+                "textSectionContent": "<Subhead> Associations Pending Confirmation\n\n{32:Yoon et al. (1999)} performed association studies using polymorphisms in the MMP3 ({185250}), MMP9 ({120361}), and PAI1 ({173360}) genes and DNA isolated from 47 AAA patients, 57 intracranial aneurysm (IA) patients, and 174 controls, all from Finland. The frequency of the 5A MMP3 allele ({185250.0001}) was somewhat higher in the AAA than in the control group (corrected p = 0.0609), whereas the MMP3 allele frequencies in the IA group did not differ from those of the controls. These findings suggested that the transcriptionally more active 5A MMP3 allele might be a genetic risk factor for AAA among Finns. The findings were in agreement with previous studies demonstrating higher levels of MMP3 expression in AAA than in control tissues. {32:Yoon et al. (1999)} found that PAI1 and MMP9 genotypes, including the PAI1 4G/5G polymorphism ({173360.0002}), did not associate with aneurysms.\n\nNoting that the 5G variant of the PAI1 4G/5G polymorphism is associated with less inhibition of the plasminogen activators and, consequently, increased conversion of plasminogen to plasmin and increased activation of MMPs, {25:Rossaak et al. (2000)} studied the ratios of the 4G:5G genotypes in 190 patients with AAA, including 39 patients with strong family histories, and 163 controls, and found that 26% of patients with familial AAA were homozygous 5G compared with 13% of the control population. The 4G allele frequency was 0.47 in the familial AAAs, compared with 0.62 in the nonfamilial patients (P = 0.02) and 0.61 in the control population (p = 0.03).\n\nHistologically, AAAs are characterized by signs of chronic inflammation, destructive remodeling of the extracellular matrix, and depletion of vascular smooth muscle cells ({27:Steinmetz et al., 2003}). {24:Ogata et al. (2005)} hypothesized that genes involved in these events could harbor changes and make individuals more susceptible to aneurysms. They analyzed 387 Caucasian individuals with AAA and 425 controls for 14 polymorphisms in 13 candidate genes, and found significant association between variation in the TIMP1 gene ({305370}) and AAA in males without a family history (p = 0.0047 for nt+434 and p = 0.015 for {dbSNP rs2070584}).\n\n{1:Baas et al. (2010)} performed an association study of SNPs in the TGF-beta receptor genes TGFBR1 ({190181}) and TGFBR2 ({190182}) and AAA in a Dutch population. In the stage 1 analysis of 376 cases and 648 controls, 3 of the 4 TGFBR1 SNPs and 9 of the 28 TGFBR2 SNPs had a p value of less than 0.07. Genotyping of these SNPs in an independent cohort of 360 cases and 376 controls in stage 2 confirmed association (p less than 0.05) for the same allele of 1 SNP in TGFBR1 and 2 SNPs in TGFBR2. Joint analysis of the 736 cases and 1,024 controls showed statistically significant associations of these SNPs, which sustained after proper correction for multiple testing (TGFBR1 {dbSNP rs1626340}, OR = 1.32, 95% CI 1.11-1.56, p = 0.001; TGFBR2 {dbSNP rs1036095}, OR = 1.32, 95% CI 1.12-1.54, p = 0.001; {dbSNP rs4522809}, OR = 1.28, 95% CI 1.12-1.46, p = 0.0004). {1:Baas et al. (2010)} concluded that genetic variation in TGFBR1 and TGFBR2 associate with AAA in the Dutch population."
+              }
+            }
+          ],
+          "clinicalSynopsisExists": true,
+          "clinicalSynopsis": {
+            "oldFormat": {
+              "Vascular": "Abdominal aortic aneurysm {SNOMEDCT:233985008} {UMLS C0162871,C2926614 HP:0005112} {HPO HP:0005112 C4025248}; Generalized dilating diathesis",
+              "Misc": "Estimated 11.6-fold increase among persons with an affected first-degree relative",
+              "Inheritance": "Autosomal dominant vs. recessive at an autosomal major locus or multifactorial; COL3A1 gene (120180.0004) mutations cause about 2%"
+            },
+            "oldFormatExists": true,
+            "inheritanceExists": true,
+            "growthExists": false,
+            "growthHeightExists": false,
+            "growthWeightExists": false,
+            "growthOtherExists": false,
+            "headAndNeckExists": false,
+            "headAndNeckHeadExists": false,
+            "headAndNeckFaceExists": false,
+            "headAndNeckEarsExists": false,
+            "headAndNeckEyesExists": false,
+            "headAndNeckNoseExists": false,
+            "headAndNeckMouthExists": false,
+            "headAndNeckTeethExists": false,
+            "headAndNeckNeckExists": false,
+            "cardiovascularExists": true,
+            "cardiovascularHeartExists": false,
+            "cardiovascularVascularExists": true,
+            "respiratoryExists": false,
+            "respiratoryNasopharynxExists": false,
+            "respiratoryLarynxExists": false,
+            "respiratoryAirwaysExists": false,
+            "respiratoryLungExists": false,
+            "chestExists": false,
+            "chestExternalFeaturesExists": false,
+            "chestRibsSternumClaviclesAndScapulaeExists": false,
+            "chestBreastsExists": false,
+            "chestDiaphragmExists": false,
+            "abdomenExists": false,
+            "abdomenExternalFeaturesExists": false,
+            "abdomenLiverExists": false,
+            "abdomenPancreasExists": false,
+            "abdomenBiliaryTractExists": false,
+            "abdomenSpleenExists": false,
+            "abdomenGastrointestinalExists": false,
+            "genitourinaryExists": false,
+            "genitourinaryExternalGenitaliaMaleExists": false,
+            "genitourinaryExternalGenitaliaFemaleExists": false,
+            "genitourinaryInternalGenitaliaMaleExists": false,
+            "genitourinaryInternalGenitaliaFemaleExists": false,
+            "genitourinaryKidneysExists": false,
+            "genitourinaryUretersExists": false,
+            "genitourinaryBladderExists": false,
+            "skeletalExists": false,
+            "skeletalSkullExists": false,
+            "skeletalSpineExists": false,
+            "skeletalPelvisExists": false,
+            "skeletalLimbsExists": false,
+            "skeletalHandsExists": false,
+            "skeletalFeetExists": false,
+            "skinNailsHairExists": false,
+            "skinNailsHairSkinExists": false,
+            "skinNailsHairSkinHistologyExists": false,
+            "skinNailsHairSkinElectronMicroscopyExists": false,
+            "skinNailsHairNailsExists": false,
+            "skinNailsHairHairExists": false,
+            "muscleSoftTissueExists": false,
+            "neurologicExists": false,
+            "neurologicCentralNervousSystemExists": false,
+            "neurologicPeripheralNervousSystemExists": false,
+            "neurologicBehavioralPsychiatricManifestationsExists": false,
+            "voiceExists": false,
+            "metabolicFeaturesExists": false,
+            "endocrineFeaturesExists": false,
+            "hematologyExists": false,
+            "immunologyExists": false,
+            "neoplasiaExists": false,
+            "prenatalManifestationsExists": false,
+            "prenatalManifestationsMovementExists": false,
+            "prenatalManifestationsAmnioticFluidExists": false,
+            "prenatalManifestationsPlacentaAndUmbilicalCordExists": false,
+            "prenatalManifestationsMaternalExists": false,
+            "prenatalManifestationsDeliveryExists": false,
+            "laboratoryAbnormalitiesExists": false,
+            "miscellaneousExists": true,
+            "molecularBasisExists": false,
+            "creationDate": "Undefined",
+            "editHistory": "Undefined"
+          },
+          "seeAlso": "Norrgard et al. (1985); Norrgard et al. (1984)",
+          "referenceList": [
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 1,
+                "authors": "Baas, A. F., Medic, J., van't Slot, R., de Kovel, C. G., Zhernakova, A., Geelkerken, R. H., Kranendonk, S. E., van Sterkenburg, S. M., Grobbee, D. E., Boll, A. P., Wijmenga, C., Blankensteijn, J. D., Ruigrok, Y. M.",
+                "title": "Association of the TGF-beta receptor genes with abdominal aortic aneurysm.",
+                "source": "Europ. J. Hum. Genet. 18: 240-244, 2010.",
+                "pubmedID": 19672284,
+                "articleUrl": "https://doi.org/10.1038/ejhg.2009.141",
+                "doi": "10.1038/ejhg.2009.141"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 2,
+                "authors": "Baird, P. A., Sadovnick, A. D., Yee, I. M. L., Cole, C. W., Cole, L.",
+                "title": "Sibling risks of abdominal aortic aneurysm.",
+                "source": "Lancet 346: 601-604, 1995.",
+                "pubmedID": 7651004,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0140-6736(95)91436-6",
+                "doi": "10.1016/s0140-6736(95)91436-6"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 3,
+                "authors": "Borkett-Jones, H. J., Stewart, G., Chilvers, A. S.",
+                "title": "Abdominal aortic aneurysms in identical twins.",
+                "source": "J. Roy. Soc. Med. 81: 471-472, 1988.",
+                "pubmedID": 3047388
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 4,
+                "authors": "Clifton, M. A.",
+                "title": "Familial abdominal aortic aneurysms.",
+                "source": "Brit. J. Surg. 64: 765-766, 1977.",
+                "pubmedID": 588966,
+                "articleUrl": "https://academic.oup.com/bjs/article-lookup/doi/10.1002/bjs.1800641102",
+                "doi": "10.1002/bjs.1800641102"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 5,
+                "authors": "Collin, J., Araujo, L., Walton, J., Lindsell, D.",
+                "title": "Oxford screening programme for abdominal aortic aneurysm in men aged 65 to 74 years.",
+                "source": "Lancet 332: 613-615, 1988. Note: Originally Volume II.",
+                "pubmedID": 2900988,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0140-6736(88)90649-6",
+                "doi": "10.1016/s0140-6736(88)90649-6"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 6,
+                "authors": "Darling, R. C., III, Brewster, D. C., Darling, R. C., LaMuraglia, G. M., Moncure, A. C., Cambria, R. P., Abbott, W. M.",
+                "title": "Are familial abdominal aortic aneurysms different?",
+                "source": "J. Vasc. Surg. 10: 39-43, 1989.",
+                "pubmedID": 2787414,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/0741-5214(89)90283-8",
+                "doi": "10.1067/mva.1989.vs0100039"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 7,
+                "authors": "Elmore, J. R., Obmann, M. A., Kuivaniemi, H., Tromp, G., Gerhard, G. S., Franklin, D. P., Boddy, A. M., Carey, D. J.",
+                "title": "Identification of a genetic variant associated with abdominal aortic aneurysms on chromosome 3p12.3 by genome wide association.",
+                "source": "J. Vasc. Surg. 49: 1525-1531, 2009.",
+                "pubmedID": 19497516,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0741-5214(09)00066-4",
+                "doi": "10.1016/j.jvs.2009.01.041"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 8,
+                "authors": "Ernst, C. B.",
+                "title": "Abdominal aortic aneurysm.",
+                "source": "New Eng. J. Med. 328: 1167-1172, 1993.",
+                "pubmedID": 8455684,
+                "articleUrl": "https://www.nejm.org/doi/10.1056/NEJM199304223281607?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1056/NEJM199304223281607"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 9,
+                "authors": "Fitzgerald, P., Ramsbottom, D., Burke, P., Grace, P., McAnen, O., Croke, D. T., Collins, P., Johnson, A., Bouchier-Hayes, D.",
+                "title": "Abdominal aortic aneurysm in the Irish population.",
+                "source": "Brit. J. Surg. 82: 483-486, 1995.",
+                "pubmedID": 7613891,
+                "articleUrl": "https://academic.oup.com/bjs/article-lookup/doi/10.1002/bjs.1800820418",
+                "doi": "10.1002/bjs.1800820418"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 10,
+                "authors": "Harris, E. L.",
+                "title": "Personal Communication.",
+                "source": "Dunedin, New Zealand  11/27/2001."
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 11,
+                "authors": "Henney, A. M.",
+                "title": "Molecular genetics. In Abdominal aortic aneurysm: report of a meeting of physicians and scientists, University College London Medical School.",
+                "source": "Lancet 341: 215-220, 1993.",
+                "pubmedID": 8093508,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/0140-6736(93)90077-T"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 12,
+                "authors": "Hollier, L. H., Stanson, A. W., Gloviczki, P., Pairolero, P. C., Joyce, J. W., Bernatz, P. E., Cherry, K. J.",
+                "title": "Arteriomegaly: classification and morbid implications of diffuse aneurysmal disease.",
+                "source": "Surgery 93: 700-708, 1983.",
+                "pubmedID": 6845177
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 13,
+                "authors": "Jean-Claude, J., Newman, K. M., Li, H., Gregory, A. K., Tilson, M. D.",
+                "title": "Possible key role for plasmin in the pathogenesis of abdominal aortic aneurysms.",
+                "source": "Surgery 116: 472-478, 1994.",
+                "pubmedID": 8048013
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 14,
+                "authors": "Johansen, K., Koepsell, T.",
+                "title": "Familial tendency for abdominal aortic aneurysms.",
+                "source": "JAMA 256: 1934-1936, 1986.",
+                "pubmedID": 3761500,
+                "articleUrl": "https://jamanetwork.com/journals/jama/fullarticle/vol/256/pg/1934"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 15,
+                "authors": "Johnson, G., Jr., Avery, A., McDougal, E. G., Burnham, S. J., Keagy, B. A.",
+                "title": "Aneurysms of the abdominal aorta: incidence in blacks and whites in North Carolina.",
+                "source": "Arch. Surg. 120: 1138-1140, 1985.",
+                "pubmedID": 4038055,
+                "articleUrl": "https://jamanetwork.com/journals/jamasurgery/fullarticle/vol/120/pg/1138",
+                "doi": "10.1001/archsurg.1985.01390340036006"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 16,
+                "authors": "Kuivaniemi, H., Shibamura, H., Arthur, C., Berguer, R., Cole, C. W., Juvonen, T., Kline, R. A., Limet, R., MacKean, G., Norrgard, O., Pals, G., Powell, J. T., Rainio, P., Sakalihasan, N., van Vlijmen-van Keulen, C., Verloes, A., Tromp, G.",
+                "title": "Familial abdominal aortic aneurysms: collection of 233 multiplex families.",
+                "source": "J. Vasc. Surg. 37: 340-345, 2003.",
+                "pubmedID": 12563204,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0741521402752129",
+                "doi": "10.1067/mva.2003.71"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 17,
+                "authors": "Lawrence, P. F., Lorenzo-Rivero, S., Lyon, J. L.",
+                "title": "The incidence of iliac, femoral, and popliteal artery aneurysms in hospitalized patients.",
+                "source": "J. Vasc. Surg. 22: 409-415, 1995.",
+                "pubmedID": 7563401,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0741521495002230",
+                "doi": "10.1016/s0741-5214(95)70008-0"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 18,
+                "authors": "Lawrence, P. F., Wallis, C., Dobrin, P. B., Bhirangi, K., Gugliuzza, N., Galt, S., Kraiss, L.",
+                "title": "Peripheral aneurysms and arteriomegaly: is there a familial pattern?",
+                "source": "J. Vasc. Surg. 28: 599-605, 1998.",
+                "pubmedID": 9786252,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0741521498002882",
+                "doi": "10.1016/s0741-5214(98)70082-5"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 19,
+                "authors": "Loosemore, T. M., Child, A. H., Dormandy, J. A.",
+                "title": "Familial abdominal aortic aneurysms.",
+                "source": "J. Roy. Soc. Med. 81: 472-473, 1988.",
+                "pubmedID": 3418662
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 20,
+                "authors": "Majumder, P. P., St. Jean, P. L., Ferrell, R. E., Webster, M. W., Steed, D. L.",
+                "title": "On the inheritance of abdominal aortic aneurysm.",
+                "source": "Am. J. Hum. Genet. 48: 164-170, 1991.",
+                "pubmedID": 1985458
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 21,
+                "authors": "Newman, K. M., Malon, A. M., Shin, R. D., Scholes, J. V., Ramey, W. G., Tilson, M. D.",
+                "title": "Matrix metalloproteinases in abdominal aortic aneurysm: characterization, purification, and their possible sources.",
+                "source": "Connect. Tissue Res. 30: 265-276, 1994.",
+                "pubmedID": 7956205,
+                "articleUrl": "https://www.tandfonline.com/doi/full/10.3109/03008209409015042",
+                "doi": "10.3109/03008209409015042"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 22,
+                "authors": "Norrgard, O., Angquist, K.-A., Johnson, O.",
+                "title": "Familial aortic aneurysms: serum concentrations of triglyceride, cholesterol, HDL-cholesterol and (VLDL + LDL)-cholesterol.",
+                "source": "Brit. J. Surg. 72: 113-116, 1985.",
+                "pubmedID": 3855680,
+                "articleUrl": "https://academic.oup.com/bjs/article-lookup/doi/10.1002/bjs.1800720215",
+                "doi": "10.1002/bjs.1800720215"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 23,
+                "authors": "Norrgard, O., Rais, O., Angquist, K. A.",
+                "title": "Familial occurrence of abdominal aortic aneurysms.",
+                "source": "Surgery 95: 650-656, 1984.",
+                "pubmedID": 6729702
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 24,
+                "authors": "Ogata, T., Shibamura, H., Tromp, G., Sinha, M., Goddard, K. A. B., Sakalihasan, N., Limet, R., MacKean, G. L., Arthur, C., Sueda, T., Land, S., Kuivaniemi, H.",
+                "title": "Genetic analysis of polymorphisms in biologically relevant candidate genes in patients with abdominal aortic aneurysms.",
+                "source": "J. Vasc. Surg. 41: 1036-1042, 2005.",
+                "pubmedID": 15944607,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0741521405002363",
+                "doi": "10.1016/j.jvs.2005.02.020"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 25,
+                "authors": "Rossaak, J. I., van Rij, A. M., Jones, G. T., Harris, E. L.",
+                "title": "Association of the 4G/5G polymorphism in the promoter region of plasminogen activator inhibitor-1 with abdominal aortic aneurysms.",
+                "source": "J. Vasc. Surg. 31: 1026-1032, 2000.",
+                "pubmedID": 10805895,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0741-5214(00)89741-4",
+                "doi": "10.1067/mva.2000.104589"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 26,
+                "authors": "Shibamura, H., Olson, J. M., van Vlijmen-van Keulen, C., Buxbaum, S. G., Dudek, D. M., Tromp, G., Ogata, T., Skunca, M., Sakalihasan, N., Pals, G., Limet, R., MacKean, G. L., Defawe, O., Verloes, A., Arthur, C., Lossing, A. G., Burnett, M., Sueda, T., Kuivaniemi, H.",
+                "title": "Genome scan for familial abdominal aortic aneurysm using sex and family history as covariates suggests genetic heterogeneity and identifies linkage to chromosome 19q13.",
+                "source": "Circulation 109: 2103-2108, 2004.",
+                "pubmedID": 15096456,
+                "articleUrl": "https://www.ahajournals.org/doi/10.1161/01.CIR.0000127857.77161.A1?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1161/01.CIR.0000127857.77161.A1"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 27,
+                "authors": "Steinmetz, E. F., Buckley, C., Thompson, R. W.",
+                "title": "Prospects for the medical management of abdominal aortic aneurysms.",
+                "source": "Vasc. Endovascular Surg. 37: 151-163, 2003.",
+                "pubmedID": 12799723,
+                "articleUrl": "https://journals.sagepub.com/doi/10.1177/153857440303700301?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1177/153857440303700301"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 28,
+                "authors": "Tilson, M. D., Seashore, M. R.",
+                "title": "Fifty families with abdominal aortic aneurysms in two or more first-order relatives.",
+                "source": "Am. J. Surg. 147: 551-553, 1984.",
+                "pubmedID": 6538765,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/0002-9610(84)90020-5",
+                "doi": "10.1016/0002-9610(84)90020-5"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 29,
+                "authors": "Tromp, G., Gatalica, Z., Skunca, M., Berguer, R., Siegel, T., Kline, R. A., Kuivaniemi, H.",
+                "title": "Elevated expression of matrix metalloproteinase-13 in abdominal aortic aneurysms.",
+                "source": "Ann. Vasc. Surg. 18: 414-420, 2004.",
+                "pubmedID": 15156361,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0890-5096(06)61384-8",
+                "doi": "10.1007/s10016-004-0050-5"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 30,
+                "authors": "Verloes, A., Sakalihasan, N., Koulischer, L., Limet, R.",
+                "title": "Aneurysms of the abdominal aorta: familial and genetic aspects in three hundred thirteen pedigrees.",
+                "source": "J. Vasc. Surg. 21: 646-655, 1995.",
+                "pubmedID": 7707569,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0741-5214(95)70196-6",
+                "doi": "10.1016/s0741-5214(95)70196-6"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 31,
+                "authors": "Ward, A. S.",
+                "title": "Aortic aneurysmal disease: a generalized dilating diathesis?",
+                "source": "Arch. Surg. 127: 990-991, 1992.",
+                "pubmedID": 1642543,
+                "articleUrl": "https://jamanetwork.com/journals/jamasurgery/fullarticle/vol/127/pg/990",
+                "doi": "10.1001/archsurg.1992.01420080124021"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 32,
+                "authors": "Yoon, S., Tromp, G., Vongpunsawad, S., Ronkainen, A., Juvonen, T., Kuivaniemi, H.",
+                "title": "Genetic analysis of MMP3, and PAI-1 in Finnish patients with abdominal aortic or intracranial aneurysms.",
+                "source": "Biochem. Biophys. Res. Commun. 265: 563-568, 1999.",
+                "pubmedID": 10558909,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0006-291X(99)91721-7",
+                "doi": "10.1006/bbrc.1999.1721"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100070,
+                "referenceNumber": 33,
+                "authors": "Yoshimura, K., Aoki, H., Ikeda, Y., Fujii, K., Akiyama, N., Furutani, A., Hoshii, Y., Tanaka, N., Ricci, R., Ishihara, T., Esato, K., Hamano, K., Matsuzaki, M.",
+                "title": "Regression of abdominal aortic aneurysm by inhibition of c-Jun N-terminal kinase.",
+                "source": "Nature Med. 11: 1330-1338, 2005.",
+                "pubmedID": 16311603,
+                "articleUrl": "https://doi.org/10.1038/nm1335",
+                "doi": "10.1038/nm1335"
+              }
+            }
+          ],
+          "geneMapExists": true,
+          "geneMap": {
+            "sequenceID": 158,
+            "chromosome": 19,
+            "chromosomeSymbol": "19",
+            "chromosomeSort": 1059,
+            "chromosomeLocationStart": 55800000,
+            "chromosomeLocationEnd": 58617616,
+            "cytoLocation": "19q13",
+            "mimNumber": 100070,
+            "geneSymbols": "AAA1, AAA",
+            "geneName": "Aortic aneurysm, familial abdominal 1",
+            "comments": "near D19S416",
+            "geneIDs": "100329167",
+            "phenotypeMapList": [
+              {
+                "phenotypeMap": {
+                  "mimNumber": 100070,
+                  "phenotype": "Aortic aneurysm, familial abdominal 1",
+                  "phenotypeMimNumber": 100070,
+                  "phenotypicSeriesNumber": "PS100070",
+                  "phenotypeMappingKey": 2,
+                  "phenotypeInheritance": "Autosomal dominant"
+                }
+              }
+            ]
+          },
+          "phenotypicSeriesExists": true,
+          "externalLinks": {
+            "geneIDs": "100329167",
+            "mgiHumanDisease": false,
+            "wormbaseDO": false,
+            "coriellDiseases": "ABDOMINAL AORTIC ANEURYSM",
+            "orphanetDiseases": "86;;1010;;Familial abdominal aortic aneurysm",
+            "ordrDiseases": "9181;;Abdominal aortic aneurysm;;;457;;Triple A syndrome",
+            "decipherGene": false,
+            "snomedctIDs": "233985008",
+            "umlsIDs": "C0162871,C1853365",
+            "diseaseOntologyIDs": "7693",
+            "geneticAllianceIDs": "63",
+            "gtr": false,
+            "cmgGene": false,
+            "keggPathways": false,
+            "gwasCatalog": false,
+            "clinGenDosage": false,
+            "clinGenValidity": false,
+            "monarch": false,
+            "newbornScreening": false
+          },
+          "contributors": "Ada Hamosh - updated : 12/20/2011\nMarla J. F. O'Neill - updated : 12/2/2011\nMarla J. F. O'Neill - updated : 9/25/2009\nMarla J. F. O'Neill - updated : 3/20/2006\nVictor A. McKusick - updated : 12/2/2005\nVictor A. McKusick - updated : 12/14/2001\nVictor A. McKusick - updated : 1/20/1999\nClair A. Francomano - updated : 5/12/1995",
+          "creationDate": "Victor A. McKusick : 6/4/1986",
+          "editHistory": "carol : 10/18/2017\ncarol : 06/17/2016\ncarol : 3/3/2016\nterry : 2/2/2012\nalopez : 1/11/2012\nterry : 12/20/2011\ncarol : 12/6/2011\nterry : 12/2/2011\ncarol : 9/30/2009\ncarol : 9/25/2009\ncarol : 9/25/2009\nterry : 6/3/2009\nterry : 1/7/2009\nterry : 1/7/2009\nalopez : 3/13/2008\nterry : 3/10/2008\nwwang : 3/21/2006\nterry : 3/20/2006\ncarol : 12/13/2005\nalopez : 12/13/2005\nalopez : 12/12/2005\nterry : 12/2/2005\nterry : 6/27/2002\nterry : 4/4/2002\nalopez : 1/8/2002\nalopez : 1/7/2002\nterry : 12/14/2001\ncarol : 3/28/2000\nmgross : 3/16/1999\ncarol : 1/29/1999\nterry : 1/20/1999\ncarol : 12/28/1998\ncarol : 12/15/1998\nterry : 11/11/1997\nterry : 11/10/1997\nalopez : 7/9/1997\nmark : 10/2/1996\nterry : 10/24/1995\nmark : 7/11/1995\nwarfield : 4/6/1994\nmimadm : 3/11/1994\ncarol : 7/13/1993",
+          "epochCreated": 518227200,
+          "dateCreated": "Wed, 04 Jun 1986 00:00:00 UTC",
+          "epochUpdated": 1508284800,
+          "dateUpdated": "Wed, 18 Oct 2017 00:00:00 UTC"
+        }
+      }
+    ]
+  }
+}

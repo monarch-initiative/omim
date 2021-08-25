@@ -1,0 +1,370 @@
+{
+  "omim": {
+    "version": "1.0",
+    "entryList": [
+      {
+        "entry": {
+          "prefix": "#",
+          "mimNumber": 104500,
+          "status": "live",
+          "titles": {
+            "preferredTitle": "AMELOGENESIS IMPERFECTA, TYPE IB; AI1B",
+            "alternativeTitles": "AMELOGENESIS IMPERFECTA, HYPOPLASTIC LOCAL, AUTOSOMAL DOMINANT;;\nAIH2;;\nENAMEL HYPOPLASIA, HEREDITARY LOCALIZED"
+          },
+          "textSectionList": [
+            {
+              "textSection": {
+                "textSectionName": "text",
+                "textSectionTitle": "Text",
+                "textSectionContent": "A number sign (#) is used with this entry because amelogenesis imperfecta type IB (AI1B) is caused by heterozygous mutation in the enamelin gene (ENAM; {606585}) on chromosome 4q13."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "description",
+                "textSectionTitle": "Description",
+                "textSectionContent": "Amelogenesis imperfecta type IB is an autosomal dominant disorder of tooth enamel biomineralization resulting in enamel hypoplasia (summary by {2:Brookes et al., 2017})."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "clinicalFeatures",
+                "textSectionTitle": "Clinical Features",
+                "textSectionContent": "{12:Weinmann et al. (1945)} made the useful division of enamel\n\ndefects into 2 classes: (1) hereditary enamel hypoplasia, in which the enamel is hard but deficient in quantity, and (2) hereditary enamel hypocalcification, in which the enamel is soft and undercalcified but normal in quantity and histology (see {130900}).\n\nIn autosomal dominant local hypoplastic amelogenesis imperfecta, the hypoplastic defect is a horizontal row of pits, linear depressions, or one large hypoplastic area in the enamel with hypocalcification of the enamel adjacent to and below the hypoplastic area. These defects appear most prominent on the buccal surfaces of the teeth involving the middle third of the enamel. The incisal edge or occlusal surface is usually not involved ({14:Witkop, 1957}; {13:Witkop and Sauk, 1976}).\n\n{3:Chaudhry et al. (1959)} reported 5 families with an autosomal dominant enamel dysplasia. The authors found it difficult to classify the families as either hypoplastic or hypocalcified.\n\n{6:Mardh et al. (2002)} described 6 families from Vasterbotten county in northern Sweden with hypoplastic amelogenesis imperfecta. The enamel defects included horizontal rows of pits, grooves, or a large hypoplastic area in the enamel. Apart from the variations in number and localization of defect, the phenotype was consistent within the families and also between families.\n\n{7:Pavlic et al. (2007)} described a father and son (family 1) with hypoplastic AI. The son presented with chalky whitish enamel with localized hypoplastic alteration. The father had open-bite malocclusion and yellowish enamel with horizontal grooves in the cervical half of the crowns of the teeth. Panoramic tomograms of the father and son showed poor differentiation between the dental enamel and dentin translucency. Scanning electron microscopy of one of the son's deciduous molars (tooth 85) showed defective mineralization of the enamel without a 'prismless' outer layer on most of the enamel surface. The enamel prisms were deformed, and the borders of the enamel prisms were undulated. The dentin-enamel junction contained the least structured and the most porous enamel."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "inheritance",
+                "textSectionTitle": "Inheritance",
+                "textSectionContent": "{1:Backman and Holmgren (1988)} studied 51 families with amelogenesis imperfecta from the county of Vasterbotten in northern Sweden. Autosomal dominant inheritance was the likely mode of inheritance in 33 families, although X-linked dominant inheritance was a possible alternative in 1 of these. Autosomal recessive inheritance was found likely in 6 families (see {204650} and {204700}) and X-linked recessive inheritance in 2 families. Ten probands were sporadic cases. AI was of the hypoplastic form in 72% and of the hypomineralization form in 28% of the individuals. Autosomal dominant inheritance was found in 89% of the cases with the hypoplastic form and in 44% of the cases with the hypomineralization form. In most families the type was consistent within the family; in 3 families, however, both hypoplastic and hypomineralization forms were seen. In the families with X-linked inheritance, clinical manifestations were more severe in males.\n\n{11:Seymen et al. (2014)} reported autosomal dominant inheritance of AI1B with incomplete penetrance in 2 unrelated Turkish families. Segregation analysis within each family revealed that individuals with normal enamel or with an extremely mild enamel phenotype had the same mutation as affected family members."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "mapping",
+                "textSectionTitle": "Mapping",
+                "textSectionContent": "In 3 families from northern Sweden segregating an autosomal dominant form of amelogenesis imperfecta, {4:Forsman et al. (1994)} found linkage of the disorder to a 17.6-cM region between markers D4S392 and D4S395 on chromosome 4q. This region also contains the albumin gene (ALB; {103600}) which was hypothesized to be a candidate gene for the disorder. {5:Karrman et al. (1997)} constructed a detailed marker map of the region and refined the localization of the locus, which they designated AIH2, to a 4-Mb YAC contig corresponding to chromosome 4q11-q21. Studies by {5:Karrman et al. (1997)} excluded ALB as the disease-causing gene. Affected members in all 6 families studied shared the same allele haplotype, indicating a common ancestral mutation in all families."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "molecularGenetics",
+                "textSectionTitle": "Molecular Genetics",
+                "textSectionContent": "In a 3-generation family with autosomal dominant hypoplastic local amelogenesis imperfecta, {9:Rajpar et al. (2001)} identified a G-to-A transition in the splice donor site following exon 7 of the enamelin gene ({606585.0001}).\n\nIn affected members of 6 families from northern Sweden with AI1B, {6:Mardh et al. (2002)} identified a heterozygous nonsense mutation ({606585.0002}) in the ENAM gene.\n\nIn a Turkish family (family 1) with autosomal dominant amelogenesis imperfecta, {7:Pavlic et al. (2007)} identified a heterozygous 2-bp insertion in the ENAM gene ({606585.0003}).\n\nIn affected members of 4 British families with AI1B, {2:Brookes et al. (2017)} identified a heterozygous missense mutation (L31R; {606585.0004}) in the ENAM gene."
+              }
+            }
+          ],
+          "clinicalSynopsisExists": true,
+          "clinicalSynopsis": {
+            "inheritance": "Autosomal dominant {SNOMEDCT:771269000,263681008} {UMLS C1867440,C0443147 HP:0000006} {HPO HP:0000006 C0443147}",
+            "headAndNeckTeeth": "Amelogenesis imperfecta, hypoplastic {SNOMEDCT:109476006} {UMLS C0399367} {HPO HP:0000705};\nEnamel has horizontal row of pits or linear depressions {UMLS C2676147};\nIncisal edge or occlusal surface not usually involved {UMLS C2676148}",
+            "molecularBasis": "Caused by mutation in the enamelin gene (ENAM, {606585.0001})",
+            "inheritanceExists": true,
+            "growthExists": false,
+            "growthHeightExists": false,
+            "growthWeightExists": false,
+            "growthOtherExists": false,
+            "headAndNeckExists": true,
+            "headAndNeckHeadExists": false,
+            "headAndNeckFaceExists": false,
+            "headAndNeckEarsExists": false,
+            "headAndNeckEyesExists": false,
+            "headAndNeckNoseExists": false,
+            "headAndNeckMouthExists": false,
+            "headAndNeckTeethExists": true,
+            "headAndNeckNeckExists": false,
+            "cardiovascularExists": false,
+            "cardiovascularHeartExists": false,
+            "cardiovascularVascularExists": false,
+            "respiratoryExists": false,
+            "respiratoryNasopharynxExists": false,
+            "respiratoryLarynxExists": false,
+            "respiratoryAirwaysExists": false,
+            "respiratoryLungExists": false,
+            "chestExists": false,
+            "chestExternalFeaturesExists": false,
+            "chestRibsSternumClaviclesAndScapulaeExists": false,
+            "chestBreastsExists": false,
+            "chestDiaphragmExists": false,
+            "abdomenExists": false,
+            "abdomenExternalFeaturesExists": false,
+            "abdomenLiverExists": false,
+            "abdomenPancreasExists": false,
+            "abdomenBiliaryTractExists": false,
+            "abdomenSpleenExists": false,
+            "abdomenGastrointestinalExists": false,
+            "genitourinaryExists": false,
+            "genitourinaryExternalGenitaliaMaleExists": false,
+            "genitourinaryExternalGenitaliaFemaleExists": false,
+            "genitourinaryInternalGenitaliaMaleExists": false,
+            "genitourinaryInternalGenitaliaFemaleExists": false,
+            "genitourinaryKidneysExists": false,
+            "genitourinaryUretersExists": false,
+            "genitourinaryBladderExists": false,
+            "skeletalExists": false,
+            "skeletalSkullExists": false,
+            "skeletalSpineExists": false,
+            "skeletalPelvisExists": false,
+            "skeletalLimbsExists": false,
+            "skeletalHandsExists": false,
+            "skeletalFeetExists": false,
+            "skinNailsHairExists": false,
+            "skinNailsHairSkinExists": false,
+            "skinNailsHairSkinHistologyExists": false,
+            "skinNailsHairSkinElectronMicroscopyExists": false,
+            "skinNailsHairNailsExists": false,
+            "skinNailsHairHairExists": false,
+            "muscleSoftTissueExists": false,
+            "neurologicExists": false,
+            "neurologicCentralNervousSystemExists": false,
+            "neurologicPeripheralNervousSystemExists": false,
+            "neurologicBehavioralPsychiatricManifestationsExists": false,
+            "voiceExists": false,
+            "metabolicFeaturesExists": false,
+            "endocrineFeaturesExists": false,
+            "hematologyExists": false,
+            "immunologyExists": false,
+            "neoplasiaExists": false,
+            "prenatalManifestationsExists": false,
+            "prenatalManifestationsMovementExists": false,
+            "prenatalManifestationsAmnioticFluidExists": false,
+            "prenatalManifestationsPlacentaAndUmbilicalCordExists": false,
+            "prenatalManifestationsMaternalExists": false,
+            "prenatalManifestationsDeliveryExists": false,
+            "laboratoryAbnormalitiesExists": false,
+            "miscellaneousExists": false,
+            "molecularBasisExists": true,
+            "contributors": "Joanna S. Amberger - updated : 03/04/2008",
+            "creationDate": "John F. Jackson : 6/15/1995",
+            "editHistory": "joanna : 03/04/2008",
+            "epochCreated": 803174400,
+            "dateCreated": "Thu, 15 Jun 1995 00:00:00 UTC",
+            "epochUpdated": 1204588800,
+            "dateUpdated": "Tue, 04 Mar 2008 00:00:00 UTC"
+          },
+          "seeAlso": "Persson and Sundell (1982); Sauk et al. (1972)",
+          "referenceList": [
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 1,
+                "authors": "Backman, B., Holmgren, G.",
+                "title": "Amelogenesis imperfecta: a genetic study.",
+                "source": "Hum. Hered. 38: 189-206, 1988.",
+                "pubmedID": 3169793,
+                "articleUrl": "https://www.karger.com?DOI=10.1159/000153785",
+                "doi": "10.1159/000153785"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 2,
+                "authors": "Brookes, S. J., Barron, M. J., Smith, C. E. L., Poulter, J. A., Mighell, A. J., Inglehearn, C. F., Brown, C. J., Rodd, H., Kirkham, J., Dixon, M. J.",
+                "title": "Amelogenesis imperfecta caused by N-terminal enamelin point mutations in mice and men is driven by endoplasmic reticulum stress.",
+                "source": "Hum. Molec. Genet. 26: 1863-1876, 2017.",
+                "pubmedID": 28334996,
+                "articleUrl": "https://academic.oup.com/hmg/article-lookup/doi/10.1093/hmg/ddx090",
+                "doi": "10.1093/hmg/ddx090"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 3,
+                "authors": "Chaudhry, A. P., Johnson, O. N., Mitchell, D. F., Gorlin, R. J., Bartholdi, W. L.",
+                "title": "Hereditary enamel dysplasia.",
+                "source": "J. Pediat. 54: 776-785, 1959.",
+                "pubmedID": 13655172,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0022-3476(59)80145-1",
+                "doi": "10.1016/s0022-3476(59)80145-1"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 4,
+                "authors": "Forsman, K., Lind, L., Backman, B., Westermark, E., Holmgren, G.",
+                "title": "Localization of a gene for autosomal dominant amelogenesis imperfecta (ADAI) to chromosome 4q.",
+                "source": "Hum. Molec. Genet. 3: 1621-1625, 1994.",
+                "pubmedID": 7833920,
+                "articleUrl": "https://academic.oup.com/hmg/article-lookup/doi/10.1093/hmg/3.9.1621",
+                "doi": "10.1093/hmg/3.9.1621"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 5,
+                "authors": "Karrman, C., Backman, B., Dixon, M., Holmgren, G., Forsman, K.",
+                "title": "Mapping of the locus for autosomal dominant amelogenesis imperfecta (AIH2) to a 4-Mb YAC contig on chromosome 4q11-q21.",
+                "source": "Genomics 39: 164-170, 1997.",
+                "pubmedID": 9027503,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0888-7543(96)94485-7",
+                "doi": "10.1006/geno.1996.4485"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 6,
+                "authors": "Mardh, C. K., Backman, B., Holmgren, G., Hu, J. C.-C., Simmer, J. P., Forsman-Semb, K.",
+                "title": "A nonsense mutation in the enamelin gene causes local hypoplastic autosomal dominant amelogenesis imperfecta (AIH2).",
+                "source": "Hum. Molec. Genet. 11: 1069-1074, 2002.",
+                "pubmedID": 11978766,
+                "articleUrl": "https://academic.oup.com/hmg/article-lookup/doi/10.1093/hmg/11.9.1069",
+                "doi": "10.1093/hmg/11.9.1069"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 7,
+                "authors": "Pavlic, A., Petelin, M., Battelino, T.",
+                "title": "Phenotype and enamel ultrastructure characteristics in patients with ENAM gene mutations g.13185-13186insAG and 8344delG.",
+                "source": "Arch. Oral Biol. 52: 209-217, 2007.",
+                "pubmedID": 17125728,
+                "articleUrl": "https://linkinghub.elsevier.com/retrieve/pii/S0003-9969(06)00266-4",
+                "doi": "10.1016/j.archoralbio.2006.10.010"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 8,
+                "authors": "Persson, M., Sundell, S.",
+                "title": "Facial morphology and open bite deformity in amelogenesis imperfecta.",
+                "source": "Acta Odontol. Scand. 40: 135-144, 1982.",
+                "pubmedID": 6957136,
+                "articleUrl": "https://www.tandfonline.com/doi/full/10.3109/00016358209012722",
+                "doi": "10.3109/00016358209012722"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 9,
+                "authors": "Rajpar, M. H., Harley, K., Laing, C., Davies, R. M., Dixon, M. J.",
+                "title": "Mutation of the gene encoding the enamel-specific protein, enamelin, causes autosomal-dominant amelogenesis imperfecta.",
+                "source": "Hum. Molec. Genet. 10: 1673-1677, 2001.",
+                "pubmedID": 11487571,
+                "articleUrl": "https://academic.oup.com/hmg/article-lookup/doi/10.1093/hmg/10.16.1673",
+                "doi": "10.1093/hmg/10.16.1673"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 10,
+                "authors": "Sauk, J. J., Jr., Cotton, W. R., Lyon, H. W., Witkop, C. J., Jr.",
+                "title": "Electron-optic analysis of hypomineralized amelogenesis imperfecta.",
+                "source": "Arch. Oral Biol. 17: 771-780, 1972.",
+                "pubmedID": 4625727,
+                "doi": "10.1016/0003-9969(72)90203-8"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 11,
+                "authors": "Seymen, F., Lee, K.-E., Koruyucu, M., Gencay, K., Bayram, M., Tuna, E. B., Lee, Z. H., Kim, J.-W.",
+                "title": "ENAM mutations with incomplete penetrance.",
+                "source": "J. Dent. Res. 93: 988-992, 2014.",
+                "pubmedID": 25143514,
+                "pubmedImages": "present",
+                "articleUrl": "https://journals.sagepub.com/doi/10.1177/0022034514548222?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed",
+                "doi": "10.1177/0022034514548222"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 12,
+                "authors": "Weinmann, J. P., Svoboda, J. F., Woods, R. W.",
+                "title": "Hereditary disturbances of enamel formation and calcification.",
+                "source": "J. Am. Dent. Assoc. 32: 397-418, 1945."
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 13,
+                "authors": "Witkop, C. J., Jr., Sauk, J. J., Jr.",
+                "title": "Heritable defects of enamel.In: Stewart, R. E.; Prescott, G. H. : Oral Facial Genetics.",
+                "source": "St. Louis: C. V. Mosby (pub.)  1976."
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 104500,
+                "referenceNumber": 14,
+                "authors": "Witkop, C. J.",
+                "title": "Hereditary defects in enamel and dentin.",
+                "source": "Acta Genet. 7: 236-239, 1957.",
+                "pubmedID": 13469154,
+                "doi": "10.1159/000150974"
+              }
+            }
+          ],
+          "phenotypeMapExists": true,
+          "phenotypeMapList": [
+            {
+              "phenotypeMap": {
+                "mimNumber": 606585,
+                "phenotype": "Amelogenesis imperfecta, type IB",
+                "phenotypeMimNumber": 104500,
+                "phenotypeMappingKey": 3,
+                "phenotypeInheritance": "Autosomal dominant",
+                "phenotypicSeriesNumber": "PS104500",
+                "sequenceID": 7708,
+                "chromosome": 4,
+                "chromosomeSymbol": "4",
+                "chromosomeSort": 274,
+                "chromosomeLocationStart": 70627470,
+                "chromosomeLocationEnd": 70646823,
+                "transcript": "ENST00000472903.5",
+                "cytoLocation": "4q21",
+                "computedCytoLocation": "4q13.3",
+                "geneSymbols": "ENAM, AIH2, AI1C",
+                "mouseGeneSymbol": "Enam",
+                "mouseMgiID": "MGI:1333772",
+                "geneIDs": "10117",
+                "ensemblIDs": "ENSG00000132464,ENST00000396073.4",
+                "approvedGeneSymbols": "ENAM"
+              }
+            }
+          ],
+          "phenotypicSeriesExists": true,
+          "externalLinks": {
+            "swissProtIDs": "Q9NRM1",
+            "mgiHumanDisease": true,
+            "wormbaseDO": false,
+            "orphanetDiseases": "88661;;11823;;Amelogenesis imperfecta;;;100031;;14604;;Hypoplastic amelogenesis imperfecta",
+            "decipherGene": false,
+            "omiaIDs": "001805;;Amelogenesis imperfecta, ENAM-related",
+            "snomedctIDs": "234961008",
+            "umlsIDs": "C0399368",
+            "diseaseOntologyIDs": "0110052",
+            "geneticAllianceIDs": "366",
+            "gtr": true,
+            "cmgGene": false,
+            "keggPathways": false,
+            "gwasCatalog": false,
+            "clinGenDosage": false,
+            "clinGenValidity": false,
+            "monarch": false,
+            "newbornScreening": false
+          },
+          "contributors": "Joanna S. Amberger - updated : 9/18/2014\nJoanna S. Amberger - updated : 3/4/2008\nGeorge E. Tiller - updated : 12/16/2002\nGeorge E. Tiller - updated : 3/13/2002\nVictor A. McKusick - updated : 4/14/1997\nVictor A. McKusick - updated : 2/11/1997",
+          "creationDate": "Victor A. McKusick : 6/4/1986",
+          "editHistory": "alopez : 07/28/2021\ncarol : 04/11/2019\ncarol : 06/14/2016\ncarol : 9/19/2014\njoanna : 9/18/2014\njoanna : 9/18/2014\ncarol : 10/1/2012\njoanna : 9/27/2012\ncarol : 3/7/2008\ncarol : 3/5/2008\ncarol : 3/5/2008\njoanna : 3/4/2008\ncarol : 1/21/2005\ncwells : 12/16/2002\ncwells : 3/13/2002\ndkim : 7/17/1998\nmark : 4/14/1997\nterry : 4/10/1997\njamie : 2/18/1997\nterry : 2/11/1997\nterry : 2/4/1997\ncarol : 5/11/1994\nmimadm : 3/11/1994\ncarol : 3/31/1992\ncarol : 3/23/1992\nsupermim : 3/16/1992\nsupermim : 3/20/1990",
+          "epochCreated": 518227200,
+          "dateCreated": "Wed, 04 Jun 1986 00:00:00 UTC",
+          "epochUpdated": 1627430400,
+          "dateUpdated": "Wed, 28 Jul 2021 00:00:00 UTC"
+        }
+      }
+    ]
+  }
+}

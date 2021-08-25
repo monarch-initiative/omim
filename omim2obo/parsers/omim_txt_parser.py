@@ -1,29 +1,29 @@
 import csv
-from omim2mondo.config import *
+from omim2obo.config import *
 import logging
-from omim2mondo.config import config
+from omim2obo.config import config
 import requests
 import re
 
-from omim2mondo.omim_type import OmimType
+from omim2obo.omim_type import OmimType
 
-LOG = logging.getLogger('omim2mondo.parser.omim_titles_parser')
+LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 
 
-def retrieve_mim_titles(download: bool = False):
+def retrieve_mim_file(file_name: str, download: bool = False):
     """
     Retrieve the mimTitles.txt file from the OMIM download server
     :return:
     """
     updated = False
-    mim_titles_file = DATA_DIR / 'mimTitles.txt'
+    mim_file = DATA_DIR / file_name
     if download:
-        url = f'https://data.omim.org/downloads/{config["API_KEY"]}/mimTitles.txt'
+        url = f'https://data.omim.org/downloads/{config["API_KEY"]}/{file_name}'
         resp = requests.get(url)
         if resp.status_code == 200:
             text = resp.text
             if not text.startswith('<!DOCTYPE html>'):
-                with open(mim_titles_file, 'w') as fout:
+                with open(mim_file, 'w') as fout:
                     fout.write(text)
                 lines = text.split('\n')
                 updated = True
@@ -33,10 +33,26 @@ def retrieve_mim_titles(download: bool = False):
     if not updated:
         # The server request failed. Use the cached file
         lines = []
-        with open(mim_titles_file, 'r') as fin:
+        with open(mim_file, 'r') as fin:
             lines = fin.readlines()
         LOG.warning('Failed to retrieve mimTitles.txt. Using the cached file. ')
     return lines
+
+
+def parse_mim_genes(lines):
+    mim_genes = {}
+    for line in lines:
+        if line.startswith('#'):
+            continue
+        tokens = line.split('\t')
+        if tokens[1] in ['moved/removed', 'phenotype', 'predominantly phenotypes']:
+            continue
+        if len(tokens) == 5:
+            mim_number, entry_type, entrez_id, gene_symbol, ensembl_id = tokens
+            mim_genes[mim_number] = (entry_type, entrez_id, gene_symbol, ensembl_id)
+        else:
+            LOG.warning("mim2gene - invalid line: ", line)
+    return mim_genes
 
 
 def parse_omim_id(omim_id):
@@ -84,7 +100,7 @@ def parse_mim_titles(lines):
             continue  # skip the comment lines
         declared, omim_id, pref_label, alt_label, inc_label = [i.strip() for i in line.split('\t')]
         if declared in declared_to_type:
-            omim_type[omim_id] = declared_to_type[declared]
+            omim_type[omim_id] = (declared_to_type[declared], pref_label, alt_label, inc_label)
         else:
             LOG.error('Unknown OMIM type line %s', line)
         if declared == 'Caret':  # moved|removed|split -> moved twice
@@ -93,3 +109,10 @@ def parse_mim_titles(lines):
                 replaced = [parse_omim_id(rep) for rep in pref_label[9:].split() if rep != 'AND']
                 omim_replaced[omim_id] = list(filter(None, replaced))
     return omim_type, omim_replaced
+
+def parse_phenotypic_series_titles(lines):
+    ...
+
+def parse_gene_map(lines):
+    ...
+

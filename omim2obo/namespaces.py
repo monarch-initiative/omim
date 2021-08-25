@@ -90,6 +90,160 @@ SEPIO = Namespace('http://purl.obolibrary.org/obo/SEPIO_')                    # 
 VIVO = Namespace('http://vivoweb.org/ontology/core#')                         # ontology for representing scholarship
 VFB = Namespace('http://virtualflybrain.org/reports/')                        # Drosophila neuroanatomy
 
+
+# phenotype
+EOM = Namespace('https://elementsofmorphology.nih.gov/index.cgi?tid=')         # Elements of Morphology phentoypes
+EOM_IMG = Namespace('https://elementsofmorphology.nih.gov/images/terms/')
+
+# publication/citation/reference sources
+DOI = Namespace('http://dx.doi.org/')                                         # Digital Object identifier
+GENEREVIEWS = Namespace('http://www.ncbi.nlm.nih.gov/books/')                 # NCBI gene and diseases
+# more bogus IRIs
+ISBN = Namespace('https://monarchinitiative.org/ISBN_')                       # International Standard Book Number
+ISBN_10 = Namespace('https://monarchinitiative.org/ISBN10_')                  # Same as ISBN has 10 digits pre 2007
+ISBN_13 = Namespace('https://monarchinitiative.org/ISBN13_')                  # International Standard Book Number with 13 digits starts w/ 978 or 979
+# 'ISBN-15': 'https://monarchinitiative.org/ISBN15_'                # I would like to think it is a typo blindly propagated   ***
+J = Namespace('http://www.informatics.jax.org/reference/J:')                  # MGI-internal identifiers for pubs (Journals)
+MPD = Namespace('https://phenome.jax.org/')                                   # Mouse Phenome Database
+MPD_ASSAY = Namespace('https://phenome.jax.org/db/qp?rtn=views/catlines&keymeas=')  # Mouse Phenome Database assay
+PMID = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')                       # PubMed Identifier
+PMCID = Namespace('http://www.ncbi.nlm.nih.gov/pmc/')                         # PubMed Central Identifier
+NCBIBSGENE = Namespace('http://www.ncbi.nlm.nih.gov/bookshelf/br.fcgi?book=gene&part=')         # NCBI BookShelf Gene book citation
+ASPGD_REF = Namespace('http://www.aspergillusgenome.org/cgi-bin/reference/reference.pl?dbid=')  # Aspergillus DB citation
+
+AQTLPUB = Namespace('https://www.animalgenome.org/cgi-bin/QTLdb/BT/qabstract?PUBMED_ID=')  # Animal Quantitative Trait Locus Publication
+GO_REF = Namespace('http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:')           # GO Reference Collection
+PAINT_REF = Namespace('http://www.geneontology.org/gene-associations/submission/paint/')   # Phylogenetic Annotation INference Tool
+HPO = Namespace('http://human-phenotype-ontology.org/')                                    # Human Phenotype Ontology
+APO = Namespace('http://purl.obolibrary.org/obo/APO_')                                     # Ascomycete phenotype ontolog
+
+# strains, lines, or organismal reagents
+APB = Namespace('http://pb.apf.edu.au/phenbank/strain.html?id=')                          # Australian Phenome Bank
+CMMR = Namespace('http://www.cmmr.ca/order.php?t=m&id=')                                  # Canadian Mouse Mutant Repository
+CORIELL = Namespace('https://catalog.coriell.org/0/Sections/Search/Sample_Detail.aspx?Ref=')  # Coriell Institute for Medical Research
+CORIELLCOLLECTION = Namespace('https://catalog.coriell.org/1/')
+CORIELLFAMILY = Namespace('https://catalog.coriell.org/0/Sections/BrowseCatalog/FamilyTypeSubDetail.aspx?fam=')
+CORIELLINDIVIDUAL = Namespace('https://catalog.coriell.org/Search?q=')
+DBSNPINDIVIDUAL = Namespace('http://www.ncbi.nlm.nih.gov/SNP/snp_ind.cgi?ind_id=')     # FIXME (form only has 'sub_id')
+# https://www.ncbi.nlm.nih.gov/mailman/pipermail/dbsnp-announce/2018q2/000186.html
+
+EMMA = Namespace('https://www.infrafrontier.eu/search?keyword=EM:')                       # European Mouse Mutant Archive
+JAX = Namespace('http://jaxmice.jax.org/strain/')                                         # The Jackson Laboratory
+MMRRC = Namespace('https://www.mmrrc.org/catalog/sds.php?mmrrc_id=')                      # Mutant Mouse Resource & Research Centers
+MPD_STRAIN = Namespace('http://phenome.jax.org/db/q?rtn=strains/details&strainid=')       # Mouse Phenome Database
+MUGEN = Namespace('http://bioit.fleming.gr/mugen/Controller?workflow=ViewModel&expand_all=true&name_begins=model.block&eid=')  # Mouse Genetics
+NCIMR = Namespace('https://mouse.ncifcrf.gov/available_details.asp?ID=')                  # link rot?
+RBRC = Namespace('http://www2.brc.riken.jp/lab/animal/detail.php?brc_no=')                # RIKEN BioResource Research Center
+
+# organisms and genome builds
+#                                                                       # National Center for Biotechnology Information
+NCBIASSEMBLY = Namespace('https://www.ncbi.nlm.nih.gov/assembly?term=')           #   Assembly  e.g. GRCh38
+NCBIGENOME = Namespace('https://www.ncbi.nlm.nih.gov/genome/')                    #   Genome    e.g. 51  (for human)
+NCBITAXON = Namespace('http://purl.obolibrary.org/obo/NCBITaxon_')                #   Taxon     e.g. 9606
+OMIA_BREED = Namespace('https://monarchinitiative.org/model/OMIA-breed:')         # Local IRI for Online Inheritance In Animal breeds
+UCSC = Namespace('ftp://hgdownload.cse.ucsc.edu/goldenPath/')                     # University of California, Santa Cruz golden path
+UCSCBUILD = Namespace('http://genome.ucsc.edu/cgi-bin/hgGateway?db=')             # University of California, Santa Cruz genome build
+# homology
+HOMOLOGENE = Namespace('http://www.ncbi.nlm.nih.gov/homologene/')                 # Putative Homology Groups
+KEGG_KO = Namespace('http://www.kegg.jp/dbget-bin/www_bget?ko:')                  # Kyoto Encyclopedia of Genes and Genomes (KEGG Orthology)
+PANTHER = Namespace('http://www.pantherdb.org/panther/family.do?clsAccession=')   # Protein ANalysis THrough Evolutionary Relationships
+
+# variants / traits
+
+# 'AnimalQTLdb': 'previously'
+HORSEQTL = Namespace('https://www.animalgenome.org/cgi-bin/QTLdb/EC/qdetails?QTL_ID=')
+CATTLEQTL = Namespace('https://www.animalgenome.org/cgi-bin/QTLdb/BT/qdetails?QTL_ID=')
+CATFISHQTL = Namespace('https://www.animalgenome.org/cgi-bin/QTLdb/IP/qdetails?QTL_ID=')
+CHICKENQTL = Namespace('https://www.animalgenome.org/cgi-bin/QTLdb/GG/qdetails?QTL_ID=')
+PIGQTL = Namespace('https://www.animalgenome.org/cgi-bin/QTLdb/SS/qdetails?QTL_ID=')
+RAINBOW_TROUTQTL = Namespace('https://www.animalgenome.org/cgi-bin/QTLdb/OM/qdetails?QTL_ID=')
+SHEEPQTL = Namespace('https://www.animalgenome.org/cgi-bin/QTLdb/OA/qdetails?QTL_ID=')
+
+BGD = Namespace('http://bovinegenome.org/genepages/btau40/genes/')                # The Bovine Genome Database (no direct link)
+#                                                                       # 'http://128.206.116.13:8080/bovinemine/report.do?id='
+
+CLINVAR = Namespace('http://www.ncbi.nlm.nih.gov/clinvar/')                       # Clinical Variation in Human
+CLINVARVARIANT = Namespace('http://www.ncbi.nlm.nih.gov/clinvar/variation/')      # ClinVar cooked variants
+CLINVARSUBMITTERS = Namespace('http://www.ncbi.nlm.nih.gov/clinvar/submitters/')  # ClinVar raw variants
+COSMIC = Namespace('http://cancer.sanger.ac.uk/cosmic/mutation/overview?id=')     # Catalogue Of Somatic Mutations In Cancer
+HGMD = Namespace('http://www.hgmd.cf.ac.uk/ac/gene.php?gene=')                    # Human Gene Mutation Database
+DBSNP = Namespace('http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=')     # Small Variation
+DBVAR = Namespace('http://www.ncbi.nlm.nih.gov/dbvar/')                           # Large Variation
+GWAS = Namespace('https://www.ebi.ac.uk/gwas/variants/')                          # Genome Wide Association Study Catalog
+
+# pathways
+KEGG_PATH = Namespace('http://www.kegg.jp/dbget-bin/www_bget?path:')              # Kyoto Encyclopedia of Genes and Genomes (pathways)
+KEGG_IMG = Namespace('http://www.genome.jp/kegg/pathway/map/')                    # Pathway Visualization
+REACT = Namespace('http://www.reactome.org/PathwayBrowser/#/')                    # Manually curated pathway database
+SMPDB = Namespace('http://smpdb.ca/view/')                                        # Small Molecule Pathway Database
+
+# genes (and RNAs and transcripts)
+ASPGD = Namespace('http://www.aspergillusgenome.org/cgi-bin/locus.pl?dbid=')              # Aspergillus Genome Database
+BIOGRID = Namespace('http://thebiogrid.org/')                                             # Biological General Repository for Interaction Datasets
+CCDS = Namespace('http://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&DATA=')    # Consensus CDS (CoDing Sequence)
+CGNC = Namespace('http://birdgenenames.org/cgnc/GeneReport?id=')                          # Chicken Gene Nomenclature Consortium
+DICTYBASE = Namespace('http://dictybase.org/gene/')                                       # Dictyostelium discoideum database (social amoebae)
+ECOGENE = Namespace('http://ecogene.org/gene/')                                           # Escherichia coli K-1
+ENSEMBL = Namespace('http://ensembl.org/id/')                                             # joint EMBL, EBI, Sanger Institute central resource
+ENSEMBLGENOME = Namespace('http://www.ensemblgenomes.org/id/')                            # The Ensembl genome annotation system
+FLYBASE = Namespace('http://flybase.org/reports/')                                        # Fruitfly database
+GENATLAS = Namespace('http://genatlas.medecine.univ-paris5.fr/fiche.php?symbol=')         # gene mapping and genetic diseases (Human)
+GENBANK = Namespace('http://www.ncbi.nlm.nih.gov/nuccore/')                               # NCBI nucleotide sequences
+# 'HGNC': 'http://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id='        # *** pre drupal site
+HGNC = Namespace('https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:')    # HUGO Gene Nomenclature Committee (Human)
+IMPC = Namespace('https://www.mousephenotype.org/data/genes/')                             # International Mouse Phenotyping Consortium (MGI:nnn)
+IMPC_PIPE = Namespace('https://www.mousephenotype.org/impress/PipelineInfo?id=')         # <pipeline-key>
+IMPC_PROC = Namespace('https://www.mousephenotype.org/impress/ProcedureInfo?action=list&procID=')  # <procedure-key>[&pipeID=<pipeline-key>]
+IMPC_PARAM = Namespace('https://www.mousephenotype.org/impress/OntologyInfo?action=list&procID=')  # <procedure-key>#<prarameter-key>
+KEGG_HSA = Namespace('http://www.kegg.jp/dbget-bin/www_bget?hsa:')                        # Kyoto Encyclopedia of Genes and Genomes (Human)
+MGI = Namespace('http://www.informatics.jax.org/accession/MGI:')                          # Mouse Genome Informatics
+MIRBASE = Namespace('http://www.mirbase.org/cgi-bin/mirna_entry.pl?acc=')                 # microRNA nomenclature, sequences & annotation
+NCBIGENE = Namespace('https://www.ncbi.nlm.nih.gov/gene/')                                # National Center for Biotechnology Information (Genes)
+POMBASE = Namespace('https://www.pombase.org/spombe/result/')                             # Database for fission yeast Schizosaccharomyces pombe  ***
+REFSEQ = Namespace('http://www.ncbi.nlm.nih.gov/refseq/?term=')                           # NCBI Reference Sequence Database
+RGD = Namespace('http://rgd.mcw.edu/rgdweb/report/gene/main.html?id=')                    # Rat Genome Database
+RGDREF = Namespace('http://rgd.mcw.edu/rgdweb/report/reference/main.html?id=')            # Rat Genome Database Reference publications
+SGD = Namespace('https://www.yeastgenome.org/locus/')                                     # Saccharomyces Genome Database
+SGD_REF = Namespace('https://www.yeastgenome.org/reference/')                             # Saccharomyces Genome Database Reference publications
+TAIR = Namespace('https://www.arabidopsis.org/servlets/TairObject?type=locus&id=')        # The Arabidopsis Information Resource
+VGNC = Namespace('https://vertebrate.genenames.org/data/gene-symbol-report/#!/vgnc_id/')  # Vertebrate Gene Nomenclature Committee
+WORMBASE = Namespace('https://www.wormbase.org/get?name=')                                # Caenorhabditis elegans Database (nematodes) ie WBGene00000001
+XENBASE = Namespace('http://www.xenbase.org/gene/showgene.do?method=display&geneId=')     # Xenopus Database (frog)
+ZFIN = Namespace('http://zfin.org/')                                                      # Zebrafish Information Network
+
+# proteins (and protein/macromolecular complexes)
+COMPLEXPORTAL = Namespace('https://www.ebi.ac.uk/complexportal/complex/')                 # Manually curated, encyclopaedic resource of macromolecular complexes
+EC = Namespace('https://www.enzyme-database.org/query.php?ec=')                           # Enzyme Commission (nomenclature)
+HPRD = Namespace('http://www.hprd.org/protein/')                                          # Human Protein Reference Database
+NCBIPROTEIN = Namespace('http://www.ncbi.nlm.nih.gov/protein/')                           # NCBI amino acid sequences
+PDB = Namespace('http://www.ebi.ac.uk/pdbsum/')                                           # Protein Data Bank
+
+SWISSPROT = Namespace('http://identifiers.org/SwissProt:')                                # UniProt Knowledgebase UniProtKB  Manual
+TREMBL = Namespace('http://purl.uniprot.org/uniprot/')                                    # UniProt Knowledgebase UniProtKB  Automated
+UNIPROTKB = Namespace('http://identifiers.org/uniprot/')                                  # UniProt Knowledgebase UniProtKB  Both
+
+INTERPRO = Namespace('https://www.ebi.ac.uk/interpro/entry/InterPro/')                    # Classification of protein families
+#                                                                                   # may become "GtoPdb"
+IUPHAR = Namespace('http://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=')  # Omnibus pharmacological information portal
+
+# Drugs, chemicals, compounds
+CID = Namespace('http://pubchem.ncbi.nlm.nih.gov/compound/')          # NCBI PubChem Compound
+DRUGBANK = Namespace('http://www.drugbank.ca/drugs/')                 # DrugBank database (drugs and drug targets)
+OAE = Namespace('http://purl.obolibrary.org/obo/OAE_')                # Ontology of Adverse Events
+RXCUI = Namespace('http://purl.bioontology.org/ontology/RXNORM/')     # Normalized names for clinical drugs (from Unified Medical Language System)
+MEDDRA = Namespace('http://purl.bioontology.org/ontology/MEDDRA/')    # Medical Dictionary for Regulatory Activities
+FDADRUG = Namespace('http://www.fda.gov/Drugs/InformationOnDrugs/')   # U.S. Food & Drug Administration Drug  (*** what uses? seems useless)
+BT = Namespace('http://c.biothings.io/#')                             # MyChem (BioThings)
+UNII = Namespace('http://fdasis.nlm.nih.gov/srs/unii/')               # Unique Ingredient Identifier (from FDA Substance Registration System)
+GINAS = Namespace('http://tripod.nih.gov/ginas/app/substance#')       # Global Ingredient Archival System (National Institute of Health)
+HMDB = Namespace('http://www.hmdb.ca/metabolites/')                   # Human Metabolome Database
+WD_PROP = Namespace('https://www.wikidata.org/wiki/Property:')        # Wikidata Property
+WD_ENTITY = Namespace('https://www.wikidata.org/wiki/')               # Wikidata
+
+PMID = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
+ORPHANET = Namespace('http://www.orpha.net/ORDO/Orphanet_')
+UMLS = Namespace('http://linkedlifedata.com/resource/umls/id/')
+oboInOwl = Namespace('http://www.geneontology.org/formats/oboInOwl#')
 # # Monarch-specific
 # '': 'https://monarchinitiative.org/'                                # local BASE IRI
 # 'MONARCH': 'https://monarchinitiative.org/MONARCH_'                 # local BOGUS IRI effectivly bnodes but less

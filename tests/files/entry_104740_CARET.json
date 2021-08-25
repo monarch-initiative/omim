@@ -1,0 +1,33 @@
+{
+  "omim": {
+    "version": "1.0",
+    "entryList": [
+      {
+        "entry": {
+          "prefix": "^",
+          "mimNumber": 104740,
+          "status": "moved",
+          "titles": {
+            "preferredTitle": "MOVED TO 602414"
+          },
+          "movedTo": "602414",
+          "textSectionList": [
+            {
+              "textSection": {
+                "textSectionName": "text",
+                "textSectionTitle": "Text",
+                "textSectionContent": "This entry was incorporated into {602414} on November 9, 2010."
+              }
+            }
+          ],
+          "creationDate": "Victor A. McKusick : 9/21/1988",
+          "editHistory": "carol : 11/09/2010\nterry : 1/7/2009\nalopez : 2/20/2007\nmark : 12/17/1997\nterry : 12/11/1997\ncarol : 10/15/1993\nsupermim : 3/16/1992\nsupermim : 3/20/1990\nsupermim : 2/27/1990\nddp : 10/26/1989\nroot : 9/27/1988",
+          "epochCreated": 590803200,
+          "dateCreated": "Wed, 21 Sep 1988 00:00:00 UTC",
+          "epochUpdated": 1289260800,
+          "dateUpdated": "Tue, 09 Nov 2010 00:00:00 UTC"
+        }
+      }
+    ]
+  }
+}

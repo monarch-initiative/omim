@@ -1,0 +1,197 @@
+{
+  "omim": {
+    "version": "1.0",
+    "entryList": [
+      {
+        "entry": {
+          "mimNumber": 100050,
+          "status": "live",
+          "titles": {
+            "preferredTitle": "AARSKOG SYNDROME, AUTOSOMAL DOMINANT"
+          },
+          "textSectionList": [
+            {
+              "textSection": {
+                "textSectionName": "description",
+                "textSectionTitle": "Description",
+                "textSectionContent": "Aarskog syndrome is characterized by short stature and facial, limb, and genital anomalies. One form of the disorder is X-linked (see {305400}), but there is also evidence for autosomal dominant and autosomal recessive ({227330}) inheritance (summary by {1:Grier et al., 1983})."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "clinicalFeatures",
+                "textSectionTitle": "Clinical Features",
+                "textSectionContent": "{1:Grier et al. (1983)} reported father and 2 sons with typical Aarskog syndrome, including short stature, hypertelorism, and shawl scrotum. Stretchable skin was present in these patients."
+              }
+            },
+            {
+              "textSection": {
+                "textSectionName": "inheritance",
+                "textSectionTitle": "Inheritance",
+                "textSectionContent": "{1:Grier et al. (1983)} tabulated the findings in 82 previously reported cases of Aarskog syndrome and noted that X-linked recessive inheritance was repeatedly suggested. However, their family had father-to-son transmission, and a family reported by {3:Welch (1974)} had affected males in 3 consecutive generations. {1:Grier et al. (1983)} suggested autosomal dominant inheritance with strong sex-influence and possibly ascertainment bias resulting from use of the shawl scrotum as a main criterion.\n\n{2:Van de Vooren et al. (1983)} studied a large family in which Aarskog syndrome was segregating with variable expression in 3 generations and with male-to-male transmission. Because 3 daughters of affected males had no features of Aarskog syndrome and 2 sons of an affected male had several features of the syndrome, {2:van de Vooren et al. (1983)} suggested sex-influenced autosomal dominant inheritance."
+              }
+            }
+          ],
+          "clinicalSynopsisExists": true,
+          "clinicalSynopsis": {
+            "oldFormat": {
+              "Growth": "Mild to moderate short stature",
+              "Head": "Normocephaly {UMLS C1855201}",
+              "Hair": "Widow's peak {UMLS C1853486 HP:0000349} {HPO HP:0000349 C1853486} {EOM ID:b1adb2541073344c IMG:Widows_Peak-small.jpg}",
+              "Facies": "Maxillary hypoplasia {ICD10CM:M26.02} {ICD9CM:524.03} {UMLS C0240310 HP:0000327} {HPO HP:0000327 C0240310,C4082243,C4280640,C4280641,C4280642,C4280643}; Broad nasal bridge {SNOMEDCT:249321001} {UMLS C1849367 HP:0000431} {HPO HP:0000431 C1839764,C1849367} {EOM ID:e29866db35162165 IMG:Nasal_Bridge,Wide-small.jpg}; Anteverted nostrils {SNOMEDCT:708670007} {UMLS C1840077 HP:0000463} {HPO HP:0000463 C1840077}; Long philtrum {UMLS C1865014 HP:0000343} {HPO HP:0000343 C1865014} {EOM ID:e1d74175c310388d IMG:Philtrum,Long-small.jpg}; Broad upper lip; Curved linear dimple below the lower lip {UMLS C1844572 HP:0002055} {HPO HP:0002055 C1844572}",
+              "Eyes": "Hypertelorism {SNOMEDCT:22006008} {ICD10CM:Q75.2} {ICD9CM:376.41} {UMLS C0020534 HP:0000316} {HPO HP:0000316 C0020534} {EOM ID:71d9f1be67c7f8b6 IMG:Eyes,Widely_Spaced-small.jpg}; Ptosis {SNOMEDCT:11934000,29696001} {ICD10CM:H02.4,H02.409,H02.40} {ICD9CM:374.3,374.30} {UMLS C0033377,C0005745 HP:0000508} {HPO HP:0000508 C0005745} {EOM ID:1bd157b764ec7aea IMG:Ptosis-small.jpg}; Down-slanted palpebral fissures {SNOMEDCT:246800008} {UMLS C0423110 HP:0000494} {HPO HP:0000494 C0423110}; Ophthalmoplegia {SNOMEDCT:16110005} {UMLS C0029089 HP:0000602} {HPO HP:0000602 C0029089}; Strabismus {SNOMEDCT:128602000,22066006} {ICD10CM:H50.9,H50.40} {ICD9CM:378.30} {UMLS C1423541,C0038379 HP:0032012,HP:0000486} {HPO HP:0000486 C0038379}; Hyperopic astigmatism {SNOMEDCT:449734001} {UMLS C1847524 HP:0000484} {HPO HP:0000484 C1847524}; Large cornea",
+              "Ears": "Floppy ears {UMLS C2673411}; Lop-ears",
+              "Mouth": "Cleft lip/palate {SNOMEDCT:66948001} {ICD10CM:Q37,Q35-Q37,Q37.9} {ICD9CM:749.2,749.20,749} {UMLS C0158646 HP:0000202} {HPO HP:0000202 C0158646,C4021813}",
+              "GU": "Shawl scrotum {UMLS C1858539 HP:0000049} {HPO HP:0000049 C1858539}; Saddle-bag scrotum; Cryptorchidism {SNOMEDCT:204878001} {ICD10CM:Q53.9} {ICD9CM:752.51} {UMLS C0010417 HP:0000028} {HPO HP:0000028 C0010417}",
+              "Limbs": "Brachydactyly {SNOMEDCT:43476002} {UMLS C0221357 HP:0001156} {HPO HP:0001156 C0221357}; Digital contractures {UMLS C4540668}; Clinodactyly {SNOMEDCT:17268007} {UMLS C4551485 HP:0030084} {HPO HP:0030084 C0265610,C4280304} {EOM ID:483af428f909c76c IMG:Clinodactyly-small.jpg}; Mild syndactyly {UMLS C1844576} {HPO HP:0001159 C0039075} {EOM ID:6356b068603280d9 IMG:Ar5E88PR3Xg7rWv6xkN9nKNP5nDqS9yx-small.jpg}; Transverse palmar crease {SNOMEDCT:248409006} {UMLS C0424731 HP:0000954} {HPO HP:0000954 C0424731}; Lymphedema of the feet",
+              "Joints": "Ligamentous laxity {SNOMEDCT:298203008,27911000} {ICD10CM:M24.2} {ICD9CM:728.4} {UMLS C0086437,C0158359 HP:0001388} {HPO HP:0001388 C0086437,C0158359}; Osteochondritis dissecans {SNOMEDCT:82562007} {ICD10CM:M93.2} {ICD9CM:732.7} {UMLS C0029421 HP:0010886} {HPO HP:0010886 C0029421}; Proximal finger joint hyperextensibility {UMLS C4025242 HP:0005190} {HPO HP:0005190 C4025242}; Flexed distal finger joints; Genu recurvatum {SNOMEDCT:46101007,205063003} {ICD10CM:Q68.2} {ICD9CM:754.40,736.5} {UMLS C0158486,C0546964,C0152235 HP:0002816} {HPO HP:0002816 C0546964}; Flat feet {SNOMEDCT:53226007,203534009} {ICD10CM:M21.4} {ICD9CM:734} {UMLS C0016202,C0264133 HP:0001763} {HPO HP:0001763 C0016202,C0264133}",
+              "Skin": "Stretchable skin {UMLS C0241074 HP:0000974} {HPO HP:0000974 C0241074}",
+              "Spine": "Cervical spine hypermobility {SNOMEDCT:298186005} {UMLS C0574967 HP:0003318} {HPO HP:0003318 C0574967}; Odontoid anomaly",
+              "Heme": "Macrocytic anemia {SNOMEDCT:83414005} {UMLS C0002886,C1420653 HP:0001972} {HPO HP:0001972 C0002886}; Hemochromatosis {SNOMEDCT:399144008,399187006} {ICD10CM:E83.11,E83.110,E83.119} {UMLS C3469186,C0018995,C1384665}",
+              "GI": "Hepatomegaly {SNOMEDCT:80515008} {ICD10CM:R16.0} {ICD9CM:789.1} {UMLS C0019209 HP:0002240} {HPO HP:0002240 C0019209}; Portal cirrhosis {SNOMEDCT:419728003} {ICD10CM:K74.69} {UMLS C1622502}; Imperforate anus {SNOMEDCT:204712000,204731006} {ICD10CM:Q42.3} {UMLS C0003466 HP:0002023} {HPO HP:0002023 C0003466}; Rectoperineal fistula {UMLS C0240880 HP:0004792} {HPO HP:0004792 C0240880}",
+              "Pulmonary": "Interstitial pulmonary disease {SNOMEDCT:233703007} {ICD10CM:J84.9} {UMLS C0206062 HP:0006530} {HPO HP:0006530 C0206062}",
+              "Thorax": "Sternal deformity",
+              "Inheritance": "Sex-influenced autosomal dominant form; also X-linked form"
+            },
+            "oldFormatExists": true,
+            "inheritanceExists": true,
+            "growthExists": true,
+            "growthHeightExists": false,
+            "growthWeightExists": false,
+            "growthOtherExists": false,
+            "headAndNeckExists": true,
+            "headAndNeckHeadExists": true,
+            "headAndNeckFaceExists": true,
+            "headAndNeckEarsExists": true,
+            "headAndNeckEyesExists": true,
+            "headAndNeckNoseExists": false,
+            "headAndNeckMouthExists": true,
+            "headAndNeckTeethExists": false,
+            "headAndNeckNeckExists": false,
+            "cardiovascularExists": false,
+            "cardiovascularHeartExists": false,
+            "cardiovascularVascularExists": false,
+            "respiratoryExists": true,
+            "respiratoryNasopharynxExists": false,
+            "respiratoryLarynxExists": false,
+            "respiratoryAirwaysExists": false,
+            "respiratoryLungExists": false,
+            "chestExists": true,
+            "chestExternalFeaturesExists": false,
+            "chestRibsSternumClaviclesAndScapulaeExists": false,
+            "chestBreastsExists": false,
+            "chestDiaphragmExists": false,
+            "abdomenExists": false,
+            "abdomenExternalFeaturesExists": false,
+            "abdomenLiverExists": false,
+            "abdomenPancreasExists": false,
+            "abdomenBiliaryTractExists": false,
+            "abdomenSpleenExists": false,
+            "abdomenGastrointestinalExists": false,
+            "genitourinaryExists": true,
+            "genitourinaryExternalGenitaliaMaleExists": false,
+            "genitourinaryExternalGenitaliaFemaleExists": false,
+            "genitourinaryInternalGenitaliaMaleExists": false,
+            "genitourinaryInternalGenitaliaFemaleExists": false,
+            "genitourinaryKidneysExists": false,
+            "genitourinaryUretersExists": false,
+            "genitourinaryBladderExists": false,
+            "skeletalExists": true,
+            "skeletalSkullExists": false,
+            "skeletalSpineExists": true,
+            "skeletalPelvisExists": false,
+            "skeletalLimbsExists": true,
+            "skeletalHandsExists": false,
+            "skeletalFeetExists": false,
+            "skinNailsHairExists": true,
+            "skinNailsHairSkinExists": true,
+            "skinNailsHairSkinHistologyExists": false,
+            "skinNailsHairSkinElectronMicroscopyExists": false,
+            "skinNailsHairNailsExists": false,
+            "skinNailsHairHairExists": true,
+            "muscleSoftTissueExists": false,
+            "neurologicExists": false,
+            "neurologicCentralNervousSystemExists": false,
+            "neurologicPeripheralNervousSystemExists": false,
+            "neurologicBehavioralPsychiatricManifestationsExists": false,
+            "voiceExists": false,
+            "metabolicFeaturesExists": false,
+            "endocrineFeaturesExists": false,
+            "hematologyExists": true,
+            "immunologyExists": false,
+            "neoplasiaExists": false,
+            "prenatalManifestationsExists": false,
+            "prenatalManifestationsMovementExists": false,
+            "prenatalManifestationsAmnioticFluidExists": false,
+            "prenatalManifestationsPlacentaAndUmbilicalCordExists": false,
+            "prenatalManifestationsMaternalExists": false,
+            "prenatalManifestationsDeliveryExists": false,
+            "laboratoryAbnormalitiesExists": false,
+            "miscellaneousExists": false,
+            "molecularBasisExists": false,
+            "creationDate": "Undefined",
+            "editHistory": "Undefined"
+          },
+          "referenceList": [
+            {
+              "reference": {
+                "mimNumber": 100050,
+                "referenceNumber": 1,
+                "authors": "Grier, R. E., Farrington, F. H., Kendig, R., Mamunes, P.",
+                "title": "Autosomal dominant inheritance of the Aarskog syndrome.",
+                "source": "Am. J. Med. Genet. 15: 39-46, 1983.",
+                "pubmedID": 6344635,
+                "articleUrl": "https://onlinelibrary.wiley.com/resolve/openurl?genre=article&sid=nlm:pubmed&issn=0148-7299&date=1983&volume=15&issue=1&spage=39",
+                "doi": "10.1002/ajmg.1320150105"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100050,
+                "referenceNumber": 2,
+                "authors": "van de Vooren, M. J., Niermeijer, M. F., Hoogeboom, A. J. M.",
+                "title": "The Aarskog syndrome in a large family, suggestive for autosomal dominant inheritance.",
+                "source": "Clin. Genet. 24: 439-445, 1983.",
+                "pubmedID": 6652957,
+                "articleUrl": "https://onlinelibrary.wiley.com/resolve/openurl?genre=article&sid=nlm:pubmed&issn=0009-9163&date=1983&volume=24&issue=6&spage=439",
+                "doi": "10.1111/j.1399-0004.1983.tb00100.x"
+              }
+            },
+            {
+              "reference": {
+                "mimNumber": 100050,
+                "referenceNumber": 3,
+                "authors": "Welch, J. P.",
+                "title": "Elucidation of a 'new' pleiotropic connective tissue disorder.",
+                "source": "Birth Defects Orig. Art. Ser. X(10): 138-146, 1974."
+              }
+            }
+          ],
+          "externalLinks": {
+            "mgiHumanDisease": false,
+            "wormbaseDO": false,
+            "orphanetDiseases": "915;;394;;Aarskog-Scott syndrome",
+            "decipherGene": false,
+            "umlsIDs": "C3149220",
+            "diseaseOntologyIDs": "0111825",
+            "gtr": true,
+            "cmgGene": false,
+            "keggPathways": false,
+            "gwasCatalog": false,
+            "clinGenDosage": false,
+            "clinGenValidity": false,
+            "monarch": false,
+            "newbornScreening": false
+          },
+          "contributors": "Nara Sobreira - updated : 4/22/2013",
+          "creationDate": "Victor A. McKusick : 6/4/1986",
+          "editHistory": "carol : 04/24/2013\ncarol : 4/22/2013\ncarol : 2/16/2011\nalopez : 6/3/1997\nmimadm : 3/11/1994\ncarol : 7/7/1993\nsupermim : 3/16/1992\nsupermim : 3/20/1990\nddp : 10/26/1989\nmarie : 3/25/1988",
+          "epochCreated": 518227200,
+          "dateCreated": "Wed, 04 Jun 1986 00:00:00 UTC",
+          "epochUpdated": 1366761600,
+          "dateUpdated": "Wed, 24 Apr 2013 00:00:00 UTC"
+        }
+      }
+    ]
+  }
+}
