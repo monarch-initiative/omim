@@ -4,6 +4,9 @@ import logging
 from omim2obo.config import config
 import requests
 import re
+from typing import List, Dict, Tuple
+from rdflib import URIRef
+from collections import defaultdict
 
 from omim2obo.omim_type import OmimType
 
@@ -110,14 +113,50 @@ def parse_mim_titles(lines):
                 omim_replaced[omim_id] = list(filter(None, replaced))
     return omim_type, omim_replaced
 
-def parse_phenotypic_series_titles(lines):
-    ...
+
+def parse_phenotypic_series_titles(lines) -> Dict[str, List]:
+    ret = defaultdict(list)
+    for line in lines:
+        if line.startswith('#'):
+            continue
+        tokens = line.split('\t')
+        if len(tokens) == 2:
+            ret[tokens[0].strip()].append(tokens[1].strip())
+            ret[tokens[0].strip()].append([])
+        if len(tokens) == 3:
+            ret[tokens[0].strip()][1].append(tokens[1])
+    return ret
 
 
 def parse_gene_map(lines):
     ...
 
 
-def parse_morbid_map(lines):
-    ...
+def parse_mim2gene(lines) -> Tuple:
+    gene_map = {}
+    pheno_map = {}
+    for line in lines:
+        if line.startswith('#'):
+            continue
+        tokens = line.split('\t')
+        if tokens[1] == 'gene' or tokens[1] == 'gene/phenotype':
+            if tokens[2]:
+                gene_map[tokens[0]] = tokens[2]
+        elif tokens[1] == 'phenotype' or tokens[1] == 'predominantly phenotypes':
+            if tokens[2]:
+                pheno_map[tokens[0]] = tokens[2]
+    return gene_map, pheno_map
+
+
+def parse_morbid_map(lines) -> Dict[str, List[str]]:
+    ret = {}
+    for line in lines:
+        if line.startswith('#'):
+            continue
+        tokens = line.split('\t')
+        penotype_omim_id = tokens[0].split(',')[-1].split(' ')[0]
+        gene_omim_id = tokens[2]
+        cyto_location = tokens[3]
+        ret[gene_omim_id] = [penotype_omim_id, cyto_location]
+    return ret
 
