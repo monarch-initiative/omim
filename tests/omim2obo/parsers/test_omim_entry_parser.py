@@ -13,7 +13,7 @@ def test_transform_entry_null():
 
     for prefix, uri in CURIE_MAP.items():
         graph.namespace_manager.bind(prefix, URIRef(uri))
-    print(graph.serialize(format='turtle').decode())
+    print(graph.serialize(format='turtle'))
 
 
 def test_transform_entry_percent():
@@ -24,7 +24,7 @@ def test_transform_entry_percent():
 
     for prefix, uri in CURIE_MAP.items():
         graph.namespace_manager.bind(prefix, URIRef(uri))
-    print(graph.serialize(format='turtle').decode())
+    print(graph.serialize(format='turtle'))
 
 
 def test_transform_entry_asterisk_1():
@@ -38,7 +38,7 @@ def test_transform_entry_asterisk_1():
 
     omim_uri = OMIM[str(entry['mimNumber'])]
     assert (omim_uri, OWL.equivalentClass, NCBIGENE['218']) in graph
-    print(graph.serialize(format='turtle').decode())
+    print(graph.serialize(format='turtle'))
 
 
 def test_transform_entry_asterisk_2():
@@ -51,7 +51,7 @@ def test_transform_entry_asterisk_2():
         graph.namespace_manager.bind(prefix, URIRef(uri))
 
     omim_uri = OMIM[str(entry['mimNumber'])]
-    print(graph.serialize(format='turtle').decode())
+    print(graph.serialize(format='turtle'))
 
 
 def test_transform_entry_plus():
@@ -62,7 +62,7 @@ def test_transform_entry_plus():
 
     for prefix, uri in CURIE_MAP.items():
         graph.namespace_manager.bind(prefix, URIRef(uri))
-    print(graph.serialize(format='turtle').decode())
+    print(graph.serialize(format='turtle'))
 
 
 def test_transform_entry_number_sign():
@@ -76,4 +76,4 @@ def test_transform_entry_number_sign():
 
     omim_uri = OMIM[str(entry['mimNumber'])]
     assert (omim_uri, BIOLINK['category'], BIOLINK['Disease']) in graph
-    print(graph.serialize(format='turtle').decode())
+    print(graph.serialize(format='turtle'))

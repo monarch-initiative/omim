@@ -4,10 +4,9 @@ from rdflib import Graph, Namespace, RDF, RDFS, DC, Literal, OWL, URIRef
 
 from omim2obo.main import OmimGraph, build_uri
 from omim2obo.omim_type import OmimType, get_omim_type
-from omim2obo.utils import cleanup_label, get_mapped_gene_ids, get_pubs, get_mapped_ids, get_phenotypic_series, \
-    get_process_allelic_variants
+from omim2obo.utils.api_entry import cleanup_label, get_mapped_gene_ids, get_pubs, get_mapped_ids, get_phenotypic_series, \
+    get_process_allelic_variants, get_alt_labels
 from omim2obo.namespaces import *
-from omim2obo.utils import cleanup_label, get_alt_labels
 
 LOG = logging.getLogger('omim2obo.parsers.api_entry_parser')
 
