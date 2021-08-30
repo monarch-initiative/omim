@@ -12,16 +12,32 @@ def check_version(file_path):
     print(Path(file_path).stat())
 
 
+def cleanup_synonym(synonym):
+    """
+    Reformat to lower case the first character of the string.
+
+    :param synonym: str
+    :return: str
+    """
+    abbrev_with_periods = re.match('^([A-Z]\.){2,}$', synonym)
+    abbrev_without_periods = re.match('^[A-Z]{2,}$', synonym)
+    if abbrev_with_periods or abbrev_without_periods:
+        return synonym
+    else:
+        return synonym[0].lower() + synonym[1:]
+
+
 def cleanup_label(label):
     """
     Reformat the ALL CAPS OMIM labels to something more pleasant to read.
     This will:
     1.  remove the abbreviation suffixes
     2.  convert the roman numerals to integer numbers
-    3.  make the text title case,
-        except for suplied conjunctions/prepositions/articles
-    :param label:
-    :return:
+    3.  make the text title case, w/ exceptions for
+        - supplied conjunctions/prepositions/articles
+        - the first character of the string
+    :param label: str
+    :return: str
     """
     conjunctions = ['and', 'but', 'yet', 'for', 'nor', 'so']
     little_preps = [
@@ -50,8 +66,9 @@ def cleanup_label(label):
                 fixed = ''.join((str(num), suffix))
                 wrd = fixed
 
-        # capitalize first letter
-        wrd = wrd.title()
+        # capitalize first letter, except for first word
+        if i > 1:
+            wrd = wrd.title()
 
         # replace interior conjunctions, prepositions,
         # and articles with lowercase
@@ -61,6 +78,7 @@ def cleanup_label(label):
         fixedwords.append(wrd)
 
     lbl = ' '.join(fixedwords)
+
     # print (label, '-->', lbl)
     return lbl
 
