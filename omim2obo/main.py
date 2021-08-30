@@ -13,6 +13,8 @@ LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
 
+DOWNLOAD_TXT_FILES = False
+
 
 def get_curie_maps():
     map_file = DATA_DIR / 'dipper/curie_map.yaml'
@@ -22,10 +24,6 @@ def get_curie_maps():
 
 
 CURIE_MAP = get_curie_maps()
-
-
-def build_uri(ns_prefix, identifier):
-    return URIRef(CURIE_MAP[ns_prefix] + identifier)
 
 
 class OmimGraph(Graph):
@@ -46,7 +44,7 @@ if __name__ == '__main__':
         graph.namespace_manager.bind(prefix, URIRef(uri))
 
     # Parse mimTitles.txt
-    omim_titles, omim_replaced = parse_mim_titles(retrieve_mim_file('mimTitles.txt'))
+    omim_titles, omim_replaced = parse_mim_titles(retrieve_mim_file('mimTitles.txt', DOWNLOAD_TXT_FILES))
     omim_ids = list(omim_titles.keys() - omim_replaced.keys())
 
     LOG.info('Have %i omim numbers from mimTitles.txt', len(omim_ids))
@@ -92,14 +90,14 @@ if __name__ == '__main__':
             graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(label)))
 
     # Gene ID
-    gene_map, pheno_map = parse_mim2gene(retrieve_mim_file('mim2gene.txt'))
+    gene_map, pheno_map = parse_mim2gene(retrieve_mim_file('mim2gene.txt', DOWNLOAD_TXT_FILES))
     for mim_number, entrez_id in gene_map.items():
         graph.add((OMIM[mim_number], OWL.equivalentClass, NCBIGENE[entrez_id]))
     for mim_number, entrez_id in pheno_map.items():
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
 
     # Phenotpyic Series
-    pheno_series = parse_phenotypic_series_titles(retrieve_mim_file('phenotypicSeries.txt'))
+    pheno_series = parse_phenotypic_series_titles(retrieve_mim_file('phenotypicSeries.txt', DOWNLOAD_TXT_FILES))
     for ps in pheno_series:
         graph.add((OMIMPS[ps], RDF.type, OWL.Class))
         graph.add((OMIMPS[ps], RDFS.label, Literal(pheno_series[ps][0])))
@@ -108,7 +106,7 @@ if __name__ == '__main__':
             graph.add((OMIM[mim_number], RO['0003304'], OMIMPS[ps]))
 
     # Morbid map (cyto locations)
-    morbid_map = parse_morbid_map(retrieve_mim_file('morbidmap.txt'))
+    morbid_map = parse_morbid_map(retrieve_mim_file('morbidmap.txt', DOWNLOAD_TXT_FILES))
     for mim_number in morbid_map:
         phenotype_mim_number, cyto_location = morbid_map[mim_number]
         if phenotype_mim_number:
