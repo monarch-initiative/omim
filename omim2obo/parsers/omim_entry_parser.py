@@ -2,7 +2,7 @@ import logging
 from typing import Optional
 from rdflib import Graph, Namespace, RDF, RDFS, DC, Literal, OWL, URIRef
 
-from omim2obo.main import OmimGraph, build_uri
+from omim2obo.main import OmimGraph
 from omim2obo.omim_type import OmimType, get_omim_type
 from omim2obo.utils.api_entry import cleanup_label, get_mapped_gene_ids, get_pubs, get_mapped_ids, get_phenotypic_series, \
     get_process_allelic_variants, get_alt_labels
@@ -44,9 +44,9 @@ def transform_entry(entry) -> Graph:
     else:
         graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
 
-    graph.add((omim_uri, build_uri('oboInOwl', 'hasExactSynonym'), Literal(label)))
+    graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label)))
     for label in other_labels:
-        graph.add((omim_uri, build_uri('oboInOwl', 'hasRelatedSynonym'), Literal(label)))
+        graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(label)))
 
     if 'geneMapExists' in entry and entry['geneMapExists']:
         genemap = entry['geneMap']
