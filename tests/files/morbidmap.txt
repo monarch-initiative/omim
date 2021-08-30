@@ -1,0 +1,4 @@
+# Phenotype	Gene Symbols	MIM Number	Cyto Location
+17,20-lyase deficiency, isolated, 202110 (3)	CYP17A1, CYP17, P450C17	609300	10q24.32
+17-alpha-hydroxylase/17,20-lyase deficiency, 202110 (3)	CYP17A1, CYP17, P450C17	609300	10q24.32
+2,4-dienoyl-CoA reductase deficiency, 616034 (3)	NADK2, C5orf33, DECRD	615787	5p13.2

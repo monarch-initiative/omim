@@ -13,7 +13,7 @@ from omim2obo.omim_type import OmimType
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 
 
-def retrieve_mim_file(file_name: str, download: bool = False):
+def retrieve_mim_file(file_name: str, download: bool = False) -> List[str]:
     """
     Retrieve the mimTitles.txt file from the OMIM download server
     :return:
@@ -30,7 +30,7 @@ def retrieve_mim_file(file_name: str, download: bool = False):
                     fout.write(text)
                 lines = text.split('\n')
                 updated = True
-                LOG.info('mimTitles.txt retrieved and updated')
+                LOG.info(f'{file_name} retrieved and updated')
         else:
             LOG.warning('Response from server: ' + resp.text)
     if not updated:
@@ -38,7 +38,8 @@ def retrieve_mim_file(file_name: str, download: bool = False):
         lines = []
         with open(mim_file, 'r') as fin:
             lines = fin.readlines()
-        LOG.warning('Failed to retrieve mimTitles.txt. Using the cached file. ')
+        if download:
+            LOG.warning('Failed to retrieve mimTitles.txt. Using the cached file. ')
     return lines
 
 
@@ -132,7 +133,7 @@ def parse_gene_map(lines):
     ...
 
 
-def parse_mim2gene(lines) -> Tuple:
+def parse_mim2gene(lines) -> Tuple[Dict]:
     gene_map = {}
     pheno_map = {}
     for line in lines:
@@ -150,13 +151,46 @@ def parse_mim2gene(lines) -> Tuple:
 
 def parse_morbid_map(lines) -> Dict[str, List[str]]:
     ret = {}
+    p = re.compile(r".*,\s+(\d+)\s\(\d\)")
     for line in lines:
         if line.startswith('#'):
             continue
         tokens = line.split('\t')
-        penotype_omim_id = tokens[0].split(',')[-1].split(' ')[0]
-        gene_omim_id = tokens[2]
-        cyto_location = tokens[3]
-        ret[gene_omim_id] = [penotype_omim_id, cyto_location]
+        m = p.match(tokens[0])
+        if m:
+            phenotype_mim_number = m.group(1)
+        else:
+            phenotype_mim_number = ''
+        gene_mim_number = tokens[2].strip()
+        cyto_location = tokens[3].strip()
+        ret[gene_mim_number] = [phenotype_mim_number, cyto_location]
     return ret
 
+
+def get_maps_from_turtle() -> Dict:
+    pmid_maps = defaultdict(list)
+    umls_maps = defaultdict(list)
+    orphanet_maps = defaultdict(list)
+    mim_number = None
+
+    with open(DATA_DIR / 'omim.ttl', 'r') as file:
+        while line := file.readline():
+            line = line.rstrip()
+            if line.startswith('OMIM:'):
+                mim_number = line.split()[0].split(':')[1]
+            elif line.startswith('PMID:') or line.startswith('UMLS:') or line.startswith('@prefix'):
+                continue
+            else:
+                pm_match = re.compile(r'.*PMID:(\d+).*').match(line)
+                if pm_match:
+                    pm_id = pm_match.group(1)
+                    pmid_maps[mim_number].append(pm_id)
+                umls_match = re.compile(r'.*UMLS:(C\d+).*').match(line)
+                if umls_match:
+                    umls_id = umls_match.group(1)
+                    umls_maps[mim_number].append(umls_id)
+                orphanet_match = re.compile(r'.*ORPHA:(C\d+).*').match(line)
+                if orphanet_match:
+                    orpha_id = orphanet_match.group(1)
+                    orphanet_maps[mim_number].append(orpha_id)
+    return pmid_maps, umls_maps, orphanet_maps

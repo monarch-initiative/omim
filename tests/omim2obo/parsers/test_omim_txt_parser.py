@@ -22,20 +22,27 @@ def test_parse_omim_id_4():
     assert parse_omim_id(omim_id) is None
 
 
-def test_retrieve_mim_titles():
-    config['API_KEY'] = 'INVALID_API_KEY'
-    lines = retrieve_mim_titles()
-    assert len(lines) > 20000
+# def test_retrieve_mim_titles():
+#     config['API_KEY'] = 'INVALID_API_KEY'
+#     lines = retrieve_mim_titles()
+#     assert len(lines) > 20000
 
 
 def test_parse_mim_titles():
     with open(ROOT / 'tests/files/mimTitles.txt', 'r') as fin:
         lines = fin.readlines()
     omim_type, omim_replaced = parse_mim_titles(lines)
-    assert len(omim_type) == 27126
-    assert len(omim_replaced) == 1316
+    assert len(omim_type) > 27000
+    assert len(omim_replaced) > 1300
     assert '100500' in omim_replaced
     assert omim_replaced['162820'] == ['147060', '150550', '252270']
     assert omim_type['100050'] == 'NCIT:C71458'
+
+
+def test_parse_morbid_map():
+    with open(ROOT / 'tests/files/morbidmap.txt', 'r') as fin:
+        lines = fin.readlines()
+    morbid_map = parse_morbid_map(lines)
+    print(morbid_map)
 
 

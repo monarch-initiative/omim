@@ -14,12 +14,14 @@ LOG = logging.getLogger('OmimClient')
 
 @dataclass
 class OmimClient:
-    start: int
-    total: int
     api_key: str
     omim_ids: List[str]
+    start: int = 0
+    total: int = -1
 
     def fetch_all(self):
+        if self.total < 0:
+            self.total = len(self.omim_ids)
         total_to_fetch = min(self.total, MAX_TOTAL)
         count = 0
         result = []
