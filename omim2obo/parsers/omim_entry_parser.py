@@ -12,6 +12,13 @@ LOG = logging.getLogger('omim2obo.parsers.api_entry_parser')
 
 
 def transform_entry(entry) -> Graph:
+    """
+    Transforms an OMIM API entry to a graph.
+    This function is obsolete and incomplete. It should only be used to verify the API entry and some functions
+
+    :param entry:
+    :return:
+    """
     omim_type = get_omim_type(entry.get('prefix', None))
     omim_num = str(entry['mimNumber'])
     titles = entry['titles']

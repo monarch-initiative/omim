@@ -119,9 +119,8 @@ if __name__ == '__main__':
     pmid_map, umls_map, orphanet_map = get_maps_from_turtle()
 
     # Get the recent updated
-    with open(DATA_DIR / 'updated_01_2020_to_08_2021.json', 'r') as json_file:
-        updated_mims = json.load(json_file)
-    for entry in updated_mims:
+    updated_entries = get_updated_entries()
+    for entry in updated_entries:
         entry = entry['entry']
         mim_number = str(entry['mimNumber'])
         pmid_map[mim_number] = get_pubs(entry)

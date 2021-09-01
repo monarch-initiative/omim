@@ -7,15 +7,18 @@ import re
 from typing import List, Dict, Tuple
 from rdflib import URIRef
 from collections import defaultdict
+import json
 
+from omim2obo.omim_client import OmimClient
 from omim2obo.omim_type import OmimType
+from omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 
 
 def retrieve_mim_file(file_name: str, download: bool = False) -> List[str]:
     """
-    Retrieve the mimTitles.txt file from the OMIM download server
+    Retrieve OMIM downloadable text file from the OMIM download server
     :return:
     """
     updated = False
@@ -194,3 +197,23 @@ def get_maps_from_turtle() -> Dict:
                     orpha_id = orphanet_match.group(1)
                     orphanet_maps[mim_number].append(orpha_id)
     return pmid_maps, umls_maps, orphanet_maps
+
+
+def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month=8):
+    """
+    TODO: Update this function to dynamically retrieve the updated records
+    :return:
+    """
+    updated_mims = set()
+    updated_entries = []
+    for year in range(start_year, end_year):
+        first_month = start_month if year == start_year else 1
+        for month in range(first_month, 13):
+            updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))
+    for month in range(1, end_month + 1):
+        updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))
+    client = OmimClient(api_key=config['API_KEY'], omim_ids=list(updated_mims))
+    updated_entries.extend(client.fetch_all()['omim']['entryList'])
+    with open(DATA_DIR / 'updated_01_2020_to_08_2021.json', 'r') as json_file:
+        updated_entries = json.load(json_file)
+    return updated_entries
