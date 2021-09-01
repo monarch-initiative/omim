@@ -103,7 +103,7 @@ if __name__ == '__main__':
         graph.add((OMIMPS[ps], RDFS.label, Literal(pheno_series[ps][0])))
         graph.add((OMIMPS[ps], BIOLINK.category, BIOLINK.Disease))
         for mim_number in pheno_series[ps][1]:
-            graph.add((OMIM[mim_number], RO['0003304'], OMIMPS[ps]))
+            graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps]))
 
     # Morbid map (cyto locations)
     morbid_map = parse_morbid_map(retrieve_mim_file('morbidmap.txt', DOWNLOAD_TXT_FILES))
