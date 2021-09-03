@@ -124,11 +124,12 @@ def parse_phenotypic_series_titles(lines) -> Dict[str, List]:
         if line.startswith('#'):
             continue
         tokens = line.split('\t')
+        ps_id = tokens[0].strip()[2:]
         if len(tokens) == 2:
-            ret[tokens[0].strip()].append(tokens[1].strip())
-            ret[tokens[0].strip()].append([])
+            ret[ps_id].append(tokens[1].strip())
+            ret[ps_id].append([])
         if len(tokens) == 3:
-            ret[tokens[0].strip()][1].append(tokens[1])
+            ret[ps_id][1].append(tokens[1])
     return ret
 
 
@@ -204,16 +205,16 @@ def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month
     TODO: Update this function to dynamically retrieve the updated records
     :return:
     """
-    updated_mims = set()
-    updated_entries = []
-    for year in range(start_year, end_year):
-        first_month = start_month if year == start_year else 1
-        for month in range(first_month, 13):
-            updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))
-    for month in range(1, end_month + 1):
-        updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))
-    client = OmimClient(api_key=config['API_KEY'], omim_ids=list(updated_mims))
-    updated_entries.extend(client.fetch_all()['omim']['entryList'])
+    # updated_mims = set()
+    # updated_entries = []
+    # for year in range(start_year, end_year):
+    #     first_month = start_month if year == start_year else 1
+    #     for month in range(first_month, 13):
+    #         updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))
+    # for month in range(1, end_month + 1):
+    #     updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))
+    # client = OmimClient(api_key=config['API_KEY'], omim_ids=list(updated_mims))
+    # updated_entries.extend(client.fetch_all()['omim']['entryList'])
     with open(DATA_DIR / 'updated_01_2020_to_08_2021.json', 'r') as json_file:
         updated_entries = json.load(json_file)
     return updated_entries
