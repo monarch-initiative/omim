@@ -3,7 +3,7 @@ import sys
 from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC
 
 from omim2obo.namespaces import *
-from omim2obo.utils.api_entry import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
+from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
 from omim2obo.omim_client import OmimClient
 from omim2obo.config import config, DATA_DIR
 from omim2obo.parsers.omim_txt_parser import *
