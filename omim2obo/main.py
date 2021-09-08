@@ -3,11 +3,12 @@ import sys
 from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
 
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
+from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids, cleanup_synonym
 from omim2obo.omim_client import OmimClient
 from omim2obo.config import config, DATA_DIR
 from omim2obo.parsers.omim_txt_parser import *
 from omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
+
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -71,6 +72,7 @@ if __name__ == '__main__':
 
         # Labels
         abbrev = label.split(';')[1].strip() if ';' in label else None
+
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # %
             graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
@@ -97,10 +99,10 @@ if __name__ == '__main__':
             graph.add((axoim_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
 
         for exact_label in exact_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(exact_label)))
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(cleanup_synonym(exact_label, abbrev))))
 
         for label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(label)))
+            graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(cleanup_synonym(label, abbrev))))
 
     # Gene ID
     gene_map, pheno_map = parse_mim2gene(retrieve_mim_file('mim2gene.txt', DOWNLOAD_TXT_FILES))
@@ -163,9 +165,3 @@ if __name__ == '__main__':
 
     with open(DATA_DIR / 'omim_new.ttl', 'w') as f:
         f.write(graph.serialize(format='turtle'))
-
-
-
-
-
-
