@@ -1,6 +1,6 @@
 import json
 import sys
-from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC
+from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
 
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
@@ -85,7 +85,20 @@ if __name__ == '__main__':
         else:
             graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
 
-        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label)))
+        exact_labels = [s.strip() for s in label.split(';')]
+        if len(exact_labels) > 1:  # the last string is an abbreviation. Add OWL reification. See issue #2
+            abbr = exact_labels.pop()
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
+            axoim_id = BNode()
+            graph.add((axoim_id, RDF.type, OWL.Axiom))
+            graph.add((axoim_id, OWL.annotatedSource, CL['0017543']))
+            graph.add((axoim_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
+            graph.add((axoim_id, OWL.annotatedTarget, Literal(abbr)))
+            graph.add((axoim_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
+
+        for exact_label in exact_labels:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(exact_label)))
+
         for label in other_labels:
             graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(label)))
 

@@ -244,6 +244,8 @@ PMID = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
 ORPHANET = Namespace('http://www.orpha.net/ORDO/Orphanet_')
 UMLS = Namespace('http://linkedlifedata.com/resource/umls/id/')
 oboInOwl = Namespace('http://www.geneontology.org/formats/oboInOwl#')
+
+MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')
 # # Monarch-specific
 # '': 'https://monarchinitiative.org/'                                # local BASE IRI
 # 'MONARCH': 'https://monarchinitiative.org/MONARCH_'                 # local BOGUS IRI effectivly bnodes but less
