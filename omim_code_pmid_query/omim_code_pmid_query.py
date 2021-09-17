@@ -50,8 +50,12 @@ def run(
     """
     # Load graph
     if cached_graph_use:
-        graph = pickle.load(open(pickle_path, "rb"))
-    else:
+        try:
+            graph = pickle.load(open(pickle_path, "rb"))
+        except FileNotFoundError:
+            print('Attempted to use cached file, but was not found.')
+            cached_graph_use = False
+    if not cached_graph_use:
         graph = Graph()
         graph.parse(graph_path)
         if cached_graph_new:
