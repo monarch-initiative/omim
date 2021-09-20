@@ -22,6 +22,7 @@ from omim2obo.omim_code_scraper.config import STATS_PAGES_URL_BASE
 from omim2obo.omim_code_scraper.definitions.error import OmimDataPipelineError
 
 
+# This doesn't seem to be needed atm:
 def validate_args(yyyy_mm):
     """Ensure arguments syntactically and logically valid"""
     # Abritrary/temp to resolve usage warning for now
@@ -48,6 +49,8 @@ def get_codes_by_yyyy_mm(yyyy_mm: str, outpath: str = '') -> List[tuple]:
     """
     # Get data
     year, month = yyyy_mm.split('/')[0], yyyy_mm.split('/')[1]
+
+    # url doesn't seem to need 0-padded month
     url = '/'.join([STATS_PAGES_URL_BASE, year, str(int(month))])
     # noinspection PyUnresolvedReferences
     headers = requests.utils.default_headers()
