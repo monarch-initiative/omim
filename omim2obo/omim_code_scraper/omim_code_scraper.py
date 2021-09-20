@@ -18,8 +18,8 @@ import requests
 # noinspection PyProtectedMember
 from bs4 import BeautifulSoup, ResultSet
 
-from omim_code_scraper.config import STATS_PAGES_URL_BASE
-from omim_code_scraper.definitions.error import OmimDataPipelineError
+from omim2obo.omim_code_scraper.config import STATS_PAGES_URL_BASE
+from omim2obo.omim_code_scraper.definitions.error import OmimDataPipelineError
 
 
 def validate_args(yyyy_mm):
