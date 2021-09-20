@@ -4,7 +4,7 @@
 import sys
 from argparse import ArgumentParser
 
-from omim_code_scraper import get_codes_by_yyyy_mm, OmimDataPipelineError
+from omim2obo.omim_code_scraper import get_codes_by_yyyy_mm, OmimDataPipelineError
 
 
 def get_parser():

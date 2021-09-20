@@ -11,18 +11,18 @@ OMIM codes and their prefixes from https://omim.org/statistics/update.
 
 ### Usage: Command Line Interface
 #### Syntax
-1. `python -m omim_code_scraper YYYY/MM`
-2. `python -m omim_code_scraper YYYY/MM --outpath my/output/path`
-2. `python -m omim_code_scraper YYYY/MM --outpath my/output/path/my_file.txt`
+1. `python -m omim2obo.omim_code_scraper YYYY/MM`
+2. `python -m omim2obo.omim_code_scraper YYYY/MM --outpath my/output/path`
+2. `python -m omim2obo.omim_code_scraper YYYY/MM --outpath my/output/path/my_file.txt`
 
 #### Instantiated
-1. `python -m omim_code_scraper 2021/05`
-2. `python -m omim_code_scraper 2021/05 --outpath ~/Desktop`
-2. `python -m omim_code_scraper 2021/05 --outpath ~/Desktop/omim.txt`
+1. `python -m omim2obo.omim_code_scraper 2021/05`
+2. `python -m omim2obo.omim_code_scraper 2021/05 --outpath ~/Desktop`
+2. `python -m omim2obo.omim_code_scraper 2021/05 --outpath ~/Desktop/omim.txt`
 
 #### Examples
 Command:  
-`python -m omim_code_scraper 2021/05`
+`python -m omim2obo.omim_code_scraper 2021/05`
 
 Response:
 ```py
@@ -42,7 +42,9 @@ Response:
 Using `get_codes_by_yyyy_mm()` will return a list of tuples.
 
 ```py
-from omim_code_scraper import get_codes_by_yyyy_mm
+from omim2obo.omim_code_scraper import get_codes_by_yyyy_mm
 
 code_tuples = get_codes_by_yyyy_mm('2021/05')
 ```
+
+## OMIM Code PMID Query

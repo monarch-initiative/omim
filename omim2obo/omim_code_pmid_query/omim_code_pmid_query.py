@@ -10,6 +10,7 @@ TODO's
 import os
 import pickle
 from typing import List
+from urllib.parse import urlparse
 
 from rdflib import Graph
 from rdflib.query import Result
@@ -49,6 +50,7 @@ def run(
         List[str]: In the form of ["OMIM_CODE PMID"]
     """
     # Load graph
+    graph = None
     if cached_graph_use:
         try:
             graph = pickle.load(open(pickle_path, "rb"))
@@ -66,7 +68,6 @@ def run(
     results: Result = graph.query(query)
     result_list: List[str] = []
     for result in results:
-        from urllib.parse import urlparse
         # Option a: just using string functionality
         # e.g. omim_code.rsplit('/', 1)[-1]
         # Option b: urlparse
