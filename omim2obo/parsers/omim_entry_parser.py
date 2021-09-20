@@ -115,13 +115,64 @@ def transform_entry(entry) -> Graph:
         ...
     return graph
 
-def cleanup_synonym(
-        synonym_with_possible_abbrev: str,
-        abbrev: str = None,
+
+def _detect_abbreviations(
+        label: str,
+        explicit_abbrev: str = None,
+        trailing_abbrev: str = None,
+        CAPITALIZATION_THRESHOLD = 0.75
+):
+    """Detect possible abbreviations / acronyms"""
+    # Compile regexp
+    acronyms_without_periods_compiler = re.compile('[A-Z]{1}[A-Z0-9]{1,}')
+    acronyms_with_periods_compiler = re.compile('[A-Z]{1}\.([A-Z0-9]\.){1,}')
+    title_cased_abbrev_compiler = re.compile('[A-Z]{1}[a-zA-Z]{1,}\.')
+
+    # Special threshold-based logic, because incoming data has highly inconsistent capitalization
+    # is_largely_uppercase = synonym.upper() == synonym  # too many false positives
+    fully_capitalized_count = 0
+    words = label.split()
+    for word in words:
+        if word.upper() == word:
+            fully_capitalized_count += 1
+    is_largely_uppercase = fully_capitalized_count / len(words) >= CAPITALIZATION_THRESHOLD
+
+    # Detect acronyms without periods
+    if is_largely_uppercase:
+        acronyms_without_periods = []  # can't infer because everything was uppercase
+    else:
+        acronyms_without_periods = acronyms_without_periods_compiler.findall(label)
+    # Detect more
+    title_cased_abbrevs = title_cased_abbrev_compiler.findall(label)
+    acronyms_with_periods = acronyms_with_periods_compiler.findall(label)
+    # Combine list of things to re-format
+    replacements = []
+    candidates: List[List[str]] = [acronyms_with_periods, acronyms_without_periods, title_cased_abbrevs,
+                                   [trailing_abbrev], [explicit_abbrev]]
+    for item_list in candidates:
+        for item in item_list:
+            if item:
+                replacements.append(item)
+
+    return replacements
+
+def cleanup_label(
+        label: str,
+        explicit_abbrev: str = None,
+        replacement_case_method: str = 'lower',  # lower | title | upper
+        replacement_case_method_acronyms = 'upper',  # lower | title | upper
+        conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
+        little_preps: List[str] = ['at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
+        articles: List[str] = ['a', 'an', 'the'],
         CAPITALIZATION_THRESHOLD = 0.75
 ) -> str:
     """
-    Reformat to lower case the first character of the string.
+    Reformat the ALL CAPS OMIM labels to something more pleasant to read.
+    This will:
+    1.  remove the abbreviation suffixes
+    2.  convert the roman numerals to integer numbers
+    3.  make the text title case,
+        except for suplied conjunctions/prepositions/articles
 
     Resources
     - https://pythex.org/
@@ -159,75 +210,19 @@ def cleanup_synonym(
     :param synonym: str
     :return: str
     """
-    synonym = synonym_with_possible_abbrev.split(r';')[0] if r';' in synonym_with_possible_abbrev else synonym_with_possible_abbrev
-    trailing_abbrev = synonym_with_possible_abbrev.split(r';')[1] if r';' in synonym_with_possible_abbrev else ''
+    # 1/3: Detect abbreviations / acronyms
+    label2 = label.split(r';')[0] if r';' in label else label
+    trailing_abbrev = label.split(r';')[1] if r';' in label else ''
+    possible_abbreviations = _detect_abbreviations(
+        label2, explicit_abbrev, trailing_abbrev, CAPITALIZATION_THRESHOLD)
 
-    # Compile regexp
-    acronyms_without_periods_compiler = re.compile('[A-Z]{1}[A-Z0-9]{1,}')
-    acronyms_with_periods_compiler = re.compile('[A-Z]{1}\.([A-Z0-9]\.){1,}')
-    title_cased_abbrev_compiler = re.compile('[A-Z]{1}[a-zA-Z]{1,}\.')
-
-    # Special threshold-based logic, because incoming data has highly inconsistent capitalization
-    # is_largely_uppercase = synonym.upper() == synonym  # too many false positives
-    fully_capitalized_count = 0
-    words = synonym.split()
-    for word in words:
-        if word.upper() == word:
-            fully_capitalized_count += 1
-    is_largely_uppercase = fully_capitalized_count / len(words) >= CAPITALIZATION_THRESHOLD
-
-    # Detect acronyms without periods
-    if is_largely_uppercase:
-        acronyms_without_periods = []  # can't infer because everything was uppercase
-    else:
-        acronyms_without_periods = acronyms_without_periods_compiler.findall(synonym)
-    # Detect more
-    title_cased_abbrevs = title_cased_abbrev_compiler.findall(synonym)
-    acronyms_with_periods = acronyms_with_periods_compiler.findall(synonym)
-
-    # Lower case everything but acronyms
-    synonym_lower = synonym.lower()
-    formatted_synonym = copy(synonym_lower)
-
-    # Recapitalize things
-    replacements = []
-    candidates: List[List[str]] = [acronyms_with_periods, acronyms_without_periods, title_cased_abbrevs,
-                  [trailing_abbrev], [abbrev]]
-    for item_list in candidates:
-        for item in item_list:
-            if item:
-                replacements.append(item)
-
-    for item in replacements:
-        formatted_synonym = formatted_synonym.replace(item.lower(), item)
-
-    print(formatted_synonym)
-
-    return formatted_synonym
-
-
-def cleanup_label(label):
-    """
-    Reformat the ALL CAPS OMIM labels to something more pleasant to read.
-    This will:
-    1.  remove the abbreviation suffixes
-    2.  convert the roman numerals to integer numbers
-    3.  make the text title case,
-        except for suplied conjunctions/prepositions/articles
-    :param label:
-    :return:
-    """
-    conjunctions = ['and', 'but', 'yet', 'for', 'nor', 'so']
-    little_preps = [
-        'at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or']
-    articles = ['a', 'an', 'the']
-
-    # remove the abbreviation
-    lbl = label.split(r';')[0]
-
+    # 2/3: Format label
+    # Simple method: Lower/title case everything but acronyms
+    # label_newcase = getattr(label2, replacement_case_method)()
+    # Advanced method: iteritavely format words
     fixedwords = []
     i = 0
-    for wrd in lbl.split():
+    for wrd in label2.split():
         i += 1
         # convert the roman numerals to numbers,
         # but assume that the first word is not
@@ -243,20 +238,20 @@ def cleanup_label(label):
                 suffix = wrd.replace(toRoman(num), '', 1)
                 fixed = ''.join((str(num), suffix))
                 wrd = fixed
-
-        # capitalize first letter
-        wrd = wrd.title()
-
-        # replace interior conjunctions, prepositions,
-        # and articles with lowercase
+        wrd = getattr(wrd, replacement_case_method)()
+        # replace interior conjunctions, prepositions, and articles with lowercase, always
         if wrd.lower() in (conjunctions + little_preps + articles) and i != 1:
             wrd = wrd.lower()
-
         fixedwords.append(wrd)
+    label_newcase = ' '.join(fixedwords)
 
-    lbl = ' '.join(fixedwords)
+    # 3/3 Re-capitalize acronyms / words
+    formatted_label = copy(label_newcase)
+    for item in possible_abbreviations:
+        to_replace = getattr(item, replacement_case_method_acronyms)()
+        formatted_label = formatted_label.replace(to_replace, item)
 
-    return lbl
+    return formatted_label
 
 
 def get_alt_labels(titles):

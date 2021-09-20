@@ -3,7 +3,7 @@ import sys
 from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
 
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids, cleanup_synonym
+from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
 from omim2obo.omim_client import OmimClient
 from omim2obo.config import config, DATA_DIR
 from omim2obo.parsers.omim_txt_parser import *
@@ -99,10 +99,10 @@ if __name__ == '__main__':
             graph.add((axoim_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
 
         for exact_label in exact_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(cleanup_synonym(exact_label, abbrev))))
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(cleanup_label(exact_label, abbrev))))
 
         for label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(cleanup_synonym(label, abbrev))))
+            graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(cleanup_label(label, abbrev))))
 
     # Gene ID
     gene_map, pheno_map = parse_mim2gene(retrieve_mim_file('mim2gene.txt', DOWNLOAD_TXT_FILES))
