@@ -1,13 +1,17 @@
+"""OMIM Entry parsers"""
 import logging
-from typing import Optional
-from rdflib import Graph, Namespace, RDF, RDFS, DC, Literal, OWL, URIRef
-from typing import List, Dict
-from rdflib import Namespace
-from collections import defaultdict
 import re
+from collections import defaultdict
+from copy import copy
+from typing import List, Dict
+
+from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, URIRef
+from rdflib import Namespace
+
 from omim2obo.omim_type import OmimType, get_omim_type
 from omim2obo.namespaces import *
 from omim2obo.utils.romanplus import *
+
 
 LOG = logging.getLogger('omim2obo.parsers.api_entry_parser')
 
@@ -112,7 +116,56 @@ def transform_entry(entry) -> Graph:
     return graph
 
 
-def cleanup_label(label):
+def _detect_abbreviations(
+        label: str,
+        explicit_abbrev: str = None,
+        trailing_abbrev: str = None,
+        CAPITALIZATION_THRESHOLD = 0.75
+):
+    """Detect possible abbreviations / acronyms"""
+    # Compile regexp
+    acronyms_without_periods_compiler = re.compile('[A-Z]{1}[A-Z0-9]{1,}')
+    acronyms_with_periods_compiler = re.compile('[A-Z]{1}\.([A-Z0-9]\.){1,}')
+    title_cased_abbrev_compiler = re.compile('[A-Z]{1}[a-zA-Z]{1,}\.')
+
+    # Special threshold-based logic, because incoming data has highly inconsistent capitalization
+    # is_largely_uppercase = synonym.upper() == synonym  # too many false positives
+    fully_capitalized_count = 0
+    words = label.split()
+    for word in words:
+        if word.upper() == word:
+            fully_capitalized_count += 1
+    is_largely_uppercase = fully_capitalized_count / len(words) >= CAPITALIZATION_THRESHOLD
+
+    # Detect acronyms without periods
+    if is_largely_uppercase:
+        acronyms_without_periods = []  # can't infer because everything was uppercase
+    else:
+        acronyms_without_periods = acronyms_without_periods_compiler.findall(label)
+    # Detect more
+    title_cased_abbrevs = title_cased_abbrev_compiler.findall(label)
+    acronyms_with_periods = acronyms_with_periods_compiler.findall(label)
+    # Combine list of things to re-format
+    replacements = []
+    candidates: List[List[str]] = [acronyms_with_periods, acronyms_without_periods, title_cased_abbrevs,
+                                   [trailing_abbrev], [explicit_abbrev]]
+    for item_list in candidates:
+        for item in item_list:
+            if item:
+                replacements.append(item)
+
+    return replacements
+
+def cleanup_label(
+        label: str,
+        explicit_abbrev: str = None,
+        replacement_case_method: str = 'lower',  # lower | title | upper
+        replacement_case_method_acronyms = 'upper',  # lower | title | upper
+        conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
+        little_preps: List[str] = ['at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
+        articles: List[str] = ['a', 'an', 'the'],
+        CAPITALIZATION_THRESHOLD = 0.75
+) -> str:
     """
     Reformat the ALL CAPS OMIM labels to something more pleasant to read.
     This will:
@@ -120,20 +173,56 @@ def cleanup_label(label):
     2.  convert the roman numerals to integer numbers
     3.  make the text title case,
         except for suplied conjunctions/prepositions/articles
-    :param label:
-    :return:
+
+    Resources
+    - https://pythex.org/
+
+    Assumptions:
+        1. All acronyms are capitalized
+
+    # TODO Laters:
+    # 1: Find a pattern for hyphenated types, and maintain acronym capitalization
+    # ...e.g. MITF-related melanoma and renal cell carcinoma predisposition syndrome
+    # ...e.g. ATP1A3-associated neurological disorder
+    # 2. Make pattern for chromosomes
+    # ...agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple extragenital malformations
+    # ...Chromosome special formatting capitalization?
+    # ...There seems to be special formatting for chromosome refs; they have a comma in the middle, but with no space
+    # ...after the comma, though some places I saw on the internet contained a space.
+    # ...e.g. "46,XY" in: agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple extragenital malformations
+    # 3. How to find acronym if it is capitalized but only includes char [A-Z], and
+    # ... every other char in the string is also capitalized? I don't see a way unless
+    # ... checking every word against an explicit dictionary of terms, though there are sure
+    # ... to also be (i) acronyms in that dictionary, and (ii) non-acronyms missing from
+    # ... that dictionary. And also concern (iii), where to get such an extensive dictionary?
+    # 4. Add "special character" inclusion into acronym regexp. But which special
+    # ... chars to include, and which not to include?
+    # 5. Acronym capture extension: case where at least 1 word is not capitalized:
+    # ... any word that is fully capitalized might as well be acronym, so long
+    # ...as at least 1 other word in the label is not all caps. Maybe not a good rule,
+    # ...because there could be some violations, and this probably would not happen
+    # ...that often anwyay
+    # ... - Not sure what I meant about (5) - joeflack4 2021/09/10
+    # 6. Eponyms: re-capitalize first char?
+    # ...e.g.: Balint syndrome, Barre-Lieou syndrome, Wallerian degeneration, etc.
+    # ...How to do this? Simply get/create a list of known eponyms? Is this feasible?
+
+    :param synonym: str
+    :return: str
     """
-    conjunctions = ['and', 'but', 'yet', 'for', 'nor', 'so']
-    little_preps = [
-        'at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or']
-    articles = ['a', 'an', 'the']
+    # 1/3: Detect abbreviations / acronyms
+    label2 = label.split(r';')[0] if r';' in label else label
+    trailing_abbrev = label.split(r';')[1] if r';' in label else ''
+    possible_abbreviations = _detect_abbreviations(
+        label2, explicit_abbrev, trailing_abbrev, CAPITALIZATION_THRESHOLD)
 
-    # remove the abbreviation
-    lbl = label.split(r';')[0]
-
+    # 2/3: Format label
+    # Simple method: Lower/title case everything but acronyms
+    # label_newcase = getattr(label2, replacement_case_method)()
+    # Advanced method: iteritavely format words
     fixedwords = []
     i = 0
-    for wrd in lbl.split():
+    for wrd in label2.split():
         i += 1
         # convert the roman numerals to numbers,
         # but assume that the first word is not
@@ -149,20 +238,20 @@ def cleanup_label(label):
                 suffix = wrd.replace(toRoman(num), '', 1)
                 fixed = ''.join((str(num), suffix))
                 wrd = fixed
-
-        # capitalize first letter
-        wrd = wrd.title()
-
-        # replace interior conjunctions, prepositions,
-        # and articles with lowercase
+        wrd = getattr(wrd, replacement_case_method)()
+        # replace interior conjunctions, prepositions, and articles with lowercase, always
         if wrd.lower() in (conjunctions + little_preps + articles) and i != 1:
             wrd = wrd.lower()
-
         fixedwords.append(wrd)
+    label_newcase = ' '.join(fixedwords)
 
-    lbl = ' '.join(fixedwords)
-    # print (label, '-->', lbl)
-    return lbl
+    # 3/3 Re-capitalize acronyms / words
+    formatted_label = copy(label_newcase)
+    for item in possible_abbreviations:
+        to_replace = getattr(item, replacement_case_method_acronyms)()
+        formatted_label = formatted_label.replace(to_replace, item)
+
+    return formatted_label
 
 
 def get_alt_labels(titles):
