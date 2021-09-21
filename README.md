@@ -1,6 +1,22 @@
 # OMIM Data Pipeline Tools
 
-## Running the full pipeline
+## Setup
+### 1. Install Python
+- [RealPython blog install guide](https://realpython.com/installing-python/): My preferred guide for installing on Windows or Mac
+- [Python documentation for installing on Windows](https://docs.python.org/3/using/windows.html)
+- [Python documentation for installing on Mac](https://docs.python.org/3/using/mac.html)
+
+### 2. Setup virtual environment & installing packages
+There are various ways to do this in Python. We use Pipenv: https://docs.python-guide.org/dev/virtualenvs/#installing-pipenv
+1. Run: `pip install pipenv` (if you don't have it installed already)
+2. Change directory: `cd <PATH/TO/CLONED_PROJECT_FOLDER>`
+3. Run: `pipenv install`
+4. There is a known possible issue with dependency `psutil` on some systems. If 
+you get an error related to this when installing, ignore it, as it is does not 
+seem to be needed to run any of the tools. If however you do get a `psutil` error
+when running anything, please let us know by [creating an issue](https://github.com/monarch-initiative/omim/issues/new).
+
+## Tools: Running the full pipeline
 TODO: Not yet created. Currently, this is an alias for `make build`.
 
 Command: `make all`

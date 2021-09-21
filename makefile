@@ -12,7 +12,7 @@ all: build
 
 # Create new omim.ttl
 build:
-	python3 -m omim2obo
+	pipenv run python3 -m omim2obo
 
 # scrape: argument should be in form of YYYY/MM or YYYY/mm
 # @param y: The year. Pass as <FLAG>=<YYYY>, where <FLAG> can be y, yr, year,
@@ -26,12 +26,12 @@ scrape:
     set -e ;\
 	arg1=$(y)$(yr)$(year)$(YYYY) ;\
 	arg2=$(m)$(mon)$(month)$(mm)$(MM) ;\
-	python -m omim2obo.omim_code_scraper $$arg1/$$arg2 ;\
+	pipenv run python -m omim2obo.omim_code_scraper $$arg1/$$arg2 ;\
     }
 
 # Get list of OMIM codes and PMIDs in format of "OMIM PMID"
 get-pmids:
-	python3 -m omim2obo.omim_code_pmid_query
+	pipenv run python3 -m omim2obo.omim_code_pmid_query
 
 # CODE QUALITY -----------------------------------------------------------------
 # Batched Commands
@@ -40,7 +40,7 @@ lint: lintsrc codesrc docsrc
 linters_all: doc code lintall
 
 # Pylint Only
-PYLINT_BASE =python3 -m pylint --output-format=colorized --reports=n
+PYLINT_BASE =pipenv run python3 -m pylint --output-format=colorized --reports=n
 lintall: lintsrc linttest
 lintsrc:
 	${PYLINT_BASE} ${SRC}
@@ -48,7 +48,7 @@ linttest:
 	${PYLINT_BASE} test/
 
 # PyCodeStyle Only
-PYCODESTYLE_BASE=python3 -m pycodestyle
+PYCODESTYLE_BASE=pipenv run python3 -m pycodestyle
 codestyle: codestylesrc codestyletest
 codesrc: codestylesrc
 codetest: codestyletest
@@ -59,7 +59,7 @@ codestyletest:
 	 ${PYCODESTYLE_BASE} test/
 
 # PyDocStyle Only
-PYDOCSTYLE_BASE=python3 -m pydocstyle
+PYDOCSTYLE_BASE=pipenv run python3 -m pydocstyle
 docstyle: docstylesrc docstyletest
 docsrc: docstylesrc
 doctest: docstyletest
@@ -69,18 +69,18 @@ docstylesrc:
 docstyletest:
 	${PYDOCSTYLE_BASE} test/
 codetest:
-	python -m pycodestyle test/
+	pipenv run python -m pycodestyle test/
 codeall: code codetest
 doc: docstyle
 
 # Testing
 test:
-	python3 -m unittest discover -v
+	pipenv run python3 -m unittest discover -v
 testdoc:
-	python3 -m test.test --doctests-only
+	pipenv run python3 -m test.test --doctests-only
 testall: test testdoc
 test-survey-cto: #TODO: run a single unit test
-	python3 -m unittest discover -v
+	pipenv run python3 -m unittest discover -v
 
 
 # PACKAGE MANAGEMENT  ----------------------------------------------------------
