@@ -3,7 +3,7 @@ SRC=omim2obo/
 .PHONY: all lint tags ltags test lintall codestyle docstyle lintsrc \
 linttest doctest doc docs code linters_all codesrc codetest docsrc \
 doctest build dist pypi-push-test pypi-push pypi-test pip-test pypi \
-pip remove-previous-build build-package get-pmids scrape
+pip remove-previous-build build-package get-pmids scrape install
 
 
 # MAIN COMMANDS ----------------------------------------------------------------
@@ -32,6 +32,11 @@ scrape:
 # Get list of OMIM codes and PMIDs in format of "OMIM PMID"
 get-pmids:
 	pipenv run python3 -m omim2obo.omim_code_pmid_query
+
+# SETUP / INSTALLATION ---------------------------------------------------------
+install:
+	python3 -m pip install pipenv; \
+	pipenv install
 
 # CODE QUALITY -----------------------------------------------------------------
 # Batched Commands
@@ -81,7 +86,6 @@ testdoc:
 testall: test testdoc
 test-survey-cto: #TODO: run a single unit test
 	pipenv run python3 -m unittest discover -v
-
 
 # PACKAGE MANAGEMENT  ----------------------------------------------------------
 remove-previous-build:

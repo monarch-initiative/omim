@@ -7,11 +7,11 @@
 - [Python documentation for installing on Mac](https://docs.python.org/3/using/mac.html)
 
 ### 2. Setup virtual environment & installing packages
-There are various ways to do this in Python. We use Pipenv: https://docs.python-guide.org/dev/virtualenvs/#installing-pipenv
-1. Run: `pip install pipenv` (if you don't have it installed already)
-2. Change directory: `cd <PATH/TO/CLONED_PROJECT_FOLDER>`
-3. Run: `pipenv install`
-4. There is a known possible issue with dependency `psutil` on some systems. If 
+There are various ways to do install packages in Python. We use Pipenv: https://docs.python-guide.org/dev/virtualenvs/#installing-pipenv. 
+Running the 'make' command below will install Pipenv if you don't have it, and then 
+use Pipenv to install the rest of the packages.
+1. Run: `make install`
+2. There is a known possible issue with dependency `psutil` on some systems. If 
 you get an error related to this when installing, ignore it, as it is does not 
 seem to be needed to run any of the tools. If however you do get a `psutil` error
 when running anything, please let us know by [creating an issue](https://github.com/monarch-initiative/omim/issues/new).
