@@ -16,9 +16,10 @@ from rdflib import Graph
 from rdflib.query import Result
 from rdflib.plugins.sparql import prepareQuery
 
+from omim2obo.config import DATA_DIR
+
 
 GRAPH_FILENAME = 'omim.ttl'
-DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 graph_path = os.path.join(DATA_DIR, GRAPH_FILENAME)
 pickle_path = os.path.join(DATA_DIR, 'cache', 'pickled', GRAPH_FILENAME + '.p')
 

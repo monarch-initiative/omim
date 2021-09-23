@@ -1,13 +1,14 @@
-import json
+# import json
 import sys
-from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
+# from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
+from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef
 
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
-from omim2obo.omim_client import OmimClient
-from omim2obo.config import config, DATA_DIR
+# from omim2obo.omim_client import OmimClient
+# from omim2obo.config import config, DATA_DIR
 from omim2obo.parsers.omim_txt_parser import *
-from omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
+# from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
 
 
 LOG = logging.getLogger(__name__)
@@ -39,7 +40,8 @@ class OmimGraph(Graph):
         return OmimGraph.__instance
 
 
-if __name__ == '__main__':
+def run():
+    """Run program"""
     graph = OmimGraph.get_graph()
     for prefix, uri in CURIE_MAP.items():
         graph.namespace_manager.bind(prefix, URIRef(uri))
@@ -165,3 +167,7 @@ if __name__ == '__main__':
 
     with open(DATA_DIR / 'omim_new.ttl', 'w') as f:
         f.write(graph.serialize(format='turtle'))
+
+
+if __name__ == '__main__':
+    run()
