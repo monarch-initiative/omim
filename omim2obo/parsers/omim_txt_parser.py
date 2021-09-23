@@ -1,17 +1,17 @@
-import csv
+# import csv
 from omim2obo.config import *
 import logging
 from omim2obo.config import config
 import requests
 import re
 from typing import List, Dict, Tuple
-from rdflib import URIRef
+# from rdflib import URIRef
 from collections import defaultdict
 import json
 
-from omim2obo.omim_client import OmimClient
+# from omim2obo.omim_client import OmimClient
 from omim2obo.omim_type import OmimType
-from omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
+# from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 
