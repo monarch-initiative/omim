@@ -1,7 +1,10 @@
 # import json
 import sys
 # from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
+from hashlib import md5
+
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef
+from rdflib.term import Identifier
 
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
@@ -26,6 +29,17 @@ def get_curie_maps():
 
 
 CURIE_MAP = get_curie_maps()
+
+
+class DeterministicBNode(BNode):
+    """Overrides BNode to create a deterministic ID"""
+
+    def __new__(cls, source_ref: str):
+        """Constructor
+            source_ref: A reference to be passed to MD5 to generate id.
+        """
+        id: str = md5(source_ref.encode()).hexdigest()
+        return Identifier.__new__(cls, id)
 
 
 class OmimGraph(Graph):
@@ -93,12 +107,12 @@ def run():
         if len(exact_labels) > 1:  # the last string is an abbreviation. Add OWL reification. See issue #2
             abbr = exact_labels.pop()
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
-            axoim_id = BNode()
-            graph.add((axoim_id, RDF.type, OWL.Axiom))
-            graph.add((axoim_id, OWL.annotatedSource, CL['0017543']))
-            graph.add((axoim_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
-            graph.add((axoim_id, OWL.annotatedTarget, Literal(abbr)))
-            graph.add((axoim_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
+            axiom_id = DeterministicBNode(abbr)
+            graph.add((axiom_id, RDF.type, OWL.Axiom))
+            graph.add((axiom_id, OWL.annotatedSource, CL['0017543']))
+            graph.add((axiom_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
+            graph.add((axiom_id, OWL.annotatedTarget, Literal(abbr)))
+            graph.add((axiom_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
 
         for exact_label in exact_labels:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(cleanup_label(exact_label, abbrev))))
@@ -167,6 +181,7 @@ def run():
 
     with open(DATA_DIR / 'omim_new.ttl', 'w') as f:
         f.write(graph.serialize(format='turtle'))
+    print("Job's done ;3")
 
 
 if __name__ == '__main__':
