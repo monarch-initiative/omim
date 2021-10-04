@@ -9,7 +9,7 @@ from rdflib.term import Identifier
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
 # from omim2obo.omim_client import OmimClient
-# from omim2obo.config import config, DATA_DIR
+from omim2obo.config import config, DATA_DIR, ROOT_DIR
 from omim2obo.parsers.omim_txt_parser import *
 # from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
 
@@ -179,7 +179,7 @@ def run():
         graph.add((OMIM[mim_num], RDF.type, OWL.Class))
         graph.add((OMIM[mim_num], OWL.deprecated, Literal(True)))
 
-    with open(DATA_DIR / 'omim_new.ttl', 'w') as f:
+    with open(ROOT_DIR / 'omim.ttl', 'w') as f:
         f.write(graph.serialize(format='turtle'))
     print("Job's done ;3")
 
