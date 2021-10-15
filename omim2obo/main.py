@@ -179,10 +179,10 @@ def run():
         graph.add((OMIM[mim_num], RDF.type, OWL.Class))
         graph.add((OMIM[mim_num], OWL.deprecated, Literal(True)))
 
-    # with open(ROOT_DIR / 'omim.ttl', 'w') as f:
-    #     f.write(graph.serialize(format='turtle'))
-    with open(ROOT_DIR / 'omim.xml', 'w') as f:
-        f.write(graph.serialize(format='xml'))
+    with open(ROOT_DIR / 'omim.ttl', 'w') as f:
+        f.write(graph.serialize(format='turtle'))
+    # with open(ROOT_DIR / 'omim.xml', 'w') as f:
+    #     f.write(graph.serialize(format='xml'))
     print("Job's done ;3")
 
 
