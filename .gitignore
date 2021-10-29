@@ -1,6 +1,19 @@
+# Standard
 dev/
 data/cache/
 __pycache__/
 .idea/
 .DS_Store
+
+# Specialized
 .ipynb_checkpoints/omim-checkpoint.ipynb
+.git.bfg-report/
+*ignore/
+
+# OMIM data sources
+mim2gene.txt
+mimTitles.txt
+genemap2.txt
+morbidmap.txt
+phenotypicSeries.txt
+allelicVariants.txt

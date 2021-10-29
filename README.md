@@ -1,6 +1,31 @@
 # OMIM Data Pipeline Tools
 
+## About OMIM & this repository
+OMIM stands for "Online Mendelian Inheritance in Man", and is an online 
+catalog of human genes and genetic disorders. The official site is: https://omim.org/
+
+This purpose of this repository is for data transformations for ingest into Mondo.
+
+This repository and its created data artefacts are unnofficial. For official, up-to-date
+OMIM data, please visit [omim.org](https://omim.org).
+
 ## Setup
+### 0. Acquire data sources
+The following data sources are necessary, but are private and must be acquired separately:
+- mim2gene.txt
+- mimTitles.txt
+- genemap2.txt
+- morbidmap.txt
+- phenotypicSeries.txt
+- allelicVariants.txt
+
+If you are a contributor to this project, you can acquire these by requesting access 
+from [a main contributor](https://github.com/monarch-initiative/omim/graphs/contributors). 
+They can also be obtained from OMIM directly. You'll need to (i) [register for downloads](https://omim.org/downloads), 
+and (ii) [request an API key](https://omim.org/api).
+
+Once acquired, these files should be placed in the `data/` folder.
+
 ### 1. Install Python
 - [RealPython blog install guide](https://realpython.com/installing-python/): My preferred guide for installing on Windows or Mac
 - [Python documentation for installing on Windows](https://docs.python.org/3/using/windows.html)
