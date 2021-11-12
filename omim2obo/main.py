@@ -1,3 +1,4 @@
+"""Build for OMIM.ttl"""
 # import json
 import sys
 # from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
@@ -9,19 +10,26 @@ from rdflib.term import Identifier
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
 # from omim2obo.omim_client import OmimClient
-from omim2obo.config import config, DATA_DIR, ROOT_DIR
+# from omim2obo.config import config, DATA_DIR, ROOT_DIR
 from omim2obo.parsers.omim_txt_parser import *
 # from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
 
 
+# Logging
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
 
+# Vars
 DOWNLOAD_TXT_FILES = False
+TAX_LABEL = 'Homo sapiens'
+TAX_ID = GLOBAL_TERMS[TAX_LABEL]
+TAX_URI = URIRef(TAX_ID)
 
 
+# Funcs
 def get_curie_maps():
+    """Rectrieve CURIE to URL info"""
     map_file = DATA_DIR / 'dipper/curie_map.yaml'
     with open(map_file, "r") as f:
         maps = yaml.safe_load(f)
@@ -36,17 +44,19 @@ class DeterministicBNode(BNode):
 
     def __new__(cls, source_ref: str):
         """Constructor
-            source_ref: A reference to be passed to MD5 to generate id.
+            source_ref: A reference to be passed to MD5 to generate _id.
         """
-        id: str = md5(source_ref.encode()).hexdigest()
-        return Identifier.__new__(cls, id)
+        _id: str = md5(source_ref.encode()).hexdigest()
+        return Identifier.__new__(cls, _id)
 
 
 class OmimGraph(Graph):
+    """Graph w/ some additional OMIM features"""
     __instance: Graph = None
 
     @staticmethod
     def get_graph():
+        """Retrieve graph instance"""
         if OmimGraph.__instance is None:
             OmimGraph.__instance = Graph()
             for ns_prefix, ns_uri in CURIE_MAP.items():
@@ -57,23 +67,22 @@ class OmimGraph(Graph):
 def run():
     """Run program"""
     graph = OmimGraph.get_graph()
+
+    # Populate prefixes
     for prefix, uri in CURIE_MAP.items():
         graph.namespace_manager.bind(prefix, URIRef(uri))
 
     # Parse mimTitles.txt
+    # - Get id's, titles, and type
     omim_titles, omim_replaced = parse_mim_titles(retrieve_mim_file('mimTitles.txt', DOWNLOAD_TXT_FILES))
     omim_ids = list(omim_titles.keys() - omim_replaced.keys())
 
     LOG.info('Have %i omim numbers from mimTitles.txt', len(omim_ids))
     LOG.info('Have %i total omim types ', len(omim_titles))
 
-    tax_label = 'Homo sapiens'
-    tax_id = GLOBAL_TERMS[tax_label]
-
-    tax_uri = URIRef(tax_id)
-    graph.add((tax_uri, RDF.type, OWL.Class))
-    graph.add((tax_uri, RDFS.label, Literal(tax_label)))
-
+    # Populate graph
+    graph.add((TAX_URI, RDF.type, OWL.Class))
+    graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
     for omim_id in omim_ids:
         omim_uri = OMIM[omim_id]
         graph.add((omim_uri, RDF.type, OWL.Class))
@@ -93,14 +102,16 @@ def run():
             graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
         elif omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE:  # * or +
-            omim_type = OmimType.GENE
+            # omim_type = OmimType.GENE
             graph.add((omim_uri, RDFS.label, Literal(abbrev)))
+            # What's SO['0000704'] - joeflack4 2021/11/11
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
         elif omim_type == OmimType.PHENOTYPE:  # #
             graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
         else:
+            # All were 'OmimType.SUSPECTED' when I just checked. - joeflack4 2021/11/11
             graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
 
         exact_labels = [s.strip() for s in label.split(';')]
@@ -109,6 +120,7 @@ def run():
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
             axiom_id = DeterministicBNode(abbr)
             graph.add((axiom_id, RDF.type, OWL.Axiom))
+            # What's CL['0017543'] - joeflack4 2021/11/11
             graph.add((axiom_id, OWL.annotatedSource, CL['0017543']))
             graph.add((axiom_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
             graph.add((axiom_id, OWL.annotatedTarget, Literal(abbr)))
@@ -123,33 +135,41 @@ def run():
     # Gene ID
     gene_map, pheno_map = parse_mim2gene(retrieve_mim_file('mim2gene.txt', DOWNLOAD_TXT_FILES))
     for mim_number, entrez_id in gene_map.items():
+        # Are they truly equivalent? - joeflack4 2021/11/11
         graph.add((OMIM[mim_number], OWL.equivalentClass, NCBIGENE[entrez_id]))
     for mim_number, entrez_id in pheno_map.items():
+        # What's RO['0002200'] - joeflack4 2021/11/11
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
 
     # Phenotpyic Series
     pheno_series = parse_phenotypic_series_titles(retrieve_mim_file('phenotypicSeries.txt', DOWNLOAD_TXT_FILES))
-    for ps in pheno_series:
-        graph.add((OMIMPS[ps], RDF.type, OWL.Class))
-        graph.add((OMIMPS[ps], RDFS.label, Literal(pheno_series[ps][0])))
-        graph.add((OMIMPS[ps], BIOLINK.category, BIOLINK.Disease))
-        for mim_number in pheno_series[ps][1]:
-            graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps]))
+    for ps_id in pheno_series:
+        graph.add((OMIMPS[ps_id], RDF.type, OWL.Class))
+        graph.add((OMIMPS[ps_id], RDFS.label, Literal(pheno_series[ps_id][0])))
+        # Are all phenotypes listed here indeed disease? - joeflack4 2021/11/11
+        graph.add((OMIMPS[ps_id], BIOLINK.category, BIOLINK.Disease))
+        for mim_number in pheno_series[ps_id][1]:
+            graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps_id]))
 
     # Morbid map (cyto locations)
-    morbid_map = parse_morbid_map(retrieve_mim_file('morbidmap.txt', DOWNLOAD_TXT_FILES))
+    morbid_map: Dict[str, List[str]] = parse_morbid_map(retrieve_mim_file('morbidmap.txt', DOWNLOAD_TXT_FILES))
     for mim_number in morbid_map:
         phenotype_mim_number, cyto_location = morbid_map[mim_number]
         if phenotype_mim_number:
+            # What's RO['0003303'] - joeflack4 2021/11/11
             graph.add((OMIM[mim_number], RO['0003303'], OMIM[phenotype_mim_number]))
         if cyto_location:
+            # What's 9606chr - joeflack4 2021/11/11
             chr_id = '9606chr' + cyto_location
+            # What's RO['0002525'] - joeflack4 2021/11/11
             graph.add((OMIM[mim_number], RO['0002525'], CHR[chr_id]))
 
     # PUBMED, UMLS
+    # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
     pmid_map, umls_map, orphanet_map = get_maps_from_turtle()
 
     # Get the recent updated
+    # How long is this JSON file supposed to last for us Where is it from? - joeflack4 2021/11/11
     updated_entries = get_updated_entries()
     for entry in updated_entries:
         entry = entry['entry']
@@ -161,6 +181,7 @@ def run():
 
     for mim_number, pm_ids in pmid_map.items():
         for pm_id in pm_ids:
+            # What's IAO['0000142'] - joeflack4 2021/11/11
             graph.add((OMIM[mim_number], IAO['0000142'], PMID[pm_id]))
     for mim_number, umlsids in umls_map.items():
         for umls_id in umlsids:
@@ -170,11 +191,15 @@ def run():
             graph.add((OMIM[mim_number], oboInOwl.hasDbXref, ORPHANET[orphanet_id]))
 
     # replaced
+    # to-do: This makes more sense to me at the beginning, right after reading mimTitles.txt
+    # ...since that's where thiscomes from. Try moving it up there, rerunning, and see
+    # ...if get exact same results. -joeflack4 2021/11/11
     for mim_num, replaced in omim_replaced.items():
         if len(replaced) > 1:
             for replaced_mim_num in replaced:
                 graph.add((OMIM[mim_num], oboInOwl.consider, OMIM[replaced_mim_num]))
         elif replaced:
+            # What's IAO['0100001'] - joeflack4 2021/11/11
             graph.add((OMIM[mim_num], IAO['0100001'], OMIM[replaced[0]]))
         graph.add((OMIM[mim_num], RDF.type, OWL.Class))
         graph.add((OMIM[mim_num], OWL.deprecated, Literal(True)))

@@ -38,7 +38,6 @@ def retrieve_mim_file(file_name: str, download: bool = False) -> List[str]:
             LOG.warning('Response from server: ' + resp.text)
     if not updated:
         # The server request failed. Use the cached file
-        lines = []
         with open(mim_file, 'r') as fin:
             lines = fin.readlines()
         if download:
@@ -134,10 +133,13 @@ def parse_phenotypic_series_titles(lines) -> Dict[str, List]:
 
 
 def parse_gene_map(lines):
+    """To be implemented"""
+    print(lines)
     ...
 
 
-def parse_mim2gene(lines) -> Tuple[Dict]:
+def parse_mim2gene(lines) -> Tuple[Dict, Dict]:
+    """Parse OMIM # 2 gene file"""
     gene_map = {}
     pheno_map = {}
     for line in lines:
@@ -154,6 +156,7 @@ def parse_mim2gene(lines) -> Tuple[Dict]:
 
 
 def parse_morbid_map(lines) -> Dict[str, List[str]]:
+    """Parse morbid map file"""
     ret = {}
     p = re.compile(r".*,\s+(\d+)\s\(\d\)")
     for line in lines:
@@ -171,7 +174,8 @@ def parse_morbid_map(lines) -> Dict[str, List[str]]:
     return ret
 
 
-def get_maps_from_turtle() -> Dict:
+def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
+    """This was created by Dazhi originally to read the prefixes. Generates a maps."""
     pmid_maps = defaultdict(list)
     umls_maps = defaultdict(list)
     orphanet_maps = defaultdict(list)
