@@ -1,7 +1,6 @@
 # import csv
-from omim2obo.config import *
 import logging
-from omim2obo.config import config
+from omim2obo.config import config, DATA_DIR
 import requests
 import re
 from typing import List, Dict, Tuple
@@ -19,12 +18,13 @@ LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 def retrieve_mim_file(file_name: str, download: bool = False) -> List[str]:
     """
     Retrieve OMIM downloadable text file from the OMIM download server
-    :return:
+    :return: lines
     """
-    updated = False
     mim_file = DATA_DIR / file_name
     if download:
         url = f'https://data.omim.org/downloads/{config["API_KEY"]}/{file_name}'
+        if file_name == 'mim2gene.txt':
+            url = 'https://omim.org/static/omim/data/mim2gene.txt'
         resp = requests.get(url)
         if resp.status_code == 200:
             text = resp.text
@@ -32,17 +32,21 @@ def retrieve_mim_file(file_name: str, download: bool = False) -> List[str]:
                 with open(mim_file, 'w') as fout:
                     fout.write(text)
                 lines = text.split('\n')
-                updated = True
                 LOG.info(f'{file_name} retrieved and updated')
+                return lines
+            else:
+                raise RuntimeError('Unexpected response: ' + text)
         else:
-            LOG.warning('Response from server: ' + resp.text)
-    if not updated:
-        # The server request failed. Use the cached file
+            msg = 'Response from server: ' + resp.text
+            # LOG.warning(msg)
+            # with open(mim_file, 'r') as fin:
+            #     lines = fin.readlines()
+            # LOG.warning('Failed to retrieve mimTitles.txt. Using the cached file.')
+            raise RuntimeError(msg)
+    else:
         with open(mim_file, 'r') as fin:
             lines = fin.readlines()
-        if download:
-            LOG.warning('Failed to retrieve mimTitles.txt. Using the cached file. ')
-    return lines
+            return lines
 
 
 def parse_mim_genes(lines):
@@ -51,6 +55,8 @@ def parse_mim_genes(lines):
         if line.startswith('#'):
             continue
         tokens = line.split('\t')
+        if not tokens or tokens == ['']:
+            continue
         if tokens[1] in ['moved/removed', 'phenotype', 'predominantly phenotypes']:
             continue
         if len(tokens) == 5:
@@ -105,6 +111,8 @@ def parse_mim_titles(lines):
         if len(line) == 0 or line.isspace() or line[0] == '#':
             continue  # skip the comment lines
         declared, omim_id, pref_label, alt_label, inc_label = [i.strip() for i in line.split('\t')]
+        if not declared and not omim_id and not pref_label and not alt_label and not inc_label:
+            continue
         if declared in declared_to_type:
             omim_type[omim_id] = (declared_to_type[declared], pref_label, alt_label, inc_label)
         else:
@@ -123,6 +131,8 @@ def parse_phenotypic_series_titles(lines) -> Dict[str, List]:
         if line.startswith('#'):
             continue
         tokens = line.split('\t')
+        if not tokens or tokens == ['']:
+            continue
         ps_id = tokens[0].strip()[2:]
         if len(tokens) == 2:
             ret[ps_id].append(tokens[1].strip())
@@ -146,6 +156,8 @@ def parse_mim2gene(lines) -> Tuple[Dict, Dict]:
         if line.startswith('#'):
             continue
         tokens = line.split('\t')
+        if not tokens or tokens == ['']:
+            continue
         if tokens[1] == 'gene' or tokens[1] == 'gene/phenotype':
             if tokens[2]:
                 gene_map[tokens[0]] = tokens[2]
@@ -163,6 +175,8 @@ def parse_morbid_map(lines) -> Dict[str, List[str]]:
         if line.startswith('#'):
             continue
         tokens = line.split('\t')
+        if not tokens or tokens == ['']:
+            continue
         m = p.match(tokens[0])
         if m:
             phenotype_mim_number = m.group(1)

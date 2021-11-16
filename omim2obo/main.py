@@ -1,16 +1,45 @@
-"""Build for OMIM.ttl"""
+"""Build for OMIM.ttl
+
+Steps (Based on reading session 2021/11/11)
+
+- Loads prefixes
+- Parses mimTitles.txt
+  - # - Get id's, titles, and type
+  - add to graph
+- parse mim2gene.txt
+  - for mim_number, entrez_id in gene_map.items():
+    - graph.add((OMIM[mim_number], OWL.equivalentClass, NCBIGENE[entrez_id]))
+  - for mim_number, entrez_id in pheno_map.items():
+    - graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
+- parse phenotypicSeries.txt
+  - Gets IDs and phenotype labels / descriptions
+  - Gets mim numbers referenced
+  - adds to graph
+- parse morbidmap.txt
+  - links omim entry (~gene) to phenotype
+    - I thought phenotypic series did something like the sme?
+  - links omim entry to chromosome location
+- omim.ttl & updated_01_2020_to_08_2021.json
+  - pmid info
+  - umls info
+  - orphanet info
+  - add these to graph
+- Add "omim replaced" info
+  - This is gotten from mimTitles.txt at beginning
+"""
 # import json
 import sys
 # from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
 from hashlib import md5
 
+import yaml
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef
 from rdflib.term import Identifier
 
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import cleanup_label, get_alt_labels, get_pubs, get_mapped_ids
 # from omim2obo.omim_client import OmimClient
-# from omim2obo.config import config, DATA_DIR, ROOT_DIR
+from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
 from omim2obo.parsers.omim_txt_parser import *
 # from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
 
@@ -21,7 +50,6 @@ LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
 
 # Vars
-DOWNLOAD_TXT_FILES = False
 TAX_LABEL = 'Homo sapiens'
 TAX_ID = GLOBAL_TERMS[TAX_LABEL]
 TAX_URI = URIRef(TAX_ID)
@@ -64,9 +92,10 @@ class OmimGraph(Graph):
         return OmimGraph.__instance
 
 
-def run():
+def run(use_cache: bool = False):
     """Run program"""
     graph = OmimGraph.get_graph()
+    download_files_tf: bool = not use_cache
 
     # Populate prefixes
     for prefix, uri in CURIE_MAP.items():
@@ -74,7 +103,7 @@ def run():
 
     # Parse mimTitles.txt
     # - Get id's, titles, and type
-    omim_titles, omim_replaced = parse_mim_titles(retrieve_mim_file('mimTitles.txt', DOWNLOAD_TXT_FILES))
+    omim_titles, omim_replaced = parse_mim_titles(retrieve_mim_file('mimTitles.txt', download_files_tf))
     omim_ids = list(omim_titles.keys() - omim_replaced.keys())
 
     LOG.info('Have %i omim numbers from mimTitles.txt', len(omim_ids))
@@ -133,7 +162,7 @@ def run():
             graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(cleanup_label(label, abbrev))))
 
     # Gene ID
-    gene_map, pheno_map = parse_mim2gene(retrieve_mim_file('mim2gene.txt', DOWNLOAD_TXT_FILES))
+    gene_map, pheno_map = parse_mim2gene(retrieve_mim_file('mim2gene.txt', download_files_tf))
     for mim_number, entrez_id in gene_map.items():
         # Are they truly equivalent? - joeflack4 2021/11/11
         graph.add((OMIM[mim_number], OWL.equivalentClass, NCBIGENE[entrez_id]))
@@ -142,7 +171,7 @@ def run():
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
 
     # Phenotpyic Series
-    pheno_series = parse_phenotypic_series_titles(retrieve_mim_file('phenotypicSeries.txt', DOWNLOAD_TXT_FILES))
+    pheno_series = parse_phenotypic_series_titles(retrieve_mim_file('phenotypicSeries.txt', download_files_tf))
     for ps_id in pheno_series:
         graph.add((OMIMPS[ps_id], RDF.type, OWL.Class))
         graph.add((OMIMPS[ps_id], RDFS.label, Literal(pheno_series[ps_id][0])))
@@ -152,7 +181,7 @@ def run():
             graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps_id]))
 
     # Morbid map (cyto locations)
-    morbid_map: Dict[str, List[str]] = parse_morbid_map(retrieve_mim_file('morbidmap.txt', DOWNLOAD_TXT_FILES))
+    morbid_map: Dict[str, List[str]] = parse_morbid_map(retrieve_mim_file('morbidmap.txt', download_files_tf))
     for mim_number in morbid_map:
         phenotype_mim_number, cyto_location = morbid_map[mim_number]
         if phenotype_mim_number:

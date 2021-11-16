@@ -41,41 +41,47 @@ you get an error related to this when installing, ignore it, as it is does not
 seem to be needed to run any of the tools. If however you do get a `psutil` error
 when running anything, please let us know by [creating an issue](https://github.com/monarch-initiative/omim/issues/new).
 
-## Tools: Running the full pipeline
-TODO: Not yet created. Currently, this is an alias for `make build`.
+### 3. `.env`
+1. Run: `cp .env.example .env`
+2. Change the value of `API_KEY` to your own. If you don't have one, you can request
+one at https://omim.org/downloads. This will probably be sufficient for the purposes
+of downloading the necessary text files, but if not, you can also require access to
+the REST API as well: https://omim.org/api.
 
-Command: `make all`
-
-
-## Tool 1/3: OMIM 2 OBO
+## Running
+### Main tool: OMIM 2 OBO
 Running this program will create a new `data/omim.ttl` file.
 
-Command: `make build`
+#### Command: `make all` or `make build` or `python -m omim2obo`
+These are all the same command. This will download files from omim.org and run the build.
 
+#### Command: `python -m omim2obo --use-cache`
+If there's an issue downloading the files, or you are offline, or you just want 
+to use the cache anyway, you can pass the `--use-cache` flag.
 
-## Tool 2/3: Get PMIDs used for OMIM codes from `omim.ttl`
-### Requirements
+### Auxiliary tool: Get PMIDs used for OMIM codes from `omim.ttl`
+#### Requirements
 There must be an `omim.ttl` file inside of `data/`.
 
 Command: `make get-pmids`
 
 
-## Tool 3/3: OMIM Code Web Scraper
+### Auxiliary tool: OMIM Code Web Scraper
 Tool for ingesting data from [omim.org](https://omim.org).
 
 Currently, the only feature is `get_codes_by_yyyy_mm`, which returns a list of 
 OMIM codes and their prefixes from https://omim.org/statistics/update.
 
-### Usage: Command Line Interface
-#### Syntax
+#### Usage: Command Line Interface
+##### Syntax
 1. `make scrape y=<YEAR> m=<MONTH>`
 2. `make scrape y=<YEAR> m=<MONTH> > <path/to/outputFile>`
 
-#### Usage
+##### Usage
 1. Get codes for May 2021, printed to terminal: `make scrape y=2021 m=5`
 2. Get codes for May 2021 and output to a file "myfile.txt": `make scrape y=2021 m=5 > myfile.txt`
 
-#### Examples
+##### Examples
 Command:  
 `make scrape y=2021 m=5`
 

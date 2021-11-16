@@ -4,6 +4,7 @@ data/cache/
 __pycache__/
 .idea/
 .DS_Store
+.env
 
 # Specialized
 .ipynb_checkpoints/omim-checkpoint.ipynb
