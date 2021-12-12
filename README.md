@@ -4,34 +4,27 @@
 OMIM stands for "Online Mendelian Inheritance in Man", and is an online 
 catalog of human genes and genetic disorders. The official site is: https://omim.org/
 
-This purpose of this repository is for data transformations for ingest into Mondo.
+This purpose of this repository is for data transformations for ingest into Mondo. Mainly, 
+it is for generating an `omim.ttl` file.
 
-This repository and its created data artefacts are unnofficial. For official, up-to-date
-OMIM data, please visit [omim.org](https://omim.org).
+Disclaimer: This repository and its created data artefacts are unnofficial. For 
+official, up-to-date OMIM data, please visit [omim.org](https://omim.org).
 
 ## Setup
-### 0. Acquire data sources
-The following data sources are necessary, but are private and must be acquired separately:
-- mim2gene.txt
-- mimTitles.txt
-- genemap2.txt
-- morbidmap.txt
-- phenotypicSeries.txt
-- allelicVariants.txt
-
-If you are a contributor to this project, you can acquire these by requesting access 
-from [a main contributor](https://github.com/monarch-initiative/omim/graphs/contributors). 
-They can also be obtained from OMIM directly. You'll need to (i) [register for downloads](https://omim.org/downloads), 
-and (ii) [request an API key](https://omim.org/api).
-
-Once acquired, these files should be placed in the `data/` folder.
-
-### 1. Install Python
+### 1. API Key and `.env`
+1. Run: `cp .env.example .env`
+2. Change the value of `API_KEY` to your own. If you don't have one, you can request
+one at https://omim.org/downloads. This will probably be sufficient for the purposes
+of downloading the necessary text files, but if not, you can also require access to
+the REST API as well: https://omim.org/api.
+   
+### 2. Python dependencies
+#### 2.1 Python installation
 - [RealPython blog install guide](https://realpython.com/installing-python/): My preferred guide for installing on Windows or Mac
 - [Python documentation for installing on Windows](https://docs.python.org/3/using/windows.html)
 - [Python documentation for installing on Mac](https://docs.python.org/3/using/mac.html)
 
-### 2. Setup virtual environment & installing packages
+#### 2.2 Setup virtual environment & installing packages
 There are various ways to do install packages in Python. We use Pipenv: https://docs.python-guide.org/dev/virtualenvs/#installing-pipenv. 
 Running the 'make' command below will install Pipenv if you don't have it, and then 
 use Pipenv to install the rest of the packages.
@@ -41,34 +34,23 @@ you get an error related to this when installing, ignore it, as it is does not
 seem to be needed to run any of the tools. If however you do get a `psutil` error
 when running anything, please let us know by [creating an issue](https://github.com/monarch-initiative/omim/issues/new).
 
-### 3. `.env`
-1. Run: `cp .env.example .env`
-2. Change the value of `API_KEY` to your own. If you don't have one, you can request
-one at https://omim.org/downloads. This will probably be sufficient for the purposes
-of downloading the necessary text files, but if not, you can also require access to
-the REST API as well: https://omim.org/api.
+## Running & creating `omim.ttl`
+Run: `make all`
 
-## Running
-### Main tool: OMIM 2 OBO
-Running this program will create a new `data/omim.ttl` file.
+Running this will create a new `omim.ttl` file in the root directory.
 
-#### Command: `make all` or `make build` or `python -m omim2obo`
-These are all the same command. This will download files from omim.org and run the build.
+You can also run `make build` or `python -m omim2obo`. These are all the same 
+command. This will download files from omim.org and run the build.
 
-#### Command: `python -m omim2obo --use-cache`
+Offline/cache option: `python -m omim2obo --use-cache`
 If there's an issue downloading the files, or you are offline, or you just want 
 to use the cache anyway, you can pass the `--use-cache` flag.
 
-### Auxiliary tool: Get PMIDs used for OMIM codes from `omim.ttl`
-#### Requirements
-There must be an `omim.ttl` file inside of `data/`.
-
+## Additional tools
+### Get PMIDs used for OMIM codes from `omim.ttl`
 Command: `make get-pmids`
 
-
-### Auxiliary tool: OMIM Code Web Scraper
-Tool for ingesting data from [omim.org](https://omim.org).
-
+### OMIM Code Web Scraper
 Currently, the only feature is `get_codes_by_yyyy_mm`, which returns a list of 
 OMIM codes and their prefixes from https://omim.org/statistics/update.
 
