@@ -33,7 +33,7 @@ import sys
 from hashlib import md5
 
 import yaml
-from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef
+from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
 from omim2obo.namespaces import *
@@ -110,8 +110,11 @@ def run(use_cache: bool = False):
     LOG.info('Have %i total omim types ', len(omim_titles))
 
     # Populate graph
+    # - Additional triples
+    graph.add((URIRef('http://www.geneontology.org/formats/oboInOwl#hasSynonymType'), RDF.type, OWL.AnnotationProperty))
     graph.add((TAX_URI, RDF.type, OWL.Class))
     graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
+    # - OMIM Data
     for omim_id in omim_ids:
         omim_uri = OMIM[omim_id]
         graph.add((omim_uri, RDF.type, OWL.Class))
@@ -126,7 +129,6 @@ def run(use_cache: bool = False):
 
         # Labels
         abbrev = label.split(';')[1].strip() if ';' in label else None
-
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # %
             graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
@@ -154,12 +156,10 @@ def run(use_cache: bool = False):
             graph.add((axiom_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
             graph.add((axiom_id, OWL.annotatedTarget, Literal(abbr)))
             graph.add((axiom_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
-
         for exact_label in exact_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(cleanup_label(exact_label, abbrev))))
-
+            graph.add((omim_uri, SKOS.exactMatch, Literal(cleanup_label(exact_label, abbrev))))
         for label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(cleanup_label(label, abbrev))))
+            graph.add((omim_uri, SKOS.exactMatch, Literal(cleanup_label(label, abbrev))))
 
     # Gene ID
     gene_map, pheno_map = parse_mim2gene(retrieve_mim_file('mim2gene.txt', download_files_tf))
