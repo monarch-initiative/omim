@@ -1,13 +1,16 @@
 """OMIM Entry parsers"""
+import csv
 import logging
-import re
+# import re
 from collections import defaultdict
 from copy import copy
 from typing import List, Dict
 
+import pandas as pd
 from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, URIRef
-from rdflib import Namespace
+# from rdflib import Namespace
 
+from omim2obo.config import DATA_DIR
 from omim2obo.omim_type import OmimType, get_omim_type
 from omim2obo.namespaces import *
 from omim2obo.utils.romanplus import *
@@ -135,7 +138,8 @@ def _detect_abbreviations(
     for word in words:
         if word.upper() == word:
             fully_capitalized_count += 1
-    is_largely_uppercase = fully_capitalized_count / len(words) >= CAPITALIZATION_THRESHOLD
+    is_largely_uppercase = \
+        fully_capitalized_count / len(words) >= CAPITALIZATION_THRESHOLD
 
     # Detect acronyms without periods
     if is_largely_uppercase:
@@ -147,8 +151,9 @@ def _detect_abbreviations(
     acronyms_with_periods = acronyms_with_periods_compiler.findall(label)
     # Combine list of things to re-format
     replacements = []
-    candidates: List[List[str]] = [acronyms_with_periods, acronyms_without_periods, title_cased_abbrevs,
-                                   [trailing_abbrev], [explicit_abbrev]]
+    candidates: List[List[str]] = [
+        acronyms_with_periods, acronyms_without_periods, title_cased_abbrevs,
+        [trailing_abbrev], [explicit_abbrev]]
     for item_list in candidates:
         for item in item_list:
             if item:
@@ -156,15 +161,18 @@ def _detect_abbreviations(
 
     return replacements
 
+
 def cleanup_label(
         label: str,
         explicit_abbrev: str = None,
         replacement_case_method: str = 'lower',  # lower | title | upper
         replacement_case_method_acronyms = 'upper',  # lower | title | upper
         conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
-        little_preps: List[str] = ['at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
+        little_preps: List[str] = [
+            'at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
         articles: List[str] = ['a', 'an', 'the'],
-        CAPITALIZATION_THRESHOLD = 0.75
+        CAPITALIZATION_THRESHOLD = 0.75,
+        word_replacements: Dict[str, str] = None  # w/ known cols
 ) -> str:
     """
     Reformat the ALL CAPS OMIM labels to something more pleasant to read.
@@ -242,10 +250,12 @@ def cleanup_label(
         # replace interior conjunctions, prepositions, and articles with lowercase, always
         if wrd.lower() in (conjunctions + little_preps + articles) and i != 1:
             wrd = wrd.lower()
+        if word_replacements:
+            wrd = word_replacements.get(wrd, wrd)
         fixedwords.append(wrd)
     label_newcase = ' '.join(fixedwords)
 
-    # 3/3 Re-capitalize acronyms / words
+    # 3/3 Re-capitalize acronyms / words based on information contained w/in original label
     formatted_label = copy(label_newcase)
     for item in possible_abbreviations:
         to_replace = getattr(item, replacement_case_method_acronyms)()
@@ -328,5 +338,42 @@ def get_phenotypic_series(entry) -> List[str]:
     return list(set(result))
 
 
+# noinspection PyUnusedLocal
 def get_process_allelic_variants(entry) -> List:
+    # Not sure when/if Dazhi intended to use this - joeflack4 2021/12/20
     return []
+
+
+def get_known_capitalizations() -> Dict[str, str]:
+    """Get list of known capitalizations for proper names, acronyms, and the like.
+    TODO: Contains space-delimited words, e.g. "vitamin d". The way that
+     cleanup_label is currently implemented, each word in the label gets
+     replaced; i.e. it would try to replace "vitamin" and "d" separately. Hence,
+     this would fail.
+     Therefore, we should probably do this in 2 different operations: (1) use
+     the current 'word replacement' logic, but also, (2), at the end, do a
+     generic string replacement (e.g. my_str.replace(a, b). When implementing
+     (2), we should also split this dictionary into two separate dictionaries,
+     each for 1 of these 2 different purposes."""
+    path = DATA_DIR / 'known_capitalizations.tsv'
+    with open(path, "r") as file:
+        data_io = csv.reader(file, delimiter="\t")
+        data: List[List[str]] = [x for x in data_io]
+    df = pd.DataFrame(data[1:], columns=data[0])
+    d = {}
+    for index, row in df.iterrows():
+        d[row['lower_name']] = row['cap_name']
+    return d
+
+
+class LabelCleaner():
+    """Cleans labels"""
+
+    def __init__(self):
+        """New obj"""
+        self.word_replacements: Dict[str, str] = get_known_capitalizations()
+
+    def clean(self, label, *args, **kwargs):
+        """Overrides cleanup_label by adding word_replacements"""
+        return cleanup_label(
+            label, *args, **kwargs, word_replacements=self.word_replacements)

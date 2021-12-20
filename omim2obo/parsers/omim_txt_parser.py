@@ -67,7 +67,7 @@ def parse_mim_genes(lines):
     return mim_genes
 
 
-def parse_omim_id(omim_id):
+def parse_omim_id(omim_id, log_success_case_warnings=False):
     """
     Tries to fix an OMIM_ID
     :param omim_id:
@@ -76,15 +76,18 @@ def parse_omim_id(omim_id):
     if omim_id.isdigit() and len(omim_id) == 6:
         return omim_id
     else:
-        LOG.warning(f'Trying to repaire malformed omim id: {omim_id}')
+        if log_success_case_warnings:
+            LOG.warning(f'Trying to repair malformed omim id: {omim_id}')
         m = re.match(r'\{(\d{6})\}', omim_id)
         if m:
-            LOG.warning(f'Repaired malformed omim id: {m.group(1)}')
+            if log_success_case_warnings:
+                LOG.warning(f'Repaired malformed omim id: {m.group(1)}')
             return m.group(1)
 
         m = re.match(r'(\d{6}),', omim_id)
         if m:
-            LOG.warning(f'Repaired malformed omim id: {m.group(1)}')
+            if log_success_case_warnings:
+                LOG.warning(f'Repaired malformed omim id: {m.group(1)}')
             return m.group(1)
 
         LOG.warning(f'Failed to repair malformed omim id: {omim_id}')

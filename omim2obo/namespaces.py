@@ -139,7 +139,8 @@ RBRC = Namespace('http://www2.brc.riken.jp/lab/animal/detail.php?brc_no=')      
 #                                                                       # National Center for Biotechnology Information
 NCBIASSEMBLY = Namespace('https://www.ncbi.nlm.nih.gov/assembly?term=')           #   Assembly  e.g. GRCh38
 NCBIGENOME = Namespace('https://www.ncbi.nlm.nih.gov/genome/')                    #   Genome    e.g. 51  (for human)
-NCBITAXON = Namespace('http://purl.obolibrary.org/obo/NCBITaxon_')                #   Taxon     e.g. 9606
+# NCBITAXON = Namespace('http://purl.obolibrary.org/obo/NCBITaxon_')                #   Taxon     e.g. 9606
+NCBITAXON = Namespace('http://purl.obolibrary.org/obo/NCBITaxon#')                #   Taxon     e.g. 9606
 OMIA_BREED = Namespace('https://monarchinitiative.org/model/OMIA-breed:')         # Local IRI for Online Inheritance In Animal breeds
 UCSC = Namespace('ftp://hgdownload.cse.ucsc.edu/goldenPath/')                     # University of California, Santa Cruz golden path
 UCSCBUILD = Namespace('http://genome.ucsc.edu/cgi-bin/hgGateway?db=')             # University of California, Santa Cruz genome build
@@ -324,7 +325,7 @@ MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')
 # # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
 # 'LIDA': 'http://sydney.edu.au/vetscience/lida/dogs/search/disorder/'  # Listing of Inherited Disorders in Animals (defunct?)
 # 'OMIM': 'http://omim.org/entry/'                                    # Online Mendelian Inheritance in Man (human disease and variants)
-# 'OMIMPS': 'http://www.omim.org/phenotypicSeries/'                   # Online Mendelian Inheritance in Man (phenotypes)
+# 'OMIMPS': 'http://www.omim.org/phenotypicSeries/PS'                   # Online Mendelian Inheritance in Man (phenotypes)
 # 'ORPHA': 'http://www.orpha.net/ORDO/Orphanet_'                      # Rare diseases and Orphan drugs
 # 'PATO': 'http://purl.obolibrary.org/obo/PATO_'                      # Phenotypic Quality Ontology
 # 'PCO': 'http://purl.obolibrary.org/obo/PCO_'                        # Population and Community Ontology
