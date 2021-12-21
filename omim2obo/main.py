@@ -115,84 +115,79 @@ def run(use_cache: bool = False):
     LOG.info('Tot MIM types: %i', len(omim_titles))
 
     # Populate graph
-    # - Non-MIM triples
+    # - Non-OMIM triples
     graph.add((
         URIRef('http://www.geneontology.org/formats/oboInOwl#hasSynonymType'),
         RDF.type, OWL.AnnotationProperty))
     graph.add((TAX_URI, RDF.type, OWL.Class))
     graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
 
-    # - OMIM Data
+    # - OMIM triples
     for omim_id in omim_ids:
         omim_uri = OMIM[omim_id]
         graph.add((omim_uri, RDF.type, OWL.Class))
 
-        label_ids = [omim_id]
-        # - Official MIM# replacements
-        # TODO: check if the line below that changed yields fix for 102570:
-        #  ...should now be marked obsolete, and have no labels
+        # - Deprecated classes
         if omim_replaced.get(omim_id, None) is not None:
+            graph.add((OMIM[omim_id], OWL.deprecated, Literal(True)))
             label_ids = omim_replaced[omim_id]
-            if len(label_ids) > 1:
+            if len(label_ids) == 1:
+                # IAO:0100001 means: "term replaced by"
+                graph.add((OMIM[omim_id], IAO['0100001'], OMIM[label_ids[0]]))
+            elif len(label_ids) > 1:
                 for replaced_mim_num in label_ids:
                     graph.add((OMIM[omim_id], oboInOwl.consider, OMIM[replaced_mim_num]))
-            elif label_ids:
-                # What's IAO['0100001'] - joeflack4 2021/11/11
-                graph.add((OMIM[omim_id], IAO['0100001'], OMIM[label_ids[0]]))
-            graph.add((OMIM[omim_id], OWL.deprecated, Literal(True)))
+            continue
 
-        # Only a very small subset (multiple deprecated replacements) will have >1 label_id
-        for label_id in label_ids:
-            omim_type, pref_label, alt_label, inc_label = omim_titles[label_id]
+        # - Non-deprecated
+        omim_type, pref_label, alt_label, inc_label = omim_titles[omim_id]
+        label = pref_label
+        other_labels = []
+        if alt_label:
+            other_labels += get_alt_labels(alt_label)
+        if inc_label:
+            other_labels += get_alt_labels(inc_label)
 
-            label = pref_label
-            other_labels = []
-            if alt_label:
-                other_labels += get_alt_labels(alt_label)
-            if inc_label:
-                other_labels += get_alt_labels(inc_label)
+        use_abbrev_over_label = False
+        abbrev = label.split(';')[1].strip() if ';' in label else None
+        if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # %
+            graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
+        elif omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE:  # * or +
+            use_abbrev_over_label = True
+            # What's SO['0000704'] - joeflack4 2021/11/11
+            graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))
+            graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
+        elif omim_type == OmimType.PHENOTYPE:  # #
+            graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
+        else:
+            # All were 'OmimType.SUSPECTED' when I just checked. - joeflack4 2021/11/11
+            pass
 
-            # Labels
-            use_abbrev_over_label = False
-            abbrev = label.split(';')[1].strip() if ';' in label else None
-            if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # %
-                graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-            elif omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE:  # * or +
-                use_abbrev_over_label = True
-                # What's SO['0000704'] - joeflack4 2021/11/11
-                graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))
-                graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
-            elif omim_type == OmimType.PHENOTYPE:  # #
-                graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-            else:
-                # All were 'OmimType.SUSPECTED' when I just checked. - joeflack4 2021/11/11
-                pass
+        if use_abbrev_over_label:
+            graph.add((omim_uri, RDFS.label, Literal(abbrev)))
+        else:
+            graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(label))))
 
-            if use_abbrev_over_label:
-                graph.add((omim_uri, RDFS.label, Literal(abbrev)))
-            else:
-                graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(label))))
-
-            exact_labels = [s.strip() for s in label.split(';')]
-            # the last string is an abbreviation. Add OWL reification. See issue #2
-            if len(exact_labels) > 1:
-                abbr = exact_labels.pop()
-                graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
-                axiom_id = DeterministicBNode(abbr)
-                graph.add((axiom_id, RDF.type, OWL.Axiom))
-                # What's CL['0017543'] - joeflack4 2021/11/11
-                graph.add((axiom_id, OWL.annotatedSource, CL['0017543']))
-                graph.add((axiom_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
-                graph.add((axiom_id, OWL.annotatedTarget, Literal(abbr)))
-                graph.add((axiom_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
-            for exact_label in exact_labels:
-                graph.add((
-                    omim_uri, SKOS.exactMatch,
-                    Literal(label_cleaner.clean(exact_label, abbrev))))
-            for label in other_labels:
-                graph.add((
-                    omim_uri, SKOS.exactMatch,
-                    Literal(label_cleaner.clean(label, abbrev))))
+        exact_labels = [s.strip() for s in label.split(';')]
+        # the last string is an abbreviation. Add OWL reification. See issue #2
+        if len(exact_labels) > 1:
+            abbr = exact_labels.pop()
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
+            axiom_id = DeterministicBNode(abbr)
+            graph.add((axiom_id, RDF.type, OWL.Axiom))
+            # What's CL['0017543'] - joeflack4 2021/11/11
+            graph.add((axiom_id, OWL.annotatedSource, CL['0017543']))
+            graph.add((axiom_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
+            graph.add((axiom_id, OWL.annotatedTarget, Literal(abbr)))
+            graph.add((axiom_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
+        for exact_label in exact_labels:
+            graph.add((
+                omim_uri, SKOS.exactMatch,
+                Literal(label_cleaner.clean(exact_label, abbrev))))
+        for label in other_labels:
+            graph.add((
+                omim_uri, SKOS.exactMatch,
+                Literal(label_cleaner.clean(label, abbrev))))
 
     # Gene ID
     gene_map, pheno_map = parse_mim2gene(
