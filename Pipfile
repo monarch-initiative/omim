@@ -7,8 +7,9 @@ verify_ssl = true
 pytest = "*"
 
 [packages]
-beautifulsoup4 = "*"
+# beautifulsoup4 = "*"
 rdflib = "*"
+pandas = "*"
 pyyaml = "*"
 requests = "*"
 python-dotenv = "*"
