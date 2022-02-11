@@ -157,7 +157,7 @@ def run(use_cache: bool = False):
             # What's SO['0000704'] - joeflack4 2021/11/11
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
-        elif omim_type == OmimType.PHENOTYPE:  # #
+        elif omim_type == OmimType.PHENOTYPE:
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
         else:
             # All were 'OmimType.SUSPECTED' when I just checked. - joeflack4 2021/11/11
