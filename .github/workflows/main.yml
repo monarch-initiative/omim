@@ -22,6 +22,8 @@ jobs:
     - name: Create .env file
       run: |
         echo -en "API_KEY=${{ secrets.API_KEY }}" > .env
-    - name: Build
-      run: |
-        make all
+#    - name: Build
+#      run: |
+#        make all
+    - name: Create release
+      uses: softprops/action-gh-release@v1
