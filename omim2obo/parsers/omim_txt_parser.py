@@ -1,16 +1,21 @@
-# import csv
+"""Text parsing utilities"""
+import json
 import logging
-from omim2obo.config import config, DATA_DIR
+import os
+import sys
+from collections import defaultdict
+from typing import List, Dict, Tuple
+
 import requests
 import re
-from typing import List, Dict, Tuple
+import pandas as pd
 # from rdflib import URIRef
-from collections import defaultdict
-import json
 
-# from omim2obo.omim_client import OmimClient
+from omim2obo.config import config, DATA_DIR
 from omim2obo.omim_type import OmimType
+# from omim2obo.omim_client import OmimClient
 # from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
+
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 
@@ -151,8 +156,30 @@ def parse_gene_map(lines):
     ...
 
 
-def parse_mim2gene(lines) -> Tuple[Dict, Dict]:
-    """Parse OMIM # 2 gene file"""
+def get_hgnc_map(filename, symbol_col, mim_col='MIM Number') -> Dict:
+    """Get HGNC Map"""
+    map = {}
+    input_path = os.path.join(DATA_DIR, filename)
+    df = pd.read_csv(input_path, delimiter='\t', comment='#').fillna('')
+    df[mim_col] = df[mim_col].astype(int)  # these were being read as floats
+
+    for index, row in df.iterrows():
+        symbol = row[symbol_col]
+        if symbol:
+            # Useful to read as `int` to catch any erroneous entries, but convert to str for compatibility with rest of
+            # codebase, which is currently reading as `str` for now.
+            map[str(row[mim_col])] = symbol
+
+    return map
+
+
+def parse_mim2gene(lines, filename='mim2gene.tsv', filename2='genemap2.tsv') -> Tuple[Dict, Dict, Dict]:
+    """Parse OMIM # 2 gene file
+    todo: ideally replace this whole thing with pandas
+    todo: How to reconcile inconsistent mim#::hgnc_symbol mappings?
+    todo: Generate inconsistent mapping report as csv output instead and print a single warning with path to that file.
+    """
+    # Gene and phenotype maps
     gene_map = {}
     pheno_map = {}
     for line in lines:
@@ -167,7 +194,20 @@ def parse_mim2gene(lines) -> Tuple[Dict, Dict]:
         elif tokens[1] == 'phenotype' or tokens[1] == 'predominantly phenotypes':
             if tokens[2]:
                 pheno_map[tokens[0]] = tokens[2]
-    return gene_map, pheno_map
+
+    # HGNC map
+    hgnc_map: Dict = get_hgnc_map(os.path.join(DATA_DIR, filename), 'Approved Gene Symbol (HGNC)')
+    hgnc_map2: Dict = get_hgnc_map(os.path.join(DATA_DIR, filename2), 'Approved Gene Symbol')
+    warning = 'Warning: MIM # {} was mapped to two different HGNC symbols, {} and {}. ' \
+              'This was unexpected, so this mapping has been removed.'
+    for mim_num, symbol in hgnc_map2.items():
+        if mim_num not in hgnc_map:
+            hgnc_map[mim_num] = symbol
+        elif hgnc_map[mim_num] != symbol:
+                print(warning.format(mim_num, hgnc_map[mim_num], symbol), file=sys.stderr)
+                del hgnc_map[mim_num]
+
+    return gene_map, pheno_map, hgnc_map
 
 
 def parse_morbid_map(lines) -> Dict[str, List[str]]:
@@ -239,3 +279,16 @@ def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month
     with open(DATA_DIR / 'updated_01_2020_to_08_2021.json', 'r') as json_file:
         updated_entries = json.load(json_file)
     return updated_entries
+
+
+def get_hgnc_symbol_id_map(input_path=os.path.join(DATA_DIR, 'hgnc', 'hgnc_complete_set.txt')) -> Dict[str, str]:
+    """Get mapping between HGNC symbols and IDs
+    TODO: There's a better mapping file, but getting 'Bad Gateway' when trying to download it. - Joe 2022/04/12"""
+    # TODO: Add downloading functionality: http://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.tsv
+    #  ...I think 'withdrawn.txt' is for symbol::id mappings that are no longer valid, so I will return empty for now.
+    map = {}
+    # df = pd.read_csv(input_path, sep='\t')
+    # for index, row in df.iterrows():
+    #     map[row['symbol']] = row['id']
+
+    return map

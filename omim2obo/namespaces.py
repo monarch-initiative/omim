@@ -190,8 +190,10 @@ ENSEMBLGENOME = Namespace('http://www.ensemblgenomes.org/id/')                  
 FLYBASE = Namespace('http://flybase.org/reports/')                                        # Fruitfly database
 GENATLAS = Namespace('http://genatlas.medecine.univ-paris5.fr/fiche.php?symbol=')         # gene mapping and genetic diseases (Human)
 GENBANK = Namespace('http://www.ncbi.nlm.nih.gov/nuccore/')                               # NCBI nucleotide sequences
-# 'HGNC': 'http://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id='        # *** pre drupal site
-HGNC = Namespace('https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:')    # HUGO Gene Nomenclature Committee (Human)
+# HGNC = Namespace('http://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=')        # pre drupal site
+# HGNC = Namespace('https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:')    # HUGO Gene Nomenclature Committee (Human)
+HGNC = Namespace('https://identifiers.org/hgnc:')    # HUGO Gene Nomenclature Committee (Human)
+HGNC_symbol = Namespace('https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/')    # HUGO Gene Nomenclature Committee (Human)
 IMPC = Namespace('https://www.mousephenotype.org/data/genes/')                             # International Mouse Phenotyping Consortium (MGI:nnn)
 IMPC_PIPE = Namespace('https://www.mousephenotype.org/impress/PipelineInfo?id=')         # <pipeline-key>
 IMPC_PROC = Namespace('https://www.mousephenotype.org/impress/ProcedureInfo?action=list&procID=')  # <procedure-key>[&pipeID=<pipeline-key>]
