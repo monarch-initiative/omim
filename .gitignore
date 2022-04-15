@@ -13,8 +13,18 @@ __pycache__/
 
 # OMIM data sources
 mim2gene.txt
+mim2gene.tsv
 mimTitles.txt
+mimTitles.tsv
 genemap2.txt
+genemap2.tsv
 morbidmap.txt
+morbidmap.tsv
 phenotypicSeries.txt
+phenotypicSeries.tsv
 allelicVariants.txt
+allelicVariants.tsv
+
+# SSSOM command outputs
+omim.sssom.log.txt
+omim.json

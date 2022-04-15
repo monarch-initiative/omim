@@ -14,7 +14,7 @@ Steps
 - Parses mim2gene.tsv
   This was created based on mim2gene.txt. All that was changed was that comments were removed and header was
   uncommented, and file extension changed to tsv.
-  - TODO: Adds HGNC symbols
+  - Adds HGNC symbols
 - Parses phenotypicSeries.txt
   - Gets IDs and phenotype labels / descriptions
   - Gets mim numbers referenced
@@ -31,12 +31,13 @@ Steps
   - orphanet info
 - Add "omim replaced" info
   - This is gotten from mimTitles.txt at beginning
-- TODO: Parses mim2gene2.txt
+- Parses mim2gene2.txt
   A tab-delimited file linking MIM numbers with NCBI Gene IDs, Ensembl Gene IDs, and HGNC Approved Gene Symbols.
-  - TODO: Adds HGNC symbols
-- TODO: Parses hgnc/withdrawn.txt
+  - Adds HGNC symbols
+- TODO: Parses hgnc/hgnc_complete_set.txt
   A tab-delimited file with purpose unknown to me (Joe), but has mappings between HGNC symbols and IDs.
   - Get HGNC symbol::id mappings.
+todo: The downloads should all happen at beginning of script
 """
 import yaml
 
@@ -195,15 +196,16 @@ def run(use_cache: bool = False):
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(label, abbrev))))
 
     # Gene ID
-    gene_map, pheno_map, hgnc_map = parse_mim2gene(
-        retrieve_mim_file('mim2gene.txt', download_files_tf))
+    retrieve_mim_file('genemap2.txt', download_files_tf)  # dl latest file
+    mim2gene_lines: List[str] = retrieve_mim_file('mim2gene.txt', download_files_tf)  # dl latest file & return
+    gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)
     for mim_number, entrez_id in gene_map.items():
         # Are they truly equivalent? - joeflack4 2021/11/11
         graph.add((OMIM[mim_number], OWL.equivalentClass, NCBIGENE[entrez_id]))
     for mim_number, entrez_id in pheno_map.items():
         # RO['0002200'] = 'has phenotype'
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
-    hgnc_symbol_id_map: Dict = get_hgnc_symbol_id_map()
+    hgnc_symbol_id_map: Dict[str, str] = get_hgnc_symbol_id_map()
     for mim_number, hgnc_symbol in hgnc_map.items():
         graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC_symbol[hgnc_symbol]))
         if hgnc_symbol in hgnc_symbol_id_map:
@@ -254,10 +256,10 @@ def run(use_cache: bool = False):
             graph.add((OMIM[mim_number], IAO['0000142'], PMID[pm_id]))
     for mim_number, umlsids in umls_map.items():
         for umls_id in umlsids:
-            graph.add((OMIM[mim_number], oboInOwl.hasDbXref, UMLS[umls_id]))
+            graph.add((OMIM[mim_number], SKOS.exactMatch, UMLS[umls_id]))
     for mim_number, orphanet_ids in orphanet_map.items():
         for orphanet_id in orphanet_ids:
-            graph.add((OMIM[mim_number], oboInOwl.hasDbXref, ORPHANET[orphanet_id]))
+            graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
     with open(ROOT_DIR / 'omim.ttl', 'w') as f:
         f.write(graph.serialize(format='turtle'))

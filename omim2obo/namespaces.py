@@ -58,7 +58,7 @@ OBOINOWL = Namespace('http://www.geneontology.org/formats/oboInOwl#')         # 
 OMIA = Namespace('https://omia.org/OMIA')                                     # Online Mendelian Inheritance in Animals (disease/species)
 # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
 LIDA = Namespace('http://sydney.edu.au/vetscience/lida/dogs/search/disorder/')  # Listing of Inherited Disorders in Animals (defunct?)
-OMIM = Namespace('http://omim.org/entry/')                                    # Online Mendelian Inheritance in Man (human disease and variants)
+OMIM = Namespace('https://omim.org/entry/')                                    # Online Mendelian Inheritance in Man (human disease and variants)
 OMIMPS = Namespace('http://www.omim.org/phenotypicSeries/PS')                   # Online Mendelian Inheritance in Man (phenotypes)
 ORPHA = Namespace('http://www.orpha.net/ORDO/Orphanet_')                      # Rare diseases and Orphan drugs
 PATO = Namespace('http://purl.obolibrary.org/obo/PATO_')                      # Phenotypic Quality Ontology

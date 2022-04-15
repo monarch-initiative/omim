@@ -1,0 +1,9 @@
+mapping_set_id: http://example.org
+license: http://w3id.org/sssom/license/unspecified
+creator_id: https://orcid.org/0000-0002-2906-7319
+curie_map:
+  HGNC: "https://identifiers.org/hgnc:"
+  HGNC_symbol: https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/
+  OMIM: https://omim.org/entry/
+  UMLS: http://linkedlifedata.com/resource/umls/id/
+  ORPHA: http://www.orpha.net/ORDO/Orphanet_

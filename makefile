@@ -7,13 +7,22 @@ pip remove-previous-build build-package get-pmids scrape install
 
 
 # MAIN COMMANDS ----------------------------------------------------------------
-# TODO: What else needs to be done before build? How to chain together?
-all: build
+all: build sssom build-cleanup
 
 # Create new omim.ttl
 build:
 	pipenv run python3 -m omim2obo
 
+# Create mapping artefact(s)
+sssom:
+	robot convert -i omim.ttl -o omim.json
+	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv &> omim.sssom.log.txt
+
+build-cleanup:
+	@echo Ran build and created new 'omim.ttl' and 'omim.sssom.tsv'. Check 'omim.sssom.log.txt' to view any warnings or errors.
+	@rm omim.json
+
+# Additional ad hoc commands ---------------------------------------------------
 # scrape: argument should be in form of YYYY/MM or YYYY/mm
 # @param y: The year. Pass as <FLAG>=<YYYY>, where <FLAG> can be y, yr, year,
 #           or YYYY.
