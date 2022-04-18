@@ -7,7 +7,7 @@ from copy import copy
 from typing import List, Dict
 
 import pandas as pd
-from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, URIRef
+from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, SKOS, URIRef
 # from rdflib import Namespace
 
 from omim2obo.config import DATA_DIR
@@ -99,7 +99,7 @@ def transform_entry(entry) -> Graph:
     # Mapped IDs
     for namespace, mapped_ids in get_mapped_ids(entry).items():
         for mapped_id in mapped_ids:
-            graph.add((omim_uri, oboInOwl.hasDbXref, namespace[mapped_id]))
+            graph.add((omim_uri, SKOS.exactMatch, namespace[mapped_id]))
 
     # Phenotypic series
     for phenotypic_serie in get_phenotypic_series(entry):

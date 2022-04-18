@@ -1,34 +1,44 @@
-"""Build for OMIM.ttl
+"""OMIM ingest to generate RDF .ttl
 
-Steps (Based on reading session 2021/11/11)
-
+Steps
 - Loads prefixes
 - Parses mimTitles.txt
-  - # - Get id's, titles, and type
-  - add to graph
-- parse mim2gene.txt
+  A tab-delimited file of MIM numbers and titles.
+  - Get id's, titles, and type
+- Parses mim2gene.txt
+  A tab-delimited file linking MIM numbers with NCBI Gene IDs, Ensembl Gene IDs, and HGNC Approved Gene Symbols.
   - for mim_number, entrez_id in gene_map.items():
     - graph.add((OMIM[mim_number], OWL.equivalentClass, NCBIGENE[entrez_id]))
   - for mim_number, entrez_id in pheno_map.items():
     - graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
-- parse phenotypicSeries.txt
+- Parses mim2gene.tsv
+  This was created based on mim2gene.txt. All that was changed was that comments were removed and header was
+  uncommented, and file extension changed to tsv.
+  - Adds HGNC symbols
+- Parses phenotypicSeries.txt
   - Gets IDs and phenotype labels / descriptions
   - Gets mim numbers referenced
-  - adds to graph
-- parse morbidmap.txt
+- Parse morbidmap.txt
+    A tab-delimited file of OMIM's Synopsis of the Human Gene Map (same as genemap2.txt above) sorted alphabetically by
+    disorder.
   - links omim entry (~gene) to phenotype
     - I thought phenotypic series did something like the sme?
   - links omim entry to chromosome location
-- omim.ttl & updated_01_2020_to_08_2021.json
+- Parses BioPortal's omim.ttl
+  At least, I think that's where that .ttl file comes from. Adds following info to graph:
   - pmid info
   - umls info
   - orphanet info
-  - add these to graph
 - Add "omim replaced" info
   - This is gotten from mimTitles.txt at beginning
+- Parses mim2gene2.txt
+  A tab-delimited file linking MIM numbers with NCBI Gene IDs, Ensembl Gene IDs, and HGNC Approved Gene Symbols.
+  - Adds HGNC symbols
+- TODO: Parses hgnc/hgnc_complete_set.txt
+  A tab-delimited file with purpose unknown to me (Joe), but has mappings between HGNC symbols and IDs.
+  - Get HGNC symbol::id mappings.
+todo: The downloads should all happen at beginning of script
 """
-# import json
-import sys
 import yaml
 
 # from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
@@ -181,23 +191,25 @@ def run(use_cache: bool = False):
             graph.add((axiom_id, OWL.annotatedTarget, Literal(abbr)))
             graph.add((axiom_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
         for exact_label in exact_labels:
-            graph.add((
-                omim_uri, SKOS.exactMatch,
-                Literal(label_cleaner.clean(exact_label, abbrev))))
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(exact_label, abbrev))))
         for label in other_labels:
-            graph.add((
-                omim_uri, SKOS.exactMatch,
-                Literal(label_cleaner.clean(label, abbrev))))
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(label, abbrev))))
 
     # Gene ID
-    gene_map, pheno_map = parse_mim2gene(
-        retrieve_mim_file('mim2gene.txt', download_files_tf))
+    retrieve_mim_file('genemap2.txt', download_files_tf)  # dl latest file
+    mim2gene_lines: List[str] = retrieve_mim_file('mim2gene.txt', download_files_tf)  # dl latest file & return
+    gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)
     for mim_number, entrez_id in gene_map.items():
         # Are they truly equivalent? - joeflack4 2021/11/11
         graph.add((OMIM[mim_number], OWL.equivalentClass, NCBIGENE[entrez_id]))
     for mim_number, entrez_id in pheno_map.items():
-        # What's RO['0002200'] - joeflack4 2021/11/11
+        # RO['0002200'] = 'has phenotype'
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
+    hgnc_symbol_id_map: Dict[str, str] = get_hgnc_symbol_id_map()
+    for mim_number, hgnc_symbol in hgnc_map.items():
+        graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC_symbol[hgnc_symbol]))
+        if hgnc_symbol in hgnc_symbol_id_map:
+            graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC[hgnc_symbol_id_map[hgnc_symbol]]))
 
     # Phenotpyic Series
     pheno_series = parse_phenotypic_series_titles(
@@ -229,7 +241,6 @@ def run(use_cache: bool = False):
     pmid_map, umls_map, orphanet_map = get_maps_from_turtle()
 
     # Get the recent updated
-    # How long is this JSON file supposed to last for us Where is it from? - joeflack4 2021/11/11
     updated_entries = get_updated_entries()
     for entry in updated_entries:
         entry = entry['entry']
@@ -245,10 +256,10 @@ def run(use_cache: bool = False):
             graph.add((OMIM[mim_number], IAO['0000142'], PMID[pm_id]))
     for mim_number, umlsids in umls_map.items():
         for umls_id in umlsids:
-            graph.add((OMIM[mim_number], oboInOwl.hasDbXref, UMLS[umls_id]))
+            graph.add((OMIM[mim_number], SKOS.exactMatch, UMLS[umls_id]))
     for mim_number, orphanet_ids in orphanet_map.items():
         for orphanet_id in orphanet_ids:
-            graph.add((OMIM[mim_number], oboInOwl.hasDbXref, ORPHANET[orphanet_id]))
+            graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
     with open(ROOT_DIR / 'omim.ttl', 'w') as f:
         f.write(graph.serialize(format='turtle'))

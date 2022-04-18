@@ -76,7 +76,7 @@
 'OMIA': 'https://omia.org/OMIA'                                     # Online Mendelian Inheritance in Animals (disease/species)
 # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
 'LIDA': 'http://sydney.edu.au/vetscience/lida/dogs/search/disorder/'  # Listing of Inherited Disorders in Animals (defunct?)
-'OMIM': 'http://omim.org/entry/'                                    # Online Mendelian Inheritance in Man (human disease and variants)
+'OMIM': 'https://omim.org/entry/'                                    # Online Mendelian Inheritance in Man (human disease and variants)
 'OMIMPS': 'http://www.omim.org/phenotypicSeries/PS'                   # Online Mendelian Inheritance in Man (phenotypes)
 'ORPHA': 'http://www.orpha.net/ORDO/Orphanet_'                      # Rare diseases and Orphan drugs
 'PATO': 'http://purl.obolibrary.org/obo/PATO_'                      # Phenotypic Quality Ontology
@@ -208,8 +208,10 @@
 'FlyBase': 'http://flybase.org/reports/'                                        # Fruitfly database
 'Genatlas': 'http://genatlas.medecine.univ-paris5.fr/fiche.php?symbol='         # gene mapping and genetic diseases (Human)
 'GenBank': 'http://www.ncbi.nlm.nih.gov/nuccore/'                               # NCBI nucleotide sequences
-# 'HGNC': 'http://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id='        # *** pre drupal site
-'HGNC': 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:'    # HUGO Gene Nomenclature Committee (Human)
+# 'HGNC': 'http://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id='        # pre drupal site
+#'HGNC': 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:'    # HUGO Gene Nomenclature Committee (Human)
+'HGNC': 'https://identifiers.org/hgnc:'    # HUGO Gene Nomenclature Committee (Human)
+'HGNC_symbol': 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/'    # HUGO Gene Nomenclature Committee (Human)
 'IMPC': 'https://www.mousephenotype.org/data/genes/'                             # International Mouse Phenotyping Consortium (MGI:nnn)
 'IMPC-pipe': 'https://www.mousephenotype.org/impress/PipelineInfo?id='         # <pipeline-key>
 'IMPC-proc': 'https://www.mousephenotype.org/impress/ProcedureInfo?action=list&procID='  # <procedure-key>[&pipeID=<pipeline-key>]

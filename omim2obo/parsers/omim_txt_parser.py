@@ -1,39 +1,64 @@
-# import csv
+"""Text parsing utilities"""
+import json
 import logging
-from omim2obo.config import config, DATA_DIR
+import os
+import sys
+from collections import defaultdict
+from pathlib import PosixPath
+from typing import List, Dict, Tuple, Union
+
 import requests
 import re
-from typing import List, Dict, Tuple
+import pandas as pd
 # from rdflib import URIRef
-from collections import defaultdict
-import json
 
-# from omim2obo.omim_client import OmimClient
+from omim2obo.config import config, DATA_DIR
 from omim2obo.omim_type import OmimType
+# from omim2obo.omim_client import OmimClient
 # from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
+
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 
 
-def retrieve_mim_file(file_name: str, download: bool = False) -> List[str]:
+def retrieve_mim_file(file_name: str, download=False, return_df=False) -> Union[List[str], pd.DataFrame]:
     """
     Retrieve OMIM downloadable text file from the OMIM download server
-    :return: lines
+    :param return_df: If False, returns List[str] of each line in the file, else a DataFrame.
     """
-    mim_file = DATA_DIR / file_name
+    file_headers = {
+        'mim2gene.txt': '# MIM Number	MIM Entry Type (see FAQ 1.3 at https://omim.org/help/faq)	Entrez Gene ID (NCBI)	Approved Gene Symbol (HGNC)	Ensembl Gene ID (Ensembl)',
+        'genemap2.txt': '# Chromosome	Genomic Position Start	Genomic Position End	Cyto Location	Computed Cyto Location	MIM Number	Gene Symbols	Gene Name	Approved Gene Symbol	Entrez Gene ID	Ensembl Gene ID	Comments	Phenotypes	Mouse Gene Symbol/ID'
+    }
+    mim_file: PosixPath = DATA_DIR / file_name
+    mim_file_tsv: str = str(mim_file).replace('.txt', '.tsv')
+
     if download:
         url = f'https://data.omim.org/downloads/{config["API_KEY"]}/{file_name}'
+        # todo: This doesn't work for genemap2.txt. But does the previous URL work? If so, why not just use that?
         if file_name == 'mim2gene.txt':
-            url = 'https://omim.org/static/omim/data/mim2gene.txt'
+            url = f'https://omim.org/static/omim/data/{file_name}'
         resp = requests.get(url)
         if resp.status_code == 200:
             text = resp.text
             if not text.startswith('<!DOCTYPE html>'):
+                # Save file
                 with open(mim_file, 'w') as fout:
                     fout.write(text)
-                lines = text.split('\n')
+                # TODO: mim2gene.txt & genemap2.txt: Need to uncomment out the first line
+                #   modify 'text'. what's the nature of it? how to edit just that one line?
+
+                # todo: This is brittle in that it depends on these headers not changing. Would be better, eventually,
+                #  to read the lines into a list, then find the first line w/out a comment, get its index, then -1 to
+                #  get index of prev line, then use that to remove the leading '# ' from that line.
+                # todo: also would be good to do this, because the other TSVs won't have their headers. It doesn't
+                #  matter that much atm, because these files aren't used for anything programmatic.
+                if file_name in file_headers:
+                    header = file_headers[file_name]
+                    text = text.replace(header, header[2:])  # removes leading comment
+                with open(mim_file_tsv, 'w') as fout:
+                    fout.write(text)
                 LOG.info(f'{file_name} retrieved and updated')
-                return lines
             else:
                 raise RuntimeError('Unexpected response: ' + text)
         else:
@@ -43,9 +68,13 @@ def retrieve_mim_file(file_name: str, download: bool = False) -> List[str]:
             #     lines = fin.readlines()
             # LOG.warning('Failed to retrieve mimTitles.txt. Using the cached file.')
             raise RuntimeError(msg)
+
+    if return_df:
+        df = pd.read_csv(mim_file_tsv, comment='#', sep='\t')
+        return df
     else:
         with open(mim_file, 'r') as fin:
-            lines = fin.readlines()
+            lines: List[str] = fin.readlines()
             return lines
 
 
@@ -151,8 +180,30 @@ def parse_gene_map(lines):
     ...
 
 
-def parse_mim2gene(lines) -> Tuple[Dict, Dict]:
-    """Parse OMIM # 2 gene file"""
+def get_hgnc_map(filename, symbol_col, mim_col='MIM Number') -> Dict:
+    """Get HGNC Map"""
+    map = {}
+    input_path = os.path.join(DATA_DIR, filename)
+    df = pd.read_csv(input_path, delimiter='\t', comment='#').fillna('')
+    df[mim_col] = df[mim_col].astype(int)  # these were being read as floats
+
+    for index, row in df.iterrows():
+        symbol = row[symbol_col]
+        if symbol:
+            # Useful to read as `int` to catch any erroneous entries, but convert to str for compatibility with rest of
+            # codebase, which is currently reading as `str` for now.
+            map[str(row[mim_col])] = symbol
+
+    return map
+
+
+def parse_mim2gene(lines, filename='mim2gene.tsv', filename2='genemap2.tsv') -> Tuple[Dict, Dict, Dict]:
+    """Parse OMIM # 2 gene file
+    todo: ideally replace this whole thing with pandas
+    todo: How to reconcile inconsistent mim#::hgnc_symbol mappings?
+    todo: Generate inconsistent mapping report as csv output instead and print a single warning with path to that file.
+    """
+    # Gene and phenotype maps
     gene_map = {}
     pheno_map = {}
     for line in lines:
@@ -167,7 +218,20 @@ def parse_mim2gene(lines) -> Tuple[Dict, Dict]:
         elif tokens[1] == 'phenotype' or tokens[1] == 'predominantly phenotypes':
             if tokens[2]:
                 pheno_map[tokens[0]] = tokens[2]
-    return gene_map, pheno_map
+
+    # HGNC map
+    hgnc_map: Dict = get_hgnc_map(os.path.join(DATA_DIR, filename), 'Approved Gene Symbol (HGNC)')
+    hgnc_map2: Dict = get_hgnc_map(os.path.join(DATA_DIR, filename2), 'Approved Gene Symbol')
+    warning = 'Warning: MIM # {} was mapped to two different HGNC symbols, {} and {}. ' \
+              'This was unexpected, so this mapping has been removed.'
+    for mim_num, symbol in hgnc_map2.items():
+        if mim_num not in hgnc_map:
+            hgnc_map[mim_num] = symbol
+        elif hgnc_map[mim_num] != symbol:
+                LOG.warning(warning.format(mim_num, hgnc_map[mim_num], symbol))
+                del hgnc_map[mim_num]
+
+    return gene_map, pheno_map, hgnc_map
 
 
 def parse_morbid_map(lines) -> Dict[str, List[str]]:
@@ -239,3 +303,19 @@ def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month
     with open(DATA_DIR / 'updated_01_2020_to_08_2021.json', 'r') as json_file:
         updated_entries = json.load(json_file)
     return updated_entries
+
+
+def get_hgnc_symbol_id_map(input_path=os.path.join(DATA_DIR, 'hgnc', 'hgnc_complete_set.txt')) -> Dict[str, str]:
+    """Get mapping between HGNC symbols and IDs
+    todo: Ideally download the latest file: http://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt
+    todo: Address or suppress warning. I dont even need these columns anyway:
+     /Users/joeflack4/projects/omim/omim2obo/main.py:208: DtypeWarning: Columns (32,34,38,40,50) have mixed types.Specify dtype option on import or set low_memory=False.
+     hgnc_symbol_id_map: Dict = get_hgnc_symbol_id_map()
+    """
+    map = {}
+    df = pd.read_csv(input_path, sep='\t')
+    for index, row in df.iterrows():
+        # hgnc_id is formatted as "hgnc:<id>"
+        map[row['symbol']] = row['hgnc_id'].split(':')[1]
+
+    return map
