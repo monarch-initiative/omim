@@ -38,6 +38,9 @@ Steps
   A tab-delimited file with purpose unknown to me (Joe), but has mappings between HGNC symbols and IDs.
   - Get HGNC symbol::id mappings.
 todo: The downloads should all happen at beginning of script
+
+Assumptions
+1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
 """
 import yaml
 

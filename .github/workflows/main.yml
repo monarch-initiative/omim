@@ -24,7 +24,7 @@ jobs:
         echo -en "API_KEY=${{ secrets.API_KEY }}" > .env
     - name: Build
       run: |
-        make all
+        make build
 # This one wouldn't work unless it was a tag and on-push.
 #      uses: softprops/action-gh-release@v1
 #    - name: Release

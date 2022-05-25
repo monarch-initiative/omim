@@ -1,5 +1,10 @@
-mapping_set_id: http://example.org
-license: http://w3id.org/sssom/license/unspecified
+mapping_set_id: http://purl.obolibrary.org/obo/mondo/mondo-ingest/mapping/omim.sssom.tsv
+mapping_set_description: >
+  The file `omim.sssom.tsv` is generated using the Python package `sssom`, by running the command `make sssom` from a
+  cloned copy of the OMIM ingest (https://github.com/monarch-initiative/omim). For more information on data sources,
+  assumptions, and computations, refer to `README.md` or the comments at the top of `omim2obo/main.py` in the OMIM
+  ingest.
+license: https://creativecommons.org/licenses/by/4.0/
 creator_id: https://orcid.org/0000-0002-2906-7319
 curie_map:
   HGNC: "https://identifiers.org/hgnc:"
