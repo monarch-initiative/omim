@@ -3,7 +3,8 @@ SRC=omim2obo/
 .PHONY: all lint tags ltags test lintall codestyle docstyle lintsrc \
 linttest doctest doc docs code linters_all codesrc codetest docsrc \
 doctest build dist pypi-push-test pypi-push pypi-test pip-test pypi \
-pip remove-previous-build build-package get-pmids scrape install
+pip remove-previous-build build-package get-pmids scrape install sssom \
+sssom-clean
 
 
 # MAIN COMMANDS ----------------------------------------------------------------
@@ -14,9 +15,16 @@ build:
 	pipenv run python3 -m omim2obo
 
 # Create mapping artefact(s)
-sssom:
+omim.json:
 	robot convert -i omim.ttl -o omim.json
+
+omim.sssom.tsv:
 	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
+
+sssom-clean:
+	@rm omim.json; rm omim.sssom.tsv
+
+sssom: sssom-clean omim.json omim.sssom.tsv
 
 build-cleanup:
 	@rm omim.json
