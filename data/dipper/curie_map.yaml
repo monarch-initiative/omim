@@ -77,7 +77,7 @@
 # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
 'LIDA': 'http://sydney.edu.au/vetscience/lida/dogs/search/disorder/'  # Listing of Inherited Disorders in Animals (defunct?)
 'OMIM': 'https://omim.org/entry/'                                    # Online Mendelian Inheritance in Man (human disease and variants)
-'OMIMPS': 'http://www.omim.org/phenotypicSeries/PS'                   # Online Mendelian Inheritance in Man (phenotypes)
+'OMIMPS': 'https://www.omim.org/phenotypicSeries/PS'                   # Online Mendelian Inheritance in Man (phenotypes)
 'ORPHA': 'http://www.orpha.net/ORDO/Orphanet_'                      # Rare diseases and Orphan drugs
 'PATO': 'http://purl.obolibrary.org/obo/PATO_'                      # Phenotypic Quality Ontology
 'PCO': 'http://purl.obolibrary.org/obo/PCO_'                        # Population and Community Ontology
