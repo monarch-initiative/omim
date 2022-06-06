@@ -1,5 +1,8 @@
 """OMIM ingest to generate RDF .ttl
 
+Resources
+- https://monarch-initiative.github.io/monarch-ingest/Sources/OMIM/
+
 Steps
 - Loads prefixes
 - Parses mimTitles.txt
@@ -171,6 +174,7 @@ def run(use_cache: bool = False):
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
         elif omim_type == OmimType.PHENOTYPE:
+            # Are all phenotypes listed here indeed disease? - joeflack4 2021/11/11
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
         else:
             # All were 'OmimType.SUSPECTED' when I just checked. - joeflack4 2021/11/11
@@ -199,12 +203,12 @@ def run(use_cache: bool = False):
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(label, abbrev))))
 
     # Gene ID
+    # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
     retrieve_mim_file('genemap2.txt', download_files_tf)  # dl latest file
     mim2gene_lines: List[str] = retrieve_mim_file('mim2gene.txt', download_files_tf)  # dl latest file & return
     gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)
     for mim_number, entrez_id in gene_map.items():
-        # Are they truly equivalent? - joeflack4 2021/11/11
-        graph.add((OMIM[mim_number], OWL.equivalentClass, NCBIGENE[entrez_id]))
+        graph.add((OMIM[mim_number], SKOS.exactMatch, NCBIGENE[entrez_id]))
     for mim_number, entrez_id in pheno_map.items():
         # RO['0002200'] = 'has phenotype'
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
