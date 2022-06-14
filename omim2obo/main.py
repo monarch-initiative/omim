@@ -105,8 +105,7 @@ class OmimGraph(Graph):
 # Vars
 TAX_LABEL = 'Homo sapiens'
 TAX_ID = GLOBAL_TERMS[TAX_LABEL]
-TAX_URI = URIRef(
-    'http://purl.obolibrary.org/obo/ncbitaxon#' + TAX_ID.split(':')[1])
+TAX_URI = URIRef(NCBITAXON + TAX_ID.split(':')[1])
 CURIE_MAP = get_curie_maps()
 label_cleaner = LabelCleaner()
 

@@ -156,7 +156,7 @@
 #                                                                       # National Center for Biotechnology Information
 'NCBIAssembly': 'https://www.ncbi.nlm.nih.gov/assembly?term='           #   Assembly  e.g. GRCh38
 'NCBIGenome': 'https://www.ncbi.nlm.nih.gov/genome/'                    #   Genome    e.g. 51  (for human)
-'NCBITaxon': 'http://purl.obolibrary.org/obo/ncbitaxon#'                #   Taxon     e.g. 9606
+'NCBITaxon': 'http://purl.obolibrary.org/obo/NCBITaxon_'                #   Taxon     e.g. 9606
 #'NCBITaxon': 'http://purl.obolibrary.org/obo/NCBITaxon_'                #   Taxon     e.g. 9606
 #'NCBITaxon': 'http://purl.org/obo/owl/NCBITaxon#'                #   Taxon     e.g. 9606
 'OMIA-breed': 'https://monarchinitiative.org/model/OMIA-breed:'         # Local IRI for Online Inheritance In Animal breeds
