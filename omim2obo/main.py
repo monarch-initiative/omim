@@ -208,6 +208,7 @@ def run(use_cache: bool = False):
     gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)
     for mim_number, entrez_id in gene_map.items():
         graph.add((OMIM[mim_number], SKOS.exactMatch, NCBIGENE[entrez_id]))
+    # TODO: Do I just need to flip? maybe not
     for mim_number, entrez_id in pheno_map.items():
         # RO['0002200'] = 'has phenotype'
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
