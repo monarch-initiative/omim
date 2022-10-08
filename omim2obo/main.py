@@ -45,10 +45,11 @@ todo: The downloads should all happen at beginning of script
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
 """
+import sys
 import yaml
+from hashlib import md5
 
 # from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
-from hashlib import md5
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
@@ -235,7 +236,7 @@ def run(use_cache: bool = False):
     for mim_number in morbid_map:
         phenotype_mim_number, cyto_location = morbid_map[mim_number]
         if phenotype_mim_number:
-            # What's RO['0003303'] - joeflack4 2021/11/11
+            # RO:0003303 == 'causes condition' https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003303
             graph.add((OMIM[mim_number], RO['0003303'], OMIM[phenotype_mim_number]))
         if cyto_location:
             # What's 9606chr - joeflack4 2021/11/11
@@ -272,7 +273,6 @@ def run(use_cache: bool = False):
         f.write(graph.serialize(format='turtle'))
     # with open(ROOT_DIR / 'omim.xml', 'w') as f:
     #     f.write(graph.serialize(format='xml'))
-    print("Job's done ;3")
 
 
 if __name__ == '__main__':

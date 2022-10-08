@@ -2,7 +2,6 @@
 import json
 import logging
 import os
-import sys
 from collections import defaultdict
 from pathlib import PosixPath
 from typing import List, Dict, Tuple, Union
@@ -30,8 +29,8 @@ def retrieve_mim_file(file_name: str, download=False, return_df=False) -> Union[
         'mim2gene.txt': '# MIM Number	MIM Entry Type (see FAQ 1.3 at https://omim.org/help/faq)	Entrez Gene ID (NCBI)	Approved Gene Symbol (HGNC)	Ensembl Gene ID (Ensembl)',
         'genemap2.txt': '# Chromosome	Genomic Position Start	Genomic Position End	Cyto Location	Computed Cyto Location	MIM Number	Gene Symbols	Gene Name	Approved Gene Symbol	Entrez Gene ID	Ensembl Gene ID	Comments	Phenotypes	Mouse Gene Symbol/ID'
     }
-    mim_file: PosixPath = DATA_DIR / file_name
-    mim_file_tsv: str = str(mim_file).replace('.txt', '.tsv')
+    mim_file_path: PosixPath = DATA_DIR / file_name
+    mim_file_tsv_path: str = str(mim_file_path).replace('.txt', '.tsv')
 
     if download:
         url = f'https://data.omim.org/downloads/{config["API_KEY"]}/{file_name}'
@@ -43,7 +42,7 @@ def retrieve_mim_file(file_name: str, download=False, return_df=False) -> Union[
             text = resp.text
             if not text.startswith('<!DOCTYPE html>'):
                 # Save file
-                with open(mim_file, 'w') as fout:
+                with open(mim_file_path, 'w') as fout:
                     fout.write(text)
                 # TODO: mim2gene.txt & genemap2.txt: Need to uncomment out the first line
                 #   modify 'text'. what's the nature of it? how to edit just that one line?
@@ -56,7 +55,7 @@ def retrieve_mim_file(file_name: str, download=False, return_df=False) -> Union[
                 if file_name in file_headers:
                     header = file_headers[file_name]
                     text = text.replace(header, header[2:])  # removes leading comment
-                with open(mim_file_tsv, 'w') as fout:
+                with open(mim_file_tsv_path, 'w') as fout:
                     fout.write(text)
                 LOG.info(f'{file_name} retrieved and updated')
             else:
@@ -70,10 +69,10 @@ def retrieve_mim_file(file_name: str, download=False, return_df=False) -> Union[
             raise RuntimeError(msg)
 
     if return_df:
-        df = pd.read_csv(mim_file_tsv, comment='#', sep='\t')
+        df = pd.read_csv(mim_file_tsv_path, comment='#', sep='\t')
         return df
     else:
-        with open(mim_file, 'r') as fin:
+        with open(mim_file_path, 'r') as fin:
             lines: List[str] = fin.readlines()
             return lines
 
@@ -236,6 +235,17 @@ def parse_mim2gene(lines, filename='mim2gene.tsv', filename2='genemap2.tsv') -> 
 
 def parse_morbid_map(lines) -> Dict[str, List[str]]:
     """Parse morbid map file"""
+    # todo: phenotype_mapping_key_meanings: could be useful at some point. The explanation for the keys and where to
+    #  find them within the phenotype label can be found at the bottom of morbidmap.txt
+    # phenotype_mapping_key_meanings = {
+    #     '1': 'The disorder is placed on the map based on its association with a gene, but the underlying defect is '
+    #          'not known.',
+    #     '2': 'The disorder has been placed on the map by linkage or other statistical method; no mutation has '
+    #          'been found.',
+    #     '3': 'The molecular basis for the disorder is known; a mutation has been found in the gene.',
+    #     '4': 'A contiguous gene deletion or duplication syndrome, multiple genes are deleted or duplicated causing '
+    #          'the phenotype.',
+    # }
     ret = {}
     p = re.compile(r".*,\s+(\d+)\s\(\d\)")
     for line in lines:
