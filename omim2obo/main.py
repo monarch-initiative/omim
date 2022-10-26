@@ -45,21 +45,17 @@ todo: The downloads should all happen at beginning of script
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
 """
-import sys
 import yaml
 from hashlib import md5
 
-# from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, \
     get_mapped_ids, LabelCleaner
-# from omim2obo.omim_client import OmimClient
 from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
 from omim2obo.parsers.omim_txt_parser import *
-# from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
 
 
 # Logging
@@ -123,7 +119,7 @@ def run(use_cache: bool = False):
 
     # Parse mimTitles.txt
     # - Get id's, titles, and type
-    omim_titles, omim_replaced = parse_mim_titles(retrieve_mim_file(
+    omim_titles, omim_replaced = parse_mim_titles(get_mim_file(
         'mimTitles.txt', download_files_tf))
     omim_ids = list(omim_titles.keys())
 
@@ -180,7 +176,7 @@ def run(use_cache: bool = False):
             # All were 'OmimType.SUSPECTED' when I just checked. - joeflack4 2021/11/11
             pass
 
-        if use_abbrev_over_label:
+        if use_abbrev_over_label and abbrev:
             graph.add((omim_uri, RDFS.label, Literal(abbrev)))
         else:
             graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(label))))
@@ -204,12 +200,11 @@ def run(use_cache: bool = False):
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
-    retrieve_mim_file('genemap2.txt', download_files_tf)  # dl latest file
-    mim2gene_lines: List[str] = retrieve_mim_file('mim2gene.txt', download_files_tf)  # dl latest file & return
+    get_mim_file('genemap2.txt', download_files_tf)  # dl latest file
+    mim2gene_lines: List[str] = get_mim_file('mim2gene.txt', download_files_tf)  # dl latest file & return
     gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)
     for mim_number, entrez_id in gene_map.items():
         graph.add((OMIM[mim_number], SKOS.exactMatch, NCBIGENE[entrez_id]))
-    # TODO: Do I just need to flip? maybe not
     for mim_number, entrez_id in pheno_map.items():
         # RO['0002200'] = 'has phenotype'
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
@@ -220,8 +215,7 @@ def run(use_cache: bool = False):
             graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC[hgnc_symbol_id_map[hgnc_symbol]]))
 
     # Phenotpyic Series
-    pheno_series = parse_phenotypic_series_titles(
-        retrieve_mim_file('phenotypicSeries.txt', download_files_tf))
+    pheno_series = parse_phenotypic_series_titles(get_mim_file('phenotypicSeries.txt', download_files_tf))
     for ps_id in pheno_series:
         graph.add((OMIMPS[ps_id], RDF.type, OWL.Class))
         graph.add((OMIMPS[ps_id], RDFS.label, Literal(pheno_series[ps_id][0])))
@@ -231,10 +225,14 @@ def run(use_cache: bool = False):
             graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps_id]))
 
     # Morbid map (cyto locations)
-    morbid_map: Dict[str, List[str]] = parse_morbid_map(
-        retrieve_mim_file('morbidmap.txt', download_files_tf))
-    for mim_number in morbid_map:
-        phenotype_mim_number, cyto_location = morbid_map[mim_number]
+    morbid_map: Dict[str, Dict] = parse_morbid_map(get_mim_file('morbidmap.txt', download_files_tf))
+    for mim_number, mim_data in morbid_map.items():
+        # todo?: unused `mim_data` keys:
+        #   'gene_mim_number': Should this be used somewhere?
+        #   'gene_symbols':  Should this be used somewhere?
+        #   'phenotype_label': I think this already added to graph because the MIM# and label shared in other file(s)
+        phenotype_mim_number: str = mim_data['phenotype_mim_number']
+        cyto_location: str = mim_data['cyto_location']
         if phenotype_mim_number:
             # RO:0003303 == 'causes condition' https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003303
             graph.add((OMIM[mim_number], RO['0003303'], OMIM[phenotype_mim_number]))
@@ -243,6 +241,10 @@ def run(use_cache: bool = False):
             chr_id = '9606chr' + cyto_location
             # What's RO['0002525'] - joeflack4 2021/11/11
             graph.add((OMIM[mim_number], RO['0002525'], CHR[chr_id]))
+        if mim_data['phenotype_mapping_info_label']:
+            # todo: store mim_data['phenotype_mapping_info_key'] in provenance somehow?
+            # https://biolink.github.io/biolink-model/docs/GeneToDiseaseAssociation.html
+            graph.add((OMIM[mim_number], BIOLINK['GeneToDiseaseAssociation'], BIOLINK['has_evidence']))
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11

@@ -2,6 +2,7 @@
 import json
 import logging
 import os
+import sys
 from collections import defaultdict
 from pathlib import PosixPath
 from typing import List, Dict, Tuple, Union
@@ -18,9 +19,19 @@ from omim2obo.omim_type import OmimType
 
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
+# MIM_NUMBER_DIGITS = 6  # if you see '6' in a regexp, this is what it refers to
+MORBIDMAP_PHENOTYPE_MAPPING_KEY_MEANINGS = {
+    '1': 'The disorder is placed on the map based on its association with a gene, but the underlying defect is '
+         'not known.',
+    '2': 'The disorder has been placed on the map by linkage or other statistical method; no mutation has '
+         'been found.',
+    '3': 'The molecular basis for the disorder is known; a mutation has been found in the gene.',
+    '4': 'A contiguous gene deletion or duplication syndrome, multiple genes are deleted or duplicated causing '
+         'the phenotype.',
+}
 
 
-def retrieve_mim_file(file_name: str, download=False, return_df=False) -> Union[List[str], pd.DataFrame]:
+def get_mim_file(file_name: str, download=False, return_df=False) -> Union[List[str], pd.DataFrame]:
     """
     Retrieve OMIM downloadable text file from the OMIM download server
     :param return_df: If False, returns List[str] of each line in the file, else a DataFrame.
@@ -106,6 +117,7 @@ def parse_omim_id(omim_id, log_success_case_warnings=False):
     else:
         if log_success_case_warnings:
             LOG.warning(f'Trying to repair malformed omim id: {omim_id}')
+        # 6 = MIM_NUMBER_DIGITS
         m = re.match(r'\{(\d{6})\}', omim_id)
         if m:
             if log_success_case_warnings:
@@ -233,36 +245,48 @@ def parse_mim2gene(lines, filename='mim2gene.tsv', filename2='genemap2.tsv') -> 
     return gene_map, pheno_map, hgnc_map
 
 
-def parse_morbid_map(lines) -> Dict[str, List[str]]:
-    """Parse morbid map file"""
-    # todo: phenotype_mapping_key_meanings: could be useful at some point. The explanation for the keys and where to
-    #  find them within the phenotype label can be found at the bottom of morbidmap.txt
-    # phenotype_mapping_key_meanings = {
-    #     '1': 'The disorder is placed on the map based on its association with a gene, but the underlying defect is '
-    #          'not known.',
-    #     '2': 'The disorder has been placed on the map by linkage or other statistical method; no mutation has '
-    #          'been found.',
-    #     '3': 'The molecular basis for the disorder is known; a mutation has been found in the gene.',
-    #     '4': 'A contiguous gene deletion or duplication syndrome, multiple genes are deleted or duplicated causing '
-    #          'the phenotype.',
-    # }
-    ret = {}
-    p = re.compile(r".*,\s+(\d+)\s\(\d\)")
+def parse_morbid_map(lines) -> Dict[str, Dict]:
+    """Parse morbid map file. Part of this inspired by:
+    https://github.com/monarch-initiative/monarch-ingest/blob/main/monarch_ingest/ingests/omim/gene_to_disease.py"""
+    mim_data = {}
+    # phenotype_label_regex: groups: (1) phenotype label, (2) MIM number (optional), (3) phenotype mapping key (optional)
+    phenotype_label_regex = re.compile(r'(.*), (\d{6})\s*(?:\((\d+)\))?')
+    # phenotype_label_regex: groups: (1) phenotype label, (2) phenotype mapping key (optional)
+    phenotype_label_no_mim_regex = re.compile(r'(.*)\s+\((\d+)\)')
     for line in lines:
         if line.startswith('#'):
             continue
-        tokens = line.split('\t')
-        if not tokens or tokens == ['']:
+        fields: List[str] = line.split('\t')
+        if not fields or fields == ['']:
             continue
-        m = p.match(tokens[0])
-        if m:
-            phenotype_mim_number = m.group(1)
+
+        phenotype_label_and_metadata: str = fields[0]
+        gene_symbols: List[str] = fields[1].split(', ')
+        gene_mim_number: str = fields[2].strip()  # todo: eventually would like this to be `int`
+        cyto_location: str = fields[3].strip()
+
+        phenotype_label, phenotype_mim_number, association_key = '', '', ''
+        label_data_with_mim_num = phenotype_label_regex.match(phenotype_label_and_metadata)
+        label_data_no_mim_num = phenotype_label_no_mim_regex.match(phenotype_label_and_metadata)
+
+        if label_data_with_mim_num:
+            phenotype_label, phenotype_mim_number, association_key = label_data_with_mim_num.groups()
+        elif label_data_no_mim_num:
+            phenotype_label, association_key = label_data_no_mim_num.groups()
         else:
-            phenotype_mim_number = ''
-        gene_mim_number = tokens[2].strip()
-        cyto_location = tokens[3].strip()
-        ret[gene_mim_number] = [phenotype_mim_number, cyto_location]
-    return ret
+            print(f'Warning: Failed to parse phenotype label in morbidmap.txt row: {line}', file=sys.stderr)
+
+        mim_data[gene_mim_number] = {
+            'gene_mim_number': gene_mim_number,
+            'phenotype_mim_number': phenotype_mim_number,
+            'phenotype_label': phenotype_label,
+            'cyto_location': cyto_location,
+            'gene_symbols': gene_symbols,
+            'phenotype_mapping_info_key': association_key,
+            'phenotype_mapping_info_label': MORBIDMAP_PHENOTYPE_MAPPING_KEY_MEANINGS[association_key],
+        }
+
+    return mim_data
 
 
 def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
