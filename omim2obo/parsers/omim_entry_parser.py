@@ -4,7 +4,7 @@ import logging
 # import re
 from collections import defaultdict
 from copy import copy
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 import pandas as pd
 from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, SKOS, URIRef
@@ -19,6 +19,7 @@ from omim2obo.utils.romanplus import *
 LOG = logging.getLogger('omim2obo.parsers.api_entry_parser')
 
 
+# todo: This isn't used in the ingest to create omim.ttl. Did this have some other use case?
 def transform_entry(entry) -> Graph:
     """
     Transforms an OMIM API entry to a graph.
@@ -37,9 +38,11 @@ def transform_entry(entry) -> Graph:
     omim_uri = URIRef(OMIM[omim_num])
     other_labels = []
     if 'alternativeTitles' in titles:
-        other_labels += get_alt_labels(titles['alternativeTitles'])
+        cleaned, label_endswith_included = get_alt_labels(titles['alternativeTitles'])
+        other_labels += cleaned
     if 'includedTitles' in titles:
-        other_labels += get_alt_labels(titles['includedTitles'])
+        cleaned, label_endswith_included = get_alt_labels(titles['includedTitles'])
+        other_labels += cleaned
 
     graph.add((omim_uri, RDF.type, OWL.Class))
 
@@ -264,7 +267,7 @@ def cleanup_label(
     return formatted_label
 
 
-def get_alt_labels(titles):
+def get_alt_labels(titles: str) -> Tuple[List[str], bool]:
     """
     From a string of delimited titles, make an array.
     This assumes that the titles are double-semicolon (';;') delimited.
@@ -275,18 +278,20 @@ def get_alt_labels(titles):
     """
 
     labels = []
+    label_endswith_included = False
     # "alternativeTitles": "
     #   ACROCEPHALOSYNDACTYLY, TYPE V; ACS5;;\nACS V;;\nNOACK SYNDROME",
     # "includedTitles":
     #   "CRANIOFACIAL-SKELETAL-DERMATOLOGIC DYSPLASIA, INCLUDED"
-
     for title in titles.split(';;'):
         # remove ', included', if present
-        label = re.sub(r',\s*INCLUDED', '', title.strip(), re.IGNORECASE)
+        title = title.strip()
+        label = re.sub(r',\s*INCLUDED', '', title, re.IGNORECASE)
+        label_endswith_included = label != title
         label = cleanup_label(label)
         labels.append(label)
 
-    return labels
+    return labels, label_endswith_included
 
 
 def get_mapped_gene_ids(entry) -> List[str]:

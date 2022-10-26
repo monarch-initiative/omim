@@ -1,0 +1,3597 @@
+{
+  "morbid_map": {
+    "issue:multipleValuesDetected": {
+      "600662": {
+        "phenotype_associations": {
+          "613443": {
+            "phenotype_mapping_info_key": {
+              "issue:multipleValuesDetected": [
+                {
+                  "3": "The molecular basis for the disorder is known; a mutation has been found in the gene."
+                },
+                {
+                  "4": "A contiguous gene deletion or duplication syndrome, multiple genes are deleted or duplicated causing the phenotype."
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "issue:nonNumericPhenotypeId": {
+      "3p- syndrome": {
+        "morbidmap.txt_original_row": "3p- syndrome (4)\tDEL3pterp25, C3DELpterp25\t613792\t3pter-p25"
+      },
+      "46XX sex reversal 2": {
+        "morbidmap.txt_original_row": "46XX sex reversal 2 (4)\tSRXX2, DUP17q24.3\t278850\t17q24.3-q25.1"
+      },
+      "46XX sex reversal 3": {
+        "morbidmap.txt_original_row": "46XX sex reversal 3 (4)\tSRXX3\t300833\tXq26.3"
+      },
+      "46XY sex reversal 10": {
+        "morbidmap.txt_original_row": "46XY sex reversal 10 (4)\tSRXY10\t616425\t17q24"
+      },
+      "46XY sex reversal 4": {
+        "morbidmap.txt_original_row": "46XY sex reversal 4 (4)\tDEL9p24.3, C9DELp24.3, SRXY4\t154230\t9p24.3"
+      },
+      "?Amelogenesis imperfecta, type IE, X-linked 2": {
+        "morbidmap.txt_original_row": "?Amelogenesis imperfecta, type IE, X-linked 2 (2)\tAI1E2, AIH3\t301201\tXq22-q28"
+      },
+      "?Anal canal carcinoma": {
+        "morbidmap.txt_original_row": "?Anal canal carcinoma (2)\tANC\t105580\t11q22-qter"
+      },
+      "?Antiphospholipid syndrome, familial": {
+        "morbidmap.txt_original_row": "?Antiphospholipid syndrome, familial (2)\tATPLS\t107320\t6p21.3"
+      },
+      "?Craniofacioskeletal syndrome": {
+        "morbidmap.txt_original_row": "?Craniofacioskeletal syndrome (2)\tCFSS\t300712\tXq26-q27"
+      },
+      "?Diabetes mellitus, insulin-dependent, neonatal": {
+        "morbidmap.txt_original_row": "?Diabetes mellitus, insulin-dependent, neonatal (2)\tPBCA\t600089\t6p21.3"
+      },
+      "?EEC syndrome-1": {
+        "morbidmap.txt_original_row": "?EEC syndrome-1 (2)\tEEC1\t129900\t7q11.2-q21.3"
+      },
+      "?Hairy ears, Y-linked": {
+        "morbidmap.txt_original_row": "?Hairy ears, Y-linked (2)\tHEY\t425500\tYq"
+      },
+      "?Heterotaxy, visceral, 3, autosomal": {
+        "morbidmap.txt_original_row": "?Heterotaxy, visceral, 3, autosomal (2)\tHTX3\t606325\t6q21"
+      },
+      "?Hydrocephalus, autosomal dominant": {
+        "morbidmap.txt_original_row": "?Hydrocephalus, autosomal dominant (2)\tHDCPH1\t123155\t8q12.2-q21.2"
+      },
+      "?Hyperimmunoglobulin G1 syndrome": {
+        "morbidmap.txt_original_row": "?Hyperimmunoglobulin G1 syndrome (2)\tIGHR\t144120\t14q32.33"
+      },
+      "?Hypertrichosis universalis congenita, Ambras type": {
+        "morbidmap.txt_original_row": "?Hypertrichosis universalis congenita, Ambras type (2)\tHTC1\t145701\t8q22"
+      },
+      "?Intellectual developmental disorder, X-linked syndromic 12": {
+        "morbidmap.txt_original_row": "?Intellectual developmental disorder, X-linked syndromic 12 (2)\tMRXS12\t309545\tXp11"
+      },
+      "?Keratoderma, palmoplantar, punctate type 3": {
+        "morbidmap.txt_original_row": "?Keratoderma, palmoplantar, punctate type 3 (2)\tPPKP3\t101850\t2p25-p12"
+      },
+      "?Laryngeal adductor paralysis": {
+        "morbidmap.txt_original_row": "?Laryngeal adductor paralysis (2)\tLAP\t150270\t6p21.3-p21.2"
+      },
+      "?Male infertility due to acrosin deficiency": {
+        "morbidmap.txt_original_row": "?Male infertility due to acrosin deficiency (2)\tACR\t102480\t22q13.33"
+      },
+      "?Melkersson-Rosenthal syndrome": {
+        "morbidmap.txt_original_row": "?Melkersson-Rosenthal syndrome (2)\tMROS\t155900\t9p11"
+      },
+      "?Moebius syndrome": {
+        "morbidmap.txt_original_row": "?Moebius syndrome (2)\tMBS, MBS1\t157900\t13q12.2-q13"
+      },
+      "?Pain sensitivity QTL1": {
+        "morbidmap.txt_original_row": "?Pain sensitivity QTL1 (4)\tPAINQTL1\t618377\t1p33"
+      },
+      "?Preauricular fistulae, congenital": {
+        "morbidmap.txt_original_row": "?Preauricular fistulae, congenital (2)\tPAFC\t128700\t8q11.1-q13.3"
+      },
+      "?Ragweed sensitivity": {
+        "morbidmap.txt_original_row": "?Ragweed sensitivity (2)\tRWS\t179450\t6p21.3"
+      },
+      "?Retinal cone dystrophy-1": {
+        "morbidmap.txt_original_row": "?Retinal cone dystrophy-1 (2)\tRCD1\t180020\t6q25-q26"
+      },
+      "?Retinitis pigmentosa, X-linked recessive, 6": {
+        "morbidmap.txt_original_row": "?Retinitis pigmentosa, X-linked recessive, 6 (2)\tRP6\t312612\tXp21.3-p21.2"
+      },
+      "?Spastic paraplegia 41, autosomal dominant": {
+        "morbidmap.txt_original_row": "?Spastic paraplegia 41, autosomal dominant (2)\tSPG41\t613364\t11p14.1-p11.2"
+      },
+      "?Spinocerebellar ataxia 30": {
+        "morbidmap.txt_original_row": "?Spinocerebellar ataxia 30 (2)\tSCA30\t613371\t4q34.3-q35.1"
+      },
+      "?Thrombocytopenia, Paris-Trousseau type": {
+        "morbidmap.txt_original_row": "?Thrombocytopenia, Paris-Trousseau type (4)\tTCPT\t188025\t11q23"
+      },
+      "?Thrombophilia 9 due to decreased release of tissue plasminogen": {
+        "morbidmap.txt_original_row": "?Thrombophilia 9 due to decreased release of tissue plasminogen (1)\tTHPH9\t612348\t8p12"
+      },
+      "?Tibial hemimelia": {
+        "morbidmap.txt_original_row": "?Tibial hemimelia (2)\tTHM\t275220\t8q24.1"
+      },
+      "AMME complex": {
+        "morbidmap.txt_original_row": "AMME complex (4)\tAMMEC, DELXq22.3, CXDELq22.3\t300194\tXq22.3"
+      },
+      "Abdominal obesity-metabolic syndrome": {
+        "morbidmap.txt_original_row": "Abdominal obesity-metabolic syndrome (2)\tAOMS2\t605572\t17p12"
+      },
+      "Abdominal obesity-metabolic syndrome 1": {
+        "morbidmap.txt_original_row": "Abdominal obesity-metabolic syndrome 1 (2)\tAOMS1, SYNX\t605552\t3q27"
+      },
+      "Acromegaloid features, overgrowth, cleft palate, and hernia": {
+        "morbidmap.txt_original_row": "Acromegaloid features, overgrowth, cleft palate, and hernia (2)\tAOCH\t606049\tChr.11"
+      },
+      "Acropectoral syndrome": {
+        "morbidmap.txt_original_row": "Acropectoral syndrome (2)\tACRPS\t605967\t7q36"
+      },
+      "Acropectorovertebral dysplasia": {
+        "morbidmap.txt_original_row": "Acropectorovertebral dysplasia (2)\tACRPV\t102510\t2q36"
+      },
+      "Acute insulin response": {
+        "morbidmap.txt_original_row": "Acute insulin response (2)\tAIR\t601676\t1p31"
+      },
+      "Aicardi syndrome": {
+        "morbidmap.txt_original_row": "Aicardi syndrome (2)\tAIC\t304050\tXp22"
+      },
+      "Albinism, oculocutaneous, type V": {
+        "morbidmap.txt_original_row": "Albinism, oculocutaneous, type V (2)\tOCA5\t615312\t4q24"
+      },
+      "Albinism-deafness syndrome": {
+        "morbidmap.txt_original_row": "Albinism-deafness syndrome (2)\tADFN, ALDS\t300700\tXq24-q26"
+      },
+      "Alopecia areata 1": {
+        "morbidmap.txt_original_row": "Alopecia areata 1 (2)\tAA1\t104000\t18p11.3-p11.2"
+      },
+      "Alopecia areata 2": {
+        "morbidmap.txt_original_row": "Alopecia areata 2 (2)\tAA2\t610753\t16q11-q22"
+      },
+      "Alopecia, androgenetic, 1": {
+        "morbidmap.txt_original_row": "Alopecia, androgenetic, 1 (2)\tAGA1, MPB\t109200\t3q26"
+      },
+      "Alopecia, androgenetic, 2": {
+        "morbidmap.txt_original_row": "Alopecia, androgenetic, 2 (2)\tAGA2\t300710\tXq11-q12"
+      },
+      "Alopecia, androgenetic, 3": {
+        "morbidmap.txt_original_row": "Alopecia, androgenetic, 3 (2)\tAGA3\t612421\t20p11.22"
+      },
+      "Alopecia-intellectual disability syndrome 2": {
+        "morbidmap.txt_original_row": "Alopecia-intellectual disability syndrome 2 (2)\tAPMR2\t610422\t3q26.2-q26.31"
+      },
+      "Alopecia-intellectual disability syndrome 3": {
+        "morbidmap.txt_original_row": "Alopecia-intellectual disability syndrome 3 (2)\tAPMR3\t613930\t18q11.2-q12.2"
+      },
+      "Alpha-thalassemia/mental retardation syndrome, type 1": {
+        "morbidmap.txt_original_row": "Alpha-thalassemia/mental retardation syndrome, type 1 (4)\tHBHR, ATR1\t141750\t16pter-p13.3"
+      },
+      "Alzheimer disease 17": {
+        "morbidmap.txt_original_row": "Alzheimer disease 17 (2)\tAD17\t615080\t6p21.2"
+      },
+      "Alzheimer disease 6": {
+        "morbidmap.txt_original_row": "Alzheimer disease 6 (2)\tAD6\t605526\t10q24"
+      },
+      "Alzheimer disease 8": {
+        "morbidmap.txt_original_row": "Alzheimer disease 8 (2)\tAD8\t607116\t20p"
+      },
+      "Alzheimer disease-10": {
+        "morbidmap.txt_original_row": "Alzheimer disease-10 (2)\tAD10\t609636\t7q36"
+      },
+      "Alzheimer disease-11": {
+        "morbidmap.txt_original_row": "Alzheimer disease-11 (2)\tAD11\t609790\t9p22.1"
+      },
+      "Alzheimer disease-5": {
+        "morbidmap.txt_original_row": "Alzheimer disease-5 (2)\tAD5\t602096\t12p11.23-q13.12"
+      },
+      "Alzheimer disease-7": {
+        "morbidmap.txt_original_row": "Alzheimer disease-7 (2)\tAD7\t606187\t10p13"
+      },
+      "Amyotrophic lateral sclerosis 3": {
+        "morbidmap.txt_original_row": "Amyotrophic lateral sclerosis 3 (2)\tALS3\t606640\t18q21"
+      },
+      "Amyotrophic lateral sclerosis 7": {
+        "morbidmap.txt_original_row": "Amyotrophic lateral sclerosis 7 (2)\tALS7\t608031\t20p13"
+      },
+      "Aneurysm, intracranial berry, 1": {
+        "morbidmap.txt_original_row": "Aneurysm, intracranial berry, 1 (2)\tANIB1\t105800\t7q11.2"
+      },
+      "Aneurysm, intracranial berry, 11": {
+        "morbidmap.txt_original_row": "Aneurysm, intracranial berry, 11 (2)\tANIB11\t614252\t8p22"
+      },
+      "Aneurysm, intracranial berry, 2": {
+        "morbidmap.txt_original_row": "Aneurysm, intracranial berry, 2 (2)\tANIB2\t608542\t19q13"
+      },
+      "Aneurysm, intracranial berry, 3": {
+        "morbidmap.txt_original_row": "Aneurysm, intracranial berry, 3 (2)\tANIB3\t609122\t1p36.13-p34.3"
+      },
+      "Aneurysm, intracranial berry, 4": {
+        "morbidmap.txt_original_row": "Aneurysm, intracranial berry, 4 (2)\tANIB4\t610213\t5p15.2-p14.3"
+      },
+      "Aneurysm, intracranial berry, 5": {
+        "morbidmap.txt_original_row": "Aneurysm, intracranial berry, 5 (2)\tANIB5\t300870\tXp22"
+      },
+      "Aneurysm, intracranial berry, 7": {
+        "morbidmap.txt_original_row": "Aneurysm, intracranial berry, 7 (2)\tANIB7\t612161\t11q24-q25"
+      },
+      "Aneurysm, intracranial berry, 8": {
+        "morbidmap.txt_original_row": "Aneurysm, intracranial berry, 8 (2)\tANIB8\t612162\t14q23"
+      },
+      "Aneurysmal bone cysts": {
+        "morbidmap.txt_original_row": "Aneurysmal bone cysts (2)\tANBC\t606179\t16q22"
+      },
+      "Angio serpiginosum": {
+        "morbidmap.txt_original_row": "Angio serpiginosum (2)\tAGSPX\t300652\tXp11.3-q12"
+      },
+      "Anisomastia": {
+        "morbidmap.txt_original_row": "Anisomastia (2)\tANMA\t605746\t16q13-q21"
+      },
+      "Anosmia, isolated congenital": {
+        "morbidmap.txt_original_row": "Anosmia, isolated congenital (2)\tANIC\t107200\t18p11.23-q12.2"
+      },
+      "Aortic aneurysm, familial abdominal 1": {
+        "morbidmap.txt_original_row": "Aortic aneurysm, familial abdominal 1 (2)\tAAA1, AAA\t100070\t19q13"
+      },
+      "Aortic aneurysm, familial abdominal 2": {
+        "morbidmap.txt_original_row": "Aortic aneurysm, familial abdominal 2 (2)\tAAA2\t609782\t4q31"
+      },
+      "Aortic aneurysm, familial abdominal, 4": {
+        "morbidmap.txt_original_row": "Aortic aneurysm, familial abdominal, 4 (2)\tAAA4\t614375\t12q13.3"
+      },
+      "Aortic aneurysm, familial thoracic 1": {
+        "morbidmap.txt_original_row": "Aortic aneurysm, familial thoracic 1 (2)\tAAT1, FAA1\t607086\t11q23.3-q24"
+      },
+      "Aortic aneurysm, familial thoracic 2": {
+        "morbidmap.txt_original_row": "Aortic aneurysm, familial thoracic 2 (2)\tAAT2, FAA2\t607087\t5q13-q14"
+      },
+      "Arrhythmogenic right ventricular dysplasia 3": {
+        "morbidmap.txt_original_row": "Arrhythmogenic right ventricular dysplasia 3 (2)\tARVD3\t602086\t14q12-q22"
+      },
+      "Arrhythmogenic right ventricular dysplasia 4": {
+        "morbidmap.txt_original_row": "Arrhythmogenic right ventricular dysplasia 4 (2)\tARVD4\t602087\t2q32.1-q32.3"
+      },
+      "Arrhythmogenic right ventricular dysplasia 6": {
+        "morbidmap.txt_original_row": "Arrhythmogenic right ventricular dysplasia 6 (2)\tARVD6\t604401\t10p14-p12"
+      },
+      "Arthrogryposis, distal, type 10": {
+        "morbidmap.txt_original_row": "Arthrogryposis, distal, type 10 (2)\tDA10\t187370\t2q31.3-q32.1"
+      },
+      "Atrial fibrillation, familial, 1": {
+        "morbidmap.txt_original_row": "Atrial fibrillation, familial, 1 (2)\tATFB1\t608583\t10q22-q24"
+      },
+      "Atrial fibrillation, familial, 2": {
+        "morbidmap.txt_original_row": "Atrial fibrillation, familial, 2 (2)\tATFB2\t608988\t6q14-q16"
+      },
+      "Atrial fibrillation, familial, 8": {
+        "morbidmap.txt_original_row": "Atrial fibrillation, familial, 8 (2)\tATFB8\t613055\t16q22"
+      },
+      "Atrial septal defect 1": {
+        "morbidmap.txt_original_row": "Atrial septal defect 1 (2)\tASD1\t108800\t5p"
+      },
+      "B-cell non-Hodgkin lymphoma, high-grade": {
+        "morbidmap.txt_original_row": "B-cell non-Hodgkin lymphoma, high-grade (3)\tBCL7A, BCL7\t601406\t12q24.31"
+      },
+      "Bazex syndrome": {
+        "morbidmap.txt_original_row": "Bazex syndrome (2)\tBZX\t301845\tXq24-q27"
+      },
+      "Biliary cirrhosis, primary, 1": {
+        "morbidmap.txt_original_row": "Biliary cirrhosis, primary, 1 (2)\tPBC1\t109720\t3q25.33"
+      },
+      "Biliary cirrhosis, primary, 4": {
+        "morbidmap.txt_original_row": "Biliary cirrhosis, primary, 4 (2)\tPBC4\t614220\t7q32"
+      },
+      "Biliary cirrhosis, primary, 5": {
+        "morbidmap.txt_original_row": "Biliary cirrhosis, primary, 5 (2)\tPBC5\t614221\t17q12"
+      },
+      "Bleeding disorder, east Texas type": {
+        "morbidmap.txt_original_row": "Bleeding disorder, east Texas type (2)\tBDET\t605913\t1q23"
+      },
+      "Bleeding disorder, platelet-type, 14": {
+        "morbidmap.txt_original_row": "Bleeding disorder, platelet-type, 14 (2)\tBDPLT14\t614158\t7q34"
+      },
+      "Bleeding disorder, platelet-type, 9": {
+        "morbidmap.txt_original_row": "Bleeding disorder, platelet-type, 9 (2)\tBDPLT9\t614200\t5q11.2"
+      },
+      "Bor-Duane hydrocephalus contiguous gene syndrome": {
+        "morbidmap.txt_original_row": "Bor-Duane hydrocephalus contiguous gene syndrome (4)\tDEL8q12q21, C8DELq12q21\t600257\t8q12.2-q21.2"
+      },
+      "Bornholm eye disease": {
+        "morbidmap.txt_original_row": "Bornholm eye disease (2)\tBED\t300843\tXq28"
+      },
+      "Brachydactyly, type A1, B": {
+        "morbidmap.txt_original_row": "Brachydactyly, type A1, B (2)\tBDA1B\t607004\t5p13.3-p13.2"
+      },
+      "Braddock-Carey syndrome 1": {
+        "morbidmap.txt_original_row": "Braddock-Carey syndrome 1 (4)\tBRDCS1, DEL21q22, C21DELq22\t619980\t21q22"
+      },
+      "Branchiootic syndrome 2": {
+        "morbidmap.txt_original_row": "Branchiootic syndrome 2 (2)\tBOS2\t120502\t1q31"
+      },
+      "Breast cancer": {
+        "morbidmap.txt_original_row": "Breast cancer (1)\tBCPR\t113721\t17p13.3"
+      },
+      "CDAGS syndrome": {
+        "morbidmap.txt_original_row": "CDAGS syndrome (2)\tCDAGS\t603116\t22q12-q13"
+      },
+      "Camptodactyly 1": {
+        "morbidmap.txt_original_row": "Camptodactyly 1 (2)\tCAMPD1\t114200\t3q11.2-q13.12"
+      },
+      "Candidiasis, familial, 1, autosomal dominant": {
+        "morbidmap.txt_original_row": "Candidiasis, familial, 1, autosomal dominant (2)\tCANDF1, CMCT\t114580\t2p22.3-p21"
+      },
+      "Candidiasis, familial, 3": {
+        "morbidmap.txt_original_row": "Candidiasis, familial, 3 (2)\tCANDF3, CANDN1, FCNC\t607644\t11p13-q12"
+      },
+      "Cardiomyopathy, dilated 1B": {
+        "morbidmap.txt_original_row": "Cardiomyopathy, dilated 1B (2)\tCMD1B, CMPD1, FDC\t600884\t9q13"
+      },
+      "Cardiomyopathy, dilated, 1F and limb-girdle muscular dystrophy type 1D": {
+        "morbidmap.txt_original_row": "Cardiomyopathy, dilated, 1F and limb-girdle muscular dystrophy type 1D (2)\tCMD1F, CDCD3, LGMD1D\t602067\t6q23"
+      },
+      "Cardiomyopathy, dilated, 1H": {
+        "morbidmap.txt_original_row": "Cardiomyopathy, dilated, 1H (2)\tCMD1H\t604288\t2q14-q22"
+      },
+      "Cardiomyopathy, dilated, 1K": {
+        "morbidmap.txt_original_row": "Cardiomyopathy, dilated, 1K (2)\tCMD1K\t605582\t6q12-q16"
+      },
+      "Cardiomyopathy, dilated, 1Q": {
+        "morbidmap.txt_original_row": "Cardiomyopathy, dilated, 1Q (2)\tCMD1Q\t609915\t7q22.3-q31.1"
+      },
+      "Cardiomyopathy, familial restrictive, 2": {
+        "morbidmap.txt_original_row": "Cardiomyopathy, familial restrictive, 2 (2)\tRCM2\t609578\t10q23.3"
+      },
+      "Cardiomyopathy, hypertrophic, 21": {
+        "morbidmap.txt_original_row": "Cardiomyopathy, hypertrophic, 21 (2)\tCMH21\t614676\t7p12.1-q21"
+      },
+      "Carney complex, type II": {
+        "morbidmap.txt_original_row": "Carney complex, type II (2)\tCNC2\t605244\t2p16"
+      },
+      "Carnosinemia": {
+        "morbidmap.txt_original_row": "Carnosinemia (2)\tCNSN\t212200\t18q21.3"
+      },
+      "Carotid intimal medial thickness": {
+        "morbidmap.txt_original_row": "Carotid intimal medial thickness (2)\tCIMT\t608447\t12q24"
+      },
+      "Cat eye syndrome": {
+        "morbidmap.txt_original_row": "Cat eye syndrome (4)\tCECR, CES\t115470\t22q11"
+      },
+      "Cataract 24, anterior polar": {
+        "morbidmap.txt_original_row": "Cataract 24, anterior polar (2)\tCTRCT24, CTAA2\t601202\t17p13"
+      },
+      "Cataract 25": {
+        "morbidmap.txt_original_row": "Cataract 25 (2)\tCTRCT25, CCSSO\t605728\t15q21-q22"
+      },
+      "Cataract 26, multiple types": {
+        "morbidmap.txt_original_row": "Cataract 26, multiple types (2)\tCTRCT26, CAAR\t605749\t9q13-q22"
+      },
+      "Cataract 27, nuclear progressive": {
+        "morbidmap.txt_original_row": "Cataract 27, nuclear progressive (2)\tCTRCT27, CCNP\t607304\t2p12"
+      },
+      "Cataract 29, coralliform": {
+        "morbidmap.txt_original_row": "Cataract 29, coralliform (2)\tCTRCT29\t115800\t2pter-p24"
+      },
+      "Cataract 32, multiple types": {
+        "morbidmap.txt_original_row": "Cataract 32, multiple types (2)\tCTRCT32, CTAA1, CAP, CTPP5\t115650\t14q22-q23"
+      },
+      "Cataract 35, congenital nuclear": {
+        "morbidmap.txt_original_row": "Cataract 35, congenital nuclear (2)\tCTRCT35, CATCN1\t609376\t19q13"
+      },
+      "Cataract 37, autosomal dominant": {
+        "morbidmap.txt_original_row": "Cataract 37, autosomal dominant (2)\tCTRCT37, CCA5\t614422\t12q24.2-q24.3"
+      },
+      "Cataract 7": {
+        "morbidmap.txt_original_row": "Cataract 7 (2)\tCTRCT7, CCA1\t115660\t17q24"
+      },
+      "Cataract 8, multiple types": {
+        "morbidmap.txt_original_row": "Cataract 8, multiple types (2)\tCTRCT8, CCV\t115665\t1pter-p36.13"
+      },
+      "Cayler cardiofacial syndrome": {
+        "morbidmap.txt_original_row": "Cayler cardiofacial syndrome (2)\tACF\t125520\t22q11"
+      },
+      "Centrotemporal epilepsy": {
+        "morbidmap.txt_original_row": "Centrotemporal epilepsy (2)\tECT, BECTS\t117100\t11p13"
+      },
+      "Cerebral palsy, ataxic, autosomal recessive": {
+        "morbidmap.txt_original_row": "Cerebral palsy, ataxic, autosomal recessive (2)\tACP\t605388\t9p12-q12"
+      },
+      "Cerebral-cerebellar-coloboma syndrome, X-linked": {
+        "morbidmap.txt_original_row": "Cerebral-cerebellar-coloboma syndrome, X-linked (2)\tCCCSX\t300864\tChr.X"
+      },
+      "Cervical carcinoma": {
+        "morbidmap.txt_original_row": "Cervical carcinoma (2)\tST3\t191181\t11q13"
+      },
+      "Charcot-Marie-Tooth disease, axonal, type 2H": {
+        "morbidmap.txt_original_row": "Charcot-Marie-Tooth disease, axonal, type 2H (2)\tCMT2H\t607731\t8q13-q23"
+      },
+      "Charcot-Marie-Tooth neuropathy, X-linked recessive, 2": {
+        "morbidmap.txt_original_row": "Charcot-Marie-Tooth neuropathy, X-linked recessive, 2 (2)\tCMTX2\t302801\tXp22.2"
+      },
+      "Charcot-Marie-Tooth neuropathy, X-linked recessive, 3": {
+        "morbidmap.txt_original_row": "Charcot-Marie-Tooth neuropathy, X-linked recessive, 3 (4)\tCMTX3\t302802\tXq26"
+      },
+      "Cholangitis, primary sclerosing": {
+        "morbidmap.txt_original_row": "Cholangitis, primary sclerosing (2)\tPSC\t613806\t3p21"
+      },
+      "Cholestasis-lymphedema syndrome": {
+        "morbidmap.txt_original_row": "Cholestasis-lymphedema syndrome (2)\tLCS1, CHLS\t214900\t15q"
+      },
+      "Chondrocalcinosis with early-onset osteoarthritis": {
+        "morbidmap.txt_original_row": "Chondrocalcinosis with early-onset osteoarthritis (2)\tCCAL1\t600668\t8q"
+      },
+      "Chromosome 10q22.3-q23.2 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 10q22.3-q23.2 deletion syndrome (4)\tDEL10q23, C10DELq23\t612242\t10q23"
+      },
+      "Chromosome 10q26 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 10q26 deletion syndrome (4)\tDEL10q26, C10q26DEL\t609625\t10q26"
+      },
+      "Chromosome 11p15-p14 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 11p15-p14 deletion syndrome (4)\tDEL11p15p14, C11DELp15p14\t606528\t11p15-p14"
+      },
+      "Chromosome 13q14 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 13q14 deletion syndrome (4)\tDEL13q14, C13DELq14\t613884\t13q14"
+      },
+      "Chromosome 13q33-q34 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 13q33-q34 deletion syndrome (4)\tDEL13q33q34, C13DELq33q34\t619148\t13q33-q34"
+      },
+      "Chromosome 14q11-q22 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 14q11-q22 deletion syndrome (4)\tDEL14q11q22, C14DELq11q22\t613457\t14q11-q22"
+      },
+      "Chromosome 15q11.2 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 15q11.2 deletion syndrome (4)\tDEL15q11.2, C15DELq11.2\t615656\t15q11.2"
+      },
+      "Chromosome 15q13.3 microdeletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 15q13.3 microdeletion syndrome (4)\tDEL15q13.3, MICRODEL15q13.3\t612001\t15q13.3"
+      },
+      "Chromosome 15q14 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 15q14 deletion syndrome (4)\tDEL15q14, C15DELq14\t616898\t15q14"
+      },
+      "Chromosome 15q25 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 15q25 deletion syndrome (4)\tDEL15q25, C15DELq25\t614294\t15q25"
+      },
+      "Chromosome 15q26-qter deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 15q26-qter deletion syndrome (4)\tDEL15q26qter, C15DELq26qter\t612626\t15q26-qter"
+      },
+      "Chromosome 16p12.1 deletion syndrome, 520kb": {
+        "morbidmap.txt_original_row": "Chromosome 16p12.1 deletion syndrome, 520kb (4)\tDEL16p12.1, C16DELp12.1\t136570\t16p12"
+      },
+      "Chromosome 16p12.2-p11.2 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 16p12.2-p11.2 deletion syndrome (4)\tDEL16p12.1p11.2, C16DELp12.1p11.2\t613604\t16p12.2-p11.2"
+      },
+      "Chromosome 16p13.3 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 16p13.3 deletion syndrome (4)\tDEL16p13.3, RSTSS\t610543\t16p13.3"
+      },
+      "Chromosome 16p13.3 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 16p13.3 duplication syndrome (4)\tDUP16p13.3, C16DUPq13.3\t613458\t16p13.3"
+      },
+      "Chromosome 16q12 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 16q12 duplication syndrome (4)\tC16DUPq12, DUP16q12\t619649\t16q12"
+      },
+      "Chromosome 16q22 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 16q22 deletion syndrome (4)\tC16DELq22, DEL16q22\t614541\t16q22"
+      },
+      "Chromosome 17p13.1 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 17p13.1 deletion syndrome (4)\tDEL17p13.1, C17DELp13.1\t613776\t17p13.1"
+      },
+      "Chromosome 17p13.3 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 17p13.3 duplication syndrome (4)\tDUP17p13.3, C17DUPp13.3\t613215\t17p13.3"
+      },
+      "Chromosome 17q11.2 deletion syndrome, 1.4Mb": {
+        "morbidmap.txt_original_row": "Chromosome 17q11.2 deletion syndrome, 1.4Mb (4)\tDEL17q11.2, C17DELq11.2\t613675\t17q11.2"
+      },
+      "Chromosome 17q11.2 duplication syndrome, 1.4-Mb": {
+        "morbidmap.txt_original_row": "Chromosome 17q11.2 duplication syndrome, 1.4-Mb (4)\tDUP17q11.2, C17DUPq11.2\t618874\t17q11.2"
+      },
+      "Chromosome 17q12 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 17q12 deletion syndrome (4)\tDEL17q12, C17DELq12\t614527\t17q12"
+      },
+      "Chromosome 17q12 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 17q12 duplication syndrome (4)\tDUP17q12, C17DUPq12\t614526\t17q12"
+      },
+      "Chromosome 17q21.31 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 17q21.31 duplication syndrome (4)\tDUP17q21.31, C17DUPq21.31\t613533\t17q21.31"
+      },
+      "Chromosome 17q23.1-q23.2 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 17q23.1-q23.2 deletion syndrome (4)\tDEL17q23.1q23.2, C17DELq23.1q23.2\t613355\t17q23.1-q23.2"
+      },
+      "Chromosome 17q23.1-q23.2 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 17q23.1-q23.2 duplication syndrome (4)\tDUP17q23.1q23.2, C17DUPq23.1q23.2\t613618\t17q23.1-q23.2"
+      },
+      "Chromosome 18 pericentric inversion": {
+        "morbidmap.txt_original_row": "Chromosome 18 pericentric inversion (4)\tDUP18pDEL18q, DUP18qDEL18p\t609334\t18q22"
+      },
+      "Chromosome 18p deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 18p deletion syndrome (4)\tDEL18p, C18DELp\t146390\t18p"
+      },
+      "Chromosome 18q deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 18q deletion syndrome (4)\tDEL18q\t601808\t18q"
+      },
+      "Chromosome 19q13.11 deletion syndrome, distal": {
+        "morbidmap.txt_original_row": "Chromosome 19q13.11 deletion syndrome, distal (4)\tDEL19q13.11d, C19DELq13.11d\t613026\t19q13.11"
+      },
+      "Chromosome 19q13.11 deletion syndrome, proximal": {
+        "morbidmap.txt_original_row": "Chromosome 19q13.11 deletion syndrome, proximal (4)\tDEL19q13.11p, C19DELq13.11p\t617219\t19q13.11"
+      },
+      "Chromosome 1p35 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 1p35 deletion syndrome (4)\tC1DELp35, DEL1p35\t617930\t1p35"
+      },
+      "Chromosome 1p36 deletion syndrome, distal": {
+        "morbidmap.txt_original_row": "Chromosome 1p36 deletion syndrome, distal (4)\tDEL1p36, C1DELp36\t607872\t1p36"
+      },
+      "Chromosome 1p36 deletion syndrome, proximal": {
+        "morbidmap.txt_original_row": "Chromosome 1p36 deletion syndrome, proximal (4)\tDEL1p36, C1DELp36\t619343\t1p36"
+      },
+      "Chromosome 1p36.33 duplication syndrome, ATAD3 gene cluster": {
+        "morbidmap.txt_original_row": "Chromosome 1p36.33 duplication syndrome, ATAD3 gene cluster (4)\tC1DUPp36.33, DUP1p36.33\t618815\t1p36.33"
+      },
+      "Chromosome 1q21.1 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 1q21.1 deletion syndrome (4)\tDEL1q21, C1DELq21\t612474\t1q21.1"
+      },
+      "Chromosome 1q21.1 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 1q21.1 duplication syndrome (4)\tDUP1q21, C1DUPq21\t612475\t1q21.1"
+      },
+      "Chromosome 1q41-q42 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 1q41-q42 deletion syndrome (4)\tDEL1q41q42, C1DELq41q42\t612530\t1q41-q42"
+      },
+      "Chromosome 22q11.2 deletion syndrome, distal": {
+        "morbidmap.txt_original_row": "Chromosome 22q11.2 deletion syndrome, distal (4)\tDEL22q11.2, C22DELq11.2\t611867\t22q11.2"
+      },
+      "Chromosome 22q11.2 microduplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 22q11.2 microduplication syndrome (4)\tDUP22q11.2\t608363\t22q11.2"
+      },
+      "Chromosome 2p12-p11.2 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 2p12-p11.2 deletion syndrome (4)\tDEL2p12p11.2, C2DELp12p11.2\t613564\t2p12-p11.2"
+      },
+      "Chromosome 2p16.1-p15 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 2p16.1-p15 deletion syndrome (4)\tDEL2p16.1-p15, C2DELp161-p15\t612513\t2p16.1-p15"
+      },
+      "Chromosome 2q31.1 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 2q31.1 duplication syndrome (4)\tDUP2q31.1, C2DUPq31.1\t613681\t2q31.1"
+      },
+      "Chromosome 2q31.2 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 2q31.2 deletion syndrome (4)\tDEL2q31\t612345\t2q31.2"
+      },
+      "Chromosome 2q37 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 2q37 deletion syndrome (4)\tBDMR, C2DELq37, DEL2q37\t600430\t2q37"
+      },
+      "Chromosome 3q13.31 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 3q13.31 deletion syndrome (4)\tDEL3q13.31, C13DELq13.31\t615433\t3q13.31"
+      },
+      "Chromosome 3q29 microdeletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 3q29 microdeletion syndrome (4)\tDEL3q29, MICRODEL3q29\t609425\t3q29"
+      },
+      "Chromosome 3q29 microduplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 3q29 microduplication syndrome (4)\tDUP3q29, MICRODUP3q29\t611936\t3q29"
+      },
+      "Chromosome 4q21 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 4q21 deletion syndrome (4)\tDEL4q21, C4DELq21\t613509\t4q21"
+      },
+      "Chromosome 4q32.1-q32.2 triplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 4q32.1-q32.2 triplication syndrome (4)\tTRIP4q32.1q32.2, C4TRIPq32.1q32.2\t613603\t4q32.1-q32.2"
+      },
+      "Chromosome 5p13 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 5p13 duplication syndrome (4)\tDUP5p13, C5DUPp13\t613174\t5p13"
+      },
+      "Chromosome 5q12 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 5q12 deletion syndrome (4)\tDEL5q12, C5DELq12\t615668\t5q12"
+      },
+      "Chromosome 6pter-p24 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 6pter-p24 deletion syndrome (4)\tDEL6pter, C6DELpter\t612582\t6pter-p24"
+      },
+      "Chromosome 6q11-q14 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 6q11-q14 deletion syndrome (4)\tDEL6q11q14, C6DELq11q14\t613544\t6q11-q14"
+      },
+      "Chromosome 6q25-q25 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 6q25-q25 deletion syndrome (4)\tDEL6q24q25, C6DELq25q25\t612863\t6q24-q25"
+      },
+      "Chromosome 7q11.23 deletion syndrome, distal, 1.2Mb": {
+        "morbidmap.txt_original_row": "Chromosome 7q11.23 deletion syndrome, distal, 1.2Mb (4)\tDEL7q11.23, C7DELq11.23\t613729\t7q11.23"
+      },
+      "Chromosome 7q11.23 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 7q11.23 duplication syndrome (4)\tDUP7q11.23, C7DUPq11.23\t609757\t7q11.23"
+      },
+      "Chromosome 8p11 myeloproliferative syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 8p11 myeloproliferative syndrome (4)\tSCLL\t613523\t8p11"
+      },
+      "Chromosome 8q21.11 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 8q21.11 deletion syndrome (4)\tDEL8q21.11, C8DELq21.11\t614230\t8q21.11"
+      },
+      "Chromosome 9p deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome 9p deletion syndrome (4)\tDEL9p, C9DELp\t158170\t9p"
+      },
+      "Chromosome Xp11.23-p11.22 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome Xp11.23-p11.22 duplication syndrome (4)\tDUPXp11.23p11.22, CXDUPp11.23p11.22\t300801\tXp11.23-p11.22"
+      },
+      "Chromosome Xp11.3 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome Xp11.3 deletion syndrome (4)\tDELXp11.3, CXDELp11.3\t300578\tXp11.3"
+      },
+      "Chromosome Xp21 deletion syndrome": {
+        "morbidmap.txt_original_row": "Chromosome Xp21 deletion syndrome (4)\tDELXp21, CXDELp21\t300679\tXp21"
+      },
+      "Chromosome Xq13 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome Xq13 duplication syndrome (4)\tDUPXq13\t301069\tXq13.2-q13.3"
+      },
+      "Chromosome Xq26.3 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome Xq26.3 duplication syndrome (4)\tCXDUPq26.3, DUPXq26.3, XLAG\t300942\tXq26.3"
+      },
+      "Chromosome Xq27.3-q28 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome Xq27.3-q28 duplication syndrome (4)\tDUPXq27.3q28, CXDUPq27.3q28\t300869\tXq27.3-q28"
+      },
+      "Chromosome Xq28 duplication syndrome": {
+        "morbidmap.txt_original_row": "Chromosome Xq28 duplication syndrome (4)\tDUPXq28, CXq28\t300815\tXq28"
+      },
+      "Ciliary dyskinesia, primary, 4": {
+        "morbidmap.txt_original_row": "Ciliary dyskinesia, primary, 4 (2)\tCILD4\t608646\t15q13.1-q15.1"
+      },
+      "Ciliary dyskinesia, primary, 8": {
+        "morbidmap.txt_original_row": "Ciliary dyskinesia, primary, 8 (2)\tCILD8\t612274\t15q24-q25"
+      },
+      "Cone dystrophy, progressive X-linked, 2": {
+        "morbidmap.txt_original_row": "Cone dystrophy, progressive X-linked, 2 (2)\tCOD2\t300085\tXq27"
+      },
+      "Cone-rod dystrophy 17": {
+        "morbidmap.txt_original_row": "Cone-rod dystrophy 17 (2)\tCORD17\t615163\t10q26"
+      },
+      "Cone-rod dystrophy 8": {
+        "morbidmap.txt_original_row": "Cone-rod dystrophy 8 (2)\tCORD8\t605549\t1q12-q24"
+      },
+      "Cone-rod retinal dystrophy-1": {
+        "morbidmap.txt_original_row": "Cone-rod retinal dystrophy-1 (2)\tCORD1, CRD1\t600624\t18q21.1-q21.3"
+      },
+      "Congenital heart defects, multiple types, 3": {
+        "morbidmap.txt_original_row": "Congenital heart defects, multiple types, 3 (2)\tCHDT3\t614954\t9q31.1"
+      },
+      "Cornea plana 1, autosomal dominant": {
+        "morbidmap.txt_original_row": "Cornea plana 1, autosomal dominant (2)\tCNA1\t121400\t12q21.33"
+      },
+      "Corneal dystrophy, Fuchs endothelial, 2": {
+        "morbidmap.txt_original_row": "Corneal dystrophy, Fuchs endothelial, 2 (2)\tFECD2, FCD1\t610158\t13pter-q12.13"
+      },
+      "Corneal dystrophy, Fuchs endothelial, 5": {
+        "morbidmap.txt_original_row": "Corneal dystrophy, Fuchs endothelial, 5 (2)\tFECD5, FCD3\t613269\t5q33.1-q35.2"
+      },
+      "Corneal dystrophy, Fuchs endothelial, 7": {
+        "morbidmap.txt_original_row": "Corneal dystrophy, Fuchs endothelial, 7 (2)\tFECD7, FCD4\t613271\t9p24.1-p22.1"
+      },
+      "Corneal dystrophy, Lisch epithelial": {
+        "morbidmap.txt_original_row": "Corneal dystrophy, Lisch epithelial (2)\tLECD\t300778\tXp22.3"
+      },
+      "Corneal dystrophy, endothelial, X-linked": {
+        "morbidmap.txt_original_row": "Corneal dystrophy, endothelial, X-linked (2)\tXECD\t300779\tXq25"
+      },
+      "Corneal dystrophy, posterior amorphous": {
+        "morbidmap.txt_original_row": "Corneal dystrophy, posterior amorphous (4)\tPACD\t612868\t12q21.33"
+      },
+      "Craniosynostosis, Adelaide type": {
+        "morbidmap.txt_original_row": "Craniosynostosis, Adelaide type (2)\tCRSA, CRS3\t600593\t4p16"
+      },
+      "Creatinine clearance QTL": {
+        "morbidmap.txt_original_row": "Creatinine clearance QTL (2)\tCRCL\t607135\t3p"
+      },
+      "Cubitus valgus with mental retardation and unusual facies": {
+        "morbidmap.txt_original_row": "Cubitus valgus with mental retardation and unusual facies (2)\tCVMRF\t300471\tChr.X"
+      },
+      "DNA topoisomerase I, camptothecin-resistant": {
+        "morbidmap.txt_original_row": "DNA topoisomerase I, camptothecin-resistant (3)\tTOP1\t126420\t20q12"
+      },
+      "DNA topoisomerase II, resistance to inhibition of, by amsacrine": {
+        "morbidmap.txt_original_row": "DNA topoisomerase II, resistance to inhibition of, by amsacrine (3)\tTOP2A, TOP2\t126430\t17q21.2"
+      },
+      "Dandy-Walker syndrome": {
+        "morbidmap.txt_original_row": "Dandy-Walker syndrome (4)\tDWS, C3DELq22q24, DEL3q22q24\t220200\t3q22-q24"
+      },
+      "Deafness and male infertility": {
+        "morbidmap.txt_original_row": "Deafness and male infertility (4)\tDEL15q15.3, C15DELq15.3\t611102\t15q15.3"
+      },
+      "Deafness, X-linked 3": {
+        "morbidmap.txt_original_row": "Deafness, X-linked 3 (2)\tDFNX3, DFN4\t300030\tXp21.2"
+      },
+      "Deafness, Y-linked 1": {
+        "morbidmap.txt_original_row": "Deafness, Y-linked 1 (2)\tDFNY1\t400043\tChr.Y"
+      },
+      "Deafness, autosomal dominant 16": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 16 (2)\tDFNA16\t603964\t2q23-q24.3"
+      },
+      "Deafness, autosomal dominant 18": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 18 (2)\tDFNA18\t606012\t3q22"
+      },
+      "Deafness, autosomal dominant 24": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 24 (2)\tDFNA24\t606282\t4q35-qter"
+      },
+      "Deafness, autosomal dominant 30": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 30 (2)\tDFNA30\t606451\t15q25-q26"
+      },
+      "Deafness, autosomal dominant 31": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 31 (2)\tDFNA31\t608645\t6p21.3"
+      },
+      "Deafness, autosomal dominant 33": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 33 (2)\tDFNA33\t614211\t13q34"
+      },
+      "Deafness, autosomal dominant 43": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 43 (2)\tDFNA43\t608394\t2p12"
+      },
+      "Deafness, autosomal dominant 47": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 47 (2)\tDFNA47, DFNB83\t608652\t9p22-p21"
+      },
+      "Deafness, autosomal dominant 48": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 48 (2)\tDFNA48\t607841\t12q13-q14"
+      },
+      "Deafness, autosomal dominant 49": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 49 (2)\tDFNA49\t608372\t1q21-q23"
+      },
+      "Deafness, autosomal dominant 51": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 51 (4)\tDFNA51, C9DUPq21.11, DUP9q21.11\t613558\t9q21.11"
+      },
+      "Deafness, autosomal dominant 52": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 52 (2)\tDFNA52, DFNA42\t607683\t5q31.1-q32"
+      },
+      "Deafness, autosomal dominant 53": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 53 (2)\tDFNA53\t609965\t14q11.2-q12"
+      },
+      "Deafness, autosomal dominant 54": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 54 (2)\tDFNA54\t615649\t5q31"
+      },
+      "Deafness, autosomal dominant 58": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 58 (2)\tDFNA58\t615654\t2p21-p12"
+      },
+      "Deafness, autosomal dominant 59": {
+        "morbidmap.txt_original_row": "Deafness, autosomal dominant 59 (2)\tDFNA59\t612642\t11p14.2-q12.3"
+      },
+      "Deafness, autosomal recessive 118, with cochlear aplasia": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 118, with cochlear aplasia (4)\tDFNB118\t619553\t8q22"
+      },
+      "Deafness, autosomal recessive 13": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 13 (2)\tDFNB13\t603098\t7q34-q36"
+      },
+      "Deafness, autosomal recessive 14": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 14 (2)\tDFNB14\t603678\t7q31"
+      },
+      "Deafness, autosomal recessive 17": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 17 (2)\tDFNB17\t603010\t7q31"
+      },
+      "Deafness, autosomal recessive 20": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 20 (2)\tDFNB20\t604060\t11q25-qter"
+      },
+      "Deafness, autosomal recessive 27": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 27 (2)\tDFNB27\t605818\t2q23-q31"
+      },
+      "Deafness, autosomal recessive 33": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 33 (2)\tDFNB33\t607239\t10p11.23-q21.1"
+      },
+      "Deafness, autosomal recessive 38": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 38 (2)\tDFNB38\t608219\t6q26-q27"
+      },
+      "Deafness, autosomal recessive 40": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 40 (2)\tDFNB40\t608264\t22q11.21-q12.1"
+      },
+      "Deafness, autosomal recessive 45": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 45 (2)\tDFNB45\t612433\t1q43-q44"
+      },
+      "Deafness, autosomal recessive 46": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 46 (2)\tDFNB46\t609647\t18p11.32-p11.31"
+      },
+      "Deafness, autosomal recessive 5": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 5 (2)\tDFNB5\t600792\t14q12"
+      },
+      "Deafness, autosomal recessive 51": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 51 (2)\tDFNB51\t609941\t11p13-p12"
+      },
+      "Deafness, autosomal recessive 55": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 55 (2)\tDFNB55\t609952\t4q12-q13.2"
+      },
+      "Deafness, autosomal recessive 62": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 62 (2)\tDFNB62\t610143\t12p13.2-p11.23"
+      },
+      "Deafness, autosomal recessive 65": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 65 (2)\tDFNB65\t610248\t20q13.2-q13.3"
+      },
+      "Deafness, autosomal recessive 71": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 71 (2)\tDFNB71\t612789\t8p22-p21.3"
+      },
+      "Deafness, autosomal recessive 83": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 83 (2)\tDFNB83\t613685\t9p23-p21.2"
+      },
+      "Deafness, autosomal recessive 85": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 85 (2)\tDFNB85\t613392\t17p12-q11.2"
+      },
+      "Deafness, autosomal recessive 96": {
+        "morbidmap.txt_original_row": "Deafness, autosomal recessive 96 (2)\tDFNB96\t614414\t1p36.31-p36.13"
+      },
+      "Deafness, cataract, retinitis pigmentosa, and sperm abnormalities": {
+        "morbidmap.txt_original_row": "Deafness, cataract, retinitis pigmentosa, and sperm abnormalities (2)\tDFCTRPS\t300719\tChr.X"
+      },
+      "Deafness, neurosensory, autosomal recessive 47": {
+        "morbidmap.txt_original_row": "Deafness, neurosensory, autosomal recessive 47 (2)\tDFNB47\t609946\t2p25.1-p24.3"
+      },
+      "Dermoids of cornea": {
+        "morbidmap.txt_original_row": "Dermoids of cornea (2)\tCND\t304730\tXq24-qter"
+      },
+      "Developmental dysplasia of the hip 1": {
+        "morbidmap.txt_original_row": "Developmental dysplasia of the hip 1 (2)\tDDH1\t142700\t13q22"
+      },
+      "Developmental dysplasia of the hip 2": {
+        "morbidmap.txt_original_row": "Developmental dysplasia of the hip 2 (2)\tDDH2\t615612\t3p22.2"
+      },
+      "DiGeorge syndrome/velocardiofacial syndrome complex-2": {
+        "morbidmap.txt_original_row": "DiGeorge syndrome/velocardiofacial syndrome complex-2 (2)\tDGCR2, DGS2\t601362\t10p14-p13"
+      },
+      "Diabetes mellitus, noninsulin-dependent, 2": {
+        "morbidmap.txt_original_row": "Diabetes mellitus, noninsulin-dependent, 2 (2)\tNIDDM2\t601407\t12q24.2"
+      },
+      "Diamond-Blackfan anemia 2": {
+        "morbidmap.txt_original_row": "Diamond-Blackfan anemia 2 (2)\tDBA2\t606129\t8p23.3-p22"
+      },
+      "Diaphragmatic hernia 1": {
+        "morbidmap.txt_original_row": "Diaphragmatic hernia 1 (2)\tDIH1, HCD\t142340\t15q26.1"
+      },
+      "Diaphragmatic hernia 2": {
+        "morbidmap.txt_original_row": "Diaphragmatic hernia 2 (2)\tDIH2\t222400\t8p23.1"
+      },
+      "Dowling-Degos disease 3": {
+        "morbidmap.txt_original_row": "Dowling-Degos disease 3 (2)\tDDD3\t615674\t17p13.3"
+      },
+      "Down syndrome": {
+        "morbidmap.txt_original_row": "Down syndrome (4)\tDCR, DSCR\t190685\t21q22.3"
+      },
+      "Duane retraction syndrome 1": {
+        "morbidmap.txt_original_row": "Duane retraction syndrome 1 (2)\tDURS1, DUS\t126800\t8q13"
+      },
+      "Dupuytren contracture 1": {
+        "morbidmap.txt_original_row": "Dupuytren contracture 1 (2)\tDUPC1\t126900\t16q11.1-q22"
+      },
+      "Dyschromatosis universalis hereditaria 1": {
+        "morbidmap.txt_original_row": "Dyschromatosis universalis hereditaria 1 (2)\tDUH1, DUH\t127500\t6q24.2-q25.2"
+      },
+      "Dyschromatosis universalis hereditaria 2": {
+        "morbidmap.txt_original_row": "Dyschromatosis universalis hereditaria 2 (2)\tDUH2\t612715\t12q21-q23"
+      },
+      "Dyskeratosis, hereditary benign intraepithelial": {
+        "morbidmap.txt_original_row": "Dyskeratosis, hereditary benign intraepithelial (2)\tDKBI\t127600\t4q35"
+      },
+      "Dystonia 13, torsion": {
+        "morbidmap.txt_original_row": "Dystonia 13, torsion (2)\tDYT13\t607671\t1p36.32-p36.13"
+      },
+      "Dystonia 21": {
+        "morbidmap.txt_original_row": "Dystonia 21 (2)\tDYT21\t614588\t2q14.3-q21.3"
+      },
+      "Dystonia 23": {
+        "morbidmap.txt_original_row": "Dystonia 23 (2)\tDYT23\t614860\t9q34"
+      },
+      "Dystonia-15, myoclonic": {
+        "morbidmap.txt_original_row": "Dystonia-15, myoclonic (2)\tDYT15\t607488\t18p11"
+      },
+      "Dystonia-17, primary torsion": {
+        "morbidmap.txt_original_row": "Dystonia-17, primary torsion (2)\tDYT17\t612406\t20p11.2-q13.12"
+      },
+      "Dystonia-7, torsion": {
+        "morbidmap.txt_original_row": "Dystonia-7, torsion (2)\tDYT7\t602124\t18p"
+      },
+      "ENDOVE syndrome, limb-only type": {
+        "morbidmap.txt_original_row": "ENDOVE syndrome, limb-only type (4)\tENDOVESL\t619217\t2q14"
+      },
+      "Ectodermal dysplasia 5, hair/nail type": {
+        "morbidmap.txt_original_row": "Ectodermal dysplasia 5, hair/nail type (2)\tECTD5\t614927\t10q24.32-q25.1"
+      },
+      "Ectodermal dysplasia 6, hair/nail type": {
+        "morbidmap.txt_original_row": "Ectodermal dysplasia 6, hair/nail type (2)\tECTD6\t614928\t17p12-q21.2"
+      },
+      "Ectodermal dysplasia 8, hair/tooth/nail type": {
+        "morbidmap.txt_original_row": "Ectodermal dysplasia 8, hair/tooth/nail type (2)\tECTD8\t602401\t18q22.1-q22.3"
+      },
+      "Ectodermal dysplasia-syndactyly syndrome 2": {
+        "morbidmap.txt_original_row": "Ectodermal dysplasia-syndactyly syndrome 2 (2)\tEDSS2\t613576\t7p21.2-p14.3"
+      },
+      "Electroencephalographic variant pattern 1": {
+        "morbidmap.txt_original_row": "Electroencephalographic variant pattern 1 (2)\tEEGV1, EEGL\t130180\t20q13.2-q13.3"
+      },
+      "Emanuel syndrome": {
+        "morbidmap.txt_original_row": "Emanuel syndrome (4)\tDER22t11-22\t609029\t22q11.2"
+      },
+      "Enuresis, nocturnal, 1": {
+        "morbidmap.txt_original_row": "Enuresis, nocturnal, 1 (2)\tENUR1\t600631\t13q13-q14.3"
+      },
+      "Enuresis, nocturnal, 2": {
+        "morbidmap.txt_original_row": "Enuresis, nocturnal, 2 (2)\tENUR2\t600808\t12q13-q21"
+      },
+      "Eosinophilia, familial": {
+        "morbidmap.txt_original_row": "Eosinophilia, familial (2)\tEOS\t131400\t5q31-q33"
+      },
+      "Epilepsy, childhood absence, 1": {
+        "morbidmap.txt_original_row": "Epilepsy, childhood absence, 1 (2)\tECA1\t600131\t8q24"
+      },
+      "Epilepsy, familial temporal lobe, 2": {
+        "morbidmap.txt_original_row": "Epilepsy, familial temporal lobe, 2 (2)\tETL2, FTLE\t608096\t12q22-q23.3"
+      },
+      "Epilepsy, familial temporal lobe, 3": {
+        "morbidmap.txt_original_row": "Epilepsy, familial temporal lobe, 3 (2)\tETL3, FMTLE\t611630\t4q13.2-q21.3"
+      },
+      "Epilepsy, familial temporal lobe, 4": {
+        "morbidmap.txt_original_row": "Epilepsy, familial temporal lobe, 4 (2)\tETL4, ETOLM\t611631\t9q21-q22"
+      },
+      "Epilepsy, familial temporal lobe, 6": {
+        "morbidmap.txt_original_row": "Epilepsy, familial temporal lobe, 6 (2)\tETL6\t615697\t3q25-q26"
+      },
+      "Epilepsy, hot water, 1": {
+        "morbidmap.txt_original_row": "Epilepsy, hot water, 1 (2)\tHWE1\t613339\t10q21.3-q22.3"
+      },
+      "Epilepsy, hot water, 2": {
+        "morbidmap.txt_original_row": "Epilepsy, hot water, 2 (2)\tHWE2\t613340\t4q24-q28"
+      },
+      "Epilepsy, juvenile myoclonic 3": {
+        "morbidmap.txt_original_row": "Epilepsy, juvenile myoclonic 3 (2)\tEJM3\t608816\t6p21"
+      },
+      "Epilepsy, nocturnal frontal lobe, type 2": {
+        "morbidmap.txt_original_row": "Epilepsy, nocturnal frontal lobe, type 2 (2)\tENFL2\t603204\t15q24"
+      },
+      "Epilepsy, partial, with pericentral spikes": {
+        "morbidmap.txt_original_row": "Epilepsy, partial, with pericentral spikes (2)\tEPPS\t607221\t4p15"
+      },
+      "Episodic ataxia, type 3": {
+        "morbidmap.txt_original_row": "Episodic ataxia, type 3 (2)\tEA3\t606554\t1q42"
+      },
+      "Episodic ataxia, type 7": {
+        "morbidmap.txt_original_row": "Episodic ataxia, type 7 (2)\tEA7\t611907\t19q13"
+      },
+      "Episodic ataxia, type 8": {
+        "morbidmap.txt_original_row": "Episodic ataxia, type 8 (2)\tEA8\t616055\t1p36.13-p34.3"
+      },
+      "Episodic kinesigenic dyskinesia 2": {
+        "morbidmap.txt_original_row": "Episodic kinesigenic dyskinesia 2 (2)\tEKD2\t611031\t16q13-q22.1"
+      },
+      "Episodic muscle weakness, X-linked": {
+        "morbidmap.txt_original_row": "Episodic muscle weakness, X-linked (2)\tEMWX\t300211\tXp22.3"
+      },
+      "Essential tremor, hereditary, 2": {
+        "morbidmap.txt_original_row": "Essential tremor, hereditary, 2 (2)\tETM2, ETM\t602134\t2p25-p22"
+      },
+      "Essential tremor, hereditary, 3": {
+        "morbidmap.txt_original_row": "Essential tremor, hereditary, 3 (2)\tETM3\t611456\t6p23"
+      },
+      "Exostoses, multiple, type 3": {
+        "morbidmap.txt_original_row": "Exostoses, multiple, type 3 (2)\tEXT3\t600209\t19p"
+      },
+      "Exudative vitreoretinopathy 3": {
+        "morbidmap.txt_original_row": "Exudative vitreoretinopathy 3 (2)\tEVR3\t605750\t11p13-p12"
+      },
+      "FG syndrome 3": {
+        "morbidmap.txt_original_row": "FG syndrome 3 (2)\tFGS3\t300406\tXp22.3"
+      },
+      "FG syndrome 5": {
+        "morbidmap.txt_original_row": "FG syndrome 5 (2)\tFGS5\t300581\tXq22.3"
+      },
+      "Facial paresis, hereditary congenital, 1": {
+        "morbidmap.txt_original_row": "Facial paresis, hereditary congenital, 1 (2)\tHCFP1, MBS2\t601471\t3q21-q22"
+      },
+      "Facial paresis, hereditary congenital, 2": {
+        "morbidmap.txt_original_row": "Facial paresis, hereditary congenital, 2 (2)\tHCFP2\t604185\t10q21.3-q22.1"
+      },
+      "Facioscapulohumeral muscular dystrophy 1": {
+        "morbidmap.txt_original_row": "Facioscapulohumeral muscular dystrophy 1 (4)\tFSHD1, FSHD1A\t158900\t4q35"
+      },
+      "Familial apolipoprotein gene cluster deletion syndrome": {
+        "morbidmap.txt_original_row": "Familial apolipoprotein gene cluster deletion syndrome (4)\tAPOGCDS\t620058\t11q23"
+      },
+      "Febrile seizures, familial, 1": {
+        "morbidmap.txt_original_row": "Febrile seizures, familial, 1 (2)\tFEB1\t121210\t8q13-q21"
+      },
+      "Febrile seizures, familial, 10": {
+        "morbidmap.txt_original_row": "Febrile seizures, familial, 10 (2)\tFEB10\t612637\t3q26.2-q26.33"
+      },
+      "Febrile seizures, familial, 2": {
+        "morbidmap.txt_original_row": "Febrile seizures, familial, 2 (2)\tFEB2\t602477\t19p13.3"
+      },
+      "Febrile seizures, familial, 5": {
+        "morbidmap.txt_original_row": "Febrile seizures, familial, 5 (2)\tFEB5\t609255\t6q22-q24"
+      },
+      "Febrile seizures, familial, 6": {
+        "morbidmap.txt_original_row": "Febrile seizures, familial, 6 (2)\tFEB6\t609253\t18p11.2"
+      },
+      "Febrile seizures, familial, 7": {
+        "morbidmap.txt_original_row": "Febrile seizures, familial, 7 (2)\tFEB7\t611515\t21q22"
+      },
+      "Febrile seizures, familial, 9": {
+        "morbidmap.txt_original_row": "Febrile seizures, familial, 9 (2)\tFEB9\t611634\t3p24.2-p23"
+      },
+      "Feingold syndrome 2": {
+        "morbidmap.txt_original_row": "Feingold syndrome 2 (4)\tFGLDS2\t614326\t13q31.3"
+      },
+      "Fetal hemoglobin quantitative trait locus 2": {
+        "morbidmap.txt_original_row": "Fetal hemoglobin quantitative trait locus 2 (2)\tHBFQTL2, FCP\t142470\t6q22.3-q23.1"
+      },
+      "Fetal hemoglobin quantitative trait locus 3": {
+        "morbidmap.txt_original_row": "Fetal hemoglobin quantitative trait locus 3 (2)\tHBFQTL3, FCP1, FCPX, FCP\t305435\tXp22.2"
+      },
+      "Fetal hemoglobin quantitative trait locus 4": {
+        "morbidmap.txt_original_row": "Fetal hemoglobin quantitative trait locus 4 (2)\tHBFQTL4\t606789\t8q"
+      },
+      "Fibromatosis, gingival, 2": {
+        "morbidmap.txt_original_row": "Fibromatosis, gingival, 2 (2)\tGINGF2, GGF2, HGF2\t605544\t5q13-q22"
+      },
+      "Fibromatosis, gingival, 3": {
+        "morbidmap.txt_original_row": "Fibromatosis, gingival, 3 (2)\tGINGF3, HGF3, GGF3\t609955\t2p23.3-p22.3"
+      },
+      "Fibromatosis, gingival, 4": {
+        "morbidmap.txt_original_row": "Fibromatosis, gingival, 4 (2)\tGINGF4, HGF4, GGF4\t611010\t11p15"
+      },
+      "Fibrosis of extraocular muscles, congenital, 3C": {
+        "morbidmap.txt_original_row": "Fibrosis of extraocular muscles, congenital, 3C (2)\tCFEOM3C, FEOM4\t609384\t13q12.11"
+      },
+      "Forebrain defects": {
+        "morbidmap.txt_original_row": "Forebrain defects (3)\tTDGF1\t187395\t3p21.31"
+      },
+      "Forsythe-Wakeling syndrome": {
+        "morbidmap.txt_original_row": "Forsythe-Wakeling syndrome (2)\tFWS\t613606\t1p33-p31.1"
+      },
+      "Frias syndrome": {
+        "morbidmap.txt_original_row": "Frias syndrome (4)\tFRIASS, DEL14q22, C14DELq22\t609640\t14q22.1-q22.3"
+      },
+      "Friedreich ataxia 2": {
+        "morbidmap.txt_original_row": "Friedreich ataxia 2 (2)\tFRDA2\t601992\t9p23-p11"
+      },
+      "Gallbladder disease 2": {
+        "morbidmap.txt_original_row": "Gallbladder disease 2 (2)\tGBD2\t609918\t1p36.21"
+      },
+      "Gallbladder disease 3": {
+        "morbidmap.txt_original_row": "Gallbladder disease 3 (2)\tGBD3\t609919\t1p34.3"
+      },
+      "Gastroesophageal reflux": {
+        "morbidmap.txt_original_row": "Gastroesophageal reflux (2)\tGER\t109350\t13q14"
+      },
+      "Generalized epilepsy with febrile seizures plus, type 4": {
+        "morbidmap.txt_original_row": "Generalized epilepsy with febrile seizures plus, type 4 (2)\tGEFSP4\t609800\t2p24"
+      },
+      "Generalized epilepsy with febrile seizures plus, type 6": {
+        "morbidmap.txt_original_row": "Generalized epilepsy with febrile seizures plus, type 6 (2)\tGEFSP6\t612279\t8p23-p21"
+      },
+      "Generalized epilepsy with febrile seizures plus, type 7": {
+        "morbidmap.txt_original_row": "Generalized epilepsy with febrile seizures plus, type 7 (2)\tGEFSP7, FEB3B\t613863\t2q23-q24"
+      },
+      "Generalized epilepsy with febrile seizures plus, type 8": {
+        "morbidmap.txt_original_row": "Generalized epilepsy with febrile seizures plus, type 8 (2)\tGEFSP8\t613828\t6q16.3-q22.31"
+      },
+      "Geniospasm": {
+        "morbidmap.txt_original_row": "Geniospasm (2)\tGSM1, GSP\t190100\t9q13-q21"
+      },
+      "Glaucoma 1, open angle, H": {
+        "morbidmap.txt_original_row": "Glaucoma 1, open angle, H (2)\tGLC1H\t611276\t2p16-p15"
+      },
+      "Glaucoma 1, open angle, I": {
+        "morbidmap.txt_original_row": "Glaucoma 1, open angle, I (2)\tGLC1I\t609745\t15q11-q13"
+      },
+      "Glaucoma 1, open angle, M": {
+        "morbidmap.txt_original_row": "Glaucoma 1, open angle, M (2)\tGLC1M\t610535\t5q22.1-q32"
+      },
+      "Glaucoma 1, open angle, N": {
+        "morbidmap.txt_original_row": "Glaucoma 1, open angle, N (2)\tGLC1N\t611274\t15q22-q24"
+      },
+      "Glaucoma 1, open angle, P": {
+        "morbidmap.txt_original_row": "Glaucoma 1, open angle, P (4)\tGLC1P\t177700\t12q14"
+      },
+      "Glaucoma 1B, primary open angle, adult onset": {
+        "morbidmap.txt_original_row": "Glaucoma 1B, primary open angle, adult onset (2)\tGLC1B\t606689\t2cen-q13"
+      },
+      "Glaucoma 1C, primary open angle": {
+        "morbidmap.txt_original_row": "Glaucoma 1C, primary open angle (2)\tGLC1C\t601682\t3q21-q24"
+      },
+      "Glaucoma 1D, primary open angle": {
+        "morbidmap.txt_original_row": "Glaucoma 1D, primary open angle (2)\tGLC1D\t602429\t8q23"
+      },
+      "Glaucoma 1K, primary open angle, juvenile-onset": {
+        "morbidmap.txt_original_row": "Glaucoma 1K, primary open angle, juvenile-onset (2)\tGLC1K, JOAG3\t608696\t20p12"
+      },
+      "Glaucoma 3, primary congenital, C": {
+        "morbidmap.txt_original_row": "Glaucoma 3, primary congenital, C (2)\tGLC3C\t613085\t14q24.3"
+      },
+      "Glaucoma 3, primary infantile, B": {
+        "morbidmap.txt_original_row": "Glaucoma 3, primary infantile, B (2)\tGLC3B\t600975\t1p36.2-p36.1"
+      },
+      "Glaucoma, primary open angle, juvenile-onset, 2": {
+        "morbidmap.txt_original_row": "Glaucoma, primary open angle, juvenile-onset, 2 (2)\tJOAG2\t608695\t9q22"
+      },
+      "Glomerulopathy with fibronectin deposits 1": {
+        "morbidmap.txt_original_row": "Glomerulopathy with fibronectin deposits 1 (2)\tGFND1\t137950\t1q32"
+      },
+      "Glucocorticoid deficiency 3": {
+        "morbidmap.txt_original_row": "Glucocorticoid deficiency 3 (2)\tGCCD3, FGD3, GCCD2\t609197\t8q11.2-q13.2"
+      },
+      "Goeminne TKCR syndrome": {
+        "morbidmap.txt_original_row": "Goeminne TKCR syndrome (2)\tTKCR, TKC\t314300\tXq28"
+      },
+      "Goiter, multinodular, 2": {
+        "morbidmap.txt_original_row": "Goiter, multinodular, 2 (2)\tMNG2\t300273\tXp22"
+      },
+      "Goiter, multinodular, 3": {
+        "morbidmap.txt_original_row": "Goiter, multinodular, 3 (2)\tMNG3\t606082\t3q26.1-q26.3"
+      },
+      "Granulomatosis with polyangiitis": {
+        "morbidmap.txt_original_row": "Granulomatosis with polyangiitis (2)\tGPA, WG\t608710\t6p21.3"
+      },
+      "Gustavson syndrome": {
+        "morbidmap.txt_original_row": "Gustavson syndrome (2)\tGUST\t309555\tXq26"
+      },
+      "Hair, curly": {
+        "morbidmap.txt_original_row": "Hair, curly (2)\tHRM2\t139450\t1q21.3"
+      },
+      "Hashimoto thyroiditis": {
+        "morbidmap.txt_original_row": "Hashimoto thyroiditis (2)\tHT\t140300\t8q23-q24"
+      },
+      "Hemihypertrophy": {
+        "morbidmap.txt_original_row": "Hemihypertrophy (2)\tIH, HHP\t235000\t11p15"
+      },
+      "Hemolytic anemia due to phosphofructokinase deficiency": {
+        "morbidmap.txt_original_row": "Hemolytic anemia due to phosphofructokinase deficiency (1)\tPFKL\t171860\t21q22.3"
+      },
+      "Hemophagocytic lymphohistiocytosis, familial, 1": {
+        "morbidmap.txt_original_row": "Hemophagocytic lymphohistiocytosis, familial, 1 (2)\tFHL1, HPLH1, HLH1\t267700\t9q21.3-q22"
+      },
+      "Hereditary motor and sensory neuropathy V": {
+        "morbidmap.txt_original_row": "Hereditary motor and sensory neuropathy V (2)\tHMSN5\t600361\t4q34.3-q35.2"
+      },
+      "High density lipoprotein cholesterol level QTL14": {
+        "morbidmap.txt_original_row": "High density lipoprotein cholesterol level QTL14 (2)\tHDLCQ14, HYLAP\t605201\t11q23.3"
+      },
+      "Holoprosencephaly 1": {
+        "morbidmap.txt_original_row": "Holoprosencephaly 1 (2)\tHPE1\t236100\t21q22.3"
+      },
+      "Holoprosencephaly 6": {
+        "morbidmap.txt_original_row": "Holoprosencephaly 6 (2)\tHPE6\t605934\t2q37.1-q37.3"
+      },
+      "Holoprosencephaly 8": {
+        "morbidmap.txt_original_row": "Holoprosencephaly 8 (2)\tHPE8\t609408\t14q13"
+      },
+      "Homocysteine plasma level": {
+        "morbidmap.txt_original_row": "Homocysteine plasma level (2)\tNNMT\t600008\t11q23.2"
+      },
+      "Huntington disease-like 3": {
+        "morbidmap.txt_original_row": "Huntington disease-like 3 (2)\tHDL3, HLN2\t604802\t4p15.3"
+      },
+      "Hypercalciuria, absorptive": {
+        "morbidmap.txt_original_row": "Hypercalciuria, absorptive (2)\tHCA1\t607258\t4q33-qter"
+      },
+      "Hyperhidrosis palmaris et plantaris": {
+        "morbidmap.txt_original_row": "Hyperhidrosis palmaris et plantaris (2)\tHHPP\t144110\t14q11.2-q13"
+      },
+      "Hyperlipidemia, combined, 2": {
+        "morbidmap.txt_original_row": "Hyperlipidemia, combined, 2 (2)\tHYPLIP2\t604499\t11p"
+      },
+      "Hyperparathyroidism 3": {
+        "morbidmap.txt_original_row": "Hyperparathyroidism 3 (2)\tHRPT3\t610071\t2p14-p13.3"
+      },
+      "Hyperpigmentation, familial progressive, 1": {
+        "morbidmap.txt_original_row": "Hyperpigmentation, familial progressive, 1 (2)\tFPH1, MUH, HPP\t614233\t19pter-p13.1"
+      },
+      "Hypertelorism, preauricular sinus, punctal pits, and deafness": {
+        "morbidmap.txt_original_row": "Hypertelorism, preauricular sinus, punctal pits, and deafness (2)\tHPPD\t614187\t14q31"
+      },
+      "Hypertensive nephropathy": {
+        "morbidmap.txt_original_row": "Hypertensive nephropathy (2)\tHNP1\t608026\t9q31-q32"
+      },
+      "Hypertrichosis terminalis, generalized, with or without gingival hyperplasia": {
+        "morbidmap.txt_original_row": "Hypertrichosis terminalis, generalized, with or without gingival hyperplasia (4)\tHTGH, DEL17q24\t135400\t17q24.2-q24.3"
+      },
+      "Hypertrichosis, congenital generalized": {
+        "morbidmap.txt_original_row": "Hypertrichosis, congenital generalized (4)\tHTC2, HCG, CGH, CXINSq27.1\t307150\tXq27.1"
+      },
+      "Hyperuricemic nephropathy, familial juvenile, 3": {
+        "morbidmap.txt_original_row": "Hyperuricemic nephropathy, familial juvenile, 3 (2)\tHNFJ3\t614227\t2p22.1-p21"
+      },
+      "Hypoparathyroidism, X-linked": {
+        "morbidmap.txt_original_row": "Hypoparathyroidism, X-linked (4)\tHPT, HPTX, HYPX\t307700\tXq27.1"
+      },
+      "Hypophosphatemic rickets and hyperparathyroidism": {
+        "morbidmap.txt_original_row": "Hypophosphatemic rickets and hyperparathyroidism (2)\tHPRHP\t612089\t13q13.1"
+      },
+      "Hypoplastic femurs and pelvis": {
+        "morbidmap.txt_original_row": "Hypoplastic femurs and pelvis (4)\tHYPOFP\t619545\t10q24"
+      },
+      "Hypospadias 3, autosomal": {
+        "morbidmap.txt_original_row": "Hypospadias 3, autosomal (2)\tHYSP3\t146450\t7q32.2-q36.1"
+      },
+      "Hypothyroidism, congenital, nongoitrous, 3": {
+        "morbidmap.txt_original_row": "Hypothyroidism, congenital, nongoitrous, 3 (2)\tCHNG3, RTSH\t609893\t15q25.3-q26.1"
+      },
+      "Hypotonia-cystinuria syndrome": {
+        "morbidmap.txt_original_row": "Hypotonia-cystinuria syndrome (4)\tDEL2p21, C2DELp21\t606407\t2p21"
+      },
+      "Hypotrichosis 10": {
+        "morbidmap.txt_original_row": "Hypotrichosis 10 (2)\tHYPT10\t614238\t7p22.3-p21.3"
+      },
+      "Hypotrichosis 5": {
+        "morbidmap.txt_original_row": "Hypotrichosis 5 (2)\tHYPT5, MUHH2\t612841\t1p21.1-q21.3"
+      },
+      "Hypotrichosis 9": {
+        "morbidmap.txt_original_row": "Hypotrichosis 9 (2)\tHYPT9\t614237\t10q11.23-q22.3"
+      },
+      "Ichthyosis, congenital, autosomal recessive 7": {
+        "morbidmap.txt_original_row": "Ichthyosis, congenital, autosomal recessive 7 (2)\tARCI7\t615022\t12p11.2-q13.1"
+      },
+      "IgG2 deficiency, selective": {
+        "morbidmap.txt_original_row": "IgG2 deficiency, selective (3)\tIGHG2\t147110\t14q32.33"
+      },
+      "Immunoglobulin A deficiency": {
+        "morbidmap.txt_original_row": "Immunoglobulin A deficiency (2)\tIGAD1\t137100\t6p21.3"
+      },
+      "Insulinoma": {
+        "morbidmap.txt_original_row": "Insulinoma (1)\tITS\t606960\t22q12.1-q12.2"
+      },
+      "Intellectual developmental disorder, X-linked 14": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 14 (2)\tXLID14, MRX14\t300062\tXp11.3-q13.3"
+      },
+      "Intellectual developmental disorder, X-linked 2": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 2 (2)\tXLID2, MRX2\t300428\tXp22.3"
+      },
+      "Intellectual developmental disorder, X-linked 20": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 20 (2)\tXLID20, MRX20\t300047\tXp11-q21"
+      },
+      "Intellectual developmental disorder, X-linked 23": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 23 (2)\tXLID23, MRX23\t300046\tXq23-q24"
+      },
+      "Intellectual developmental disorder, X-linked 42": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 42 (2)\tXLID42, MRX42\t300372\tXq26"
+      },
+      "Intellectual developmental disorder, X-linked 45": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 45 (2)\tXLID45, MRX45\t300498\tXp11.3-p11.21"
+      },
+      "Intellectual developmental disorder, X-linked 46": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 46 (2)\tXLID46, MRX46\t300436\tXq25-q26"
+      },
+      "Intellectual developmental disorder, X-linked 53": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 53 (2)\tXLID53, MRX53\t300324\tXq22.2-q26"
+      },
+      "Intellectual developmental disorder, X-linked 73": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 73 (2)\tXLID73, MRX73\t300355\tXp22.2"
+      },
+      "Intellectual developmental disorder, X-linked 77": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 77 (2)\tXLID77, MRX77\t300454\tXq12-q21.3"
+      },
+      "Intellectual developmental disorder, X-linked 81": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 81 (2)\tXLID81, MRX81\t300433\tXp11.2-q12"
+      },
+      "Intellectual developmental disorder, X-linked 82": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 82 (2)\tXLID82, MRX82\t300518\tXq24-q25"
+      },
+      "Intellectual developmental disorder, X-linked 84": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 84 (2)\tXLID84, MRX84\t300505\tXp11.3-q22.3"
+      },
+      "Intellectual developmental disorder, X-linked 88": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 88 (2)\tXLID88, MRX88\t300852\tXq24"
+      },
+      "Intellectual developmental disorder, X-linked 89": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 89 (2)\tXLID89, MRX89\t300848\tXp11.3"
+      },
+      "Intellectual developmental disorder, X-linked 91": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 91 (4)\tXLID91, MRX91\t300577\tXq13.3"
+      },
+      "Intellectual developmental disorder, X-linked 92": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 92 (2)\tXLID92, MRX92\t300851\tXp11.3"
+      },
+      "Intellectual developmental disorder, X-linked 95": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked 95 (2)\tXLID95, MRX95\t300716\tChr.X"
+      },
+      "Intellectual developmental disorder, X-linked syndromic 17": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked syndromic 17 (2)\tMRXS17\t300858\tXp21.1-p11.23"
+      },
+      "Intellectual developmental disorder, X-linked syndromic 7": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked syndromic 7 (2)\tMRXS7\t300218\tXp11.3-q22"
+      },
+      "Intellectual developmental disorder, X-linked syndromic 9": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked syndromic 9 (2)\tMRXS9\t300709\tXq12-q21.31"
+      },
+      "Intellectual developmental disorder, X-linked syndromic, Abidi type": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked syndromic, Abidi type (2)\tMRXSAB\t300262\tXq13.2"
+      },
+      "Intellectual developmental disorder, X-linked syndromic, Armfield type": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked syndromic, Armfield type (3)\tMRXSA\t300261\tXq28"
+      },
+      "Intellectual developmental disorder, X-linked syndromic, Chudley-Schwartz type": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked syndromic, Chudley-Schwartz type (2)\tMRXSCS\t300861\tXq21.33-q23"
+      },
+      "Intellectual developmental disorder, X-linked, with short stature": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked, with short stature (2)\tMRXSS\t300360\tXq24"
+      },
+      "Intellectual developmental disorder, X-linked, with skeletal dysplasia and abducens palsy": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, X-linked, with skeletal dysplasia and abducens palsy (2)\tMRSD, CHRS\t309620\tXq28"
+      },
+      "Intellectual developmental disorder, autosomal dominant 2": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal dominant 2 (4)\tMRD2\t614113\t9p24"
+      },
+      "Intellectual developmental disorder, autosomal dominant 4": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal dominant 4 (2)\tMRD4\t612581\t11q24.2"
+      },
+      "Intellectual developmental disorder, autosomal recessive 10/20": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 10/20 (2)\tMRT10, MRT20\t611096\t16p12.2-q12.1"
+      },
+      "Intellectual developmental disorder, autosomal recessive 11": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 11 (2)\tMRT11\t611097\t19q13.2-q13.3"
+      },
+      "Intellectual developmental disorder, autosomal recessive 16": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 16 (2)\tMRT16\t614208\t9p23-p13.3"
+      },
+      "Intellectual developmental disorder, autosomal recessive 19": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 19 (2)\tMRT19\t614343\t18p11.3"
+      },
+      "Intellectual developmental disorder, autosomal recessive 23": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 23 (2)\tMRT23\t614344\t11p13-q14.1"
+      },
+      "Intellectual developmental disorder, autosomal recessive 24": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 24 (2)\tMRT24\t614345\t6p12.2-q12"
+      },
+      "Intellectual developmental disorder, autosomal recessive 25": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 25 (2)\tMRT25\t614346\t12q13.11-q15"
+      },
+      "Intellectual developmental disorder, autosomal recessive 28": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 28 (2)\tMRT28\t614347\t6q26-q27"
+      },
+      "Intellectual developmental disorder, autosomal recessive 29": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 29 (2)\tMRT29\t614333\t4q27-q28.2"
+      },
+      "Intellectual developmental disorder, autosomal recessive 30": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 30 (2)\tMRT30\t614342\t6q12-q15"
+      },
+      "Intellectual developmental disorder, autosomal recessive 31": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 31 (2)\tMRT31\t614329\t4q12-q13.1"
+      },
+      "Intellectual developmental disorder, autosomal recessive 33": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 33 (2)\tMRT33\t614341\t17p13.2-p13.1"
+      },
+      "Intellectual developmental disorder, autosomal recessive 35": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 35 (2)\tMRT35\t615162\t17q21.31-q22"
+      },
+      "Intellectual developmental disorder, autosomal recessive 4": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 4 (2)\tMRT4\t611107\t1p21.1-p13.3"
+      },
+      "Intellectual developmental disorder, autosomal recessive 9/26": {
+        "morbidmap.txt_original_row": "Intellectual developmental disorder, autosomal recessive 9/26 (2)\tMRT9, MRT26\t611095\t14q11.2-q12"
+      },
+      "Interferon, alpha, deficiency": {
+        "morbidmap.txt_original_row": "Interferon, alpha, deficiency (1)\tIFNA1, IFNA@\t147660\t9p21.3"
+      },
+      "Jacobsen syndrome": {
+        "morbidmap.txt_original_row": "Jacobsen syndrome (4)\tJBS\t147791\t11q23.3-q25"
+      },
+      "Kagami-Ogata syndrome": {
+        "morbidmap.txt_original_row": "Kagami-Ogata syndrome (4)\tKAOGS\t608149\t14q32"
+      },
+      "Keratoconus 2": {
+        "morbidmap.txt_original_row": "Keratoconus 2 (2)\tKTCN2\t608932\t16q22.3-q23.1"
+      },
+      "Keratoconus 3": {
+        "morbidmap.txt_original_row": "Keratoconus 3 (2)\tKTCN3\t608586\t3p14-q13"
+      },
+      "Keratoconus 4": {
+        "morbidmap.txt_original_row": "Keratoconus 4 (2)\tKTCN4\t609271\t2p24"
+      },
+      "Keratoconus 5": {
+        "morbidmap.txt_original_row": "Keratoconus 5 (2)\tKTCN5\t614622\t5q14.1-q21.3"
+      },
+      "Keratoconus 6": {
+        "morbidmap.txt_original_row": "Keratoconus 6 (2)\tKTCN6\t614623\t9q34"
+      },
+      "Keratoconus 7": {
+        "morbidmap.txt_original_row": "Keratoconus 7 (2)\tKTCN7\t614629\t13q32"
+      },
+      "Keratoconus 8": {
+        "morbidmap.txt_original_row": "Keratoconus 8 (2)\tKTCN8\t614628\t14q24.3"
+      },
+      "Keratoderma, palmoplantar, punctate type IB": {
+        "morbidmap.txt_original_row": "Keratoderma, palmoplantar, punctate type IB (2)\tPPKP1B\t614936\t8q24.13-q24.21"
+      },
+      "Klippel-Trenaunay-Weber syndrome": {
+        "morbidmap.txt_original_row": "Klippel-Trenaunay-Weber syndrome (2)\tKTWS, KTS\t149000\t8q22.3"
+      },
+      "Kondoh syndrome": {
+        "morbidmap.txt_original_row": "Kondoh syndrome (2)\tKONDS\t606242\t1p36.32-p35.3"
+      },
+      "Kyphoscoliosis 1": {
+        "morbidmap.txt_original_row": "Kyphoscoliosis 1 (2)\tKYPSC1\t610170\t5p13"
+      },
+      "Larsen-like syndrome": {
+        "morbidmap.txt_original_row": "Larsen-like syndrome (2)\tLRSL\t608545\t6p25"
+      },
+      "Left ventricular noncompaction 2": {
+        "morbidmap.txt_original_row": "Left ventricular noncompaction 2 (2)\tLVNC2\t609470\t11p15"
+      },
+      "Leri pleonosteosis chromosome duplication syndrome": {
+        "morbidmap.txt_original_row": "Leri pleonosteosis chromosome duplication syndrome (4)\tDUP8q22.1, C8DUPq22.1\t151200\t8q22.1"
+      },
+      "Leukemia, T-cell acute lymphoblastic": {
+        "morbidmap.txt_original_row": "Leukemia, T-cell acute lymphoblastic (2)\tLMO1, RBTN1, RHOM1\t186921\t11p15.4"
+      },
+      "Leukemia, T-cell acute lymphoblastoid": {
+        "morbidmap.txt_original_row": "Leukemia, T-cell acute lymphoblastoid (2)\tLYL1\t151440\t19p13.13"
+      },
+      "Leukemia, acute T-cell": {
+        "morbidmap.txt_original_row": "Leukemia, acute T-cell (2)\tLMO2, RBTNL1, RHOM2, TTG2\t180385\t11p13"
+      },
+      "Leukemia, acute lymphoblastic": {
+        "morbidmap.txt_original_row": "Leukemia, acute lymphoblastic (2)\tLALL\t247640\t9p22-p21"
+      },
+      "Leukemia, acute nonlymphocytic": {
+        "morbidmap.txt_original_row": "Leukemia, acute nonlymphocytic (2)\tDEK, D6S231E\t125264\t6p22.3"
+      },
+      "Leukemia, acute promyelocytic, PL2F/RARA type": {
+        "morbidmap.txt_original_row": "Leukemia, acute promyelocytic, PL2F/RARA type (3)\tZBTB16, ZNF145, PLZF\t176797\t11q23.2"
+      },
+      "Leukemia, acute promyelocytic, PML/RARA type": {
+        "morbidmap.txt_original_row": "Leukemia, acute promyelocytic, PML/RARA type (3)\tPML, MYL\t102578\t15q24.1"
+      },
+      "Leukemia, transient, of Down syndrome": {
+        "morbidmap.txt_original_row": "Leukemia, transient, of Down syndrome (2)\tTAM, MST\t159595\t21q11.2"
+      },
+      "Leukemia/lymphoma, B-cell, 2": {
+        "morbidmap.txt_original_row": "Leukemia/lymphoma, B-cell, 2 (3)\tBCL2\t151430\t18q21.33"
+      },
+      "Leukemia/lymphoma, B-cell, 3": {
+        "morbidmap.txt_original_row": "Leukemia/lymphoma, B-cell, 3 (2)\tBCL3\t109560\t19q13.32"
+      },
+      "Leukemia/lymphoma, T-cell": {
+        "morbidmap.txt_original_row": "Leukemia/lymphoma, T-cell (2)\tTCL4\t186860\t2q34"
+      },
+      "Levy-Shanske syndrome": {
+        "morbidmap.txt_original_row": "Levy-Shanske syndrome (4)\tLVSKS\t614846\t15q26-qter"
+      },
+      "Liposarcoma": {
+        "morbidmap.txt_original_row": "Liposarcoma (1)\tLPSA, D19S381E\t164953\t19p13.2-q13.3"
+      },
+      "Lymphatic malformation 2": {
+        "morbidmap.txt_original_row": "Lymphatic malformation 2 (2)\tLMPHM2\t611944\t6q16.2-q22.1"
+      },
+      "Lymphocytic leukemia, acute T-cell": {
+        "morbidmap.txt_original_row": "Lymphocytic leukemia, acute T-cell (3)\tRAP1GDS1\t179502\t4q23"
+      },
+      "Macrophthalmia, colobomatous, with microcornea": {
+        "morbidmap.txt_original_row": "Macrophthalmia, colobomatous, with microcornea (4)\tMACOM\t602499\t2p22.2"
+      },
+      "Macrostomia": {
+        "morbidmap.txt_original_row": "Macrostomia (2)\tMACST\t613545\t1p34-p32"
+      },
+      "Macular degeneration, age-related, 10": {
+        "morbidmap.txt_original_row": "Macular degeneration, age-related, 10 (2)\tARMD10\t611488\t9q32-q33"
+      },
+      "Macular dystrophy, butterfly-shaped pigmentary, 2": {
+        "morbidmap.txt_original_row": "Macular dystrophy, butterfly-shaped pigmentary, 2 (2)\tMDBS2\t608970\t5q21.3-q33.2"
+      },
+      "Macular dystrophy, dominant cystoid": {
+        "morbidmap.txt_original_row": "Macular dystrophy, dominant cystoid (2)\tMDDC\t153880\t7p21-p15"
+      },
+      "Macular dystrophy, retinal, 3": {
+        "morbidmap.txt_original_row": "Macular dystrophy, retinal, 3 (2)\tMCDR3\t608850\t5p15.33-p13.1"
+      },
+      "Major affective disorder 4": {
+        "morbidmap.txt_original_row": "Major affective disorder 4 (2)\tMAFD4, BPAD\t611247\t16p12"
+      },
+      "Malignant fibrous histiocytoma": {
+        "morbidmap.txt_original_row": "Malignant fibrous histiocytoma (2)\tMFHAS1, MASL1\t605352\t8p23.1"
+      },
+      "Mammary-digital-nail syndrome": {
+        "morbidmap.txt_original_row": "Mammary-digital-nail syndrome (2)\tMDNS\t613689\t22q12.3-q13.1"
+      },
+      "Martin-Probst syndrome": {
+        "morbidmap.txt_original_row": "Martin-Probst syndrome (2)\tMRXSMP\t300519\tXq13-q21"
+      },
+      "Mean platelet volume QTL4": {
+        "morbidmap.txt_original_row": "Mean platelet volume QTL4 (2)\tMPVQTL4\t614644\t6p21.3-p21.2"
+      },
+      "Mean platelet volume QTL5": {
+        "morbidmap.txt_original_row": "Mean platelet volume QTL5 (2)\tMPVQTL5\t614645\t6q23.3"
+      },
+      "Mean platelet volume QTL6": {
+        "morbidmap.txt_original_row": "Mean platelet volume QTL6 (2)\tMPVQTL6\t614646\t7q22.3"
+      },
+      "Megakaryoblastic leukemia, acute": {
+        "morbidmap.txt_original_row": "Megakaryoblastic leukemia, acute (2)\tRBM15, SPEN, OTT\t606077\t1p13.3"
+      },
+      "Megalocornea 1, X-linked 309300": {
+        "morbidmap.txt_original_row": "Megalocornea 1, X-linked 309300 (3)\tCHRDL1, VOPT, MGC1\t300350\tXq23"
+      },
+      "Meningioma, radiation-induced": {
+        "morbidmap.txt_original_row": "Meningioma, radiation-induced (2)\tMNRI\t606190\t1p11"
+      },
+      "Mental retardation, severe, with spasticity and tapetoretinal degeneration": {
+        "morbidmap.txt_original_row": "Mental retardation, severe, with spasticity and tapetoretinal degeneration (2)\tMRST\t602685\t15q24"
+      },
+      "Mesomelia-synostoses syndrome": {
+        "morbidmap.txt_original_row": "Mesomelia-synostoses syndrome (4)\tDEL8q13, C8DELq13\t600383\t8q13"
+      },
+      "Mesomelic dysplasia, Kantaputra type": {
+        "morbidmap.txt_original_row": "Mesomelic dysplasia, Kantaputra type (2)\tMMDK, MDK\t156232\t2q24-q32"
+      },
+      "Microcoria, congenital": {
+        "morbidmap.txt_original_row": "Microcoria, congenital (4)\tMCOR, C13DELq32, DEL13q32\t156600\t13q32"
+      },
+      "Microphthalmia with cataract 1": {
+        "morbidmap.txt_original_row": "Microphthalmia with cataract 1 (2)\tMCOPCT1\t156850\t16p13.3"
+      },
+      "Microphthalmia with coloboma 1": {
+        "morbidmap.txt_original_row": "Microphthalmia with coloboma 1 (2)\tMCOPCB1\t300345\tChr.X"
+      },
+      "Microphthalmia with coloboma 2": {
+        "morbidmap.txt_original_row": "Microphthalmia with coloboma 2 (2)\tMCOPCB2\t605738\t15q12-q15"
+      },
+      "Microphthalmia, isolated 1": {
+        "morbidmap.txt_original_row": "Microphthalmia, isolated 1 (2)\tMCOP1\t251600\t14q32"
+      },
+      "Microphthalmia, syndromic 8": {
+        "morbidmap.txt_original_row": "Microphthalmia, syndromic 8 (2)\tMCOPS8, MMEP\t601349\t6q21"
+      },
+      "Microtia with nasolacrimal duct imperforation and eye coloboma": {
+        "morbidmap.txt_original_row": "Microtia with nasolacrimal duct imperforation and eye coloboma (4)\tMNDEC\t611863\t4p16-p15"
+      },
+      "Miller-Dieker lissencephaly syndrome": {
+        "morbidmap.txt_original_row": "Miller-Dieker lissencephaly syndrome (4)\tMDLS, MDS, MDCR, DEL17p13.3, C17DELp13.3\t247200\t17p13.3"
+      },
+      "Mitral valve prolapse, myxomatous 1": {
+        "morbidmap.txt_original_row": "Mitral valve prolapse, myxomatous 1 (2)\tMMVP1, MVP, PMV\t157700\t16p12.1-p11.2"
+      },
+      "Miyoshi muscular dystrophy 2": {
+        "morbidmap.txt_original_row": "Miyoshi muscular dystrophy 2 (2)\tMMD2\t613318\t8q22.3"
+      },
+      "Moyamoya disease": {
+        "morbidmap.txt_original_row": "Moyamoya disease (2)\tMYMY1, MYMY\t252350\t3p26-p24.2"
+      },
+      "Moyamoya disease 3": {
+        "morbidmap.txt_original_row": "Moyamoya disease 3 (2)\tMYMY3\t608796\t8q23"
+      },
+      "Moyamoya disease 4": {
+        "morbidmap.txt_original_row": "Moyamoya disease 4 (4)\tMYMY4, CXDELq38\t300845\tXq28"
+      },
+      "Mucoepidermoid salivary gland carcinoma": {
+        "morbidmap.txt_original_row": "Mucoepidermoid salivary gland carcinoma (3)\tMAML2, MAM3\t607537\t11q21"
+      },
+      "Mungan syndrome": {
+        "morbidmap.txt_original_row": "Mungan syndrome (2)\tMGS\t611376\t8q23-q24"
+      },
+      "Muscle strength quantitative trait locus 1": {
+        "morbidmap.txt_original_row": "Muscle strength quantitative trait locus 1 (2)\tMUSTQTL1\t612083\t14q24.3"
+      },
+      "Muscular dystrophy with rimmed vacuoles": {
+        "morbidmap.txt_original_row": "Muscular dystrophy with rimmed vacuoles (2)\tMDRV\t601846\t19p13.3"
+      },
+      "Muscular dystrophy, congenital, 1B": {
+        "morbidmap.txt_original_row": "Muscular dystrophy, congenital, 1B (2)\tMDC1B\t604801\t1q42"
+      },
+      "Muscular dystrophy, congenital, merosin-positive": {
+        "morbidmap.txt_original_row": "Muscular dystrophy, congenital, merosin-positive (2)\tMDCMP\t609456\t4p16.3"
+      },
+      "Muscular dystrophy, limb-girdle, type 1H": {
+        "morbidmap.txt_original_row": "Muscular dystrophy, limb-girdle, type 1H (2)\tLGMD1H\t613530\t3p25.1-p23"
+      },
+      "Myasthenia gravis with thymus hyperplasia": {
+        "morbidmap.txt_original_row": "Myasthenia gravis with thymus hyperplasia (2)\tMYAS1\t607085\t6p21.3"
+      },
+      "Myelodysplasia syndrome-1": {
+        "morbidmap.txt_original_row": "Myelodysplasia syndrome-1 (3)\tMDS1\t600049\t3q26"
+      },
+      "Myeloproliferative disorder": {
+        "morbidmap.txt_original_row": "Myeloproliferative disorder (2)\tFGFR1OP, FOP\t605392\t6q27"
+      },
+      "Myoclonic epilepsy, juvenile, 4": {
+        "morbidmap.txt_original_row": "Myoclonic epilepsy, juvenile, 4 (2)\tEJM4\t611364\t5q12-q14"
+      },
+      "Myopathy, centronuclear, X-linked 310400": {
+        "morbidmap.txt_original_row": "Myopathy, centronuclear, X-linked 310400 (3)\tMTM1, MTMX, CNMX\t300415\tXq28"
+      },
+      "Myopathy, congenital, with fiber-type disproportion, X-linked": {
+        "morbidmap.txt_original_row": "Myopathy, congenital, with fiber-type disproportion, X-linked (2)\tCFTDX\t300580\tXq13.1-q22.1"
+      },
+      "Myopathy, distal, 3": {
+        "morbidmap.txt_original_row": "Myopathy, distal, 3 (2)\tMPD3\t610099\t8p22-q11"
+      },
+      "Myopia 10": {
+        "morbidmap.txt_original_row": "Myopia 10 (2)\tMYP10\t609259\t8p23"
+      },
+      "Myopia 11": {
+        "morbidmap.txt_original_row": "Myopia 11 (2)\tMYP11\t609994\t4q22-q27"
+      },
+      "Myopia 12": {
+        "morbidmap.txt_original_row": "Myopia 12 (2)\tMYP12\t609995\t2q37.1"
+      },
+      "Myopia 13": {
+        "morbidmap.txt_original_row": "Myopia 13 (2)\tMYP13\t300613\tXq23-q27.2"
+      },
+      "Myopia 14": {
+        "morbidmap.txt_original_row": "Myopia 14 (2)\tMYP14\t610320\t1p36"
+      },
+      "Myopia 15": {
+        "morbidmap.txt_original_row": "Myopia 15 (2)\tMYP15\t612717\t10q21.1"
+      },
+      "Myopia 16": {
+        "morbidmap.txt_original_row": "Myopia 16 (2)\tMYP16\t612554\t5p15.33-p15.2"
+      },
+      "Myopia 17": {
+        "morbidmap.txt_original_row": "Myopia 17 (2)\tMYP17, MYP4\t608367\t7p15"
+      },
+      "Myopia 18": {
+        "morbidmap.txt_original_row": "Myopia 18 (2)\tMYP18\t255500\t14q22.1-q24.2"
+      },
+      "Myopia 19": {
+        "morbidmap.txt_original_row": "Myopia 19 (2)\tMYP19\t613969\t5p15.1-p13.3"
+      },
+      "Myopia 2": {
+        "morbidmap.txt_original_row": "Myopia 2 (2)\tMYP2\t160700\t18p11.31"
+      },
+      "Myopia 20, autosomal dominant": {
+        "morbidmap.txt_original_row": "Myopia 20, autosomal dominant (2)\tMYP20\t614166\t13q12.12"
+      },
+      "Myopia 5": {
+        "morbidmap.txt_original_row": "Myopia 5 (2)\tMYP5\t608474\t17q21-q22"
+      },
+      "Myopia 7": {
+        "morbidmap.txt_original_row": "Myopia 7 (2)\tMYP7\t609256\t11p13"
+      },
+      "Myopia 8": {
+        "morbidmap.txt_original_row": "Myopia 8 (2)\tMYP8\t609257\t3q26"
+      },
+      "Myopia 9": {
+        "morbidmap.txt_original_row": "Myopia 9 (2)\tMYP9\t609258\t4q12"
+      },
+      "Myopia-1": {
+        "morbidmap.txt_original_row": "Myopia-1 (2)\tMYP1\t310460\tXq28"
+      },
+      "Myopia-3": {
+        "morbidmap.txt_original_row": "Myopia-3 (2)\tMYP3\t603221\t12q21-q23"
+      },
+      "Myxoid liposarcoma": {
+        "morbidmap.txt_original_row": "Myxoid liposarcoma (4)\tMXLPO\t613488\t12q13.1"
+      },
+      "Nablus mask-like facial syndrome": {
+        "morbidmap.txt_original_row": "Nablus mask-like facial syndrome (4)\tNMLFS, DEL8q22.1, C8DELq22.1\t608156\t8q22.1"
+      },
+      "Nail disorder, nonsyndromic congenital, 7": {
+        "morbidmap.txt_original_row": "Nail disorder, nonsyndromic congenital, 7 (2)\tNDNC7\t605779\t17p13"
+      },
+      "Nail disorder, nonsyndromic congenital, 9": {
+        "morbidmap.txt_original_row": "Nail disorder, nonsyndromic congenital, 9 (2)\tNDNC9\t614149\t17q25.1-q25.3"
+      },
+      "Nanophthalmos 3": {
+        "morbidmap.txt_original_row": "Nanophthalmos 3 (2)\tNNO3\t611897\t2q11-q14"
+      },
+      "Nanophthalmos-1": {
+        "morbidmap.txt_original_row": "Nanophthalmos-1 (2)\tNNO1\t600165\t11p"
+      },
+      "Narcolepsy 2": {
+        "morbidmap.txt_original_row": "Narcolepsy 2 (2)\tNRCLP2\t605841\t4p13-q21"
+      },
+      "Narcolepsy 3": {
+        "morbidmap.txt_original_row": "Narcolepsy 3 (2)\tNRCLP3\t609039\t21q11.2"
+      },
+      "Narcolepsy 6": {
+        "morbidmap.txt_original_row": "Narcolepsy 6 (2)\tNRCLP6\t614223\t19p13.2"
+      },
+      "Nephropathy, progressive, with deafness": {
+        "morbidmap.txt_original_row": "Nephropathy, progressive, with deafness (2)\tNEDE\t609469\t11q24"
+      },
+      "Nephropathy-hypertension": {
+        "morbidmap.txt_original_row": "Nephropathy-hypertension (2)\tRFH1, AORF\t161900\t1q21"
+      },
+      "Neuronopathy, distal hereditary motor, type I": {
+        "morbidmap.txt_original_row": "Neuronopathy, distal hereditary motor, type I (2)\tDHMN1\t182960\t7q34-q36"
+      },
+      "Neuropathy, hereditary sensory, type IB": {
+        "morbidmap.txt_original_row": "Neuropathy, hereditary sensory, type IB (2)\tHSN1B\t608088\t3p24-p22"
+      },
+      "North American Indian childhood cirrhosis": {
+        "morbidmap.txt_original_row": "North American Indian childhood cirrhosis (2)\tNAIC\t604901\t16q22"
+      },
+      "Nystagmus 2, congenital, autosomal dominant": {
+        "morbidmap.txt_original_row": "Nystagmus 2, congenital, autosomal dominant (2)\tNYS2, NYSA\t164100\t6p12"
+      },
+      "Nystagmus 3, congenital, autosomal dominant": {
+        "morbidmap.txt_original_row": "Nystagmus 3, congenital, autosomal dominant (2)\tNYS3\t608345\t7p11.2"
+      },
+      "Nystagmus 5, congenital, X-linked": {
+        "morbidmap.txt_original_row": "Nystagmus 5, congenital, X-linked (2)\tNYS5\t300589\tXp11.4"
+      },
+      "Nystagmus 7, congenital, autosomal dominant": {
+        "morbidmap.txt_original_row": "Nystagmus 7, congenital, autosomal dominant (2)\tNYS7\t614826\t1q31.3-q32.1"
+      },
+      "Ocular albinism with sensorineural deafness": {
+        "morbidmap.txt_original_row": "Ocular albinism with sensorineural deafness (2)\tOASD\t300650\tXp22.3"
+      },
+      "Ocular pigment dispersion with or without glaucoma": {
+        "morbidmap.txt_original_row": "Ocular pigment dispersion with or without glaucoma (2)\tOPDG, GPDS1, PDS1\t600510\t7q35-q36"
+      },
+      "Oculomotor apraxia, congenital, Cogan-type": {
+        "morbidmap.txt_original_row": "Oculomotor apraxia, congenital, Cogan-type (2)\tCOMA\t257550\t2q13"
+      },
+      "Omphalocele due to duplication of 1p31.3": {
+        "morbidmap.txt_original_row": "Omphalocele due to duplication of 1p31.3 (4)\tOPHLC, C1DUPp31.3, DUP1p31.3\t164750\t1p31.3"
+      },
+      "Optic atrophy 2, X-linked": {
+        "morbidmap.txt_original_row": "Optic atrophy 2, X-linked (2)\tOPA2\t311050\tXp11.4-p11.21"
+      },
+      "Optic atrophy 4": {
+        "morbidmap.txt_original_row": "Optic atrophy 4 (2)\tOPA4\t605293\t18q12.2-q12.3"
+      },
+      "Optic atrophy 6": {
+        "morbidmap.txt_original_row": "Optic atrophy 6 (2)\tOPA6\t258500\t8q21-q22"
+      },
+      "Optic atrophy 8": {
+        "morbidmap.txt_original_row": "Optic atrophy 8 (2)\tOPA8\t616648\t16q21-q22"
+      },
+      "Orofacial cleft 12": {
+        "morbidmap.txt_original_row": "Orofacial cleft 12 (2)\tOFC12\t612858\t8q24.3"
+      },
+      "Orofacial cleft 13": {
+        "morbidmap.txt_original_row": "Orofacial cleft 13 (2)\tOFC13\t613857\t1p33"
+      },
+      "Orofacial cleft 14": {
+        "morbidmap.txt_original_row": "Orofacial cleft 14 (2)\tOFC14\t615892\t1p31"
+      },
+      "Orofacial cleft 2": {
+        "morbidmap.txt_original_row": "Orofacial cleft 2 (2)\tOFC2\t602966\t2p13"
+      },
+      "Orofacial cleft 3": {
+        "morbidmap.txt_original_row": "Orofacial cleft 3 (2)\tOFC3\t600757\t19q13"
+      },
+      "Orofacial cleft 4": {
+        "morbidmap.txt_original_row": "Orofacial cleft 4 (2)\tOFC4\t608371\t4q21-q31"
+      },
+      "Orofacial cleft 9": {
+        "morbidmap.txt_original_row": "Orofacial cleft 9 (2)\tOFC9\t610361\t13q33.1-q34"
+      },
+      "Orofacial cleft-1": {
+        "morbidmap.txt_original_row": "Orofacial cleft-1 (2)\tOFC1, CL\t119530\t6p24.3"
+      },
+      "Orofaciodigital syndrome VIII": {
+        "morbidmap.txt_original_row": "Orofaciodigital syndrome VIII (2)\tOFD8\t300484\tChr.X"
+      },
+      "Orthostatic hypotensive disorder of Streeten": {
+        "morbidmap.txt_original_row": "Orthostatic hypotensive disorder of Streeten (2)\tOHDS\t143850\t18q"
+      },
+      "Otodental dysplasia chromosome deletion syndrome": {
+        "morbidmap.txt_original_row": "Otodental dysplasia chromosome deletion syndrome (4)\tOTDD, DEL11q13, C11DELq13\t166750\t11q13"
+      },
+      "Otosclerosis 1": {
+        "morbidmap.txt_original_row": "Otosclerosis 1 (2)\tOTSC1, OTS\t166800\t15q26.1-qter"
+      },
+      "Otosclerosis 10": {
+        "morbidmap.txt_original_row": "Otosclerosis 10 (2)\tOTSC10\t615589\t1q41-q44"
+      },
+      "Otosclerosis 2": {
+        "morbidmap.txt_original_row": "Otosclerosis 2 (2)\tOTSC2\t605727\t7q34-q36"
+      },
+      "Otosclerosis 3": {
+        "morbidmap.txt_original_row": "Otosclerosis 3 (2)\tOTSC3\t608244\t6p22.3-p21.3"
+      },
+      "Otosclerosis 5": {
+        "morbidmap.txt_original_row": "Otosclerosis 5 (2)\tOTSC5\t608787\t3q22-q24"
+      },
+      "Otosclerosis 7": {
+        "morbidmap.txt_original_row": "Otosclerosis 7 (2)\tOTSC7\t611572\t6q13-q16.1"
+      },
+      "Otosclerosis 8": {
+        "morbidmap.txt_original_row": "Otosclerosis 8 (2)\tOTSC8\t612096\t9p13.1-q21.11"
+      },
+      "Paget disease of bone 4": {
+        "morbidmap.txt_original_row": "Paget disease of bone 4 (2)\tPDB4\t606263\t5q31"
+      },
+      "Pallister-Killian syndrome": {
+        "morbidmap.txt_original_row": "Pallister-Killian syndrome (4)\tPKS\t601803\t12p"
+      },
+      "Palmoplantar carcinoma, multiple self-healing": {
+        "morbidmap.txt_original_row": "Palmoplantar carcinoma, multiple self-healing (2)\tMSPC\t616964\t17p13.3-p12"
+      },
+      "Panbronchiolitis, diffuse": {
+        "morbidmap.txt_original_row": "Panbronchiolitis, diffuse (2)\tPBLT\t604809\t6p21.3"
+      },
+      "Pancreatic cancer, somatic": {
+        "morbidmap.txt_original_row": "Pancreatic cancer, somatic (3)\tACVR1B, ACVRLK4, ALK4\t601300\t12q13.13"
+      },
+      "Panic disorder 2": {
+        "morbidmap.txt_original_row": "Panic disorder 2 (2)\tPAND2\t607853\t9q31"
+      },
+      "Panic disorder 3": {
+        "morbidmap.txt_original_row": "Panic disorder 3 (2)\tPAND3\t609985\t4q31-q34"
+      },
+      "Panic disorder syndrome 1": {
+        "morbidmap.txt_original_row": "Panic disorder syndrome 1 (2)\tPAND1\t167870\t13q22-q32"
+      },
+      "Parasomnia, sleepwalking type": {
+        "morbidmap.txt_original_row": "Parasomnia, sleepwalking type (2)\tPSMNSW\t613938\t20q12-q13.12"
+      },
+      "Parietal foramina 3": {
+        "morbidmap.txt_original_row": "Parietal foramina 3 (2)\tPFM3\t609566\t4q21-q23"
+      },
+      "Parkinson disease 21": {
+        "morbidmap.txt_original_row": "Parkinson disease 21 (2)\tPARK21\t616361\t3q22"
+      },
+      "Paroxysmal nonkinesigenic dyskinesia 2": {
+        "morbidmap.txt_original_row": "Paroxysmal nonkinesigenic dyskinesia 2 (2)\tPNKD2\t611147\t2q31"
+      },
+      "Patella aplasia or hypoplasia": {
+        "morbidmap.txt_original_row": "Patella aplasia or hypoplasia (2)\tPTLAH, FPAH\t168860\t17q21-q22"
+      },
+      "Periodontitis, aggressive, 2": {
+        "morbidmap.txt_original_row": "Periodontitis, aggressive, 2 (2)\tPDON2\t608526\t1q25"
+      },
+      "Peripheral arterial occlusive disease 1": {
+        "morbidmap.txt_original_row": "Peripheral arterial occlusive disease 1 (2)\tPAOD1\t606787\t1p31"
+      },
+      "Periventricular nodular heterotopia 3": {
+        "morbidmap.txt_original_row": "Periventricular nodular heterotopia 3 (2)\tPVNH3\t608098\t5p15.1"
+      },
+      "Periventricular nodular heterotopia 5": {
+        "morbidmap.txt_original_row": "Periventricular nodular heterotopia 5 (4)\tPVNH5\t612881\t5q14.3-q15"
+      },
+      "Phobia, specific": {
+        "morbidmap.txt_original_row": "Phobia, specific (2)\tPHOBS\t608251\tChr.14"
+      },
+      "Photoparoxysmal response 1": {
+        "morbidmap.txt_original_row": "Photoparoxysmal response 1 (2)\tPPR1\t132100\t6p21.1"
+      },
+      "Photoparoxysmal response 2": {
+        "morbidmap.txt_original_row": "Photoparoxysmal response 2 (2)\tPPR2\t609572\t13q31.3"
+      },
+      "Photoparoxysmal response 3": {
+        "morbidmap.txt_original_row": "Photoparoxysmal response 3 (2)\tPPR3\t609573\t7q32"
+      },
+      "Pierre Robin syndrome": {
+        "morbidmap.txt_original_row": "Pierre Robin syndrome (2)\tPRBNS\t261800\t17q24.3-q25.1"
+      },
+      "Pigmented nodular adrenocortical disease, primary, 4": {
+        "morbidmap.txt_original_row": "Pigmented nodular adrenocortical disease, primary, 4 (4)\tPPNAD4\t615830\t19p13"
+      },
+      "Pituitary tumor, invasive": {
+        "morbidmap.txt_original_row": "Pituitary tumor, invasive (3)\tPRKCA, PKCA\t176960\t17q24.2"
+      },
+      "Platelet PLC beta-2 deficiency": {
+        "morbidmap.txt_original_row": "Platelet PLC beta-2 deficiency (1)\tPLCB2\t604114\t15q15.1"
+      },
+      "Polycystic kidney disease, infantile severe, with tuberous sclerosis": {
+        "morbidmap.txt_original_row": "Polycystic kidney disease, infantile severe, with tuberous sclerosis (4)\tPKDTS\t600273\t16p13.3"
+      },
+      "Polycystic ovary syndrome 1": {
+        "morbidmap.txt_original_row": "Polycystic ovary syndrome 1 (2)\tPCOS1, PCO1, PCO\t184700\t19p13.2"
+      },
+      "Polydactyly, postaxial, type A3": {
+        "morbidmap.txt_original_row": "Polydactyly, postaxial, type A3 (2)\tPAPA3\t607324\t19p13.2-p13.1"
+      },
+      "Polydactyly, postaxial, type A4": {
+        "morbidmap.txt_original_row": "Polydactyly, postaxial, type A4 (2)\tPAPA4\t608562\t7q22"
+      },
+      "Polydactyly, postaxial, type A5": {
+        "morbidmap.txt_original_row": "Polydactyly, postaxial, type A5 (2)\tPAPA5\t263450\t13q13.3-q21"
+      },
+      "Polymicrogyria, bilateral perisylvian": {
+        "morbidmap.txt_original_row": "Polymicrogyria, bilateral perisylvian (2)\tBPP, PMGX, CBPS\t300388\tXq27.2-q28"
+      },
+      "Porokeratosis 2, palmar, plantar, and disseminated": {
+        "morbidmap.txt_original_row": "Porokeratosis 2, palmar, plantar, and disseminated (2)\tPOROK2, PPPD1\t175850\t12q24.1-q24.2"
+      },
+      "Porokeratosis 4, disseminated superficial actinic": {
+        "morbidmap.txt_original_row": "Porokeratosis 4, disseminated superficial actinic (2)\tPOROK4, DSAP2\t607728\t15q25.1-q26.1"
+      },
+      "Porokeratosis 5, disseminated superficial actinic": {
+        "morbidmap.txt_original_row": "Porokeratosis 5, disseminated superficial actinic (2)\tPOROK5, DSAP3\t612293\t1p31.3-p31.1"
+      },
+      "Porokeratosis 6, multiple types": {
+        "morbidmap.txt_original_row": "Porokeratosis 6, multiple types (2)\tPOROK6, DSAP4\t612353\t18p11.3"
+      },
+      "Postaxial polydactyly, type A2": {
+        "morbidmap.txt_original_row": "Postaxial polydactyly, type A2 (2)\tPAPA2\t602085\t13q21-q32"
+      },
+      "Potocki-Lupski syndrome": {
+        "morbidmap.txt_original_row": "Potocki-Lupski syndrome (4)\tPTLS\t610883\t17p11.2"
+      },
+      "Potocki-Shaffer syndrome": {
+        "morbidmap.txt_original_row": "Potocki-Shaffer syndrome (4)\tPSS\t601224\t11p11.2"
+      },
+      "Prader-Willi syndrome": {
+        "morbidmap.txt_original_row": "Prader-Willi syndrome (4)\tPWS\t176270\t15q11-q13"
+      },
+      "Preauricular tag, isolated, autosomal dominant, 1": {
+        "morbidmap.txt_original_row": "Preauricular tag, isolated, autosomal dominant, 1 (2)\tPAURT1\t610420\t14q11.2-q12"
+      },
+      "Preeclampsia/eclampsia 1": {
+        "morbidmap.txt_original_row": "Preeclampsia/eclampsia 1 (2)\tPEE1, PREG1\t189800\t2p13"
+      },
+      "Preeclampsia/eclampsia 2": {
+        "morbidmap.txt_original_row": "Preeclampsia/eclampsia 2 (2)\tPEE2\t609402\t2p25"
+      },
+      "Preeclampsia/eclampsia 3": {
+        "morbidmap.txt_original_row": "Preeclampsia/eclampsia 3 (2)\tPEE3\t609403\t9p13"
+      },
+      "Prieto syndrome": {
+        "morbidmap.txt_original_row": "Prieto syndrome (2)\tPRS, MRXS2\t309610\tXp11-q21"
+      },
+      "Primary lateral sclerosis, adult, 1": {
+        "morbidmap.txt_original_row": "Primary lateral sclerosis, adult, 1 (2)\tPLSA1, PLSA\t611637\t4p16"
+      },
+      "Progressive familial heart block, type II": {
+        "morbidmap.txt_original_row": "Progressive familial heart block, type II (2)\tPFHB2\t140400\t1q32"
+      },
+      "Prostate adenocarcinoma": {
+        "morbidmap.txt_original_row": "Prostate adenocarcinoma (2)\tST12, PAC1\t601188\t10pter-q11"
+      },
+      "Pseudohyperkalemia, familial, 2, due to red cell leak": {
+        "morbidmap.txt_original_row": "Pseudohyperkalemia, familial, 2, due to red cell leak (2)\tPSHK2\t609153\t2q35-q36"
+      },
+      "Pseudohypoaldosteronism, type IIA": {
+        "morbidmap.txt_original_row": "Pseudohypoaldosteronism, type IIA (2)\tPHA2A, PHA2\t145260\t1q31-q42"
+      },
+      "Ptosis, hereditary congenital 2": {
+        "morbidmap.txt_original_row": "Ptosis, hereditary congenital 2 (2)\tPTOS2, PTOSX\t300245\tXq24-q27.1"
+      },
+      "Ptosis, hereditary congenital, 1": {
+        "morbidmap.txt_original_row": "Ptosis, hereditary congenital, 1 (2)\tPTOS1\t178300\t1p34.1-p32"
+      },
+      "Pulmonary disease, chronic obstructive, severe early-onset": {
+        "morbidmap.txt_original_row": "Pulmonary disease, chronic obstructive, severe early-onset (2)\tCOPD\t606963\t2q"
+      },
+      "Pyloric stenosis, infantile hypertrophic 1": {
+        "morbidmap.txt_original_row": "Pyloric stenosis, infantile hypertrophic 1 (2)\tIHPS1, IHPS\t179010\t12q"
+      },
+      "Pyloric stenosis, infantile hypertrophic, 2": {
+        "morbidmap.txt_original_row": "Pyloric stenosis, infantile hypertrophic, 2 (2)\tIHPS2\t610260\t16p13-p12"
+      },
+      "Pyloric stenosis, infantile hypertrophic, 3": {
+        "morbidmap.txt_original_row": "Pyloric stenosis, infantile hypertrophic, 3 (2)\tIHPS3\t612017\t11q14-q22"
+      },
+      "Pyloric stenosis, infantile hypertrophic, 4": {
+        "morbidmap.txt_original_row": "Pyloric stenosis, infantile hypertrophic, 4 (2)\tIHPS4\t300711\tXq23"
+      },
+      "Pyloric stenosis, infantile hypertrophic, 5": {
+        "morbidmap.txt_original_row": "Pyloric stenosis, infantile hypertrophic, 5 (2)\tIHPS5\t612525\t16q24.3"
+      },
+      "Radial ray deficiency": {
+        "morbidmap.txt_original_row": "Radial ray deficiency (2)\tRRDX\t300378\tXq24-q25"
+      },
+      "Radiation sensitivity/chromosome instability syndrome, autosomal dominant": {
+        "morbidmap.txt_original_row": "Radiation sensitivity/chromosome instability syndrome, autosomal dominant (1)\tRSCIS\t605463\t14q11.2"
+      },
+      "Retinitis pigmentosa 17": {
+        "morbidmap.txt_original_row": "Retinitis pigmentosa 17 (4)\tRP17\t600852\t17q23.2"
+      },
+      "Retinitis pigmentosa 22": {
+        "morbidmap.txt_original_row": "Retinitis pigmentosa 22 (2)\tRP22\t602594\t16p12.3-p12.1"
+      },
+      "Retinitis pigmentosa 24": {
+        "morbidmap.txt_original_row": "Retinitis pigmentosa 24 (2)\tRP24\t300155\tXq26-q27"
+      },
+      "Retinitis pigmentosa 29": {
+        "morbidmap.txt_original_row": "Retinitis pigmentosa 29 (2)\tRP29\t612165\t4q32-q34"
+      },
+      "Retinitis pigmentosa 34": {
+        "morbidmap.txt_original_row": "Retinitis pigmentosa 34 (2)\tRP34\t300605\tXq28"
+      },
+      "Retinitis pigmentosa 63": {
+        "morbidmap.txt_original_row": "Retinitis pigmentosa 63 (2)\tRP63\t614494\t6q23"
+      },
+      "Retinitis pigmentosa, Y-linked": {
+        "morbidmap.txt_original_row": "Retinitis pigmentosa, Y-linked (2)\tRPY\t400004\tChr.Y"
+      },
+      "Rieger syndrome, type 2": {
+        "morbidmap.txt_original_row": "Rieger syndrome, type 2 (2)\tRIEG2, RGS2\t601499\t13q14"
+      },
+      "Ring chromosome 14 syndrome": {
+        "morbidmap.txt_original_row": "Ring chromosome 14 syndrome (4)\tRC14S\t616606\tChr.14"
+      },
+      "Rippling muscle disease-1": {
+        "morbidmap.txt_original_row": "Rippling muscle disease-1 (2)\tRMD1\t600332\t1q41"
+      },
+      "Sarcoma, synovial": {
+        "morbidmap.txt_original_row": "Sarcoma, synovial (1)\tSS18, SSXT, SYT\t600192\t18q11.2"
+      },
+      "Schizophrenia 16": {
+        "morbidmap.txt_original_row": "Schizophrenia 16 (4)\tSCZD16, C16DUPq36.3, DUP7q36.3\t613959\t7q36.3"
+      },
+      "Scoliosis, idiopathic 1": {
+        "morbidmap.txt_original_row": "Scoliosis, idiopathic 1 (2)\tIS1, AIS\t181800\t19p13.3"
+      },
+      "Scoliosis, idiopathic 2": {
+        "morbidmap.txt_original_row": "Scoliosis, idiopathic 2 (2)\tIS2, AIS2\t607354\t17p11.2"
+      },
+      "Scurvy": {
+        "morbidmap.txt_original_row": "Scurvy (3)\tGULOP, GULO\t240400\t8p21.1"
+      },
+      "Sebaceous tumors, somatic": {
+        "morbidmap.txt_original_row": "Sebaceous tumors, somatic (3)\tLEF1\t153245\t4q25"
+      },
+      "Seizures, benign familial infantile, 1": {
+        "morbidmap.txt_original_row": "Seizures, benign familial infantile, 1 (2)\tBFIS1, BFIC1\t601764\t19q"
+      },
+      "Seizures, benign familial infantile, 4": {
+        "morbidmap.txt_original_row": "Seizures, benign familial infantile, 4 (2)\tBFIS4, BFIC4\t612627\t1p36.12-p35.1"
+      },
+      "Senior-Loken syndrome 3": {
+        "morbidmap.txt_original_row": "Senior-Loken syndrome 3 (2)\tSLSN3\t606995\t3q22"
+      },
+      "Short-rib thoracic dysplasia 1 with or without polydactyly": {
+        "morbidmap.txt_original_row": "Short-rib thoracic dysplasia 1 with or without polydactyly (2)\tSRTD1, ATD1\t208500\t15q13"
+      },
+      "Silver-Russell syndrome 2": {
+        "morbidmap.txt_original_row": "Silver-Russell syndrome 2 (4)\tSRS2\t618905\t7p13-q32"
+      },
+      "Small-cell cancer of lung": {
+        "morbidmap.txt_original_row": "Small-cell cancer of lung (2)\tSCLC1\t182280\t3p23-p21"
+      },
+      "Spastic paraplegia 14, autosomal recessive": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 14, autosomal recessive (2)\tSPG14\t605229\t3q27-q28"
+      },
+      "Spastic paraplegia 16, X-linked, complicated": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 16, X-linked, complicated (2)\tSPG16\t300266\tXq11.2"
+      },
+      "Spastic paraplegia 19, autosomal dominant": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 19, autosomal dominant (2)\tSPG19\t607152\t9q"
+      },
+      "Spastic paraplegia 24, autosomal recessive": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 24, autosomal recessive (2)\tSPG24\t607584\t13q14"
+      },
+      "Spastic paraplegia 25, autosomal recessive": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 25, autosomal recessive (2)\tSPG25\t608220\t6q23-q24.1"
+      },
+      "Spastic paraplegia 27, autosomal recessive": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 27, autosomal recessive (2)\tSPG27\t609041\t10q22.1-q24.1"
+      },
+      "Spastic paraplegia 29, autosomal dominant": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 29, autosomal dominant (2)\tSPG29\t609727\t1p31.1-p21.1"
+      },
+      "Spastic paraplegia 32, autosomal recessive": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 32, autosomal recessive (2)\tSPG32\t611252\t14q12-q21"
+      },
+      "Spastic paraplegia 34, X-linked": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 34, X-linked (2)\tSPG34\t300750\tXq24-q25"
+      },
+      "Spastic paraplegia 36, autosomal dominant": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 36, autosomal dominant (2)\tSPG36\t613096\t12q23-q24"
+      },
+      "Spastic paraplegia 37, autosomal dominant": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 37, autosomal dominant (2)\tSPG37\t611945\t8p21.1-q13.3"
+      },
+      "Spastic paraplegia 38, autosomal dominant": {
+        "morbidmap.txt_original_row": "Spastic paraplegia 38, autosomal dominant (2)\tSPG38\t612335\t4p16-p15"
+      },
+      "Specific language impairment QTL, 1": {
+        "morbidmap.txt_original_row": "Specific language impairment QTL, 1 (2)\tSLI1\t606711\t16q"
+      },
+      "Specific language impairment QTL, 2": {
+        "morbidmap.txt_original_row": "Specific language impairment QTL, 2 (2)\tSLI2\t606712\t19q"
+      },
+      "Specific language impairment QTL, 3": {
+        "morbidmap.txt_original_row": "Specific language impairment QTL, 3 (2)\tSLI3\t607134\t13q21"
+      },
+      "Spermatogenic failure, Y-linked, 1": {
+        "morbidmap.txt_original_row": "Spermatogenic failure, Y-linked, 1 (4)\tDELYq11, CYDELq11, SPGFY1\t400042\tYq11"
+      },
+      "Spinal muscular atrophy, chronic distal, autosomal recessive": {
+        "morbidmap.txt_original_row": "Spinal muscular atrophy, chronic distal, autosomal recessive (2)\tSMAR\t607088\t11q13"
+      },
+      "Spinocerebellar ataxia 18": {
+        "morbidmap.txt_original_row": "Spinocerebellar ataxia 18 (2)\tSCA18, SMNA\t607458\t7q22-q32"
+      },
+      "Spinocerebellar ataxia 20": {
+        "morbidmap.txt_original_row": "Spinocerebellar ataxia 20 (4)\tSCA20, DUP11q12, C11DUPq12\t608687\t11q12"
+      },
+      "Spinocerebellar ataxia 32": {
+        "morbidmap.txt_original_row": "Spinocerebellar ataxia 32 (2)\tSCA32\t613909\t7q32-q33"
+      },
+      "Spinocerebellar ataxia 4": {
+        "morbidmap.txt_original_row": "Spinocerebellar ataxia 4 (2)\tSCA4\t600223\t16q22.1"
+      },
+      "Spinocerebellar ataxia, X-linked 5": {
+        "morbidmap.txt_original_row": "Spinocerebellar ataxia, X-linked 5 (2)\tSCAX5\t300703\tXq25-q27.1"
+      },
+      "Spinocerebellar ataxia, autosomal recessive 3": {
+        "morbidmap.txt_original_row": "Spinocerebellar ataxia, autosomal recessive 3 (2)\tSCAR3, SCABD\t271250\t6p23-p21"
+      },
+      "Spinocerebellar ataxia, autosomal recessive 6": {
+        "morbidmap.txt_original_row": "Spinocerebellar ataxia, autosomal recessive 6 (2)\tSCAR6, CLA3\t608029\t20q11-q13"
+      },
+      "Split hand/foot malformation 2": {
+        "morbidmap.txt_original_row": "Split hand/foot malformation 2 (2)\tSHFM2, SHFD2\t313350\tXq26"
+      },
+      "Split-hand/foot malformation 3, gene duplication syndrome": {
+        "morbidmap.txt_original_row": "Split-hand/foot malformation 3, gene duplication syndrome (4)\tSHFM3, SHSF3, DUP10q24, C10DUPq24\t246560\t10q24"
+      },
+      "Split-hand/foot malformation 5": {
+        "morbidmap.txt_original_row": "Split-hand/foot malformation 5 (2)\tSHFM5\t606708\t2q31"
+      },
+      "Split-hand/foot malformation with long bone deficiency 1": {
+        "morbidmap.txt_original_row": "Split-hand/foot malformation with long bone deficiency 1 (2)\tSHFL1, SHFLD\t119100\t1q42.2-q43"
+      },
+      "Split-hand/foot malformation with long bone deficiency 2": {
+        "morbidmap.txt_original_row": "Split-hand/foot malformation with long bone deficiency 2 (2)\tSHFLD2\t610685\t6q14.1"
+      },
+      "Split-hand/foot malformation with long bone deficiency 3": {
+        "morbidmap.txt_original_row": "Split-hand/foot malformation with long bone deficiency 3 (4)\tSHFLD3, DUP17p13.3, C17DUPp13.3\t612576\t17p13.3-p13.1"
+      },
+      "Spondyloepiphyseal dysplasia tarda, autosomal dominant": {
+        "morbidmap.txt_original_row": "Spondyloepiphyseal dysplasia tarda, autosomal dominant (2)\tSPDT\t184100\t12q13"
+      },
+      "Stuttering, familial persistent, 2": {
+        "morbidmap.txt_original_row": "Stuttering, familial persistent, 2 (2)\tSTUT2\t609261\t12q24.1"
+      },
+      "Stuttering, familial persistent, 3": {
+        "morbidmap.txt_original_row": "Stuttering, familial persistent, 3 (2)\tSTUT3\t614655\t3q13.2-q13.33"
+      },
+      "Stuttering, familial persistent, 4": {
+        "morbidmap.txt_original_row": "Stuttering, familial persistent, 4 (2)\tSTUT4\t614668\t16q12.1-q23.1"
+      },
+      "Supernumerary der(22)t(8-22) syndrome": {
+        "morbidmap.txt_original_row": "Supernumerary der(22)t(8-22) syndrome (4)\tDER22t8-22\t613700\t22q11.2"
+      },
+      "Supranuclear palsy, progressive, 2": {
+        "morbidmap.txt_original_row": "Supranuclear palsy, progressive, 2 (2)\tPSNP2\t609454\t1q31.1"
+      },
+      "Supranuclear palsy, progressive, 3": {
+        "morbidmap.txt_original_row": "Supranuclear palsy, progressive, 3 (2)\tPSNP3\t610898\t11p12-p11"
+      },
+      "Syncope, familial vasovagal": {
+        "morbidmap.txt_original_row": "Syncope, familial vasovagal (2)\tVVS\t609289\t15q26"
+      },
+      "Syndactyly, type 1, with or without craniosynostosis": {
+        "morbidmap.txt_original_row": "Syndactyly, type 1, with or without craniosynostosis (4)\tDUP2q35, C2DUPq35, SDTY1, SD1\t185900\t2q34-q36"
+      },
+      "Synesthesia": {
+        "morbidmap.txt_original_row": "Synesthesia (2)\tSYNSTH\t612759\t2q24.1"
+      },
+      "Synpolydactyly 3": {
+        "morbidmap.txt_original_row": "Synpolydactyly 3 (2)\tSPD3\t610234\t14q11.2-q12"
+      },
+      "Telangiectasia, hereditary benign": {
+        "morbidmap.txt_original_row": "Telangiectasia, hereditary benign (2)\tHBT\t187260\t5q14"
+      },
+      "Telangiectasia, hereditary hemorrhagic, type 3": {
+        "morbidmap.txt_original_row": "Telangiectasia, hereditary hemorrhagic, type 3 (2)\tHHT3, ORW3\t601101\t5q31.3-q32"
+      },
+      "Telangiectasia, hereditary hemorrhagic, type 4": {
+        "morbidmap.txt_original_row": "Telangiectasia, hereditary hemorrhagic, type 4 (2)\tHHT4\t610655\t7p14"
+      },
+      "Temple syndrome": {
+        "morbidmap.txt_original_row": "Temple syndrome (4)\tTEMPS\t616222\t14q32"
+      },
+      "Testicular germ cell tumor": {
+        "morbidmap.txt_original_row": "Testicular germ cell tumor (2)\tTGCT1\t300228\tXq27"
+      },
+      "Tetrasomy 18p": {
+        "morbidmap.txt_original_row": "Tetrasomy 18p (4)\tTET18P\t614290\t18p"
+      },
+      "Thoracoabdominal syndrome": {
+        "morbidmap.txt_original_row": "Thoracoabdominal syndrome (2)\tTHAS, TAS\t313850\tXq25-q26.1"
+      },
+      "Thyroid carcinoma, nonmedullary, with cell oxyphilia": {
+        "morbidmap.txt_original_row": "Thyroid carcinoma, nonmedullary, with cell oxyphilia (2)\tTCO\t603386\t19p13.2"
+      },
+      "Thyroid carcinoma, papillary, with papillary renal neoplasia": {
+        "morbidmap.txt_original_row": "Thyroid carcinoma, papillary, with papillary renal neoplasia (2)\tPTCPRN, PRN1\t605642\t1q21"
+      },
+      "Tooth agenesis, selective, 2": {
+        "morbidmap.txt_original_row": "Tooth agenesis, selective, 2 (2)\tSTHAG2, HYD2\t602639\t16q12.1"
+      },
+      "Tooth agenesis, selective, 5": {
+        "morbidmap.txt_original_row": "Tooth agenesis, selective, 5 (2)\tSTHAG5\t610926\t10q11.2-q21"
+      },
+      "Total anomalous pulmonary venous return": {
+        "morbidmap.txt_original_row": "Total anomalous pulmonary venous return (2)\tTAPVR1\t106700\t4q12"
+      },
+      "Tourette syndrome": {
+        "morbidmap.txt_original_row": "Tourette syndrome (2)\tGTS\t137580\t11q23"
+      },
+      "Transient erythroblastopenia of childhood": {
+        "morbidmap.txt_original_row": "Transient erythroblastopenia of childhood (2)\tTEC\t227050\t19q13.2"
+      },
+      "Trichilemmal cyst 1": {
+        "morbidmap.txt_original_row": "Trichilemmal cyst 1 (2)\tTRICY1\t609649\t3p24-p21.2"
+      },
+      "Trichoepithelioma, multiple familial, 2": {
+        "morbidmap.txt_original_row": "Trichoepithelioma, multiple familial, 2 (2)\tMFT2, TEM\t612099\t9p21"
+      },
+      "Trichorhinophalangeal syndrome, type II": {
+        "morbidmap.txt_original_row": "Trichorhinophalangeal syndrome, type II (4)\tTRPS2, LGCR, LGS\t150230\t8q24.11-q24.13"
+      },
+      "Tukel syndrome": {
+        "morbidmap.txt_original_row": "Tukel syndrome (2)\tTUKLS\t609428\t21q22"
+      },
+      "Usher syndrome, type 1E": {
+        "morbidmap.txt_original_row": "Usher syndrome, type 1E (2)\tUSH1E\t602097\t21q21"
+      },
+      "Usher syndrome, type 1H": {
+        "morbidmap.txt_original_row": "Usher syndrome, type 1H (2)\tUSH1H\t612632\t15q22-q23"
+      },
+      "Usher syndrome, type IK": {
+        "morbidmap.txt_original_row": "Usher syndrome, type IK (2)\tUSH1K\t614990\t10p11.21-q21.1"
+      },
+      "Vertigo, benign recurrent, 2": {
+        "morbidmap.txt_original_row": "Vertigo, benign recurrent, 2 (2)\tBRV2\t613106\t22q12"
+      },
+      "Vesicoureteral reflux 1": {
+        "morbidmap.txt_original_row": "Vesicoureteral reflux 1 (2)\tVUR1\t193000\t1p13"
+      },
+      "Vesicoureteral reflux 4": {
+        "morbidmap.txt_original_row": "Vesicoureteral reflux 4 (2)\tVUR4\t614317\t5q14.2"
+      },
+      "Vesicoureteral reflux 5": {
+        "morbidmap.txt_original_row": "Vesicoureteral reflux 5 (2)\tVUR5\t614318\t13q33.2"
+      },
+      "Vesicoureteral reflux 6": {
+        "morbidmap.txt_original_row": "Vesicoureteral reflux 6 (2)\tVUR6\t614319\t18q12.3"
+      },
+      "Vesicoureteral reflux 7": {
+        "morbidmap.txt_original_row": "Vesicoureteral reflux 7 (2)\tVUR7\t615390\t12p11-q13"
+      },
+      "Vestibulocerebellar disorder with predominant ocular signs": {
+        "morbidmap.txt_original_row": "Vestibulocerebellar disorder with predominant ocular signs (2)\tVOCBO\t193003\t13q31-q33"
+      },
+      "Vestibulopathy, familial": {
+        "morbidmap.txt_original_row": "Vestibulopathy, familial (2)\tBPPV\t193007\t6q"
+      },
+      "WAGRO syndrome": {
+        "morbidmap.txt_original_row": "WAGRO syndrome (4)\tWAGRO, DEL11p14p12\t612469\t11p13-p12"
+      },
+      "Waardenburg syndrome, type 2B": {
+        "morbidmap.txt_original_row": "Waardenburg syndrome, type 2B (2)\tWS2B\t600193\t1p21-p13.3"
+      },
+      "Waardenburg syndrome, type 2C": {
+        "morbidmap.txt_original_row": "Waardenburg syndrome, type 2C (2)\tWS2C\t606662\t8p23"
+      },
+      "Williams-Beuren syndrome": {
+        "morbidmap.txt_original_row": "Williams-Beuren syndrome (4)\tWBS, WMS, WS, DEL7q11, C7DELq11\t194050\t7q11.23"
+      },
+      "Wilms tumor, aniridia, genitourinary anomalies and mental retardation syndrome": {
+        "morbidmap.txt_original_row": "Wilms tumor, aniridia, genitourinary anomalies and mental retardation syndrome (4)\tDEL11p13, C11DELp13, WAGR\t194072\t11p13"
+      },
+      "Wilms tumor, type 3": {
+        "morbidmap.txt_original_row": "Wilms tumor, type 3 (2)\tWT3\t194090\t16q"
+      },
+      "Wilms tumor, type 4": {
+        "morbidmap.txt_original_row": "Wilms tumor, type 4 (2)\tWT4\t601363\t17q12-q21"
+      },
+      "Wolf-Hirschhorn syndrome": {
+        "morbidmap.txt_original_row": "Wolf-Hirschhorn syndrome (4)\tWHS\t194190\t4p16.3"
+      },
+      "Woods-Black-Norbury syndrome": {
+        "morbidmap.txt_original_row": "Woods-Black-Norbury syndrome (2)\tINDX\t300076\tXq26-qter"
+      },
+      "X inactivation, familial skewed, 2": {
+        "morbidmap.txt_original_row": "X inactivation, familial skewed, 2 (2)\tSXI2\t300179\tXq25-q26"
+      },
+      "Xp11.22 microduplication syndrome": {
+        "morbidmap.txt_original_row": "Xp11.22 microduplication syndrome (4)\tDUPXp11.22, MRX17, MRX31\t300705\tXp11.22"
+      },
+      "Xq21 deletion syndrome": {
+        "morbidmap.txt_original_row": "Xq21 deletion syndrome (4)\tDELXq21, CXDELq21\t303110\tXq21"
+      },
+      "Xq25 duplication syndrome": {
+        "morbidmap.txt_original_row": "Xq25 duplication syndrome (4)\tDUPXq25\t300979\tXq25"
+      },
+      "Yuan-Harel-Lupski syndrome": {
+        "morbidmap.txt_original_row": "Yuan-Harel-Lupski syndrome (4)\tYUHAL\t616652\t17p12-p11.2"
+      },
+      "Zygodactyly 1": {
+        "morbidmap.txt_original_row": "Zygodactyly 1 (2)\tZD1\t609815\t3p21.31"
+      },
+      "[?Homosexuality, male]": {
+        "morbidmap.txt_original_row": "[?Homosexuality, male] (2)\tHMS1, GAY1\t306995\tXq28"
+      },
+      "[Adiponectin, serum level of, QTL5]": {
+        "morbidmap.txt_original_row": "[Adiponectin, serum level of, QTL5] (2)\tADIPQTL5\t613836\t16q23.3"
+      },
+      "[Birth weight QTL 2]": {
+        "morbidmap.txt_original_row": "[Birth weight QTL 2] (2)\tBWQTL2\t613459\t3q25.3"
+      },
+      "[Birth weight QTL4]": {
+        "morbidmap.txt_original_row": "[Birth weight QTL4] (2)\tBWQTL4\t615192\t6p22.3"
+      },
+      "[Blood group, Stoltzfus system]": {
+        "morbidmap.txt_original_row": "[Blood group, Stoltzfus system] (2)\tSF\t111800\t4q28-q31"
+      },
+      "[Body mass index QTL 15]": {
+        "morbidmap.txt_original_row": "[Body mass index QTL 15] (2)\tBMIQ15\t612967\t17q23.2-q25.1"
+      },
+      "[Body mass index QTL13]": {
+        "morbidmap.txt_original_row": "[Body mass index QTL13] (2)\tBMIQ13\t612459\t2q14.1"
+      },
+      "[Body mass index QTL1]": {
+        "morbidmap.txt_original_row": "[Body mass index QTL1] (2)\tBMIQ1\t606641\t7q32.3"
+      },
+      "[Body mass index QTL2]": {
+        "morbidmap.txt_original_row": "[Body mass index QTL2] (2)\tBMIQ2\t606643\t13q14"
+      },
+      "[Body mass index QTL3]": {
+        "morbidmap.txt_original_row": "[Body mass index QTL3] (2)\tBMIQ3\t607446\t6q23-q25"
+      },
+      "[Body mass index QTL5]": {
+        "morbidmap.txt_original_row": "[Body mass index QTL5] (2)\tBMIQ5\t608558\t16p13"
+      },
+      "[Body mass index QTL6]": {
+        "morbidmap.txt_original_row": "[Body mass index QTL6] (2)\tBMIQ6\t608559\t20pter-p11.2"
+      },
+      "[Bone mineral density QTL 10]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 10] (2)\tBMND10\t612113\t8q24"
+      },
+      "[Bone mineral density QTL 11]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 11] (2)\tBMND11\t612114\t6q25"
+      },
+      "[Bone mineral density QTL 13]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 13] (2)\tBMND13\t612727\t16q23"
+      },
+      "[Bone mineral density QTL 14]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 14] (2)\tBMND14\t612728\t1p33-p32"
+      },
+      "[Bone mineral density QTL 2]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 2] (2)\tBMND2\t605833\t1q21-q23"
+      },
+      "[Bone mineral density QTL 3]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 3] (2)\tBMND3\t606928\t1p36"
+      },
+      "[Bone mineral density QTL 4]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 4] (2)\tBMND4\t300536\tXq27"
+      },
+      "[Bone mineral density QTL 5]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 5] (2)\tBMND5\t609354\t11q23"
+      },
+      "[Bone mineral density QTL 6]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 6] (2)\tBMND6\t609876\t21q22.13-qter"
+      },
+      "[Bone mineral density QTL 9]": {
+        "morbidmap.txt_original_row": "[Bone mineral density QTL 9] (2)\tBMND9\t612110\t13q14"
+      },
+      "[Bone size quantitative trait locus 3]": {
+        "morbidmap.txt_original_row": "[Bone size quantitative trait locus 3] (2)\tBSZQTL3\t610649\t8q24"
+      },
+      "[C-reactive protein QTL]": {
+        "morbidmap.txt_original_row": "[C-reactive protein QTL] (2)\tCPROTQ\t611920\t10q23-q24"
+      },
+      "[Cholesterol level QTL 1]": {
+        "morbidmap.txt_original_row": "[Cholesterol level QTL 1] (2)\tCLQTL1, CLF\t604595\t13q"
+      },
+      "[Cholesterol level QTL 2]": {
+        "morbidmap.txt_original_row": "[Cholesterol level QTL 2] (2)\tCLQTL2\t610760\t2p24-p22"
+      },
+      "[Cinnamon odor, pleasantness of]": {
+        "morbidmap.txt_original_row": "[Cinnamon odor, pleasantness of] (2)\tCINN\t611109\t4q32.3"
+      },
+      "[Creatine kinase, brain type, ectopic expression of]": {
+        "morbidmap.txt_original_row": "[Creatine kinase, brain type, ectopic expression of] (2)\tCKBE\t123270\t14q32"
+      },
+      "[Fasting insulin level quantitative trait locus 1]": {
+        "morbidmap.txt_original_row": "[Fasting insulin level quantitative trait locus 1] (2)\tFIQTL1\t606035\t6q22-q24"
+      },
+      "[Fasting plasma glucose level QTL 1]": {
+        "morbidmap.txt_original_row": "[Fasting plasma glucose level QTL 1] (2)\tFGQTL1\t612108\t2q24-q32"
+      },
+      "[Fasting plasma glucose level QTL 3]": {
+        "morbidmap.txt_original_row": "[Fasting plasma glucose level QTL 3] (2)\tFGQTL3\t613233\t11q21-q22"
+      },
+      "[Fasting plasma glucose level QTL 4]": {
+        "morbidmap.txt_original_row": "[Fasting plasma glucose level QTL 4] (2)\tFGQTL4\t613462\t7p21.2"
+      },
+      "[Fetal hemoglobin QTL5]": {
+        "morbidmap.txt_original_row": "[Fetal hemoglobin QTL5] (2)\tHBFQTL5\t142335\t2p16.1"
+      },
+      "[Gamma-glutamyltransferase, familial high serum]": {
+        "morbidmap.txt_original_row": "[Gamma-glutamyltransferase, familial high serum] (2)\tGGT2\t137181\t22q11.21"
+      },
+      "[Handedness]": {
+        "morbidmap.txt_original_row": "[Handedness] (2)\tHSR\t139900\t2p12-q22"
+      },
+      "[Hematocrit/hemoglobin quantitative trait locus 1]": {
+        "morbidmap.txt_original_row": "[Hematocrit/hemoglobin quantitative trait locus 1] (2)\tHCHGQ1\t609319\t6q23"
+      },
+      "[Hematocrit/hemoglobin quantitative trait locus 2]": {
+        "morbidmap.txt_original_row": "[Hematocrit/hemoglobin quantitative trait locus 2] (2)\tHCHGQ2\t609320\t9q"
+      },
+      "[Hematocrit/hemoglobin quantitative trait locus 3]": {
+        "morbidmap.txt_original_row": "[Hematocrit/hemoglobin quantitative trait locus 3] (2)\tHCHGQ3\t613284\t22q12-q13"
+      },
+      "[High density lipoprotein cholesterol level QTL 1]": {
+        "morbidmap.txt_original_row": "[High density lipoprotein cholesterol level QTL 1] (2)\tHDLCQ1\t606613\t9p"
+      },
+      "[High density lipoprotein cholesterol level QTL 2]": {
+        "morbidmap.txt_original_row": "[High density lipoprotein cholesterol level QTL 2] (2)\tHDLCQ2\t607053\t8q23"
+      },
+      "[High density lipoprotein cholesterol level QTL 4]": {
+        "morbidmap.txt_original_row": "[High density lipoprotein cholesterol level QTL 4] (2)\tHDLCQ4\t610239\t4q32.3"
+      },
+      "[High density lipoprotein cholesterol level QTL 5]": {
+        "morbidmap.txt_original_row": "[High density lipoprotein cholesterol level QTL 5] (2)\tHDLCQ5\t610761\t3q24-q26"
+      },
+      "[High density lipoprotein cholesterol level QTL 8]": {
+        "morbidmap.txt_original_row": "[High density lipoprotein cholesterol level QTL 8] (3)\tVNN1, HDLCQ8\t603570\t6q23.2"
+      },
+      "[High density lipoprotein cholesterol level QTL 9]": {
+        "morbidmap.txt_original_row": "[High density lipoprotein cholesterol level QTL 9] (3)\tPLTP, HDLCQ9\t172425\t20q13.12"
+      },
+      "[IgG receptor I, phagocytic, familial deficiency of]": {
+        "morbidmap.txt_original_row": "[IgG receptor I, phagocytic, familial deficiency of] (3)\tFCGR1A, IGFR1, CD64\t146760\t1q21.2"
+      },
+      "[Lean body mass QTL 1]": {
+        "morbidmap.txt_original_row": "[Lean body mass QTL 1] (2)\tLBMQTL1\t612729\t8q23"
+      },
+      "[Leptin serum levels QTL1]": {
+        "morbidmap.txt_original_row": "[Leptin serum levels QTL1] (2)\tLEPQTL1, LSL\t601694\t2p21"
+      },
+      "[Longevity 1]": {
+        "morbidmap.txt_original_row": "[Longevity 1] (2)\tLGV1\t152430\t4q25"
+      },
+      "[Longevity 2]": {
+        "morbidmap.txt_original_row": "[Longevity 2] (2)\tLGV2\t606460\t6q21"
+      },
+      "[Mean platelet volume QTL1]": {
+        "morbidmap.txt_original_row": "[Mean platelet volume QTL1] (2)\tMPVQTL1\t612573\t12q24.31"
+      },
+      "[Mean platelet volume QTL2]": {
+        "morbidmap.txt_original_row": "[Mean platelet volume QTL2] (2)\tMPVQTL2\t612574\t3p21-p13"
+      },
+      "[Mean platelet volume QTL3]": {
+        "morbidmap.txt_original_row": "[Mean platelet volume QTL3] (2)\tMPVQTL3\t612575\t17q11.2"
+      },
+      "[Musical aptitude QTL 1]": {
+        "morbidmap.txt_original_row": "[Musical aptitude QTL 1] (2)\tMUSQTL1\t612343\t4q22"
+      },
+      "[Placental lactogen deficiency]": {
+        "morbidmap.txt_original_row": "[Placental lactogen deficiency] (1)\tCSH1, CSA, PL\t150200\t17q23.3"
+      },
+      "[Polyunsaturated fatty acids plasma level QTL1]": {
+        "morbidmap.txt_original_row": "[Polyunsaturated fatty acids plasma level QTL1] (2)\tPURAQTL1\t612795\t11q12-q13.1"
+      },
+      "[QT interval, variation in]": {
+        "morbidmap.txt_original_row": "[QT interval, variation in] (2)\tQTV\t610141\t1q23.3"
+      },
+      "[Respiratory rhythmicity in sleep]": {
+        "morbidmap.txt_original_row": "[Respiratory rhythmicity in sleep] (2)\tRRIS\t609116\t10q26"
+      },
+      "[Sex hormone-binding globulin circulating level QTL 1]": {
+        "morbidmap.txt_original_row": "[Sex hormone-binding globulin circulating level QTL 1] (2)\tSXGQTL1\t613498\t17p13"
+      },
+      "[Social cognition]": {
+        "morbidmap.txt_original_row": "[Social cognition] (2)\tCGF1\t300082\tXq"
+      },
+      "[Superoxide dismutase, elevated extracellular]": {
+        "morbidmap.txt_original_row": "[Superoxide dismutase, elevated extracellular] (3)\tSOD3\t185490\t4p15.2"
+      },
+      "[Telomere length, mean leukocyte]": {
+        "morbidmap.txt_original_row": "[Telomere length, mean leukocyte] (2)\tTELM\t609113\t14q23.2"
+      },
+      "[Thyroid-stimulating hormone level QTL 1]": {
+        "morbidmap.txt_original_row": "[Thyroid-stimulating hormone level QTL 1] (2)\tTSHQTL1\t612306\t5q13"
+      },
+      "[Tuberculin skin test reactivity QTL]": {
+        "morbidmap.txt_original_row": "[Tuberculin skin test reactivity QTL] (2)\tTST2\t613637\t5p15"
+      },
+      "[Tuberculin skin test reactivity, absence of]": {
+        "morbidmap.txt_original_row": "[Tuberculin skin test reactivity, absence of] (2)\tTST1\t613636\t11p14"
+      },
+      "[Urate oxidase deficiency]": {
+        "morbidmap.txt_original_row": "[Urate oxidase deficiency] (1)\tUOX\t191540\t1p22"
+      },
+      "[Uric acid concentration, serum, QTL5]": {
+        "morbidmap.txt_original_row": "[Uric acid concentration, serum, QTL5] (2)\tUAQTL5\t614746\t19q13"
+      },
+      "[Uric acid concentration, serum, QTL6]": {
+        "morbidmap.txt_original_row": "[Uric acid concentration, serum, QTL6] (2)\tUAQTL6\t614747\t1q21.1"
+      },
+      "van Buchem disease": {
+        "morbidmap.txt_original_row": "van Buchem disease (4)\tVBCH\t239100\t17q21.31"
+      },
+      "{?Allergy and asthma susceptibility}": {
+        "morbidmap.txt_original_row": "{?Allergy and asthma susceptibility} (2)\tIGES\t147061\t5q31.1"
+      },
+      "{?Amyloidosis, secondary, susceptibility to}": {
+        "morbidmap.txt_original_row": "{?Amyloidosis, secondary, susceptibility to} (1)\tAPCS, SAP\t104770\t1q23.2"
+      },
+      "{?Hearing loss, cisplatin-induced, susceptibility to}": {
+        "morbidmap.txt_original_row": "{?Hearing loss, cisplatin-induced, susceptibility to} (2)\tCIHL\t613290\t6p22.3"
+      },
+      "{?Hypertension, essential}": {
+        "morbidmap.txt_original_row": "{?Hypertension, essential} (1)\tACSM3, SAH\t145505\t16p12.3"
+      },
+      "{?Major affective disorder 2}": {
+        "morbidmap.txt_original_row": "{?Major affective disorder 2} (2)\tMAFD2, MDX\t309200\tXq28"
+      },
+      "{?Membranous nephropathy, susceptibility to}": {
+        "morbidmap.txt_original_row": "{?Membranous nephropathy, susceptibility to} (2)\tMBNP\t614692\t6p21.3"
+      },
+      "{Adiponectin, serum level of, QTL2}": {
+        "morbidmap.txt_original_row": "{Adiponectin, serum level of, QTL2} (2)\tADIPQTL2, CAQ5\t606770\t5p15.2-p14"
+      },
+      "{Adiponectin, serum level of, QTL3}": {
+        "morbidmap.txt_original_row": "{Adiponectin, serum level of, QTL3} (2)\tADIPQTL3, CAQ14\t606771\t14p11.2-q13"
+      },
+      "{Adiponectin, serum level of, QTL4}": {
+        "morbidmap.txt_original_row": "{Adiponectin, serum level of, QTL4} (2)\tADIPQTL4\t612629\t11q23-q24"
+      },
+      "{Age-related hearing impairment 1}": {
+        "morbidmap.txt_original_row": "{Age-related hearing impairment 1} (2)\tARHI1\t612448\t8q24.13-q24.22"
+      },
+      "{Age-related hearing impairment 2}": {
+        "morbidmap.txt_original_row": "{Age-related hearing impairment 2} (2)\tARHI2\t612976\t3p26.1-p25.1"
+      },
+      "{Alkaline phosphatase, plasma level of, QTL 2}": {
+        "morbidmap.txt_original_row": "{Alkaline phosphatase, plasma level of, QTL 2} (2)\tALPQTL2\t612367\t1p36"
+      },
+      "{Alkaline phosphatase, plasma level of, QTL1}": {
+        "morbidmap.txt_original_row": "{Alkaline phosphatase, plasma level of, QTL1} (2)\tALPQTL1\t171720\t9q34.13"
+      },
+      "{Alkaline phosphatase, plasma level of, QTL3}": {
+        "morbidmap.txt_original_row": "{Alkaline phosphatase, plasma level of, QTL3} (2)\tALPQTL3\t612368\t6p22"
+      },
+      "{Alkaline phosphatase, plasma level of, QTL4}": {
+        "morbidmap.txt_original_row": "{Alkaline phosphatase, plasma level of, QTL4} (2)\tALPQTL4\t612369\t10q21"
+      },
+      "{Alzheimer disease 12}": {
+        "morbidmap.txt_original_row": "{Alzheimer disease 12} (2)\tAD12\t611073\t8p12-q22"
+      },
+      "{Alzheimer disease 16}": {
+        "morbidmap.txt_original_row": "{Alzheimer disease 16} (2)\tAD16\t300756\tXq21.3"
+      },
+      "{Alzheimer disease-13}": {
+        "morbidmap.txt_original_row": "{Alzheimer disease-13} (2)\tAD13\t611152\t1q21"
+      },
+      "{Alzheimer disease-14}": {
+        "morbidmap.txt_original_row": "{Alzheimer disease-14} (2)\tAD14\t611154\t1q25"
+      },
+      "{Alzheimer disease-15}": {
+        "morbidmap.txt_original_row": "{Alzheimer disease-15} (2)\tAD15\t611155\t3q22-q24"
+      },
+      "{Aneurysm, familial abdominal 3}": {
+        "morbidmap.txt_original_row": "{Aneurysm, familial abdominal 3} (2)\tAAA3\t611891\t9p21"
+      },
+      "{Aneurysm, intracranial berry, 10}": {
+        "morbidmap.txt_original_row": "{Aneurysm, intracranial berry, 10} (2)\tANIB10\t612587\t8q12.1"
+      },
+      "{Aneurysm, intracranial berry, 6}": {
+        "morbidmap.txt_original_row": "{Aneurysm, intracranial berry, 6} (2)\tANIB6\t611892\t9p21"
+      },
+      "{Aneurysm, intracranial berry, 9}": {
+        "morbidmap.txt_original_row": "{Aneurysm, intracranial berry, 9} (2)\tANIB9\t612586\t2q33.1"
+      },
+      "{Anorexia nervosa, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Anorexia nervosa, susceptibility to, 1} (2)\tANON1\t606788\t1p"
+      },
+      "{Asperger syndrome susceptibility 1}": {
+        "morbidmap.txt_original_row": "{Asperger syndrome susceptibility 1} (2)\tASPG1\t608638\t3q25-q27"
+      },
+      "{Asperger syndrome susceptibility 2}": {
+        "morbidmap.txt_original_row": "{Asperger syndrome susceptibility 2} (2)\tASPG2\t608631\t17p13"
+      },
+      "{Asperger syndrome susceptibility 3}": {
+        "morbidmap.txt_original_row": "{Asperger syndrome susceptibility 3} (2)\tASPG3\t608781\t1q21-q22"
+      },
+      "{Asperger syndrome susceptibility 4}": {
+        "morbidmap.txt_original_row": "{Asperger syndrome susceptibility 4} (2)\tASPG4\t609954\t3p24-p21"
+      },
+      "{Asthma-related traits, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Asthma-related traits, susceptibility to, 3} (2)\tASRT3\t609958\t2p16"
+      },
+      "{Asthma-related traits, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Asthma-related traits, susceptibility to, 4} (2)\tASRT4\t610906\t1p31"
+      },
+      "{Asthma-related traits, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Asthma-related traits, susceptibility to, 6} (2)\tASRT6\t611403\t17q21"
+      },
+      "{Asthma-related traits, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Asthma-related traits, susceptibility to, 8} (2)\tASRT8\t613207\t9q33"
+      },
+      "{Atherosclerosis, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Atherosclerosis, susceptibility to} (2)\tATHS, ALP\t108725\t19p13.3-p13.2"
+      },
+      "{Atrial fibrillation, familial, 5}": {
+        "morbidmap.txt_original_row": "{Atrial fibrillation, familial, 5} (2)\tATFB5\t611494\t4q25"
+      },
+      "{Atrioventricular septal defect, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Atrioventricular septal defect, susceptibility to, 1} (2)\tAVSD1, AVCD\t606215\t1p31-p21"
+      },
+      "{Attention deficit-hyperactivity disorder, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Attention deficit-hyperactivity disorder, susceptibility to, 1} (2)\tADHD1\t608903\t16p13"
+      },
+      "{Attention deficit-hyperactivity disorder, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Attention deficit-hyperactivity disorder, susceptibility to, 2} (2)\tADHD3\t608905\t6q12"
+      },
+      "{Attention deficit-hyperactivity disorder, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Attention deficit-hyperactivity disorder, susceptibility to, 4} (2)\tADHD4\t608906\t5p13"
+      },
+      "{Attention deficit-hyperactivity disorder, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Attention deficit-hyperactivity disorder, susceptibility to, 5} (2)\tADHD5\t612311\t2q21.1"
+      },
+      "{Attention deficit-hyperactivity disorder, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Attention deficit-hyperactivity disorder, susceptibility to, 6} (2)\tADHD6\t612312\t13q12.11"
+      },
+      "{Autism susceptibility 11}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 11} (2)\tAUTS11\t610836\t1q41-q42"
+      },
+      "{Autism susceptibility 12}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 12} (2)\tAUTS12\t610838\t21p13-q11"
+      },
+      "{Autism susceptibility 13}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 13} (2)\tAUTS13\t610908\t12q14.2"
+      },
+      "{Autism susceptibility 1}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 1} (2)\tAUTS1\t209850\t7q22"
+      },
+      "{Autism susceptibility 3}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 3} (2)\tAUTS3\t608049\t13q13.2-q14.1"
+      },
+      "{Autism susceptibility 4}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 4} (2)\tAUTS4\t608636\t15q11"
+      },
+      "{Autism susceptibility 6}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 6} (2)\tAUTS6\t609378\t17q11"
+      },
+      "{Autism susceptibility 7}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 7} (2)\tAUTS7\t610676\t17q21"
+      },
+      "{Autism susceptibility 8}": {
+        "morbidmap.txt_original_row": "{Autism susceptibility 8} (2)\tAUTS8\t607373\t3q25-q27"
+      },
+      "{Autism, susceptibility to, 10}": {
+        "morbidmap.txt_original_row": "{Autism, susceptibility to, 10} (2)\tAUTS10\t611016\t7q36"
+      },
+      "{Autism, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Autism, susceptibility to, 9} (2)\tAUTS9\t611015\t7q31"
+      },
+      "{Autoimmune disease, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Autoimmune disease, susceptibility to, 2} (2)\tAIS2, VAMAS3\t608391\tChr.7"
+      },
+      "{Autoimmune disease, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Autoimmune disease, susceptibility to, 3} (2)\tAIS3, VAMAS4\t608392\tChr.8"
+      },
+      "{Autoimmune disease, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Autoimmune disease, susceptibility to, 4} (2)\tAIS4, VAMAS5\t609400\t4q13-q21"
+      },
+      "{Autoimmune thyroid disease, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Autoimmune thyroid disease, susceptibility to, 1} (2)\tAITD1\t608173\t6p11"
+      },
+      "{Autoimmune thyroid disease, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Autoimmune thyroid disease, susceptibility to, 2} (2)\tAITD2\t608174\t5q31-q33"
+      },
+      "{Autoimmune thyroid disease, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Autoimmune thyroid disease, susceptibility to, 4} (2)\tAITD4\t608176\t10q"
+      },
+      "{Basal cell carcinoma, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Basal cell carcinoma, susceptibility to, 1} (2)\tBCC1\t605462\t1p36"
+      },
+      "{Basal cell carcinoma, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Basal cell carcinoma, susceptibility to, 2} (2)\tBCC2\t613058\t1q42"
+      },
+      "{Basal cell carcinoma, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Basal cell carcinoma, susceptibility to, 3} (2)\tBCC3\t613059\t5p15.33"
+      },
+      "{Basal cell carcinoma, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Basal cell carcinoma, susceptibility to, 4} (2)\tBCC4\t613061\t12q13"
+      },
+      "{Basal cell carcinoma, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Basal cell carcinoma, susceptibility to, 5} (2)\tBCC5\t613062\t9p21"
+      },
+      "{Basal cell carcinoma, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Basal cell carcinoma, susceptibility to, 6} (2)\tBCC6\t613063\t7q32"
+      },
+      "{Beryllium disease, chronic, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Beryllium disease, chronic, susceptibility to} (3)\tHLA-DPB1\t142858\t6p21.32"
+      },
+      "{Biliary cirrhosis, primary, 2}": {
+        "morbidmap.txt_original_row": "{Biliary cirrhosis, primary, 2} (2)\tPBC2\t613007\t6p21.3"
+      },
+      "{Biliary cirrhosis, primary, 3}": {
+        "morbidmap.txt_original_row": "{Biliary cirrhosis, primary, 3} (2)\tPBC3\t613008\t1p31.2"
+      },
+      "{Bone size QTL}": {
+        "morbidmap.txt_original_row": "{Bone size QTL} (2)\tBSZQTL2\t609657\t5q"
+      },
+      "{Bulimia nervosa, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Bulimia nervosa, susceptibility to} (2)\tBULN\t607499\t10p"
+      },
+      "{Cancer progression/metastasis}": {
+        "morbidmap.txt_original_row": "{Cancer progression/metastasis} (3)\tFGFR4\t134935\t5q35.2"
+      },
+      "{Cataract 28, age-related cortical, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Cataract 28, age-related cortical, susceptibility to} (2)\tCTRCT28, ARCC1\t609026\t6p12-q12"
+      },
+      "{Celiac disease, susceptibility to, 10}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 10} (2)\tCELIAC10\t612008\t3q25-q26"
+      },
+      "{Celiac disease, susceptibility to, 11}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 11} (2)\tCELIAC11\t612009\t3q28"
+      },
+      "{Celiac disease, susceptibility to, 12}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 12} (2)\tCELIAC12\t612010\t6q25.3"
+      },
+      "{Celiac disease, susceptibility to, 13}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 13} (2)\tCELIAC13\t612011\t12q24"
+      },
+      "{Celiac disease, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 2} (2)\tCELIAC2\t609754\t5q31-q33"
+      },
+      "{Celiac disease, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 5} (2)\tCELIAC5, GSES\t607202\t15q11-q13"
+      },
+      "{Celiac disease, susceptibility to, 7}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 7} (2)\tCELIAC7\t612005\t1q31"
+      },
+      "{Celiac disease, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 8} (2)\tCELIAC8\t612006\t2q11-q12"
+      },
+      "{Celiac disease, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Celiac disease, susceptibility to, 9} (2)\tCELIAC9\t612007\t3p21"
+      },
+      "{Chordoma, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Chordoma, susceptibility to} (4)\tCHDM\t215400\t6q27"
+      },
+      "{Chronic mountain sickness, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Chronic mountain sickness, susceptibility to} (2)\tCMTS\t616182\t12q13"
+      },
+      "{Colorectal cancer, susceptibility to, 11}": {
+        "morbidmap.txt_original_row": "{Colorectal cancer, susceptibility to, 11} (2)\tCRCS11\t612592\t20p12.3"
+      },
+      "{Colorectal cancer, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Colorectal cancer, susceptibility to, 2} (2)\tCRCS2\t611469\t8q24"
+      },
+      "{Colorectal cancer, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Colorectal cancer, susceptibility to, 5} (2)\tCRCS5\t612230\t10p14"
+      },
+      "{Colorectal cancer, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Colorectal cancer, susceptibility to, 6} (2)\tCRCS6\t612231\t8q23"
+      },
+      "{Colorectal cancer, susceptibility to, 7}": {
+        "morbidmap.txt_original_row": "{Colorectal cancer, susceptibility to, 7} (2)\tCRCS7\t612232\t11q23"
+      },
+      "{Colorectal cancer, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Colorectal cancer, susceptibility to, 8} (2)\tCRCS8\t612589\t14q22.2"
+      },
+      "{Colorectal cancer, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Colorectal cancer, susceptibility to, 9} (2)\tCRCS9\t612590\t16q22.1"
+      },
+      "{Congestive heart failure and beta-blocker response, modifier of}": {
+        "morbidmap.txt_original_row": "{Congestive heart failure and beta-blocker response, modifier of} (3)\tADRA2C, ADRA2L2\t104250\t4p16.3"
+      },
+      "{Coronary artery disease, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Coronary artery disease, susceptibility to} (3)\tPON2\t602447\t7q21.3"
+      },
+      "{Coronary heart disease, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Coronary heart disease, susceptibility to, 2} (2)\tCHDS2\t608316\t2q21.1-q22"
+      },
+      "{Coronary heart disease, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Coronary heart disease, susceptibility to, 3} (2)\tCHDS3\t300464\tXq23-q26"
+      },
+      "{Coronary heart disease, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Coronary heart disease, susceptibility to, 4} (2)\tCHDS4\t608318\t14q32"
+      },
+      "{Coronary heart disease, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Coronary heart disease, susceptibility to, 5} (2)\tCHDS5\t608901\t3q13"
+      },
+      "{Coronary heart disease, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Coronary heart disease, susceptibility to, 8} (2)\tCHDS8\t611139\t9p21"
+      },
+      "{Coronary heart disease, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Coronary heart disease, susceptibility to, 9} (2)\tCHDS9\t612030\t8p22"
+      },
+      "{Coronary heart disease, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Coronary heart disease, susceptibility to} (2)\tCHDS1\t607339\t16pter-p13"
+      },
+      "{Deafness, nonsyndromic, modifier 1}": {
+        "morbidmap.txt_original_row": "{Deafness, nonsyndromic, modifier 1} (2)\tDFNM1\t605429\t1q24"
+      },
+      "{Delayed sleep phase syndrome, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Delayed sleep phase syndrome, susceptibility to} (2)\tDSPS\t614163\t17q25"
+      },
+      "{Dermatitis, atopic, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Dermatitis, atopic, susceptibility to, 1} (2)\tATOD1\t603165\t3q21"
+      },
+      "{Dermatitis, atopic, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Dermatitis, atopic, susceptibility to, 3} (2)\tATOD3\t605804\t20p"
+      },
+      "{Dermatitis, atopic, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Dermatitis, atopic, susceptibility to, 4} (2)\tATOD4\t605805\t17q25.3"
+      },
+      "{Dermatitis, atopic, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Dermatitis, atopic, susceptibility to, 5} (2)\tATOD5\t605844\t13q12-q14"
+      },
+      "{Dermatitis, atopic, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Dermatitis, atopic, susceptibility to, 6} (2)\tATOD6\t605845\t5q31-q33"
+      },
+      "{Dermatitis, atopic, susceptibility to, 7}": {
+        "morbidmap.txt_original_row": "{Dermatitis, atopic, susceptibility to, 7} (2)\tATOD7\t613064\t11q13.5"
+      },
+      "{Dermatitis, atopic, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Dermatitis, atopic, susceptibility to, 8} (2)\tATOD8\t613518\t4q22.1"
+      },
+      "{Dermatitis, atopic, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Dermatitis, atopic, susceptibility to, 9} (2)\tATOD9\t613519\t3p24"
+      },
+      "{Diabetes mellitus, insulin-dependent, 11}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 11} (2)\tIDDM11\t601208\t14q24.3-q31"
+      },
+      "{Diabetes mellitus, insulin-dependent, 13}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 13} (2)\tIDDM13\t601318\t2q34"
+      },
+      "{Diabetes mellitus, insulin-dependent, 15}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 15} (2)\tIDDM15\t601666\t6q21"
+      },
+      "{Diabetes mellitus, insulin-dependent, 17}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 17} (2)\tIDDM17\t603266\t10q25"
+      },
+      "{Diabetes mellitus, insulin-dependent, 18}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 18} (2)\tIDDM18\t605598\t5q31.1-q33.1"
+      },
+      "{Diabetes mellitus, insulin-dependent, 19}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 19} (2)\tIDDM19\t610155\t2q24.3"
+      },
+      "{Diabetes mellitus, insulin-dependent, 21}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 21} (2)\tIDDM21\t612521\t6q25"
+      },
+      "{Diabetes mellitus, insulin-dependent, 23}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 23} (2)\tIDDM23\t612622\t4q27"
+      },
+      "{Diabetes mellitus, insulin-dependent, 24}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 24} (2)\tIDDM24\t613006\t10q23.31"
+      },
+      "{Diabetes mellitus, insulin-dependent, 3}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 3} (2)\tIDDM3\t600318\t15q26"
+      },
+      "{Diabetes mellitus, insulin-dependent, 4}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 4} (2)\tIDDM4\t600319\t11q13"
+      },
+      "{Diabetes mellitus, insulin-dependent, 6}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 6} (2)\tIDDM6\t601941\t18q21"
+      },
+      "{Diabetes mellitus, insulin-dependent, 7}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 7} (2)\tIDDM7\t600321\t2q31"
+      },
+      "{Diabetes mellitus, insulin-dependent, 8}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, 8} (2)\tIDDM8\t600883\t6q25-q27"
+      },
+      "{Diabetes mellitus, insulin-dependent, X-linked}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent, X-linked} (2)\tIDDMX\t300136\tXp11"
+      },
+      "{Diabetes mellitus, insulin-dependent-1}": {
+        "morbidmap.txt_original_row": "{Diabetes mellitus, insulin-dependent-1} (2)\tIDDM1\t222100\t6p21.3"
+      },
+      "{Diphtheria, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Diphtheria, susceptibility to} (1)\tHBEGF, DTR, DTSF, HEGFL\t126150\t5q31.3"
+      },
+      "{Dyslexia, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Dyslexia, susceptibility to, 2} (2)\tDYX2\t600202\t6p22-p21"
+      },
+      "{Dyslexia, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Dyslexia, susceptibility to, 3} (2)\tDYX3\t604254\t2p16-p15"
+      },
+      "{Dyslexia, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Dyslexia, susceptibility to, 5} (2)\tDYX5\t606896\t3p12-q13"
+      },
+      "{Dyslexia, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Dyslexia, susceptibility to, 6} (2)\tDYX6, DYXQTL18\t606616\t18p11.2"
+      },
+      "{Dyslexia, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Dyslexia, susceptibility to, 8} (2)\tDYX8\t608995\t1p36-p34"
+      },
+      "{Dyslexia, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Dyslexia, susceptibility to, 9} (2)\tDYX9\t300509\tXq27.3"
+      },
+      "{Endometriosis, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Endometriosis, susceptibility to, 1} (2)\tENDO1\t131200\t10q26"
+      },
+      "{Epilepsy, idiopathic generalized, susceptibility to 4}": {
+        "morbidmap.txt_original_row": "{Epilepsy, idiopathic generalized, susceptibility to 4} (2)\tEIG4\t609750\t10q25-q26"
+      },
+      "{Epilepsy, idiopathic generalized, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Epilepsy, idiopathic generalized, susceptibility to, 1} (2)\tEIG1\t600669\t8q24"
+      },
+      "{Epilepsy, idiopathic generalized, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Epilepsy, idiopathic generalized, susceptibility to, 2} (2)\tEIG2\t606972\t14q23"
+      },
+      "{Epilepsy, idiopathic generalized, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Epilepsy, idiopathic generalized, susceptibility to, 3} (2)\tEIG3\t608762\t9q32-q33"
+      },
+      "{Epilepsy, idiopathic generalized, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Epilepsy, idiopathic generalized, susceptibility to, 5} (2)\tEIG5\t611934\t10p11.22"
+      },
+      "{Epilepsy, juvenile myoclonic, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Epilepsy, juvenile myoclonic, susceptibility to, 9} (2)\tEJM9\t614280\t2q33-q36"
+      },
+      "{Esophagitis, eosinophilic, 1}": {
+        "morbidmap.txt_original_row": "{Esophagitis, eosinophilic, 1} (2)\tEOE1, EE\t610247\t7q11.2"
+      },
+      "{Esophagitis, eosinophilic, 2}": {
+        "morbidmap.txt_original_row": "{Esophagitis, eosinophilic, 2} (2)\tEOE2\t613412\t5q22"
+      },
+      "{Fatty liver disease, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Fatty liver disease, susceptibility to, 1} (2)\tFLD1, NAFLD1\t613282\t22q13"
+      },
+      "{Fatty liver disease, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Fatty liver disease, susceptibility to, 2} (2)\tFLD1, NAFLD2\t613387\t11q23"
+      },
+      "{Follicular lymphoma, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Follicular lymphoma, susceptibility to, 1} (2)\tFL1\t613024\t6p21.33"
+      },
+      "{Gene expression, variation in, QTL}": {
+        "morbidmap.txt_original_row": "{Gene expression, variation in, QTL} (2)\tGEVQ2\t608878\t20q13"
+      },
+      "{Glioma susceptibility 4}": {
+        "morbidmap.txt_original_row": "{Glioma susceptibility 4} (2)\tGLM4\t607248\t15q23-q26.3"
+      },
+      "{Glioma susceptibility 5}": {
+        "morbidmap.txt_original_row": "{Glioma susceptibility 5} (2)\tGLM5\t613030\t9p21.3"
+      },
+      "{Glioma susceptibility 6}": {
+        "morbidmap.txt_original_row": "{Glioma susceptibility 6} (2)\tGLM6\t613031\t20q13.33"
+      },
+      "{Glioma susceptibility 8}": {
+        "morbidmap.txt_original_row": "{Glioma susceptibility 8} (2)\tGLM8\t613033\t5p15.33"
+      },
+      "{Graves disease, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Graves disease, susceptibility to, 1} (2)\tGRD1\t275000\t14q31"
+      },
+      "{Graves disease, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Graves disease, susceptibility to, 2} (2)\tGRD2\t603388\t20q13.11"
+      },
+      "{Graves disease, susceptibility to, X-linked}": {
+        "morbidmap.txt_original_row": "{Graves disease, susceptibility to, X-linked} (2)\tGRDX, GD3\t300351\tXp11"
+      },
+      "{HIV infection, susceptibility/resistance to}": {
+        "morbidmap.txt_original_row": "{HIV infection, susceptibility/resistance to} (3)\tCCR2, CMKBR2\t601267\t3p21.31"
+      },
+      "{Hepatic fibrosis susceptibility due to Schistosoma mansoni infection}": {
+        "morbidmap.txt_original_row": "{Hepatic fibrosis susceptibility due to Schistosoma mansoni infection} (2)\tSM2\t604201\t6q22-q23"
+      },
+      "{High density lipoprotein cholesterol, low serum, 3}": {
+        "morbidmap.txt_original_row": "{High density lipoprotein cholesterol, low serum, 3} (2)\tHDLC3\t607687\t16q24.1"
+      },
+      "{Hirschsprung disease, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Hirschsprung disease, susceptibility to, 5} (2)\tHSCR5\t600156\t9q31"
+      },
+      "{Hirschsprung disease, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Hirschsprung disease, susceptibility to, 6} (2)\tHSCR6\t606874\t3p21"
+      },
+      "{Hirschsprung disease, susceptibility to, 7}": {
+        "morbidmap.txt_original_row": "{Hirschsprung disease, susceptibility to, 7} (2)\tHSCR7\t606875\t19q12"
+      },
+      "{Hirschsprung disease, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Hirschsprung disease, susceptibility to, 8} (2)\tHSCR8\t608462\t16q23"
+      },
+      "{Hirschsprung disease, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Hirschsprung disease, susceptibility to, 9} (2)\tHSCR9\t611644\t4q31.3-q32.3"
+      },
+      "{Hodgkin disease susceptibility, pseudoautosomal}": {
+        "morbidmap.txt_original_row": "{Hodgkin disease susceptibility, pseudoautosomal} (2)\tHDPA\t300221\tXpter-p22.32"
+      },
+      "{Human coronavirus sensitivity}": {
+        "morbidmap.txt_original_row": "{Human coronavirus sensitivity} (2)\tHCVS\t122460\t15q11-qter"
+      },
+      "{Human herpesvirus 8, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Human herpesvirus 8, susceptibility to} (2)\tHHV8S\t614836\t3p22"
+      },
+      "{Hyperapobetalipoproteinemia, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Hyperapobetalipoproteinemia, susceptibility to} (3)\tPPARA, PPAR\t170998\t22q13.31"
+      },
+      "{Hypertension, essential, susceptibility to, 7}": {
+        "morbidmap.txt_original_row": "{Hypertension, essential, susceptibility to, 7} (2)\tHYT7\t610948\t3p14.1-q12.3"
+      },
+      "{Hypertension, essential, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Hypertension, essential, susceptibility to, 8} (2)\tHYT8\t611014\t18q21.2"
+      },
+      "{Hypospadias 4, X-linked, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Hypospadias 4, X-linked, susceptibility to} (2)\tHYSP4\t300856\tXp11.22"
+      },
+      "{IgA nephropathy, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{IgA nephropathy, susceptibility to, 1} (2)\tIGAN1\t161950\t6q22-q23"
+      },
+      "{IgA nephropathy, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{IgA nephropathy, susceptibility to, 2} (2)\tIGAN2\t613944\t2q36"
+      },
+      "{Inflammatory bowel disease 11}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 11} (2)\tIBD11\t191390\t7q22"
+      },
+      "{Inflammatory bowel disease 12}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 12} (2)\tIBD12\t612241\t3p21.3"
+      },
+      "{Inflammatory bowel disease 15}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 15} (2)\tIBD15\t612255\t10q21"
+      },
+      "{Inflammatory bowel disease 16}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 16} (2)\tIBD16\t612259\t9q32"
+      },
+      "{Inflammatory bowel disease 18}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 18} (2)\tIBD18\t612262\t5p13.1"
+      },
+      "{Inflammatory bowel disease 20}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 20} (2)\tIBD20\t612288\t10q23-q24"
+      },
+      "{Inflammatory bowel disease 21}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 21} (2)\tIBD21\t612354\t18p11"
+      },
+      "{Inflammatory bowel disease 22}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 22} (2)\tIBD22\t612380\t17q21.2"
+      },
+      "{Inflammatory bowel disease 23}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 23} (2)\tIBD23\t612381\t1q32.1"
+      },
+      "{Inflammatory bowel disease 24}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 24} (2)\tIBD24\t612566\t20q13"
+      },
+      "{Inflammatory bowel disease 26}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 26} (2)\tIBD26\t612639\t12q15"
+      },
+      "{Inflammatory bowel disease 27}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 27} (2)\tIBD27\t612796\t13q13.3"
+      },
+      "{Inflammatory bowel disease 2}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 2} (2)\tIBD2\t601458\t12p13.2-q24.1"
+      },
+      "{Inflammatory bowel disease 3}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 3} (2)\tIBD3\t604519\t6p21.3"
+      },
+      "{Inflammatory bowel disease 4}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 4} (2)\tIBD4\t606675\t14q11-q12"
+      },
+      "{Inflammatory bowel disease 5}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 5} (2)\tIBD5\t606348\t5q31"
+      },
+      "{Inflammatory bowel disease 6}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 6} (2)\tIBD6\t606674\t19p13"
+      },
+      "{Inflammatory bowel disease 7}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 7} (2)\tIBD7\t605225\t1p36"
+      },
+      "{Inflammatory bowel disease 8}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 8} (2)\tIBD8\t606668\t16p"
+      },
+      "{Inflammatory bowel disease 9}": {
+        "morbidmap.txt_original_row": "{Inflammatory bowel disease 9} (2)\tIBD9\t608448\t3p26"
+      },
+      "{Intelligence QTL1}": {
+        "morbidmap.txt_original_row": "{Intelligence QTL1} (2)\tINTLQ1\t603783\t4p16-q34"
+      },
+      "{Intelligence QTL3}": {
+        "morbidmap.txt_original_row": "{Intelligence QTL3} (2)\tINTLQ3\t610294\t6p25.3-p22.3"
+      },
+      "{Kala-azar, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Kala-azar, susceptibility to, 1} (2)\tKAZA1\t608207\t22q12"
+      },
+      "{Kala-azar, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Kala-azar, susceptibility to, 2} (2)\tKAZA2\t611381\t1p22"
+      },
+      "{Kala-azar, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Kala-azar, susceptibility to, 3} (2)\tKAZA3\t611382\t6q27"
+      },
+      "{Leprosy, paucibacillary type, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Leprosy, paucibacillary type, susceptibility to} (2)\tLPRS\t609888\t10p13"
+      },
+      "{Leprosy, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Leprosy, susceptibility to, 2} (2)\tLPRS2\t607572\t6q25"
+      },
+      "{Leprosy, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Leprosy, susceptibility to, 6} (2)\tLPRS6\t613407\t13q14.11"
+      },
+      "{Leukemia, acute lymphoblastic, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Leukemia, acute lymphoblastic, susceptibility to, 2} (2)\tALL2\t613067\t7p12.2"
+      },
+      "{Leukemia, acute lymphocytic, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Leukemia, acute lymphocytic, susceptibility to, 1} (2)\tALL1\t613065\t10q21"
+      },
+      "{Leukemia, chronic lymphocytic susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Leukemia, chronic lymphocytic susceptibility to, 4} (2)\tCLLS4\t612558\t6p25"
+      },
+      "{Leukemia, chronic lymphocytic susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Leukemia, chronic lymphocytic susceptibility to, 5} (2)\tCLLS5\t612559\t11q24.1"
+      },
+      "{Leukemia, chronic lymphocytic, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Leukemia, chronic lymphocytic, susceptibility to, 1} (2)\tCLLS1\t609630\t11p11"
+      },
+      "{Leukemia, chronic lymphocytic, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Leukemia, chronic lymphocytic, susceptibility to, 2} (2)\tCLLS2, D13S25, DBM\t109543\t13q14"
+      },
+      "{Leukemia, chronic lymphocytic, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Leukemia, chronic lymphocytic, susceptibility to, 3} (2)\tCLLS3\t612557\t9q34.1"
+      },
+      "{Lung cancer susceptibility 3}": {
+        "morbidmap.txt_original_row": "{Lung cancer susceptibility 3} (2)\tLNCR3\t612571\t5p15.33"
+      },
+      "{Lung cancer susceptibility 4}": {
+        "morbidmap.txt_original_row": "{Lung cancer susceptibility 4} (2)\tLNCR4\t612593\t6p21.33"
+      },
+      "{Lung cancer susceptibility 5}": {
+        "morbidmap.txt_original_row": "{Lung cancer susceptibility 5} (2)\tLNCR5\t614210\t3q28"
+      },
+      "{Lung cancer susceptibility}": {
+        "morbidmap.txt_original_row": "{Lung cancer susceptibility} (2)\tLNCR1\t608935\t6q23-q25"
+      },
+      "{Lysis by alloreactive natural killer cells, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Lysis by alloreactive natural killer cells, susceptibility to} (2)\tNKS1, EC1\t272370\t6p21.3"
+      },
+      "{Macroglobulinemia, Waldenstrom, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Macroglobulinemia, Waldenstrom, susceptibility to, 2} (2)\tWM2\t610430\t4q"
+      },
+      "{Major affective disorder 1}": {
+        "morbidmap.txt_original_row": "{Major affective disorder 1} (2)\tMAFD1, BPAD, MD1\t125480\t18p"
+      },
+      "{Major affective disorder 3, early onset}": {
+        "morbidmap.txt_original_row": "{Major affective disorder 3, early onset} (2)\tMAFD3, BPEO\t609633\t21q22.13"
+      },
+      "{Major affective disorder 5}": {
+        "morbidmap.txt_original_row": "{Major affective disorder 5} (2)\tMAFD5\t611535\t2q22-q24"
+      },
+      "{Major affective disorder 6}": {
+        "morbidmap.txt_original_row": "{Major affective disorder 6} (2)\tMAFD6, BPAD\t611536\t6q23-q24"
+      },
+      "{Major affective disorder-8, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Major affective disorder-8, susceptibility to} (2)\tMAFD8\t612357\t10q21"
+      },
+      "{Major affective disorder-9, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Major affective disorder-9, susceptibility to} (2)\tMAFD9\t612372\t12p13.3"
+      },
+      "{Malaria, intensity of infection}": {
+        "morbidmap.txt_original_row": "{Malaria, intensity of infection} (2)\tPFBI\t248310\t5q31-q33"
+      },
+      "{Malignant hyperthermia susceptibility 2}": {
+        "morbidmap.txt_original_row": "{Malignant hyperthermia susceptibility 2} (2)\tMHS2\t154275\t17q11.2-q24"
+      },
+      "{Malignant hyperthermia susceptibility 3}": {
+        "morbidmap.txt_original_row": "{Malignant hyperthermia susceptibility 3} (2)\tMHS3\t154276\t7q21-q22"
+      },
+      "{Malignant hyperthermia susceptibility 4}": {
+        "morbidmap.txt_original_row": "{Malignant hyperthermia susceptibility 4} (2)\tMHS4\t600467\t3q13.1"
+      },
+      "{Malignant hyperthermia susceptibility 6}": {
+        "morbidmap.txt_original_row": "{Malignant hyperthermia susceptibility 6} (2)\tMHS6\t601888\t5p"
+      },
+      "{Meconium ileus in cystic fibrosis, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Meconium ileus in cystic fibrosis, susceptibility to} (2)\tCFM1\t603855\t19q13.2-q13.4"
+      },
+      "{Melanoma, cutaneous malignant, 1}": {
+        "morbidmap.txt_original_row": "{Melanoma, cutaneous malignant, 1} (2)\tCMM, MLM, DNS\t155600\t1p36"
+      },
+      "{Melanoma, cutaneous malignant, 4}": {
+        "morbidmap.txt_original_row": "{Melanoma, cutaneous malignant, 4} (2)\tCMM4\t608035\t1p22"
+      },
+      "{Melanoma, cutaneous malignant, 7}": {
+        "morbidmap.txt_original_row": "{Melanoma, cutaneous malignant, 7} (2)\tCMM7\t612263\t20q11.2"
+      },
+      "{Melanoma, uveal, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Melanoma, uveal, susceptibility to, 2} (2)\tUVM2\t606661\t3p25.2-p25.1"
+      },
+      "{Menarche, age at, QTL2}": {
+        "morbidmap.txt_original_row": "{Menarche, age at, QTL2} (2)\tMENAQ2\t612882\t6q21"
+      },
+      "{Menarche, age at, QTL3}": {
+        "morbidmap.txt_original_row": "{Menarche, age at, QTL3} (2)\tMENAQ3\t612883\t9q31.2"
+      },
+      "{Menarche, age at, QTL}": {
+        "morbidmap.txt_original_row": "{Menarche, age at, QTL} (2)\tMENAQ1\t610873\t22q13"
+      },
+      "{Menopause, natural, age at, QTL1}": {
+        "morbidmap.txt_original_row": "{Menopause, natural, age at, QTL1} (2)\tMENOQ1\t300488\tXp21.3"
+      },
+      "{Menopause, natural, age at, QTL2}": {
+        "morbidmap.txt_original_row": "{Menopause, natural, age at, QTL2} (2)\tMENOQ2\t612884\t19q13.4"
+      },
+      "{Menopause, natural, age at, QTL4}": {
+        "morbidmap.txt_original_row": "{Menopause, natural, age at, QTL4} (2)\tMENOQ4\t612886\t5q35.2"
+      },
+      "{Mental health wellness-1}": {
+        "morbidmap.txt_original_row": "{Mental health wellness-1} (2)\tMHW1\t603663\t4p"
+      },
+      "{Mental health wellness-2}": {
+        "morbidmap.txt_original_row": "{Mental health wellness-2} (2)\tMHW2\t603664\t4q"
+      },
+      "{Migraine with aura, susceptibility to, 7}": {
+        "morbidmap.txt_original_row": "{Migraine with aura, susceptibility to, 7} (2)\tMGR7\t609179\t15q11.2-q12"
+      },
+      "{Migraine with aura, susceptibility to, 9}": {
+        "morbidmap.txt_original_row": "{Migraine with aura, susceptibility to, 9} (2)\tMGR9\t609670\t11q24"
+      },
+      "{Migraine with or without aura, susceptibility to, 10}": {
+        "morbidmap.txt_original_row": "{Migraine with or without aura, susceptibility to, 10} (2)\tMGR10\t610208\t17p13.1"
+      },
+      "{Migraine with or without aura, susceptibility to, 11}": {
+        "morbidmap.txt_original_row": "{Migraine with or without aura, susceptibility to, 11} (2)\tMGR11\t610209\t18q12.1"
+      },
+      "{Migraine with or without aura, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Migraine with or without aura, susceptibility to, 1} (2)\tMGR1, MA\t157300\t4q24"
+      },
+      "{Migraine with or without aura, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Migraine with or without aura, susceptibility to, 3} (2)\tMGR3\t607498\t6p21.1-p12.2"
+      },
+      "{Migraine with or without aura, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Migraine with or without aura, susceptibility to, 5} (2)\tMGR5\t607508\t19p13"
+      },
+      "{Migraine without aura, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Migraine without aura, susceptibility to, 4} (2)\tMGR4, MGOA\t607501\t14q21.2-q22.3"
+      },
+      "{Migraine, familial typical, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Migraine, familial typical, susceptibility to, 2} (2)\tMGR2\t300125\tXq"
+      },
+      "{Migraine, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Migraine, susceptibility to, 8} (2)\tMGR8\t609570\t5q21"
+      },
+      "{Migraine, with or without aura, susceptibility to, 12}": {
+        "morbidmap.txt_original_row": "{Migraine, with or without aura, susceptibility to, 12} (2)\tMGR12\t611706\t10q22-q23"
+      },
+      "{Multiple sclerosis, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Multiple sclerosis, susceptibility to, 2} (2)\tMS2\t612594\t10p15.1"
+      },
+      "{Multiple sclerosis, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Multiple sclerosis, susceptibility to, 3} (2)\tMS3\t612595\t5p13.2"
+      },
+      "{Multiple sclerosis, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Multiple sclerosis, susceptibility to, 4} (2)\tMS4\t612596\t1p36"
+      },
+      "{Mycobacterium tuberculosis, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Mycobacterium tuberculosis, susceptibility to, 2} (2)\tMTBS2\t611046\t8q12-q13"
+      },
+      "{Mycobacterium tuberculosis, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Mycobacterium tuberculosis, susceptibility to, 3} (2)\tMTBS3\t612929\t20q13.31-q13.33"
+      },
+      "{Mycobacterium tuberculosis, susceptibility, X-linked}": {
+        "morbidmap.txt_original_row": "{Mycobacterium tuberculosis, susceptibility, X-linked} (2)\tMTBSX\t300259\tXq"
+      },
+      "{Myeloproliferative neoplasms, familial, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Myeloproliferative neoplasms, familial, susceptibility to} (4)\tDUP14q32, C14DUPq32\t616604\t14q32"
+      },
+      "{Myocardial infarction, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Myocardial infarction, susceptibility to, 2} (2)\tMCI2\t608557\t13q12"
+      },
+      "{Narcolepsy 4}": {
+        "morbidmap.txt_original_row": "{Narcolepsy 4} (2)\tNRCLP4\t612417\t22q13"
+      },
+      "{Narcolepsy 5}": {
+        "morbidmap.txt_original_row": "{Narcolepsy 5} (2)\tNRCLP5\t612851\t14q11.2"
+      },
+      "{Nasopharyngeal carcinoma 1}": {
+        "morbidmap.txt_original_row": "{Nasopharyngeal carcinoma 1} (2)\tNPC1, NPCA1\t607107\t4p15.1-q12"
+      },
+      "{Nasopharyngeal carcinoma, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Nasopharyngeal carcinoma, susceptibility to, 2} (2)\tNPCA2\t161550\t6p21.3"
+      },
+      "{Neuroblastoma, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Neuroblastoma, susceptibility to, 4} (2)\tNBLST4\t613015\t6p22"
+      },
+      "{Neuroblastoma, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Neuroblastoma, susceptibility to, 5} (2)\tNBLST5\t613016\t2q35"
+      },
+      "{Neuroblastoma, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Neuroblastoma, susceptibility to, 6} (2)\tNBLST6\t613017\t1q21.1"
+      },
+      "{Neuroblastoma, susceptibility to, 7}": {
+        "morbidmap.txt_original_row": "{Neuroblastoma, susceptibility to, 7} (2)\tNBLST7\t616792\t11p15"
+      },
+      "{Nonsmall cell lung cancer}": {
+        "morbidmap.txt_original_row": "{Nonsmall cell lung cancer} (2)\tTSG11\t603040\t11q23"
+      },
+      "{Obesity, susceptibility to, BMIQ11}": {
+        "morbidmap.txt_original_row": "{Obesity, susceptibility to, BMIQ11} (2)\tBMIQ11\t300306\tXq24"
+      },
+      "{Obesity, susceptibility to, BMIQ7}": {
+        "morbidmap.txt_original_row": "{Obesity, susceptibility to, BMIQ7} (2)\tBMIQ7\t608410\t4p15-p14"
+      },
+      "{Obesity, susceptibility to, BMIQ8}": {
+        "morbidmap.txt_original_row": "{Obesity, susceptibility to, BMIQ8} (2)\tBMIQ8\t603188\t10p"
+      },
+      "{Opioid dependence, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Opioid dependence, susceptibility to, 1} (2)\tODS1\t610064\tChr.17"
+      },
+      "{Osteoarthritis susceptibility 4}": {
+        "morbidmap.txt_original_row": "{Osteoarthritis susceptibility 4} (2)\tOS4, GOA1\t610839\t2q33.3"
+      },
+      "{Osteoarthritis susceptibility 6}": {
+        "morbidmap.txt_original_row": "{Osteoarthritis susceptibility 6} (2)\tOS6\t612401\t3p24.3"
+      },
+      "{Otosclerosis 4}": {
+        "morbidmap.txt_original_row": "{Otosclerosis 4} (2)\tOTSC4\t611571\t16q22.1-q23.1"
+      },
+      "{Ovarian cancer, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Ovarian cancer, susceptibility to} (2)\tOVCAS1\t607893\t3p25-p22"
+      },
+      "{Parkinson disease 10}": {
+        "morbidmap.txt_original_row": "{Parkinson disease 10} (2)\tPARK10, AAOPD\t606852\t1p32"
+      },
+      "{Parkinson disease 12}": {
+        "morbidmap.txt_original_row": "{Parkinson disease 12} (2)\tPARK12\t300557\tXq21-q25"
+      },
+      "{Parkinson disease 16}": {
+        "morbidmap.txt_original_row": "{Parkinson disease 16} (2)\tPARK16\t613164\t1q32"
+      },
+      "{Parkinson disease 3}": {
+        "morbidmap.txt_original_row": "{Parkinson disease 3} (2)\tPARK3\t602404\t2p13"
+      },
+      "{Patent ductus arteriosus, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Patent ductus arteriosus, susceptibility to} (2)\tPDA1\t607411\t12q24"
+      },
+      "{Pelvic organ prolapse, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Pelvic organ prolapse, susceptibility to, 1} (2)\tPVOP1\t176780\t1q31"
+      },
+      "{Pelvic organ prolapse, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Pelvic organ prolapse, susceptibility to, 2} (2)\tPVOP2\t613088\t9q21"
+      },
+      "{Plasmodium falciparum fever episodes QTL1}": {
+        "morbidmap.txt_original_row": "{Plasmodium falciparum fever episodes QTL1} (2)\tPFFE1\t611384\t10p15"
+      },
+      "{Podoconiosis, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Podoconiosis, susceptibility to} (2)\tPDCOS\t614590\t6p21.3"
+      },
+      "{Prostate cancer aggressiveness QTL}": {
+        "morbidmap.txt_original_row": "{Prostate cancer aggressiveness QTL} (2)\tHPCQTL19\t607592\t19q"
+      },
+      "{Prostate cancer, hereditary, 10}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, 10} (2)\tHPC10\t611100\t8q24"
+      },
+      "{Prostate cancer, hereditary, 11}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, 11} (2)\tHPC11\t611955\t17q12"
+      },
+      "{Prostate cancer, hereditary, 14}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, 14} (2)\tHPC14\t611958\t11q13"
+      },
+      "{Prostate cancer, hereditary, 15}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, 15} (2)\tHPC15\t611959\t19q13.4"
+      },
+      "{Prostate cancer, hereditary, 5}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, 5} (2)\tHPC5\t609299\t3p26"
+      },
+      "{Prostate cancer, hereditary, 7}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, 7} (2)\tHPC7\t610321\t15q12"
+      },
+      "{Prostate cancer, hereditary, 9}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, 9} (2)\tHPC9\t610997\t17q21-q22"
+      },
+      "{Prostate cancer, hereditary, X-linked 1}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, X-linked 1} (2)\tHPCX1\t300147\tXq27-q28"
+      },
+      "{Prostate cancer, hereditary, X-linked 2}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, hereditary, X-linked 2} (2)\tHPCX2\t300704\tXp11.22"
+      },
+      "{Prostate cancer, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, susceptibility to, 3} (2)\tHPC3\t608656\t20q13"
+      },
+      "{Prostate cancer, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, susceptibility to, 4} (2)\tHPC4\t608658\t7p11-q21"
+      },
+      "{Prostate cancer, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Prostate cancer, susceptibility to} (2)\tPCAP\t602759\t1q42.2-q43"
+      },
+      "{Psoriasis susceptibility 10}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 10} (2)\tPSORS10\t612410\t18p11.23"
+      },
+      "{Psoriasis susceptibility 11}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 11} (2)\tPSORS11\t612599\t5q31.1-q33.1"
+      },
+      "{Psoriasis susceptibility 12}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 12} (2)\tPSORS12\t612950\t20q13"
+      },
+      "{Psoriasis susceptibility 3}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 3} (2)\tPSORS3\t601454\t4q"
+      },
+      "{Psoriasis susceptibility 4}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 4} (2)\tPSORS4\t603935\t1q21"
+      },
+      "{Psoriasis susceptibility 5}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 5} (2)\tPSORS5\t604316\t3q21"
+      },
+      "{Psoriasis susceptibility 6}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 6} (2)\tPSORS6\t605364\t19p13"
+      },
+      "{Psoriasis susceptibility 7}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 7} (2)\tPSORS7\t605606\t1p"
+      },
+      "{Psoriasis susceptibility 8}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 8} (2)\tPSORS8\t610707\t16q"
+      },
+      "{Psoriasis susceptibility 9}": {
+        "morbidmap.txt_original_row": "{Psoriasis susceptibility 9} (2)\tPSORS9\t607857\t4q31-q34"
+      },
+      "{Pulmonary function}": {
+        "morbidmap.txt_original_row": "{Pulmonary function} (2)\tPLF\t608852\t6q21-q22"
+      },
+      "{Pulmonary hypertension, chronic thromboembolic, without deep vein thrombosis, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Pulmonary hypertension, chronic thromboembolic, without deep vein thrombosis, susceptibility to} (2)\tCTEPH1\t612862\t6p21.3"
+      },
+      "{Restless legs syndrome 1}": {
+        "morbidmap.txt_original_row": "{Restless legs syndrome 1} (2)\tRLS1\t102300\t12q12-q21"
+      },
+      "{Restless legs syndrome 2}": {
+        "morbidmap.txt_original_row": "{Restless legs syndrome 2} (2)\tRLS2\t608831\t14q13-q21"
+      },
+      "{Restless legs syndrome 3}": {
+        "morbidmap.txt_original_row": "{Restless legs syndrome 3} (2)\tRLS3\t610438\t9p24-p22"
+      },
+      "{Restless legs syndrome 4}": {
+        "morbidmap.txt_original_row": "{Restless legs syndrome 4} (2)\tRLS4\t610439\t2q33"
+      },
+      "{Restless legs syndrome 5}": {
+        "morbidmap.txt_original_row": "{Restless legs syndrome 5} (2)\tRLS5\t611242\t20p13"
+      },
+      "{Restless legs syndrome 6}": {
+        "morbidmap.txt_original_row": "{Restless legs syndrome 6} (2)\tRLS6\t611185\t6p21"
+      },
+      "{Restless legs syndrome 7}": {
+        "morbidmap.txt_original_row": "{Restless legs syndrome 7} (2)\tRLS7\t612853\t2p14-p13"
+      },
+      "{Restless legs syndrome 8}": {
+        "morbidmap.txt_original_row": "{Restless legs syndrome 8} (2)\tRLS8\t615197\t5q31"
+      },
+      "{Rheumatoid arthritis, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Rheumatoid arthritis, susceptibility to} (2)\tRA\t180300\t6q23"
+      },
+      "{Sarcoidosis, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Sarcoidosis, susceptibility to, 3} (2)\tSS3\t612388\t10q22.3"
+      },
+      "{Schistosoma mansoni infection, susceptibility/resistance to}": {
+        "morbidmap.txt_original_row": "{Schistosoma mansoni infection, susceptibility/resistance to} (2)\tSM1\t181460\t5q31-q33"
+      },
+      "{Schizophrenia 10}": {
+        "morbidmap.txt_original_row": "{Schizophrenia 10} (2)\tSCZD10\t605419\t15q15"
+      },
+      "{Schizophrenia, susceptibility to, 13}": {
+        "morbidmap.txt_original_row": "{Schizophrenia, susceptibility to, 13} (2)\tSCZD13\t613025\t15q13"
+      },
+      "{Schizophrenia, susceptibility to, 14}": {
+        "morbidmap.txt_original_row": "{Schizophrenia, susceptibility to, 14} (2)\tSCZD14\t612361\t2q32.1"
+      },
+      "{Scoliosis, idiopathic, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Scoliosis, idiopathic, susceptibility to, 4} (2)\tIS4\t612238\t9q31.2-q34.2"
+      },
+      "{Scoliosis, idiopathic, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Scoliosis, idiopathic, susceptibility to, 5} (2)\tIS5\t612239\t17q25.3"
+      },
+      "{Scoliosis, isolated, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Scoliosis, isolated, susceptibility to, 3} (2)\tIS3\t608765\t8q12"
+      },
+      "{Sepsis, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Sepsis, susceptibility to} (3)\tCASP12, CASP12P1\t608633\t11q22.3"
+      },
+      "{Smoking as a quantitative trait locus 1}": {
+        "morbidmap.txt_original_row": "{Smoking as a quantitative trait locus 1} (2)\tSQTL1\t611003\t10q22"
+      },
+      "{Smoking as a quantitative trait locus 2}": {
+        "morbidmap.txt_original_row": "{Smoking as a quantitative trait locus 2} (2)\tSQTL2\t611004\t22q12"
+      },
+      "{Specific language impairment 4}": {
+        "morbidmap.txt_original_row": "{Specific language impairment 4} (2)\tSLI4\t612514\t7q35-q36"
+      },
+      "{Speech-sound disorder}": {
+        "morbidmap.txt_original_row": "{Speech-sound disorder} (2)\tSSD\t608445\t3p12-q13"
+      },
+      "{Spermatogenic failure, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Spermatogenic failure, susceptibility to} (3)\tDAZL, DAZH, SPGYLA\t601486\t3p24.3"
+      },
+      "{Spondyloarthropathy, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Spondyloarthropathy, susceptibility to, 2} (2)\tSPDA2\t183840\t9q31-q34"
+      },
+      "{Spondyloarthropathy, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Spondyloarthropathy, susceptibility to, 3} (2)\tSPDA3\t613238\t2q36.1-q36.3"
+      },
+      "{Stature QTL 10}": {
+        "morbidmap.txt_original_row": "{Stature QTL 10} (2)\tSTQTL10\t612221\t3q23"
+      },
+      "{Stature QTL 11}": {
+        "morbidmap.txt_original_row": "{Stature QTL 11} (2)\tSTQTL11\t612223\t7q21"
+      },
+      "{Stature QTL 12}": {
+        "morbidmap.txt_original_row": "{Stature QTL 12} (2)\tSTQTL12\t612224\t4q31"
+      },
+      "{Stature QTL 13}": {
+        "morbidmap.txt_original_row": "{Stature QTL 13} (2)\tSTQTL13\t612226\t4p15.3"
+      },
+      "{Stature QTL 14}": {
+        "morbidmap.txt_original_row": "{Stature QTL 14} (2)\tSTQTL14\t612228\t20q11.22"
+      },
+      "{Stature QTL 15}": {
+        "morbidmap.txt_original_row": "{Stature QTL 15} (2)\tSTQTL15\t612578\t8q21.13"
+      },
+      "{Stature QTL 16}": {
+        "morbidmap.txt_original_row": "{Stature QTL 16} (2)\tSTQTL16\t612579\t15q22.32"
+      },
+      "{Stature QTL 17}": {
+        "morbidmap.txt_original_row": "{Stature QTL 17} (2)\tSTQTL17\t612737\t7p15"
+      },
+      "{Stature QTL 18}": {
+        "morbidmap.txt_original_row": "{Stature QTL 18} (2)\tSTQTL18\t612892\t6p22.1"
+      },
+      "{Stature QTL 19}": {
+        "morbidmap.txt_original_row": "{Stature QTL 19} (2)\tSTQTL19\t612893\t6p21.31"
+      },
+      "{Stature QTL 1}": {
+        "morbidmap.txt_original_row": "{Stature QTL 1} (2)\tSTQTL1\t606255\t6q24-q25"
+      },
+      "{Stature QTL 20}": {
+        "morbidmap.txt_original_row": "{Stature QTL 20} (2)\tSTQTL20\t612894\t13q14.3"
+      },
+      "{Stature QTL 21}": {
+        "morbidmap.txt_original_row": "{Stature QTL 21} (2)\tSTQTL21\t613440\t2q37.1"
+      },
+      "{Stature QTL 22}": {
+        "morbidmap.txt_original_row": "{Stature QTL 22} (2)\tSTQTL22\t613547\t16q24"
+      },
+      "{Stature QTL 23}": {
+        "morbidmap.txt_original_row": "{Stature QTL 23} (2)\tSTQTL23\t613548\t1p32"
+      },
+      "{Stature QTL 24}": {
+        "morbidmap.txt_original_row": "{Stature QTL 24} (2)\tSTQTL24\t613549\t2p16"
+      },
+      "{Stature QTL 2}": {
+        "morbidmap.txt_original_row": "{Stature QTL 2} (2)\tSTQTL2\t606256\t7q31.3"
+      },
+      "{Stature QTL 3}": {
+        "morbidmap.txt_original_row": "{Stature QTL 3} (2)\tSTQTL3\t606257\t12p11.2-q14"
+      },
+      "{Stature QTL 4}": {
+        "morbidmap.txt_original_row": "{Stature QTL 4} (2)\tSTQTL4\t606258\t13q32-q33"
+      },
+      "{Stature QTL 5}": {
+        "morbidmap.txt_original_row": "{Stature QTL 5} (2)\tSTQTL5\t608982\t3p26"
+      },
+      "{Stature QTL 6}": {
+        "morbidmap.txt_original_row": "{Stature QTL 6} (2)\tSTQTL6\t300591\tXq24-q25"
+      },
+      "{Stature QTL 7}": {
+        "morbidmap.txt_original_row": "{Stature QTL 7} (2)\tSTQTL7\t609822\t1p21"
+      },
+      "{Stature QTL 8}": {
+        "morbidmap.txt_original_row": "{Stature QTL 8} (2)\tSTQTL8\t610114\t9q22"
+      },
+      "{Stature QTL 9}": {
+        "morbidmap.txt_original_row": "{Stature QTL 9} (2)\tSTQTL9\t611547\t12q14.3"
+      },
+      "{Strabismus, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Strabismus, susceptibility to, 1} (2)\tSTBMS1\t185100\t7p22.1"
+      },
+      "{Stroke, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Stroke, susceptibility to, 1} (2)\tSTRK1\t606799\t5q12"
+      },
+      "{Systemic lupus erythematosus with hemolytic anemia}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus with hemolytic anemia} (2)\tSLEH1\t607279\t11q14"
+      },
+      "{Systemic lupus erythematosus with nephritis, susceptibility to, 1}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus with nephritis, susceptibility to, 1} (2)\tSLEN1\t607965\t10q22.3"
+      },
+      "{Systemic lupus erythematosus with nephritis, susceptibility to, 2}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus with nephritis, susceptibility to, 2} (2)\tSLEN2\t607966\t2q34-q35"
+      },
+      "{Systemic lupus erythematosus with nephritis, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus with nephritis, susceptibility to, 3} (2)\tSLEN3\t607967\t11p15.5"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 12}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 12} (2)\tSLEB12\t612254\t8p23.1"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 13}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 13} (2)\tSLEB13\t612378\t6q23"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 14}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 14} (2)\tSLEB14\t613145\t1q21-q23"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 15}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 15} (2)\tSLEB15\t300809\tXq28"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 3} (2)\tSLEB3\t605480\t4p16-p15.2"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 4}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 4} (2)\tSLEB4\t608437\t12q24"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 5}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 5} (2)\tSLEB5\t609903\t13q32"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 6}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 6} (2)\tSLEB6\t609939\t16p12.3-q12.2"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 7}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 7} (2)\tSLEB7\t610065\t20p12"
+      },
+      "{Systemic lupus erythematosus, susceptibility to, 8}": {
+        "morbidmap.txt_original_row": "{Systemic lupus erythematosus, susceptibility to, 8} (2)\tSLEB8\t610066\t20q13"
+      },
+      "{T-cell acute lymphoblastic leukemia}": {
+        "morbidmap.txt_original_row": "{T-cell acute lymphoblastic leukemia} (3)\tMYB\t189990\t6q23.3"
+      },
+      "{Thyroid carcinoma, nonmedullary, 3}": {
+        "morbidmap.txt_original_row": "{Thyroid carcinoma, nonmedullary, 3} (2)\tNMTC3\t606240\t2q21"
+      },
+      "{Thyrotoxic periodic paralysis, susceptibility to, 3}": {
+        "morbidmap.txt_original_row": "{Thyrotoxic periodic paralysis, susceptibility to, 3} (2)\tTTPP3\t614834\t17q24.3"
+      },
+      "{Tuberculosis, susceptibility to}": {
+        "morbidmap.txt_original_row": "{Tuberculosis, susceptibility to} (2)\tMTBS1\t607949\t2q35"
+      },
+      "{Type 2 diabetes mellitus 3}": {
+        "morbidmap.txt_original_row": "{Type 2 diabetes mellitus 3} (2)\tT2D3\t603694\t20q12-q13.1"
+      },
+      "{Vitamin B6 plasma level QTL 1}": {
+        "morbidmap.txt_original_row": "{Vitamin B6 plasma level QTL 1} (2)\tB6QTL1\t612957\t1p36.12"
+      },
+      "{Vitiligo-associated multiple autoimmune disease susceptibility 6}": {
+        "morbidmap.txt_original_row": "{Vitiligo-associated multiple autoimmune disease susceptibility 6} (2)\tVAMAS6\t193200\t6p21.3"
+      }
+    }
+  }
+}
