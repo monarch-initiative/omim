@@ -45,21 +45,22 @@ todo: The downloads should all happen at beginning of script
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
 """
-import sys
 import yaml
 from hashlib import md5
 
-# from rdflib import Graph, URIRef, RDF, OWL, RDFS, Literal, Namespace, DC, BNode
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, \
     get_mapped_ids, LabelCleaner
-# from omim2obo.omim_client import OmimClient
 from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
 from omim2obo.parsers.omim_txt_parser import *
-# from omim2obo.omim_code_scraper.omim_code_scraper import get_codes_by_yyyy_mm
+
+
+# Vars
+OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
+ISSUES_OUTPATH = os.path.join(ROOT_DIR, 'omimIssues.json')
 
 
 # Logging
@@ -109,11 +110,15 @@ TAX_ID = GLOBAL_TERMS[TAX_LABEL]
 TAX_URI = URIRef(NCBITAXON + TAX_ID.split(':')[1])
 CURIE_MAP = get_curie_maps()
 label_cleaner = LabelCleaner()
+CONFIG = {
+    'verbose': False
+}
 
 
 # Main
 def run(use_cache: bool = False):
     """Run program"""
+    issues = {}
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
 
@@ -123,12 +128,13 @@ def run(use_cache: bool = False):
 
     # Parse mimTitles.txt
     # - Get id's, titles, and type
-    omim_titles, omim_replaced = parse_mim_titles(retrieve_mim_file(
+    omim_titles, omim_replaced = parse_mim_titles(get_mim_file(
         'mimTitles.txt', download_files_tf))
     omim_ids = list(omim_titles.keys())
 
-    LOG.info('Tot MIM numbers from mimTitles.txt: %i', len(omim_ids))
-    LOG.info('Tot MIM types: %i', len(omim_titles))
+    if CONFIG['verbose']:
+        LOG.info('Tot MIM numbers from mimTitles.txt: %i', len(omim_ids))
+        LOG.info('Tot MIM types: %i', len(omim_titles))
 
     # Populate graph
     # - Non-OMIM triples
@@ -145,24 +151,31 @@ def run(use_cache: bool = False):
 
         # - Deprecated classes
         if omim_replaced.get(omim_id, None) is not None:
-            graph.add((OMIM[omim_id], OWL.deprecated, Literal(True)))
+            graph.add((omim_uri, OWL.deprecated, Literal(True)))
             label_ids = omim_replaced[omim_id]
             if len(label_ids) == 1:
                 # IAO:0100001 means: "term replaced by"
-                graph.add((OMIM[omim_id], IAO['0100001'], OMIM[label_ids[0]]))
+                graph.add((omim_uri, IAO['0100001'], OMIM[label_ids[0]]))
             elif len(label_ids) > 1:
                 for replaced_mim_num in label_ids:
-                    graph.add((OMIM[omim_id], oboInOwl.consider, OMIM[replaced_mim_num]))
+                    graph.add((omim_uri, oboInOwl.consider, OMIM[replaced_mim_num]))
             continue
 
         # - Non-deprecated
-        omim_type, pref_label, alt_label, inc_label = omim_titles[omim_id]
+        omim_type, pref_label, alt_labels, inc_labels = omim_titles[omim_id]
         label = pref_label
         other_labels = []
-        if alt_label:
-            other_labels += get_alt_labels(alt_label)
-        if inc_label:
-            other_labels += get_alt_labels(inc_label)
+        label_endswith_included_alt, label_endswith_included_inc = False, False
+        if alt_labels:
+            cleaned_alt_labels, label_endswith_included_alt = get_alt_labels(alt_labels)
+            other_labels += cleaned_alt_labels
+        if inc_labels:
+            cleaned_inc_labels, label_endswith_included_inc = get_alt_labels(inc_labels)
+            other_labels += cleaned_inc_labels
+
+        included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
+        if label_endswith_included_alt or label_endswith_included_inc:
+            graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
 
         use_abbrev_over_label = False
         abbrev = label.split(';')[1].strip() if ';' in label else None
@@ -180,7 +193,7 @@ def run(use_cache: bool = False):
             # All were 'OmimType.SUSPECTED' when I just checked. - joeflack4 2021/11/11
             pass
 
-        if use_abbrev_over_label:
+        if use_abbrev_over_label and abbrev:
             graph.add((omim_uri, RDFS.label, Literal(abbrev)))
         else:
             graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(label))))
@@ -204,12 +217,11 @@ def run(use_cache: bool = False):
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
-    retrieve_mim_file('genemap2.txt', download_files_tf)  # dl latest file
-    mim2gene_lines: List[str] = retrieve_mim_file('mim2gene.txt', download_files_tf)  # dl latest file & return
+    get_mim_file('genemap2.txt', download_files_tf)  # dl latest file
+    mim2gene_lines: List[str] = get_mim_file('mim2gene.txt', download_files_tf)  # dl latest file & return
     gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)
     for mim_number, entrez_id in gene_map.items():
         graph.add((OMIM[mim_number], SKOS.exactMatch, NCBIGENE[entrez_id]))
-    # TODO: Do I just need to flip? maybe not
     for mim_number, entrez_id in pheno_map.items():
         # RO['0002200'] = 'has phenotype'
         graph.add((NCBIGENE[entrez_id], RO['0002200'], OMIM[mim_number]))
@@ -220,8 +232,7 @@ def run(use_cache: bool = False):
             graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC[hgnc_symbol_id_map[hgnc_symbol]]))
 
     # Phenotpyic Series
-    pheno_series = parse_phenotypic_series_titles(
-        retrieve_mim_file('phenotypicSeries.txt', download_files_tf))
+    pheno_series = parse_phenotypic_series_titles(get_mim_file('phenotypicSeries.txt', download_files_tf))
     for ps_id in pheno_series:
         graph.add((OMIMPS[ps_id], RDF.type, OWL.Class))
         graph.add((OMIMPS[ps_id], RDFS.label, Literal(pheno_series[ps_id][0])))
@@ -231,18 +242,85 @@ def run(use_cache: bool = False):
             graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps_id]))
 
     # Morbid map (cyto locations)
-    morbid_map: Dict[str, List[str]] = parse_morbid_map(
-        retrieve_mim_file('morbidmap.txt', download_files_tf))
-    for mim_number in morbid_map:
-        phenotype_mim_number, cyto_location = morbid_map[mim_number]
-        if phenotype_mim_number:
-            # RO:0003303 == 'causes condition' https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003303
-            graph.add((OMIM[mim_number], RO['0003303'], OMIM[phenotype_mim_number]))
+    # todo: when addressed, remove this from the issue report JSON (or remove the report entirely)
+    morbid_map: Dict = parse_morbid_map(get_mim_file('morbidmap.txt', download_files_tf))
+    for mim_number, mim_data in morbid_map.items():
+        # todo?: unused `mim_data` keys:
+        #   'gene_mim_number': Should this be used somewhere?
+        #   'gene_symbols':  Should this be used somewhere?
+        #   'phenotype_label': I think this already added to graph because the MIM# and label shared in other file(s)
+        cyto_location: str = mim_data['cyto_location']
         if cyto_location:
             # What's 9606chr - joeflack4 2021/11/11
             chr_id = '9606chr' + cyto_location
-            # What's RO['0002525'] - joeflack4 2021/11/11
+            # RO:0002525 (is subsequence of)
+            # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0002525
             graph.add((OMIM[mim_number], RO['0002525'], CHR[chr_id]))
+        assocs: List[Dict] = mim_data['phenotype_associations']
+        # TODO: RO:0003302 for multiple mapping evidence https://github.com/monarch-initiative/omim/issues/75
+        #  - rather than for loop, do if/else on len(assocs)
+        # len(set([x['phenotype_label'] for x in assocs])) > 1
+
+        # TODO: analysis: save this file in /dev
+        # https://github.com/monarch-initiative/omim/issues/86
+        problematic = {}
+        for mim, data in morbid_map.items():
+            assocs: List[Dict] = data['phenotype_associations']
+            unique_assocs = set([x['phenotype_mim_number'] for x in assocs])
+            if '' in unique_assocs and len(unique_assocs) > 1:
+                problematic[mim] = data
+        problematic_mims = [int(x) for x in problematic.keys()]
+
+        import pandas as pd
+        df = pd.read_csv(os.path.join(ROOT_DIR, 'data', 'morbidmap.tsv'), sep='\t', comment='#')
+        df = df[df['MIM Number'].isin(problematic_mims)]
+        df = df.sort_values(['MIM Number'])
+        df.to_csv('~/Desktop/morbidmap cases of mim mapped to both another mim and a plain label.tsv', index=False, sep='\t')
+
+
+        print()
+
+        # TODO: check: is it ever the case that there is a common MIM in the "MIM Number" column of multiple rows,
+        #  ...and some of the rows map to a "Phenotype" field with a MIM number, while others have no MIM number.
+        for
+
+        for assoc in assocs:
+            pass
+        # RO:0003303 (causes condition)
+        # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003303
+        p_mim, p_lab, p_map_key, p_map_lab = \
+            assoc['phenotype_mim_number'], assoc['phenotype_label'], assoc['phenotype_mapping_info_key'], \
+            assoc['phenotype_mapping_info_label']
+        # i. Add to MIM
+        b = BNode()
+        graph.add((b, RDF['type'], OWL['Restriction']))
+        # TODO: Use different predicates based on mapping evidence
+
+        graph.add((b, OWL['onProperty'], RO['0003303']))
+        if p_mim:
+            graph.add((b, OWL['someValuesFrom'], OMIM[p_mim]))
+        graph.add((OMIM[mim_number], RDFS['subClassOf'], b))
+
+        # ii. add axiom
+        b2 = BNode()
+        # TODO: add biolink:evidence back https://github.com/monarch-initiative/omim/pull/72
+        graph.add((b2, RDF['type'], OWL['Axiom']))
+        graph.add((b2, OWL['annotatedSource'], OMIM[mim_number]))
+        graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
+        # todo: add biolink:GeneDiseaseAssociation structure?
+        # todo: add mapping key and related info in a different way?
+        # TODO: convert evidence = list(set([x['p_map_key'] for x in assocs])) (and same for p_map_lab) into a
+        #  single string and add that into Literal(). Almost 100% of these evidence will be the same key/lab.
+        #  However, make it Literal('; '.join(evidence)) because there is 1 case in which multiple evidences
+        evidence = Literal(f'Evidence: ({p_map_key}) {p_map_lab}')
+        graph.add((b2, BIOLINK['has_evidence'], evidence))
+        graph.add((b2, RDFS['comment'], evidence))
+        b3 = BNode()
+        graph.add((b3, RDF['type'], OWL['Restriction']))
+        graph.add((b3, OWL['onProperty'], RO['0003303']))
+        if p_mim:
+            graph.add((b3, OWL['someValuesFrom'], OMIM[p_mim]))
+        graph.add((b2, OWL['annotatedTarget'], b3))
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
@@ -269,10 +347,23 @@ def run(use_cache: bool = False):
         for orphanet_id in orphanet_ids:
             graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
-    with open(ROOT_DIR / 'omim.ttl', 'w') as f:
+    with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
-    # with open(ROOT_DIR / 'omim.xml', 'w') as f:
-    #     f.write(graph.serialize(format='xml'))
+    if issues:
+        print(f'Warning: Issues detected. Check for details: {ISSUES_OUTPATH}', file=sys.stderr)
+        with open(ISSUES_OUTPATH, 'w') as f:
+            json.dump(issues, f, indent=2)
+        # todo: report in TSV. remove when we are done looking over this issue
+        #  - https://github.com/monarch-initiative/omim/issues/78
+        rows = []
+        for row in [
+            x['morbidmap.txt_original_row'] for x in issues['morbid_map']['issue:nonNumericPhenotypeId'].values()]:
+            new_row = {}
+            new_row['Phenotype'], new_row['Gene Symbols'], new_row['MIM Number'], new_row['Cyto Location'] = \
+                row.split('\t')
+            rows.append(new_row)
+        missing_mimnum_report = pd.DataFrame(rows)
+        missing_mimnum_report.to_csv('~/Desktop/noMimNumsInPhenoLabels.tsv', sep='\t', index=False)
 
 
 if __name__ == '__main__':
