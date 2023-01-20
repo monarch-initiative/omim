@@ -10,7 +10,6 @@ Minor
   - outpath: include checking if os.path.exists or w/e for outpath
   - yyyy_mm: finish validation
 - yyyy_mm: accept list; query multiple yyyy/mm args
-- Pipenv: use
 """
 from typing import List
 

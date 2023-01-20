@@ -25,9 +25,6 @@ the REST API as well: https://omim.org/api.
 - [Python documentation for installing on Mac](https://docs.python.org/3/using/mac.html)
 
 #### 2.2 Setup virtual environment & installing packages
-There are various ways to do install packages in Python. We use Pipenv: https://docs.python-guide.org/dev/virtualenvs/#installing-pipenv. 
-Running the 'make' command below will install Pipenv if you don't have it, and then 
-use Pipenv to install the rest of the packages.
 1. Run: `make install`
 2. There is a known possible issue with dependency `psutil` on some systems. If 
 you get an error related to this when installing, ignore it, as it is does not 
