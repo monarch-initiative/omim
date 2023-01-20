@@ -25,6 +25,13 @@ jobs:
     - name: Create .env file
       run: |
         echo -en "API_KEY=${{ secrets.API_KEY }}" > .env
+    - name: Get current time
+      uses: josStorer/get-current-time@v2.0.2
+      id: current-time
+      with:
+  #      format: YYYYMMDD-HH
+  #      utcOffset: "+08:00"
+        format: YYYY-MM-DD
     - name: Build
       run: |
         make build
@@ -36,7 +43,7 @@ jobs:
 # Apparently, GITHUB_TOKEN is auto-created: https://dev.to/github/the-githubtoken-in-github-actions-how-it-works-change-permissions-customizations-3cgp
 # ...even though I don't see it here: https://github.com/monarch-initiative/omim/settings/secrets/actions
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        automatic_release_tag: "${{ steps.current-time.outputs.formattedTime }}"
 #        title: "My Title"
         prerelease: false
         files: |
