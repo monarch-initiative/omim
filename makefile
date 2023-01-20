@@ -51,8 +51,7 @@ get-pmids:
 
 # SETUP / INSTALLATION ---------------------------------------------------------
 install:
-	python3 -m pip install pipenv; \
-	pipenv install
+	pip install -r requirements.txt
 
 # CODE QUALITY -----------------------------------------------------------------
 # Batched Commands
