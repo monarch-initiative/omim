@@ -1,0 +1,6 @@
+pandas
+pyyaml
+python-dotenv
+rdflib
+requests
+sssom
