@@ -1,8 +1,9 @@
-.PHONY: all help install test scrape get-pmids
+.PHONY: all help install test scrape get-pmids automated-release
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
 all: omim.ttl omim.sssom.tsv mondo_non_disease_exclusions.tsv
+automated-release: omim.ttl mondo_non_disease_exclusions.tsv
 
 # build: Create new omim.ttl
 omim.ttl:
@@ -56,6 +57,8 @@ help:
 	@echo "----------------------------------------"
 	@echo "all"
 	@echo "Creates all release artefacts.\n"
+	@echo "automated-release"
+	@echo "Creates all release artefacts that are currently easy to handle by a GitHub Action automated release. omim.sssom.tsv is excluded because of robot dependency. \n"
 	@echo "omim.ttl"
 	@echo "Creates main release artefact: omim.ttl\n"
 	@echo "omim.sssom.tsv"
