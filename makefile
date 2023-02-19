@@ -1,34 +1,32 @@
-.PHONY: all help install test build build-cleanup scrape get-pmids sssom sssom-clean
+.PHONY: all help install test scrape get-pmids
 
 
-# MAIN COMMANDS --------------------------------------------------------------------------------------------------------
-all: build sssom build-cleanup
+# MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
+all: omim.ttl omim.sssom.tsv mondo_non_disease_exclusions.tsv
 
-# Create new omim.ttl
-build:
+# build: Create new omim.ttl
+omim.ttl:
 	 python3 -m omim2obo
+	 @rm omim.json
 
-build-cleanup:
+omim.sssom.tsv: omim.json
+	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
 	@rm omim.json
 
-# Additional ad hoc commands -------------------------------------------------------------------------------------------
+mondo_non_disease_exclusions.tsv:
+	 python3 omim2obo/utils/mondo_non_disease_exclusions/mondo_non_disease_exclusions.py \
+		--symbolic-prefixes-path data/symbolic_prefixes.tsv \
+		--mim-titles-path data/mimTitles.txt \
+		--outpath mondo_non_disease_exclusions.tsv
+
+# More commands / goals  -----------------------------------------------------------------------------------------------
 # Create mapping artefact(s)
 omim.json:
 	robot convert -i omim.ttl -o omim.json
 
-omim.sssom.tsv:
-	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
-
-sssom-clean:
-	@rm omim.json; rm omim.sssom.tsv
-
-sssom: sssom-clean omim.json omim.sssom.tsv
-
 # scrape: argument should be in form of YYYY/MM or YYYY/mm
-# @param y: The year. Pass as <FLAG>=<YYYY>, where <FLAG> can be y, yr, year,
-#           or YYYY.
-# @param m: The month. Pass as <FLAG>=<MM>, where <FLAG> can be m, mon, month,
-#           mm, or MM.
+# @param y: The year. Pass as <FLAG>=<YYYY>, where <FLAG> can be y, yr, year, or YYYY.
+# @param m: The month. Pass as <FLAG>=<MM>, where <FLAG> can be m, mon, month, mm, or MM.
 # @examples
 # -"make scrape y=2021 m=5
 scrape:
@@ -56,16 +54,16 @@ help:
 	@echo "----------------------------------------"
 	@echo "	Command reference: OMIM"
 	@echo "----------------------------------------"
-	@echo "install"
-	@echo "Install's Python requirements.\n"
 	@echo "all"
 	@echo "Creates all release artefacts.\n"
-	@echo "build"
+	@echo "omim.ttl"
 	@echo "Creates main release artefact: omim.ttl\n"
-	@echo "build-cleanup"
-	@echo "Removes any remaining files after build completes.\n"
-	@echo "sssom-clean"
-	@echo "Removes any remaining artefacts after creating SSSOM TSV.\n"
+	@echo "omim.sssom.tsv"
+	@echo "Creates an SSSOM TSV of OMIM terms.\n"
+	@echo "mondo_non_disease_exclusions.tsv"
+	@echo "Generates a Mondo intesional exclusions TSV file with non-diseases as its contents.\n"
+	@echo "install"
+	@echo "Install's Python requirements.\n"
 	@echo "test"
 	@echo "Runs unit tests.\n"
 	@echo "scrape"

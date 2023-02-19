@@ -33,8 +33,7 @@ jobs:
   #      utcOffset: "+08:00"
         format: YYYY-MM-DD
     - name: Build
-      run: |
-        make build
+      run: make all
 # This one wouldn't work unless it was a tag and on-push.
 #      uses: softprops/action-gh-release@v1
 #    - name: Release
@@ -48,3 +47,5 @@ jobs:
         prerelease: false
         files: |
           omim.ttl
+          omim.sssom.tsv
+          mondo_non_disease_exclusions.tsv
