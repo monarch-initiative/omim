@@ -3,7 +3,7 @@
 """Command Line Interface."""
 from argparse import ArgumentParser
 
-from omim2obo import run
+from omim2obo import omim2obo
 
 
 def get_parser():
@@ -39,7 +39,7 @@ def cli():
     """
     parser = get_parser()
     kwargs = parser.parse_args()
-    run(use_cache=kwargs.use_cache)
+    omim2obo(use_cache=kwargs.use_cache)
 
 
 if __name__ == '__main__':

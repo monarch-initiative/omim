@@ -2,8 +2,8 @@
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
-all: omim.ttl omim.sssom.tsv mondo_non_disease_exclusions.tsv
-automated-release: omim.ttl mondo_non_disease_exclusions.tsv
+all: omim.ttl omim.sssom.tsv
+automated-release: omim.ttl
 
 # build: Create new omim.ttl
 omim.ttl:
@@ -13,12 +13,6 @@ omim.ttl:
 omim.sssom.tsv: omim.json
 	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
 	@rm omim.json
-
-mondo_non_disease_exclusions.tsv:
-	 python3 omim2obo/utils/mondo_non_disease_exclusions/mondo_non_disease_exclusions.py \
-		--symbolic-prefixes-path data/symbolic_prefixes.tsv \
-		--mim-titles-path data/mimTitles.txt \
-		--outpath mondo_non_disease_exclusions.tsv
 
 # More commands / goals  -----------------------------------------------------------------------------------------------
 # Create mapping artefact(s)
@@ -63,8 +57,6 @@ help:
 	@echo "Creates main release artefact: omim.ttl\n"
 	@echo "omim.sssom.tsv"
 	@echo "Creates an SSSOM TSV of OMIM terms.\n"
-	@echo "mondo_non_disease_exclusions.tsv"
-	@echo "Generates a Mondo intesional exclusions TSV file with non-diseases as its contents.\n"
 	@echo "install"
 	@echo "Install's Python requirements.\n"
 	@echo "test"

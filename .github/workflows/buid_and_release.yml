@@ -48,4 +48,3 @@ jobs:
         files: |
           omim.ttl
           omim.sssom.tsv
-          mondo_non_disease_exclusions.tsv

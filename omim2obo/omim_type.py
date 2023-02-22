@@ -28,8 +28,11 @@ class OmimType(Enum):
     ^: A caret (^) before an entry number means the entry no longer exists because
     it was **removed** from the database or moved to another entry as indicated.
 
-    See also the description of symbols used in the disorder column of the OMIM
-    Gene Map and Morbid Map."""
+    ----
+    See also:
+    - the description of symbols used in the disorder column of the OMIM Gene Map and Morbid Map.
+    - data/symbolic_prefixes.tsv for a tabular version of this information
+    """
     OBSOLETE = HP['0031859']  # Caret ^
     GENE = SO['0000704']  # Asterisk *
     SUSPECTED = NCIT.C71458  # NULL

@@ -116,7 +116,7 @@ CONFIG = {
 
 
 # Main
-def run(use_cache: bool = False):
+def omim2obo(use_cache: bool = False):
     """Run program"""
     issues = {}
     graph = OmimGraph.get_graph()
@@ -128,13 +128,13 @@ def run(use_cache: bool = False):
 
     # Parse mimTitles.txt
     # - Get id's, titles, and type
-    omim_titles, omim_replaced = parse_mim_titles(get_mim_file(
+    omim_type_and_titles, omim_replaced = parse_mim_titles(get_mim_file(
         'mimTitles.txt', download_files_tf))
-    omim_ids = list(omim_titles.keys())
+    omim_ids = list(omim_type_and_titles.keys())
 
     if CONFIG['verbose']:
         LOG.info('Tot MIM numbers from mimTitles.txt: %i', len(omim_ids))
-        LOG.info('Tot MIM types: %i', len(omim_titles))
+        LOG.info('Tot MIM types: %i', len(omim_type_and_titles))
 
     # Populate graph
     # - Non-OMIM triples
@@ -150,7 +150,7 @@ def run(use_cache: bool = False):
         graph.add((omim_uri, RDF.type, OWL.Class))
 
         # - Deprecated classes
-        if omim_replaced.get(omim_id, None) is not None:
+        if omim_replaced.get(omim_id, None):
             graph.add((omim_uri, OWL.deprecated, Literal(True)))
             label_ids = omim_replaced[omim_id]
             if len(label_ids) == 1:
@@ -162,7 +162,7 @@ def run(use_cache: bool = False):
             continue
 
         # - Non-deprecated
-        omim_type, pref_label, alt_labels, inc_labels = omim_titles[omim_id]
+        omim_type, pref_label, alt_labels, inc_labels = omim_type_and_titles[omim_id]
         label = pref_label
         other_labels = []
         label_endswith_included_alt, label_endswith_included_inc = False, False
@@ -183,14 +183,14 @@ def run(use_cache: bool = False):
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
         elif omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE:  # * or +
             use_abbrev_over_label = True
-            # What's SO['0000704'] - joeflack4 2021/11/11
-            graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))
+            graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))  # gene
+            graph.add((omim_uri, MONDO.exclusionReason, MONDO.nonDisease))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
         elif omim_type == OmimType.PHENOTYPE:
-            # Are all phenotypes listed here indeed disease? - joeflack4 2021/11/11
-            graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
+            graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))  # phenotype ~= disease
+        elif omim_type == OmimType.SUSPECTED:
+            graph.add((omim_uri, MONDO.exclusionReason, MONDO.excludeTrait))
         else:
-            # All were 'OmimType.SUSPECTED' when I just checked. - joeflack4 2021/11/11
             pass
 
         if use_abbrev_over_label and abbrev:
@@ -231,7 +231,7 @@ def run(use_cache: bool = False):
         if hgnc_symbol in hgnc_symbol_id_map:
             graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC[hgnc_symbol_id_map[hgnc_symbol]]))
 
-    # Phenotpyic Series
+    # Phenotypic Series
     pheno_series = parse_phenotypic_series_titles(get_mim_file('phenotypicSeries.txt', download_files_tf))
     for ps_id in pheno_series:
         graph.add((OMIMPS[ps_id], RDF.type, OWL.Class))
@@ -347,4 +347,4 @@ def run(use_cache: bool = False):
 
 
 if __name__ == '__main__':
-    run()
+    omim2obo()
