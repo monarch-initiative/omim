@@ -6,7 +6,8 @@ name: Build and release
 on:
   schedule:
 #    - cron: '0 0 * * *'  # every day at midnight
-    - cron: "0 0 1 * *"  # monthly
+#    - cron: "0 0 1 * *"  # monthly
+    - cron "0 0 * * 0"  # weekly on Sunday at midnight
   workflow_dispatch:
 
 jobs:
