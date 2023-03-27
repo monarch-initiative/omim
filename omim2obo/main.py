@@ -128,8 +128,7 @@ def omim2obo(use_cache: bool = False):
 
     # Parse mimTitles.txt
     # - Get id's, titles, and type
-    omim_type_and_titles, omim_replaced = parse_mim_titles(get_mim_file(
-        'mimTitles.txt', download_files_tf))
+    omim_type_and_titles, omim_replaced = parse_mim_titles(get_mim_file('mimTitles.txt', download_files_tf))
     omim_ids = list(omim_type_and_titles.keys())
 
     if CONFIG['verbose']:
@@ -150,16 +149,17 @@ def omim2obo(use_cache: bool = False):
         graph.add((omim_uri, RDF.type, OWL.Class))
 
         # - Deprecated classes
-        if omim_replaced.get(omim_id, None):
+        if str(omim_type_and_titles[omim_id][0]) == 'OmimType.OBSOLETE':
             graph.add((omim_uri, OWL.deprecated, Literal(True)))
-            label_ids = omim_replaced[omim_id]
-            if len(label_ids) == 1:
-                # IAO:0100001 means: "term replaced by"
-                graph.add((omim_uri, IAO['0100001'], OMIM[label_ids[0]]))
-            elif len(label_ids) > 1:
-                for replaced_mim_num in label_ids:
-                    graph.add((omim_uri, oboInOwl.consider, OMIM[replaced_mim_num]))
-            continue
+            if omim_replaced.get(omim_id, None):
+                label_ids = omim_replaced[omim_id]
+                if len(label_ids) == 1:
+                    # IAO:0100001 means: "term replaced by"
+                    graph.add((omim_uri, IAO['0100001'], OMIM[label_ids[0]]))
+                elif len(label_ids) > 1:
+                    for replaced_mim_num in label_ids:
+                        graph.add((omim_uri, oboInOwl.consider, OMIM[replaced_mim_num]))
+                continue
 
         # - Non-deprecated
         omim_type, pref_label, alt_labels, inc_labels = omim_type_and_titles[omim_id]
