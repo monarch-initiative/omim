@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_and_release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -33,8 +33,10 @@ jobs:
   #      format: YYYYMMDD-HH
   #      utcOffset: "+08:00"
         format: YYYY-MM-DD
-    - name: Build
-      run: make automated-release
+    - name: build
+      run: make automated-release-artefacts -B
+    - name: Release
+      run: echo Uploading files as new release.
 # This one wouldn't work unless it was a tag and on-push.
 #      uses: softprops/action-gh-release@v1
 #    - name: Release
@@ -48,4 +50,4 @@ jobs:
         prerelease: false
         files: |
           omim.ttl
-          omim.sssom.tsv
+#          omim.sssom.tsv

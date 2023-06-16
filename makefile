@@ -1,23 +1,26 @@
-.PHONY: all help install test scrape get-pmids automated-release
+.PHONY: all help install test scrape get-pmids automated-release cleanup
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
 all: omim.ttl omim.sssom.tsv
-automated-release: omim.ttl
+automated-release-artefacts: omim.ttl
 
 # build: Create new omim.ttl
 omim.ttl:
 	 python3 -m omim2obo
-	 @rm omim.json
+	 make cleanup
 
 omim.sssom.tsv: omim.json
 	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
-	@rm omim.json
+	make cleanup
 
 # More commands / goals  -----------------------------------------------------------------------------------------------
 # Create mapping artefact(s)
 omim.json:
 	robot convert -i omim.ttl -o omim.json
+
+cleanup:
+	@rm -f omim.json
 
 # scrape: argument should be in form of YYYY/MM or YYYY/mm
 # @param y: The year. Pass as <FLAG>=<YYYY>, where <FLAG> can be y, yr, year, or YYYY.
@@ -51,7 +54,7 @@ help:
 	@echo "----------------------------------------"
 	@echo "all"
 	@echo "Creates all release artefacts.\n"
-	@echo "automated-release"
+	@echo "automated-release-artefacts"
 	@echo "Creates all release artefacts that are currently easy to handle by a GitHub Action automated release. omim.sssom.tsv is excluded because of robot dependency. \n"
 	@echo "omim.ttl"
 	@echo "Creates main release artefact: omim.ttl\n"
