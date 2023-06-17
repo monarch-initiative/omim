@@ -11,7 +11,7 @@ __pycache__/
 .git.bfg-report/
 *ignore/
 
-# OMIM data sources
+# Inputs
 mim2gene.txt
 mim2gene.tsv
 mimTitles.txt
@@ -25,6 +25,8 @@ phenotypicSeries.tsv
 allelicVariants.txt
 allelicVariants.tsv
 
-# SSSOM command outputs
+# Outputs
+omim.ttl
+omim.sssom.tsv
 omim.sssom.log.txt
 omim.json
