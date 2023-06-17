@@ -203,6 +203,7 @@ def omim2obo(use_cache: bool = False):
         if len(exact_labels) > 1:
             abbr = exact_labels.pop()
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
+
             axiom_id = DeterministicBNode(abbr)
             graph.add((axiom_id, RDF.type, OWL.Axiom))
             # What's CL['0017543'] - joeflack4 2021/11/11
@@ -210,6 +211,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((axiom_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
             graph.add((axiom_id, OWL.annotatedTarget, Literal(abbr)))
             graph.add((axiom_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
+
         for exact_label in exact_labels:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(exact_label, abbrev))))
         for label in other_labels:
@@ -278,6 +280,7 @@ def omim2obo(use_cache: bool = False):
                 predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key]
 
             # i. Add to MIM class
+            # noinspection DuplicatedCode  b_and_b3_diff_results
             b = BNode()
             graph.add((b, RDF['type'], OWL['Restriction']))
             graph.add((b, OWL['onProperty'], predicate))
@@ -295,6 +298,7 @@ def omim2obo(use_cache: bool = False):
             # todo: add biolink:GeneDiseaseAssociation structure as well?
             graph.add((b2, BIOLINK['has_evidence'], evidence))
             graph.add((b2, RDFS['comment'], evidence))
+            # noinspection DuplicatedCode b_and_b3_diff_results
             b3 = BNode()
             graph.add((b3, RDF['type'], OWL['Restriction']))
             graph.add((b3, OWL['onProperty'], predicate))
