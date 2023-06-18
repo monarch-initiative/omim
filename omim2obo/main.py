@@ -203,15 +203,6 @@ def omim2obo(use_cache: bool = False):
         if len(exact_labels) > 1:
             abbr = exact_labels.pop()
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
-
-            axiom_id = DeterministicBNode(abbr)
-            graph.add((axiom_id, RDF.type, OWL.Axiom))
-            # What's CL['0017543'] - joeflack4 2021/11/11
-            graph.add((axiom_id, OWL.annotatedSource, CL['0017543']))
-            graph.add((axiom_id, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
-            graph.add((axiom_id, OWL.annotatedTarget, Literal(abbr)))
-            graph.add((axiom_id, oboInOwl.hasSynonymType, MONDONS.ABBREVIATION))
-
         for exact_label in exact_labels:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(exact_label, abbrev))))
         for label in other_labels:
