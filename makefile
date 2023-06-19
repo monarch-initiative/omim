@@ -1,4 +1,4 @@
-.PHONY: all help install test scrape get-pmids automated-release cleanup
+.PHONY: all help install test scrape get-pmids automated-release-artefacts cleanup
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------

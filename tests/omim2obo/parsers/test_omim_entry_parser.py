@@ -1,6 +1,6 @@
 from omim2obo.main import CURIE_MAP
 from omim2obo.parsers.omim_entry_parser import *
-from omim2obo.config import ROOT_DIR, config
+from omim2obo.config import ROOT_DIR, CONFIG
 from omim2obo.namespaces import *
 import json
 
