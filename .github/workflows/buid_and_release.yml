@@ -6,48 +6,41 @@ name: Build and release
 on:
   schedule:
     - cron: "0 0 * * 0"  # weekly on Sunday at midnight
-#    - cron: '0 0 * * *'  # every day at midnight
-#    - cron: "0 0 1 * *"  # monthly
   workflow_dispatch:
 
 jobs:
   build_and_release:
     runs-on: ubuntu-latest
+    container: obolibrary/odkfull:v1.4.1
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
     - name: Install
       run: |
-        python -m pip install --upgrade pip
         make install
     - name: Create .env file
       run: |
-        echo -en "API_KEY=${{ secrets.API_KEY }}" > .env
+        echo "API_KEY=${{ secrets.API_KEY }}" > .env
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
       id: current-time
       with:
-  #      format: YYYYMMDD-HH
-  #      utcOffset: "+08:00"
         format: YYYY-MM-DD
     - name: build
-      run: make automated-release-artefacts -B
+      # TODO: change to make all when fixed:
+      run: |
+        make automated-release-artefacts
+#        make all
+
+
     - name: Release
       run: echo Uploading files as new release.
-# This one wouldn't work unless it was a tag and on-push.
-#      uses: softprops/action-gh-release@v1
-#    - name: Release
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
-# Apparently, GITHUB_TOKEN is auto-created: https://dev.to/github/the-githubtoken-in-github-actions-how-it-works-change-permissions-customizations-3cgp
-# ...even though I don't see it here: https://github.com/monarch-initiative/omim/settings/secrets/actions
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "${{ steps.current-time.outputs.formattedTime }}"
-#        title: "My Title"
+        title: "${{ steps.current-time.outputs.formattedTime }}"
         prerelease: false
+        # TODO: include omim.sssom.tsv when fixed:
         files: |
           omim.ttl
 #          omim.sssom.tsv
