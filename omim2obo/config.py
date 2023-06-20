@@ -12,3 +12,5 @@ with open(DATA_DIR / 'dipper/curie_map.yaml') as file:
     CURIE_MAP = yaml.safe_load(file)
 
 config = dotenv_values(ROOT_DIR / '.env')
+print('CONFIG: ')
+print(config)
