@@ -12,7 +12,7 @@ import re
 import pandas as pd
 # from rdflib import URIRef
 
-from omim2obo.config import config, DATA_DIR
+from omim2obo.config import CONFIG, DATA_DIR
 from omim2obo.namespaces import RO
 from omim2obo.omim_type import OmimType
 
@@ -69,7 +69,8 @@ def get_mim_file(file_name: str, download=False, return_df=False) -> Union[List[
     mim_file_tsv_path: str = str(mim_file_path).replace('.txt', '.tsv')
 
     if download:
-        url = f'https://data.omim.org/downloads/{config["API_KEY"]}/{file_name}'
+        print(f'Downloading {file_name} from OMIM...')
+        url = f'https://data.omim.org/downloads/{CONFIG["API_KEY"]}/{file_name}'
         # todo: This doesn't work for genemap2.txt. But does the previous URL work? If so, why not just use that?
         if file_name == 'mim2gene.txt':
             url = f'https://omim.org/static/omim/data/{file_name}'

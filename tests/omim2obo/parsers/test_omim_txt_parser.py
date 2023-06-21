@@ -1,5 +1,5 @@
 from omim2obo.parsers.omim_txt_parser import *
-from omim2obo.config import ROOT_DIR, config
+from omim2obo.config import ROOT_DIR, CONFIG
 
 
 def test_parse_omim_id_1():
