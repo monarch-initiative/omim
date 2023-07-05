@@ -28,8 +28,7 @@ jobs:
     - name: build
       # TODO: change to make all when fixed: https://github.com/monarch-initiative/omim/issues/92
       run: |
-        make automated-release-artefacts
-#        make all
+        make all
 
 
     - name: Release
@@ -43,4 +42,4 @@ jobs:
         # TODO: include omim.sssom.tsv when fixed: https://github.com/monarch-initiative/omim/issues/92
         files: |
           omim.ttl
-#          omim.sssom.tsv
+          omim.sssom.tsv
