@@ -1,9 +1,8 @@
-.PHONY: all help install test scrape get-pmids automated-release-artefacts cleanup
+.PHONY: all help install test scrape get-pmids cleanup
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
 all: omim.ttl omim.sssom.tsv
-automated-release-artefacts: omim.ttl
 
 # build: Create new omim.ttl
 omim.ttl:
