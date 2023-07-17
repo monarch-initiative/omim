@@ -59,7 +59,7 @@ def transform_entry(entry) -> Graph:
     elif omim_type == OmimType.PHENOTYPE.value:  # #
         graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
         graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-    else:
+    else:  # ^ or NULL (no prefix character)
         graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
 
     graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label)))
