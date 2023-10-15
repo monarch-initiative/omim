@@ -224,8 +224,22 @@ def get_hgnc_map(filename, symbol_col, mim_col='MIM Number') -> Dict:
     """Get HGNC Map"""
     map = {}
     input_path = os.path.join(DATA_DIR, filename)
-    df = pd.read_csv(input_path, delimiter='\t', comment='#').fillna('')
-    df[mim_col] = df[mim_col].astype(int)  # these were being read as floats
+    try:
+        df = pd.read_csv(input_path, delimiter='\t', comment='#').fillna('')
+        df[mim_col] = df[mim_col].astype(int)  # these were being read as floats
+    # TODO: Need a better solution than this. Which should be: When these files are downloaded, should uncomment header
+    except KeyError:
+        with open(input_path, 'r') as f:
+            lines = f.readlines()
+            header = lines[3]
+            if not header.startswith('# Chromosome'):
+                raise RuntimeError(f'Error parsing header for: {input_path}')
+            lines[3] = header[2:]
+        with open(input_path, 'w') as f:
+            f.writelines(lines)
+    finally:
+        df = pd.read_csv(input_path, delimiter='\t', comment='#').fillna('')
+        df[mim_col] = df[mim_col].astype(int)  # these were being read as floats
 
     for index, row in df.iterrows():
         symbol = row[symbol_col]
@@ -237,7 +251,7 @@ def get_hgnc_map(filename, symbol_col, mim_col='MIM Number') -> Dict:
     return map
 
 
-def parse_mim2gene(lines, filename='mim2gene.tsv', filename2='genemap2.tsv') -> Tuple[Dict, Dict, Dict]:
+def parse_mim2gene(lines: List[str], filename='mim2gene.tsv', filename2='genemap2.tsv') -> Tuple[Dict, Dict, Dict]:
     """Parse OMIM # 2 gene file
     todo: ideally replace this whole thing with pandas
     todo: How to reconcile inconsistent mim#::hgnc_symbol mappings?
