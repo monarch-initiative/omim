@@ -52,6 +52,10 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
     '4': RO['0003304'],
 }
 
+MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES = {
+   RO['0004013']: RO['0004003'],
+} 
+
 
 def get_mim_file(file_name: str, download=False, return_df=False) -> Union[List[str], pd.DataFrame]:
     """

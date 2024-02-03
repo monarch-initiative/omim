@@ -40,4 +40,6 @@ jobs:
         prerelease: false
         files: |
           omim.ttl
+          omim.owl
           omim.sssom.tsv
+          mondo_genes.csv
