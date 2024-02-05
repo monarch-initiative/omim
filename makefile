@@ -31,7 +31,7 @@ omim.json: omim.owl
 # Mondo mappigs alongside the OMIM diseases
 omim.owl: omim.ttl mondo_exactmatch_omim.sssom.owl mondo_exactmatch_omimps.sssom.owl
 	robot merge $(patsubst %, -i %, $^) \
-		query --update sparql/flip_mondo_mappings.ru \
+		query --update sparql/add_flipped_mondo_mappings.ru \
 		query --update sparql/hgnc_links.ru \
 		convert -f ofn -o $@
 
