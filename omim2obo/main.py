@@ -303,7 +303,6 @@ def omim2obo(use_cache: bool = False):
                 inverse_predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES[predicate]
                
                 # i. Add to MIM class
-                # noinspection DuplicatedCode  b_and_b3_diff_results
                 b = BNode()
                 graph.add((b, RDF['type'], OWL['Restriction']))
                 graph.add((b, OWL['onProperty'], inverse_predicate))
