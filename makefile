@@ -60,7 +60,7 @@ get-pmids:
 
 # SETUP / INSTALLATION -------------------------------------------------------------------------------------------------
 install:
-	pip install -r requirements.txt
+	pip install -r requirements-unlocked.txt
 
 # QA / TESTING ---------------------------------------------------------------------------------------------------------
 test:
