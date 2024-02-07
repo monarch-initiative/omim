@@ -39,5 +39,6 @@ jobs:
         title: "${{ steps.current-time.outputs.formattedTime }}"
         prerelease: false
         files: |
-          omim.ttl
+          omim.owl
           omim.sssom.tsv
+          mondo_genes.csv

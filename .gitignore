@@ -30,3 +30,8 @@ omim.ttl
 omim.sssom.tsv
 omim.sssom.log.txt
 omim.json
+*.sssom.owl
+mondo_exactmatch_omim.sssom.tsv
+mondo_exactmatch_omimps.sssom.tsv
+omim.owl
+mondo_genes.csv

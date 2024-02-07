@@ -59,7 +59,7 @@ OMIA = Namespace('https://omia.org/OMIA')                                     # 
 # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
 LIDA = Namespace('http://sydney.edu.au/vetscience/lida/dogs/search/disorder/')  # Listing of Inherited Disorders in Animals (defunct?)
 OMIM = Namespace('https://omim.org/entry/')                                    # Online Mendelian Inheritance in Man (human disease and variants)
-OMIMPS = Namespace('https://www.omim.org/phenotypicSeries/PS')                   # Online Mendelian Inheritance in Man (phenotypes)
+OMIMPS = Namespace('https://omim.org/phenotypicSeries/PS')                   # Online Mendelian Inheritance in Man (phenotypes)
 ORPHA = Namespace('http://www.orpha.net/ORDO/Orphanet_')                      # Rare diseases and Orphan drugs
 PATO = Namespace('http://purl.obolibrary.org/obo/PATO_')                      # Phenotypic Quality Ontology
 PCO = Namespace('http://purl.obolibrary.org/obo/PCO_')                        # Population and Community Ontology
@@ -327,7 +327,7 @@ MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')
 # # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
 # 'LIDA': 'http://sydney.edu.au/vetscience/lida/dogs/search/disorder/'  # Listing of Inherited Disorders in Animals (defunct?)
 # 'OMIM': 'http://omim.org/entry/'                                    # Online Mendelian Inheritance in Man (human disease and variants)
-# 'OMIMPS': 'https://www.omim.org/phenotypicSeries/PS'                   # Online Mendelian Inheritance in Man (phenotypes)
+# 'OMIMPS': 'https://omim.org/phenotypicSeries/PS'                   # Online Mendelian Inheritance in Man (phenotypes)
 # 'ORPHA': 'http://www.orpha.net/ORDO/Orphanet_'                      # Rare diseases and Orphan drugs
 # 'PATO': 'http://purl.obolibrary.org/obo/PATO_'                      # Phenotypic Quality Ontology
 # 'PCO': 'http://purl.obolibrary.org/obo/PCO_'                        # Population and Community Ontology

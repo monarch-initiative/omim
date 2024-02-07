@@ -2,7 +2,7 @@
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
-all: omim.ttl omim.sssom.tsv
+all: omim.ttl omim.sssom.tsv omim.owl mondo_genes.csv
 
 # build: Create new omim.ttl
 omim.ttl:
@@ -13,10 +13,30 @@ omim.sssom.tsv: omim.json
 	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
 	make cleanup
 
+mondo_exactmatch_omim.sssom.tsv:
+	wget "http://purl.obolibrary.org/obo/mondo/mappings/mondo_exactmatch_omim.sssom.tsv" -O $@
+
+mondo_exactmatch_omimps.sssom.tsv:
+	wget "http://purl.obolibrary.org/obo/mondo/mappings/mondo_exactmatch_omimps.sssom.tsv" -O $@
+
+%.sssom.owl: %.sssom.tsv
+	sssom convert $< -O owl -o $@
+
 # More commands / goals  -----------------------------------------------------------------------------------------------
 # Create mapping artefact(s)
-omim.json:
-	robot convert -i omim.ttl -o omim.json
+omim.json: omim.owl
+	robot convert -i $< -o omim.json
+
+# Create OWL artefact, but adding HGNC links alongside the OMIM genes and
+# Mondo mappings alongside the OMIM diseases
+omim.owl: omim.ttl mondo_exactmatch_omim.sssom.owl mondo_exactmatch_omimps.sssom.owl
+	robot merge $(patsubst %, -i %, $^) \
+		query --update sparql/add_flipped_mondo_mappings.ru \
+		query --update sparql/hgnc_links.ru \
+		convert -f ofn -o $@
+
+mondo_genes.csv: omim.owl
+	robot query -i omim.owl --query sparql/mondo_genes.sparql $@
 
 cleanup:
 	@rm -f omim.json
