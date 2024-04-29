@@ -352,7 +352,8 @@ def omim2obo(use_cache: bool = False):
         #  - https://github.com/monarch-initiative/omim/issues/78
         rows = []
         for row in [
-            x['morbidmap.txt_original_row'] for x in issues['morbid_map']['issue:nonNumericPhenotypeId'].values()]:
+            x['morbidmap.txt_original_row'] for x in issues['morbid_map']['issue:nonNumericPhenotypeId'].values()
+        ]:
             new_row = {}
             new_row['Phenotype'], new_row['Gene Symbols'], new_row['MIM Number'], new_row['Cyto Location'] = \
                 row.split('\t')
