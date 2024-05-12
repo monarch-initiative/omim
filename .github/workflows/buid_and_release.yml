@@ -29,7 +29,6 @@ jobs:
       run: |
         make all
 
-
     - name: Release
       run: echo Uploading files as new release.
     - uses: "marvinpinto/action-automatic-releases@latest"

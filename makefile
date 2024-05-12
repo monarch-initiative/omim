@@ -73,8 +73,6 @@ help:
 	@echo "----------------------------------------"
 	@echo "all"
 	@echo "Creates all release artefacts.\n"
-	@echo "automated-release-artefacts"
-	@echo "Creates all release artefacts that are currently easy to handle by a GitHub Action automated release. omim.sssom.tsv is excluded because of robot dependency. \n"
 	@echo "omim.ttl"
 	@echo "Creates main release artefact: omim.ttl\n"
 	@echo "omim.sssom.tsv"
