@@ -11,7 +11,6 @@ omim.ttl:
 
 omim.sssom.tsv: omim.json
 	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
-	make cleanup
 
 mondo_exactmatch_omim.sssom.tsv:
 	wget "http://purl.obolibrary.org/obo/mondo/mappings/mondo_exactmatch_omim.sssom.tsv" -O $@

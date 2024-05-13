@@ -42,3 +42,4 @@ jobs:
           omim.owl
           omim.sssom.tsv
           mondo_genes.csv
+          omim.json
