@@ -5,7 +5,7 @@ OMIM stands for "Online Mendelian Inheritance in Man", and is an online
 catalog of human genes and genetic disorders. The official site is: https://omim.org/
 
 This purpose of this repository is for data transformations for ingest into Mondo. Mainly, 
-it is for generating an `omim.ttl` file.
+it is for generating an `omim.ttl` and other release artefacts.
 
 Disclaimer: This repository and its created data artefacts are unnofficial. For 
 official, up-to-date OMIM data, please visit [omim.org](https://omim.org).
@@ -31,10 +31,10 @@ you get an error related to this when installing, ignore it, as it is does not
 seem to be needed to run any of the tools. If however you do get a `psutil` error
 when running anything, please let us know by [creating an issue](https://github.com/monarch-initiative/omim/issues/new).
 
-## Running & creating `omim.ttl`
-Run: `make all`
+## Running & creating release
+Run: `sh run.sh make all`
 
-Running this will create a new `omim.ttl` file in the root directory.
+Running this will create new release artefacts in the root directory.
 
 You can also run `make build` or `python -m omim2obo`. These are all the same 
 command. This will download files from omim.org and run the build.
@@ -44,8 +44,11 @@ If there's an issue downloading the files, or you are offline, or you just want
 to use the cache anyway, you can pass the `--use-cache` flag.
 
 ## Additional tools
+<details><summary>Details</summary>
+<p>
+
 ### Get PMIDs used for OMIM codes from `omim.ttl`
-Command: `make get-pmids`
+Command: `sh run.sh make get-pmids`
 
 ### OMIM Code Web Scraper
 Currently, the only feature is `get_codes_by_yyyy_mm`, which returns a list of 
@@ -86,3 +89,7 @@ from omim2obo.omim_code_scraper import get_codes_by_yyyy_mm
 
 code_tuples = get_codes_by_yyyy_mm('2021/05')
 ```
+
+
+</p>
+</details> 
