@@ -34,4 +34,4 @@ omim.json
 mondo_exactmatch_omim.sssom.tsv
 mondo_exactmatch_omimps.sssom.tsv
 omim.owl
-mondo_genes.csv
+mondo_genes.robot.tsv

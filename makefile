@@ -2,7 +2,7 @@
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
-all: omim.ttl omim.sssom.tsv omim.owl mondo_genes.csv
+all: omim.ttl omim.sssom.tsv omim.owl mondo_genes.robot.tsv
 
 # build: Create new omim.ttl
 omim.ttl:
@@ -35,8 +35,18 @@ omim.owl: omim.ttl mondo_exactmatch_omim.sssom.owl mondo_exactmatch_omimps.sssom
 		query --update sparql/hgnc_links.ru \
 		convert -f ofn -o $@
 
-mondo_genes.csv: omim.owl
+mondo_genes.robot.tsv: omim.owl
+	# Create a TSV of relational information for gene and disease classes
 	robot query -i omim.owl --query sparql/mondo_genes.sparql $@
+	# Insert the source_code column as the second to last column
+	awk 'BEGIN {FS=OFS="\t"} {if (NR==1) {$$(NF+1)=$$(NF); $$(NF-1)="?source_code";} else {$$(NF+1)=$$(NF); $$(NF-1)="MONDO:OMIM";}} 1' $@ > temp_file && mv temp_file $@
+	# Remove the first character of each field in the header
+	awk 'BEGIN {FS=OFS="\t"} NR==1 {for (i=1; i<=NF; i++) $$i=substr($$i, 2)} {print}' $@ > temp_file && mv temp_file $@
+	# Remove < and > characters from specified columns
+	awk 'BEGIN {FS=OFS="\t"} NR>1 {gsub(/^<|>$$/, "", $$1); gsub(/^<|>$$/, "", $$2); gsub(/^<|>$$/, "", $$5)} {print}' $@ > temp_file && mv temp_file $@
+	# Insert ROBOT subheader
+	robot_subheader="ID\tSC 'has material basis in germline mutation in' some %\t>A oboInOwl:source\t>A oboInOwl:source\t" && \
+	sed 1a"$$robot_subheader" $@ > temp_file && mv temp_file $@
 
 cleanup:
 	@rm -f omim.json
