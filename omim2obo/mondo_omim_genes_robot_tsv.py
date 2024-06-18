@@ -12,7 +12,6 @@ ROBOT_SUBHEADER = {
     'mondo_id': 'ID',
     'hgnc_id': "SC 'has material basis in germline mutation in' some %",
     'omim_disease_xref': '>A oboInOwl:source',
-    'source_code': '>A oboInOwl:source',
     'omim_gene': '',
 }
 
@@ -24,22 +23,23 @@ def mondo_omim_genes_robot_tsv(inpath: Union[Path, str], outpath: Union[Path, st
     # Remove the first character, a question mark (?), from each field in the header; an artefact of the SPARQL query.
     df.rename(columns={col: col[1:] for col in df.columns if col.startswith('?')}, inplace=True)
 
-    # Add source_code column
-    df['source_code'] = 'MONDO:OMIM'
-
     # Remove < and > characters from specified columns
     uri_cols = ['mondo_id', 'hgnc_id', 'omim_gene']
     for col in uri_cols:
         df[col] = remove_angle_brackets(list(df[col]))
 
-    # Insert ROBOT subheader
-    df = pd.concat([pd.DataFrame([ROBOT_SUBHEADER]), df])
-
     # Format col order
-    df = df[['mondo_id', 'hgnc_id', 'omim_disease_xref', 'source_code', 'omim_gene']]
+    df = df[['mondo_id', 'hgnc_id', 'omim_disease_xref', 'omim_gene']]
 
     # Sort
     df = df.sort_values(by=['mondo_id', 'hgnc_id', 'omim_gene', 'omim_disease_xref'])
+
+    # Remove cases where >1 gene association
+    # - These indicate non-causal relationships, which we don't care about.
+    df = df[~df['omim_disease_xref'].duplicated(keep=False)]
+
+    # Insert ROBOT subheader
+    df = pd.concat([pd.DataFrame([ROBOT_SUBHEADER]), df])
 
     df.to_csv(outpath, sep='\t', index=False)
     return pd.DataFrame()
