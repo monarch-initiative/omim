@@ -40,4 +40,4 @@ jobs:
         files: |
           omim.owl
           omim.sssom.tsv
-          mondo_genes.csv
+          mondo-omim-genes.robot.tsv

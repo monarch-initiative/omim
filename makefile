@@ -2,7 +2,7 @@
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
-all: omim.ttl omim.sssom.tsv omim.owl mondo_genes.csv
+all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv
 
 # build: Create new omim.ttl
 omim.ttl:
@@ -35,8 +35,13 @@ omim.owl: omim.ttl mondo_exactmatch_omim.sssom.owl mondo_exactmatch_omimps.sssom
 		query --update sparql/hgnc_links.ru \
 		convert -f ofn -o $@
 
-mondo_genes.csv: omim.owl
-	robot query -i omim.owl --query sparql/mondo_genes.sparql $@
+# Create a TSV of relational information for gene and disease classes
+mondo-omim-genes.tsv: omim.owl
+	robot query -i omim.owl --query sparql/mondo-omim-genes.sparql $@
+
+# Create a TSV of relational information for gene and disease classes, as a ROBOT template
+mondo-omim-genes.robot.tsv: mondo-omim-genes.tsv
+	python -m omim2obo.mondo_omim_genes_robot_tsv --inpath $< --outpath $@
 
 cleanup:
 	@rm -f omim.json
