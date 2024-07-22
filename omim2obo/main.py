@@ -139,6 +139,7 @@ def omim2obo(use_cache: bool = False):
     # - Non-OMIM triples
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
     graph.add((URIRef('http://www.geneontology.org/formats/oboInOwl#hasSynonymType'), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef('http://purl.obolibrary.org/obo/mondo#omim_included'), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
     graph.add((TAX_URI, RDF.type, OWL.Class))
     graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
