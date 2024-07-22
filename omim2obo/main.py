@@ -171,7 +171,7 @@ def omim2obo(use_cache: bool = False):
             other_labels += cleaned_alt_labels
         if inc_labels:
             cleaned_inc_labels, label_endswith_included_inc = get_alt_labels(inc_labels)
-            other_labels += cleaned_inc_labels
+            #other_labels += cleaned_inc_labels
 
         included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
         if label_endswith_included_alt or label_endswith_included_inc:
@@ -207,6 +207,8 @@ def omim2obo(use_cache: bool = False):
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(exact_label, abbrev))))
         for label in other_labels:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(label, abbrev))))
+        for included_label in cleaned_inc_labels:
+            graph.add((omim_uri, URIRef('http://purl.obolibrary.org/obo/mondo#omim_included'), Literal(label_cleaner.clean(included_label, abbrev))))
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
