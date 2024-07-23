@@ -61,6 +61,7 @@ from omim2obo.parsers.omim_txt_parser import *
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
 ISSUES_OUTPATH = os.path.join(ROOT_DIR, 'omimIssues.json')
+INCLUDED_URI = 'http://purl.obolibrary.org/obo/mondo#omim_included'
 
 
 # Logging
@@ -166,13 +167,15 @@ def omim2obo(use_cache: bool = False):
         omim_type, pref_label, alt_labels, inc_labels = omim_type_and_titles[omim_id]
         label = pref_label
         other_labels = []
-        label_endswith_included_alt, label_endswith_included_inc = False, False
+        cleaned_inc_labels = []
+        label_endswith_included_alt = False
+        label_endswith_included_inc = False
         if alt_labels:
             cleaned_alt_labels, label_endswith_included_alt = get_alt_labels(alt_labels)
             other_labels += cleaned_alt_labels
         if inc_labels:
             cleaned_inc_labels, label_endswith_included_inc = get_alt_labels(inc_labels)
-            #other_labels += cleaned_inc_labels
+            # other_labels += cleaned_inc_labels  # deactivated 7/2024 in favor of alternative for tagging 'included'
 
         included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
         if label_endswith_included_alt or label_endswith_included_inc:
@@ -209,7 +212,7 @@ def omim2obo(use_cache: bool = False):
         for label in other_labels:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(label, abbrev))))
         for included_label in cleaned_inc_labels:
-            graph.add((omim_uri, URIRef('http://purl.obolibrary.org/obo/mondo#omim_included'), Literal(label_cleaner.clean(included_label, abbrev))))
+            graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(included_label, abbrev))))
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
