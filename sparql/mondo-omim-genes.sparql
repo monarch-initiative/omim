@@ -19,7 +19,7 @@ WHERE
         owl:someValuesFrom ?omim_gene
   ] .
   ?omim_gene skos:exactMatch ?hgnc_id .
-  FILTER(STRSTARTS(STR(?hgnc_id), "https://identifiers.org/hgnc/"))
+  FILTER(STRSTARTS(STR(?hgnc_id), "http://identifiers.org/hgnc/"))
   FILTER(STRSTARTS(STR(?mondo_id), "http://purl.obolibrary.org/obo/MONDO_"))
   BIND(REPLACE(STR(?omim_disease), "https://omim.org/entry/", "OMIM:") AS ?omim_disease_xref)
 }
