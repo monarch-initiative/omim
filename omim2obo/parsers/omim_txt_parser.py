@@ -57,18 +57,49 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES = {
 } 
 
 
-def get_mim_file(file_name: str, download=False, return_df=False) -> Union[List[str], pd.DataFrame]:
+def convert_txt_to_tsv(file_name: str):
+    """Convert OMIM text file to TSV, saving the TSV.
+
+    todo: Preserve comments at top and bottom. There's a func that does this somewhere for the ones at top.
+    todo: If we refactor codebase to use pandas instead of lines, consider:
+      - This converts 'NULL' to `nan`. Is this what we want?
     """
-    Retrieve OMIM downloadable text file from the OMIM download server
+    file_name = file_name if file_name.endswith('.txt') else file_name + '.txt'
+    mim_file_path: PosixPath = DATA_DIR / file_name
+    mim_file_tsv_path: str = str(mim_file_path).replace('.txt', '.tsv')
+    with open(mim_file_path, 'r') as file:
+        lines = file.readlines()
+
+    # Find the header (last comment line at the top) and start of data
+    header = None
+    data_start = 0
+    for i, line in enumerate(lines):
+        if line.startswith('#'):
+            header = line.strip('#').strip().split('\t')
+            data_start = i + 1
+        else:
+            break
+
+    # Find the end of data (first comment line from the bottom)
+    data_end = len(lines)
+    for i in range(len(lines) - 1, data_start - 1, -1):
+        if lines[i].startswith('#'):
+            data_end = i
+        else:
+            break
+
+    # Create DataFrame
+    data = [line.strip().split('\t') for line in lines[data_start:data_end]]
+    df = pd.DataFrame(data, columns=header)
+    df.to_csv(mim_file_tsv_path, sep='\t', index=False)
+
+
+def get_mim_file(file_name: str, download=False, return_df=False) -> Union[List[str], pd.DataFrame]:
+    """Retrieve OMIM downloadable text file from the OMIM download server
+
     :param return_df: If False, returns List[str] of each line in the file, else a DataFrame.
     """
-    file_headers = {
-        'mim2gene.txt': '# MIM Number	MIM Entry Type (see FAQ 1.3 at https://omim.org/help/faq)	'
-                        'Entrez Gene ID (NCBI)	Approved Gene Symbol (HGNC)	Ensembl Gene ID (Ensembl)',
-        'genemap2.txt': '# Chromosome	Genomic Position Start	Genomic Position End	Cyto Location	'
-                        'Computed Cyto Location	MIM Number	Gene Symbols	Gene Name	Approved Gene Symbol	'
-                        'Entrez Gene ID	Ensembl Gene ID	Comments	Phenotypes	Mouse Gene Symbol/ID'
-    }
+    file_name = file_name if file_name.endswith('.txt') else file_name + '.txt'
     mim_file_path: PosixPath = DATA_DIR / file_name
     mim_file_tsv_path: str = str(mim_file_path).replace('.txt', '.tsv')
 
@@ -82,22 +113,10 @@ def get_mim_file(file_name: str, download=False, return_df=False) -> Union[List[
         if resp.status_code == 200:
             text = resp.text
             if not text.startswith('<!DOCTYPE html>'):
-                # Save file
+                # Save
                 with open(mim_file_path, 'w') as fout:
                     fout.write(text)
-                # TODO: mim2gene.txt & genemap2.txt: Need to uncomment out the first line
-                #   modify 'text'. what's the nature of it? how to edit just that one line?
-
-                # todo: This is brittle in that it depends on these headers not changing. Would be better, eventually,
-                #  to read the lines into a list, then find the first line w/out a comment, get its index, then -1 to
-                #  get index of prev line, then use that to remove the leading '# ' from that line.
-                # todo: also would be good to do this, because the other TSVs won't have their headers. It doesn't
-                #  matter that much atm, because these files aren't used for anything programmatic.
-                if file_name in file_headers:
-                    header = file_headers[file_name]
-                    text = text.replace(header, header[2:])  # removes leading comment
-                with open(mim_file_tsv_path, 'w') as fout:
-                    fout.write(text)
+                convert_txt_to_tsv(file_name)
                 LOG.info(f'{file_name} retrieved and updated')
             else:
                 raise RuntimeError('Unexpected response: ' + text)
@@ -110,11 +129,13 @@ def get_mim_file(file_name: str, download=False, return_df=False) -> Union[List[
             raise RuntimeError(msg)
 
     if return_df:
-        df = pd.read_csv(mim_file_tsv_path, comment='#', sep='\t')
-        return df
+        return pd.read_csv(mim_file_tsv_path, comment='#', sep='\t')
     else:
         with open(mim_file_path, 'r') as fin:
             lines: List[str] = fin.readlines()
+            # Remove comments
+            # - OMIM files always have comments at the top, and sometimes also at the bottom.
+            lines = [x for x in lines if not x.startswith('#')]
             return lines
 
 
