@@ -202,11 +202,19 @@ def omim2obo(use_cache: bool = False):
         else:
             graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(label))))
 
+        # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
         exact_labels = [s.strip() for s in label.split(';')]
-        # the last string is an abbreviation. Add OWL reification. See issue #2
         if len(exact_labels) > 1:
             abbr = exact_labels.pop()
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
+            # Acronym: uppercase, no numbers, no whitespace, <10 chars
+            if abbr.isupper() and not any(char.isspace() for char in abbr) and len(abbr) < 10:
+                axiom = BNode()
+                graph.add((axiom, RDF.type, OWL.Axiom))
+                graph.add((axiom, OWL.annotatedSource, omim_uri))
+                graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
+                graph.add((axiom, OWL.annotatedTarget, Literal(abbr)))
+                graph.add((axiom, oboInOwl.hasExactSynonym, MONDONS.abbreviation))
         for exact_label in exact_labels:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(exact_label, abbrev))))
         for label in other_labels:
