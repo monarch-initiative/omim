@@ -167,13 +167,17 @@ def parse_omim_id(omim_id, log_success_case_warnings=False):
         return None
 
 
-def parse_mim_titles(lines):
+def parse_mim_titles(lines) -> Tuple[Dict[str, Tuple[OmimType, str, str, str]], Dict[str, List[str]]]:
     """
     Parse the omim titles
     :param lines:
-    :return: omim_type and omim_replaced, dicts that captures the type of the omim_id and if they've been replaced
+    :return:
+      omim_type_and_titles: Dict[str, Tuple[OmimType, str, str, str]]: Lookup of MIM's type, as well as it's preferred
+      labels, alternative labels, and 'included' labels.
+      omim_replaced: Dict[str, List[str]]: Lookup of obsolete MIMs and a list of any different MIMs that it has been
+       replaced with / moved to.
     """
-    omim_type = {}
+    omim_type_and_titles = {}
     omim_replaced = {}
     declared_to_type = {
         'Caret': OmimType.OBSOLETE,  # 'HP:0031859',  # obsolete
@@ -190,7 +194,7 @@ def parse_mim_titles(lines):
         if not declared and not omim_id and not pref_label and not alt_label and not inc_label:
             continue
         if declared in declared_to_type:
-            omim_type[omim_id] = (declared_to_type[declared], pref_label, alt_label, inc_label)
+            omim_type_and_titles[omim_id] = (declared_to_type[declared], pref_label, alt_label, inc_label)
         else:
             LOG.error('Unknown OMIM type line %s', line)
         if declared == 'Caret':  # moved|removed|split -> moved twice
@@ -198,7 +202,7 @@ def parse_mim_titles(lines):
             if pref_label.startswith('MOVED TO '):
                 replaced = [parse_omim_id(rep) for rep in pref_label[9:].split() if rep != 'AND']
                 omim_replaced[omim_id] = list(filter(None, replaced))
-    return omim_type, omim_replaced
+    return omim_type_and_titles, omim_replaced
 
 
 def parse_phenotypic_series_titles(lines) -> Dict[str, List]:
