@@ -164,12 +164,15 @@ def omim2obo(use_cache: bool = False):
                 continue
 
         # - Non-deprecated
-        omim_type, pref_label, alt_labels, inc_labels = omim_type_and_titles[omim_id]
-        label = pref_label
+        omim_type, pref_labels_str, alt_labels, inc_labels = omim_type_and_titles[omim_id]
         other_labels = []
         cleaned_inc_labels = []
         label_endswith_included_alt = False
         label_endswith_included_inc = False
+
+        pref_labels: List[str] = [x.strip() for x in pref_labels_str.split(';')]
+        pref_title: str = pref_labels[0]
+        pref_symbols: List[str] = pref_labels[1:]
         if alt_labels:
             cleaned_alt_labels, label_endswith_included_alt = get_alt_labels(alt_labels)
             other_labels += cleaned_alt_labels
@@ -182,7 +185,6 @@ def omim2obo(use_cache: bool = False):
             graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
 
         use_abbrev_over_label = False
-        abbrev = label.split(';')[1].strip() if ';' in label else None
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # %
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
         elif omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE:  # * or +
@@ -197,28 +199,27 @@ def omim2obo(use_cache: bool = False):
         else:
             pass
 
-        if use_abbrev_over_label and abbrev:
-            graph.add((omim_uri, RDFS.label, Literal(abbrev)))
+        if use_abbrev_over_label and pref_symbols:
+            if len(pref_symbols) > 1:
+                raise RuntimeError(f'Unexpected multiple symbols for {omim_id}: {pref_symbols}')
+            graph.add((omim_uri, RDFS.label, Literal(pref_symbols[0])))
         else:
-            graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(label))))
+            graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(pref_title))))
 
         # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
-        exact_labels = [s.strip() for s in label.split(';')]
-        if len(exact_labels) > 1:
-            abbr = exact_labels.pop()
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
-            # Acronym: uppercase, no numbers, no whitespace, <10 chars
-            if abbr.isupper() and not any(char.isspace() for char in abbr) and len(abbr) < 10:
-                axiom = BNode()
-                graph.add((axiom, RDF.type, OWL.Axiom))
-                graph.add((axiom, OWL.annotatedSource, omim_uri))
-                graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
-                graph.add((axiom, OWL.annotatedTarget, Literal(abbr)))
-                graph.add((axiom, oboInOwl.hasExactSynonym, MONDONS.abbreviation))
-        for exact_label in exact_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(exact_label, abbrev))))
-        for label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(label, abbrev))))
+        for abbreviation in pref_symbols:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
+            axiom = BNode()
+            graph.add((axiom, RDF.type, OWL.Axiom))
+            graph.add((axiom, OWL.annotatedSource, omim_uri))
+            graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
+            graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
+            graph.add((axiom, oboInOwl.hasExactSynonym, MONDONS.abbreviation))
+        # todo: .clean() should accept all symbols/abbrevs (preferred, alt, included), else [] instead of str/None
+        #  - See: https://github.com/monarch-initiative/omim/issues/129
+        abbrev: Union[str, None] = [None] if not pref_symbols else pref_symbols[0]
+        for alt_label in other_labels:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
         for included_label in cleaned_inc_labels:
             graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(included_label, abbrev))))
 
