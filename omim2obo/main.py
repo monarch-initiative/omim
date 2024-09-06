@@ -150,7 +150,7 @@ def omim2obo(use_cache: bool = False):
         omim_uri = OMIM[omim_id]
         graph.add((omim_uri, RDF.type, OWL.Class))
 
-        # - Deprecated classes
+        # Deprecated classes ---
         if str(omim_type_and_titles[omim_id][0]) == 'OmimType.OBSOLETE':
             graph.add((omim_uri, OWL.deprecated, Literal(True)))
             if omim_replaced.get(omim_id, None):
@@ -163,13 +163,13 @@ def omim2obo(use_cache: bool = False):
                         graph.add((omim_uri, oboInOwl.consider, OMIM[replaced_mim_num]))
                 continue
 
-        # - Non-deprecated
+        # Non-deprecated ---
+        # Parse titles
         omim_type, pref_labels_str, alt_labels, inc_labels = omim_type_and_titles[omim_id]
         other_labels = []
         cleaned_inc_labels = []
         label_endswith_included_alt = False
         label_endswith_included_inc = False
-
         pref_labels: List[str] = [x.strip() for x in pref_labels_str.split(';')]
         pref_title: str = pref_labels[0]
         pref_symbols: List[str] = pref_labels[1:]
@@ -178,17 +178,13 @@ def omim2obo(use_cache: bool = False):
             other_labels += cleaned_alt_labels
         if inc_labels:
             cleaned_inc_labels, label_endswith_included_inc = get_alt_labels(inc_labels)
-            # other_labels += cleaned_inc_labels  # deactivated 7/2024 in favor of alternative for tagging 'included'
+            # other_labels += cleaned_inc_labels  # deactivated 7/2024 in favor of alternative for tagging 'included
 
-        included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
-        if label_endswith_included_alt or label_endswith_included_inc:
-            graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
-
-        use_abbrev_over_label = False
+        # Special cases depending on OMIM term type
+        is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # %
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-        elif omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE:  # * or +
-            use_abbrev_over_label = True
+        elif is_gene:  # * or +
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))  # gene
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.nonDisease))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
@@ -196,32 +192,41 @@ def omim2obo(use_cache: bool = False):
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))  # phenotype ~= disease
         elif omim_type == OmimType.SUSPECTED:
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.excludeTrait))
-        else:
-            pass
 
-        if use_abbrev_over_label and pref_symbols:
+        # Alternative rdfs:label for genes
+        if is_gene and pref_symbols:
+            gene_label_err = 'Warning: Only 1 symbol picked for label for gene term, but there were 2 to choose' \
+                 f'from. Unsure which is best. Picking the first.\nhttps://omim.org/entry/{omim_id} - {pref_symbols}'
             if len(pref_symbols) > 1:
-                raise RuntimeError(f'Unexpected multiple symbols for {omim_id}: {pref_symbols}')
+                LOG.warning(gene_label_err)  # todo: decide the best way to handle these situations
             graph.add((omim_uri, RDFS.label, Literal(pref_symbols[0])))
         else:
             graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(pref_title))))
 
-        # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
+        # todo: .clean() should accept all symbols/abbrevs (preferred, alt, included), else [] instead of str/None
+        #  - See: https://github.com/monarch-initiative/omim/issues/129
+        abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
+
+        # Add synonyms
+        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, abbrev))))
+        for alt_label in other_labels:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
         for abbreviation in pref_symbols:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
+            # - Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
             axiom = BNode()
             graph.add((axiom, RDF.type, OWL.Axiom))
             graph.add((axiom, OWL.annotatedSource, omim_uri))
             graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
             graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
             graph.add((axiom, oboInOwl.hasExactSynonym, MONDONS.abbreviation))
-        # todo: .clean() should accept all symbols/abbrevs (preferred, alt, included), else [] instead of str/None
-        #  - See: https://github.com/monarch-initiative/omim/issues/129
-        abbrev: Union[str, None] = [None] if not pref_symbols else pref_symbols[0]
-        for alt_label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
+
+        # Add 'included' entry properties
         for included_label in cleaned_inc_labels:
             graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(included_label, abbrev))))
+        if label_endswith_included_alt or label_endswith_included_inc:
+            graph.add(
+                (omim_uri, RDFS['comment'], Literal("This term has one or more labels that end with ', INCLUDED'.")))
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
