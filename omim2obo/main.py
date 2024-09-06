@@ -129,7 +129,7 @@ def omim2obo(use_cache: bool = False):
 
     # Parse mimTitles.txt
     # - Get id's, titles, and type
-    omim_type_and_titles, omim_replaced = parse_mim_titles(get_mim_file('mimTitles.txt', download_files_tf))
+    omim_type_and_titles, omim_replaced = parse_mim_titles(get_mim_file('mimTitles', download_files_tf))
     omim_ids = list(omim_type_and_titles.keys())
 
     if CONFIG['verbose']:
@@ -230,8 +230,8 @@ def omim2obo(use_cache: bool = False):
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
-    get_mim_file('genemap2.txt', download_files_tf)  # dl latest file
-    mim2gene_lines: List[str] = get_mim_file('mim2gene.txt', download_files_tf)  # dl latest file & return
+    get_mim_file('genemap2', download_files_tf)  # dl latest file
+    mim2gene_lines: List[str] = get_mim_file('mim2gene', download_files_tf)  # dl latest file & return
     gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)
     for mim_number, entrez_id in gene_map.items():
         graph.add((OMIM[mim_number], SKOS.exactMatch, NCBIGENE[entrez_id]))
@@ -249,7 +249,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC[hgnc_symbol_id_map[hgnc_symbol]]))
 
     # Phenotypic Series
-    pheno_series = parse_phenotypic_series_titles(get_mim_file('phenotypicSeries.txt', download_files_tf))
+    pheno_series = parse_phenotypic_series_titles(get_mim_file('phenotypicSeries', download_files_tf))
     for ps_id in pheno_series:
         graph.add((OMIMPS[ps_id], RDF.type, OWL.Class))
         graph.add((OMIMPS[ps_id], RDFS.label, Literal(pheno_series[ps_id][0])))
@@ -259,7 +259,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps_id]))
 
     # Morbid map
-    morbid_map: Dict = parse_morbid_map(get_mim_file('morbidmap.txt', download_files_tf))
+    morbid_map: Dict = parse_morbid_map(get_mim_file('morbidmap', download_files_tf))
     for mim_number, mim_data in morbid_map.items():
         # todo?: unused `mim_data` keys. Should they be used?
         #  - phenotype_label: Similar to p_lab in 'assocs', but has more info
