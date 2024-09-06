@@ -219,7 +219,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((axiom, OWL.annotatedSource, omim_uri))
             graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
             graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
-            graph.add((axiom, oboInOwl.hasExactSynonym, MONDONS.abbreviation))
+            graph.add((axiom, OBOINOWL.hasSynonymType, MONDONS.abbreviation))
 
         # Add 'included' entry properties
         for included_label in cleaned_inc_labels:
