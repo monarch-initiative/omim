@@ -150,7 +150,7 @@ def omim2obo(use_cache: bool = False):
         omim_uri = OMIM[omim_id]
         graph.add((omim_uri, RDF.type, OWL.Class))
 
-        # Deprecated classes ---
+        # - Deprecated classes
         if str(omim_type_and_titles[omim_id][0]) == 'OmimType.OBSOLETE':
             graph.add((omim_uri, OWL.deprecated, Literal(True)))
             if omim_replaced.get(omim_id, None):
@@ -163,7 +163,7 @@ def omim2obo(use_cache: bool = False):
                         graph.add((omim_uri, oboInOwl.consider, OMIM[replaced_mim_num]))
                 continue
 
-        # Non-deprecated ---
+        # - Non-deprecated
         # Parse titles
         omim_type, pref_labels_str, alt_labels, inc_labels = omim_type_and_titles[omim_id]
         other_labels = []
@@ -178,7 +178,7 @@ def omim2obo(use_cache: bool = False):
             other_labels += cleaned_alt_labels
         if inc_labels:
             cleaned_inc_labels, label_endswith_included_inc = get_alt_labels(inc_labels)
-            # other_labels += cleaned_inc_labels  # deactivated 7/2024 in favor of alternative for tagging 'included
+            # other_labels += cleaned_inc_labels  # deactivated 7/2024 in favor of alternative for tagging 'included'
 
         # Special cases depending on OMIM term type
         is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
@@ -213,7 +213,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
         for abbreviation in pref_symbols:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
-            # - Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
+            # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
             axiom = BNode()
             graph.add((axiom, RDF.type, OWL.Axiom))
             graph.add((axiom, OWL.annotatedSource, omim_uri))
