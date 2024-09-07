@@ -203,8 +203,9 @@ def omim2obo(use_cache: bool = False):
         else:
             graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(pref_title))))
 
-        # todo: .clean() should accept all symbols/abbrevs (preferred, alt, included), else [] instead of str/None
-        #  - See: https://github.com/monarch-initiative/omim/issues/129
+        # todo: .clean()/.cleanup_label() 2nd param `explicit_abbrev` should be List[str] instead of str. And below,
+        #  should pass all symbols/abbrevs from each of preferred, alt, included each time it is called. If no symbols
+        #  for given term, should pass empty list. See: https://github.com/monarch-initiative/omim/issues/129
         abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
 
         # Add synonyms
@@ -222,11 +223,11 @@ def omim2obo(use_cache: bool = False):
             graph.add((axiom, OBOINOWL.hasSynonymType, MONDONS.abbreviation))
 
         # Add 'included' entry properties
+        included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
+        if label_endswith_included_alt or label_endswith_included_inc:
+            graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
         for included_label in cleaned_inc_labels:
             graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(included_label, abbrev))))
-        if label_endswith_included_alt or label_endswith_included_inc:
-            graph.add(
-                (omim_uri, RDFS['comment'], Literal("This term has one or more labels that end with ', INCLUDED'.")))
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
