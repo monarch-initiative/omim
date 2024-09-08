@@ -38,10 +38,10 @@ def transform_entry(entry) -> Graph:
     omim_uri = URIRef(OMIM[omim_num])
     other_labels = []
     if 'alternativeTitles' in titles:
-        cleaned, label_endswith_included = get_alt_labels(titles['alternativeTitles'])
+        cleaned, label_endswith_included = parse_alt_and_included_titles(titles['alternativeTitles'])
         other_labels += cleaned
     if 'includedTitles' in titles:
-        cleaned, label_endswith_included = get_alt_labels(titles['includedTitles'])
+        cleaned, label_endswith_included = parse_alt_and_included_titles(titles['includedTitles'])
         other_labels += cleaned
 
     graph.add((omim_uri, RDF.type, OWL.Class))
@@ -165,6 +165,7 @@ def _detect_abbreviations(
     return replacements
 
 
+# todo: This step should no longer be necessary as it is now done beforehand: "remove the abbreviation suffixes"
 # todo: explicit_abbrev: Change to List[str]. See: https://github.com/monarch-initiative/omim/issues/129
 def cleanup_label(
         label: str,
@@ -268,27 +269,32 @@ def cleanup_label(
     return formatted_label
 
 
-def get_alt_labels(titles: str) -> Tuple[List[str], bool]:
-    """
-    From a string of delimited titles, make an array.
-    This assumes that the titles are double-semicolon (';;') delimited.
-    This will additionally pass each through the _cleanup_label method to
-    convert the screaming ALL CAPS to something more pleasant to read.
-    :param titles:
-    :return: an array of cleaned-up labels
-    """
+# TODO: get symbols
+def parse_alt_and_included_titles(titles: str) -> Tuple[List[str], List[str], bool]:
+    """Parse delimited titles/symbol pairs from string to list, and detect any 'included' cases.
 
+    This assumes that the titles are double-semicolon (';;') delimited. This will additionally pass each through the
+    _cleanup_label() method to convert the screaming ALL CAPS to something more pleasant to read.
+
+    :param titles: a string of 1+ pairs of symbol/titles, 1 title and and 0-2+ symbols per pair, e.g.:
+      Alternative Title(s); symbol(s):
+        ACROCEPHALOSYNDACTYLY, TYPE V; ACS5;; ACS V;; NOACK SYNDROME
+      Included Title(s); symbols:
+        CRANIOFACIAL-SKELETAL-DERMATOLOGIC DYSPLASIA, INCLUDED
+
+    :return:
+        List[str]: cleaned-up titles
+        List[str]: symbols
+        bool: whether any of the labels ended with 'included'
+    """
     labels = []
     label_endswith_included = False
-    # "alternativeTitles": "
-    #   ACROCEPHALOSYNDACTYLY, TYPE V; ACS5;;\nACS V;;\nNOACK SYNDROME",
-    # "includedTitles":
-    #   "CRANIOFACIAL-SKELETAL-DERMATOLOGIC DYSPLASIA, INCLUDED"
     for title in titles.split(';;'):
         # remove ', included', if present
         title = title.strip()
         label = re.sub(r',\s*INCLUDED', '', title, re.IGNORECASE)
         label_endswith_included = label != title
+        # TODO: Only use this on titles, not symbols
         label = cleanup_label(label)
         labels.append(label)
 

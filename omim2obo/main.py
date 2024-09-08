@@ -52,7 +52,7 @@ from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, \
+from omim2obo.parsers.omim_entry_parser import parse_alt_and_included_titles, get_pubs, \
     get_mapped_ids, LabelCleaner
 from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
 from omim2obo.parsers.omim_txt_parser import *
@@ -165,20 +165,28 @@ def omim2obo(use_cache: bool = False):
 
         # - Non-deprecated
         # Parse titles
-        omim_type, pref_labels_str, alt_labels, inc_labels = omim_type_and_titles[omim_id]
-        other_labels = []
-        cleaned_inc_labels = []
-        label_endswith_included_alt = False
-        label_endswith_included_inc = False
-        pref_labels: List[str] = [x.strip() for x in pref_labels_str.split(';')]
-        pref_title: str = pref_labels[0]
-        pref_symbols: List[str] = pref_labels[1:]
-        if alt_labels:
-            cleaned_alt_labels, label_endswith_included_alt = get_alt_labels(alt_labels)
-            other_labels += cleaned_alt_labels
-        if inc_labels:
-            cleaned_inc_labels, label_endswith_included_inc = get_alt_labels(inc_labels)
-            # other_labels += cleaned_inc_labels  # deactivated 7/2024 in favor of alternative for tagging 'included'
+        omim_type, pref_titles_str, alt_titles_str, inc_titles_str = omim_type_and_titles[omim_id]
+        alt_titles: List[str] = []
+        alt_symbols: List[str] = []
+        alt_title_endswith_included = False
+        included_titles: List[str] = []
+        included_symbols: List[str] = []
+        included_title_endswith_included = False
+
+        pref_titles: List[str] = [x.strip() for x in pref_titles_str.split(';')]
+        pref_title: str = pref_titles[0]
+        pref_symbols: List[str] = pref_titles[1:]
+        # TODO: separate symbols from titles (2x)
+        #  - do this in the func itself
+        # TODO: Refactor this redundant code block?
+        # TODO: finally: I think parse_alt_and_included_labels() might be problematic. It returns this bool if case in
+        #  any of the titles, but doesn't say which one
+        if alt_titles_str:
+            alt_titles, alt_symbols, alt_title_endswith_included = \
+                parse_alt_and_included_titles(alt_titles_str)
+        if inc_titles_str:
+            included_titles, included_symbols, included_title_endswith_included = \
+                parse_alt_and_included_titles(inc_titles_str)
 
         # Special cases depending on OMIM term type
         is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
@@ -206,28 +214,53 @@ def omim2obo(use_cache: bool = False):
         # todo: .clean()/.cleanup_label() 2nd param `explicit_abbrev` should be List[str] instead of str. And below,
         #  should pass all symbols/abbrevs from each of preferred, alt, included each time it is called. If no symbols
         #  for given term, should pass empty list. See: https://github.com/monarch-initiative/omim/issues/129
-        abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
+        pref_abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
 
         # Add synonyms
-        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, abbrev))))
-        for alt_label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
-        for abbreviation in pref_symbols:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
-            # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
-            axiom = BNode()
-            graph.add((axiom, RDF.type, OWL.Axiom))
-            graph.add((axiom, OWL.annotatedSource, omim_uri))
-            graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
-            graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
-            graph.add((axiom, OBOINOWL.hasSynonymType, MONDONS.abbreviation))
+        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, pref_abbrev))))
+        for alt_title in alt_titles:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_title, pref_abbrev))))
+        # TODO: add abbrevs for all types. this good now? just check, then remove theis temp code
+        i = 0
+        for abbrevs in [pref_symbols, alt_symbols, included_symbols]:
+            i += 1
+            if i == 2 and alt_symbols:
+                print()  # TODO: make sure at least one case
+            if i == 3 and included_symbols:
+                print()  # TODO: make sure at least one case
+            for abbreviation in abbrevs:
+                graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
+                # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
+                axiom = BNode()
+                graph.add((axiom, RDF.type, OWL.Axiom))
+                graph.add((axiom, OWL.annotatedSource, omim_uri))
+                graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
+                graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
+                graph.add((axiom, OBOINOWL.hasSynonymType, MONDONS.abbreviation))
 
         # Add 'included' entry properties
         included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
-        if label_endswith_included_alt or label_endswith_included_inc:
+        if alt_title_endswith_included or included_title_endswith_included:
             graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
-        for included_label in cleaned_inc_labels:
-            graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(included_label, abbrev))))
+        # TODO: are these correct? Do all such labels in inc_labels and alt_labels end with 'INCLUDED'? Or just 1 of
+        #  them, given this boolean? there probably is only 1 such title, and otherwise are symbols. so need to refactor
+        #  should not be iterating here. symbols should be added elsewhere
+        #   - If #1 and #2 never happen, then the _parse*() func shouldn't return this bool, or we shouldn't use it.
+        #     And if we don't use it, then if we only set titles = parse*(), does the boolean get tacked on there? if
+        #     not, then remove its assignment.
+        for alt_title in alt_titles:
+            # TODO: #1 Check: do alt titles really ever end with text 'included'? if not, remove this whole variable
+            if alt_title_endswith_included:
+                graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(alt_title, pref_abbrev))))
+            # TODO: Don't we want to add synonym otherwise?
+            # TODO: Ref issue here if exists, else make, and then convert to lowercase todo
+            else:
+                print()
+                # graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_title, pref_abbrev))))
+        for included_title in included_titles:
+            if not included_title_endswith_included:  # #2 TODO: this shouldn't happen. check
+                print()
+            graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(included_title, pref_abbrev))))
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
