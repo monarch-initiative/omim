@@ -38,10 +38,10 @@ def transform_entry(entry) -> Graph:
     omim_uri = URIRef(OMIM[omim_num])
     other_labels = []
     if 'alternativeTitles' in titles:
-        cleaned, label_endswith_included = parse_alt_and_included_titles(titles['alternativeTitles'])
+        cleaned, label_endswith_included = parse_title_symbol_pairs(titles['alternativeTitles'])
         other_labels += cleaned
     if 'includedTitles' in titles:
-        cleaned, label_endswith_included = parse_alt_and_included_titles(titles['includedTitles'])
+        cleaned, label_endswith_included = parse_title_symbol_pairs(titles['includedTitles'])
         other_labels += cleaned
 
     graph.add((omim_uri, RDF.type, OWL.Class))
@@ -165,25 +165,26 @@ def _detect_abbreviations(
     return replacements
 
 
+# todo: rename? It's doing more than cleaning; it's mutating
 # todo: This step should no longer be necessary as it is now done beforehand: "remove the abbreviation suffixes"
 # todo: explicit_abbrev: Change to List[str]. See: https://github.com/monarch-initiative/omim/issues/129
 def cleanup_label(
-        label: str,
-        explicit_abbrev: str = None,
-        replacement_case_method: str = 'lower',  # lower | title | upper
-        replacement_case_method_acronyms = 'upper',  # lower | title | upper
-        conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
-        little_preps: List[str] = [
-            'at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
-        articles: List[str] = ['a', 'an', 'the'],
-        CAPITALIZATION_THRESHOLD = 0.75,
-        word_replacements: Dict[str, str] = None  # w/ known cols
+    label: str,
+    explicit_abbrev: str = None,
+    replacement_case_method: str = 'lower',  # lower | title | upper
+    replacement_case_method_acronyms: str = 'upper',  # lower | title | upper
+    conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
+    little_preps: List[str] = [
+        'at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
+    articles: List[str] = ['a', 'an', 'the'],
+    CAPITALIZATION_THRESHOLD = 0.75,
+    word_replacements: Dict[str, str] = None  # w/ known cols
 ) -> str:
-    """
-    Reformat the ALL CAPS OMIM labels to something more pleasant to read.
+    """Reformat the ALL CAPS OMIM labels to something more pleasant to read.
+
     This will:
     1.  remove the abbreviation suffixes
-    2.  convert the roman numerals to integer numbers
+    2.  convert the roman numerals to arabic
     3.  make the text title case,
         except for suplied conjunctions/prepositions/articles
 
@@ -269,36 +270,52 @@ def cleanup_label(
     return formatted_label
 
 
-# TODO: get symbols
-def parse_alt_and_included_titles(titles: str) -> Tuple[List[str], List[str], bool]:
-    """Parse delimited titles/symbol pairs from string to list, and detect any 'included' cases.
+def remove_included_and_formerly_suffixes(title: str) -> str:
+    """Remove ', INCLUDED' and ', FORMERLY' suffixes from a title"""
+    for suffix in ['FORMERLY', 'INCLUDED']:
+        title = re.sub(r',\s*' + suffix, '', title, re.IGNORECASE)
+    return title
 
-    This assumes that the titles are double-semicolon (';;') delimited. This will additionally pass each through the
-    _cleanup_label() method to convert the screaming ALL CAPS to something more pleasant to read.
 
-    :param titles: a string of 1+ pairs of symbol/titles, 1 title and and 0-2+ symbols per pair, e.g.:
+def separate_former_titles_and_symbols(
+    titles: List[str], symbols: List[str]
+) -> Tuple[List[str], List[str], List[str], List[str]]:
+    """Separate current title/symbols from deprecated (marked 'former') ones"""
+    former_titles = [x for x in titles if ', FORMERLY' in x.upper()]
+    former_symbols = [x for x in symbols if ', FORMERLY' in x.upper()]
+    current_titles = [x for x in titles if ', FORMERLY' not in x.upper()]
+    current_symbols = [x for x in symbols if ', FORMERLY' not in x.upper()]
+    return current_titles, current_symbols, former_titles, former_symbols
+
+
+def clean_alt_and_included_titles(titles: List[str], symbols: List[str]) -> Tuple[List[str], List[str]]:
+    """Remove ', INCLUDED' and ', FORMERLY' suffixes from titles/symbols & misc title reformatting"""
+    # remove ', included' and ', formerly', if present
+    titles2 = [remove_included_and_formerly_suffixes(x) for x in titles]
+    symbols2 = [remove_included_and_formerly_suffixes(x) for x in symbols]
+    # additional reformatting for titles
+    titles2 = [cleanup_label(x) for x in titles2]
+    return titles2, symbols2
+
+
+def parse_title_symbol_pairs(title_symbol_pairs_str: str) -> Tuple[List[str], List[str]]:
+    """Separate string of delimited titles/symbol pairs into lists of titles and symbols
+
+    :param title_symbol_pairs_str: a string of 1+ pairs of symbol/titles, delimited by ;;, 1 title and and 0-2+ symbols
+      per pair, delimited by ;, e.g.:
       Alternative Title(s); symbol(s):
         ACROCEPHALOSYNDACTYLY, TYPE V; ACS5;; ACS V;; NOACK SYNDROME
       Included Title(s); symbols:
         CRANIOFACIAL-SKELETAL-DERMATOLOGIC DYSPLASIA, INCLUDED
-
-    :return:
-        List[str]: cleaned-up titles
-        List[str]: symbols
-        bool: whether any of the labels ended with 'included'
     """
-    labels = []
-    label_endswith_included = False
-    for title in titles.split(';;'):
-        # remove ', included', if present
-        title = title.strip()
-        label = re.sub(r',\s*INCLUDED', '', title, re.IGNORECASE)
-        label_endswith_included = label != title
-        # TODO: Only use this on titles, not symbols
-        label = cleanup_label(label)
-        labels.append(label)
-
-    return labels, label_endswith_included
+    titles: List[str] = []
+    symbols: List[str] = []
+    title_symbol_pairs: List[str] = title_symbol_pairs_str.split(';;')
+    for pair_str in title_symbol_pairs:
+        pair: List[str] = [x.strip() for x in pair_str.split(';')]
+        titles.append(pair[0])
+        symbols.extend(pair[1:])
+    return titles, symbols
 
 
 def get_mapped_gene_ids(entry) -> List[str]:
