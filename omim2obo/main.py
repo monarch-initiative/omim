@@ -61,7 +61,6 @@ from omim2obo.parsers.omim_txt_parser import *
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
 ISSUES_OUTPATH = os.path.join(ROOT_DIR, 'omimIssues.json')
-INCLUDED_URI = 'http://purl.obolibrary.org/obo/mondo#omim_included'
 
 
 # Logging
@@ -140,7 +139,7 @@ def omim2obo(use_cache: bool = False):
     # - Non-OMIM triples
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
     graph.add((URIRef('http://www.geneontology.org/formats/oboInOwl#hasSynonymType'), RDF.type, OWL.AnnotationProperty))
-    graph.add((URIRef('http://purl.obolibrary.org/obo/mondo#omim_included'), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
     graph.add((TAX_URI, RDF.type, OWL.Class))
     graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
@@ -212,7 +211,7 @@ def omim2obo(use_cache: bool = False):
         for label in other_labels:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(label, abbrev))))
         for included_label in cleaned_inc_labels:
-            graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(included_label, abbrev))))
+            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(label_cleaner.clean(included_label, abbrev))))
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
