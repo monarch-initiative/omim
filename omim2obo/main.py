@@ -3,6 +3,10 @@
 Resources
 - https://monarch-initiative.github.io/monarch-ingest/Sources/OMIM/
 
+FYIs
+"Included Title(s)" in mimTitles.txt is the same as the "Other entities represented in this entry" section in omim.org
+entry pages.
+
 Steps
 - Loads prefixes
 - Parses mimTitles.txt
@@ -52,7 +56,8 @@ from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import parse_alt_and_included_titles, get_pubs, \
+from omim2obo.parsers.omim_entry_parser import clean_alt_and_included_titles, separate_former_titles_and_symbols, \
+    parse_title_symbol_pairs, get_pubs, \
     get_mapped_ids, LabelCleaner
 from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
 from omim2obo.parsers.omim_txt_parser import *
@@ -77,6 +82,35 @@ def get_curie_maps():
     with open(map_file, "r") as f:
         maps = yaml.safe_load(f)
     return maps
+
+
+def add_axiom_annotations(
+    graph: Graph, source: URIRef, prop: URIRef, target: Union[Literal, str, URIRef],
+    anno_pred_vals: List[Tuple[URIRef, Union[Literal, str, URIRef]]]
+):
+    """Add an axion annotation to the graph."""
+    target = Literal(target) if type(target) is str else target
+
+    axiom = BNode()
+    graph.add((axiom, RDF.type, OWL.Axiom))
+    graph.add((axiom, OWL.annotatedSource, source))
+    graph.add((axiom, OWL.annotatedProperty, prop))
+    graph.add((axiom, OWL.annotatedTarget, target))
+    for pred, val in anno_pred_vals:
+        val = Literal(val) if type(target) is str else val
+        graph.add((axiom, pred, val))
+
+
+def add_triple_and_optional_annotations(
+    graph: Graph, source: URIRef, prop: URIRef, target: Union[Literal, str, URIRef],
+    anno_pred_vals: List[Tuple[URIRef, Union[Literal, str, URIRef]]] = None
+):
+    """Add a triple and optional annotations to the graph."""
+    target = Literal(target) if type(target) is str else target
+
+    graph.add((source, prop, target))
+    if anno_pred_vals:
+        add_axiom_annotations(graph, source, prop, target, anno_pred_vals)
 
 
 # Classes
@@ -164,29 +198,28 @@ def omim2obo(use_cache: bool = False):
                 continue
 
         # - Non-deprecated
-        # Parse titles
+        # Parse titles & symbols
         omim_type, pref_titles_str, alt_titles_str, inc_titles_str = omim_type_and_titles[omim_id]
         alt_titles: List[str] = []
         alt_symbols: List[str] = []
-        alt_title_endswith_included = False
+        former_alt_titles: List[str] = []
+        former_alt_symbols: List[str] = []
         included_titles: List[str] = []
         included_symbols: List[str] = []
-        included_title_endswith_included = False
 
         pref_titles: List[str] = [x.strip() for x in pref_titles_str.split(';')]
         pref_title: str = pref_titles[0]
         pref_symbols: List[str] = pref_titles[1:]
-        # TODO: separate symbols from titles (2x)
-        #  - do this in the func itself
-        # TODO: Refactor this redundant code block?
-        # TODO: finally: I think parse_alt_and_included_labels() might be problematic. It returns this bool if case in
-        #  any of the titles, but doesn't say which one
         if alt_titles_str:
-            alt_titles, alt_symbols, alt_title_endswith_included = \
-                parse_alt_and_included_titles(alt_titles_str)
+            alt_titles, alt_symbols = parse_title_symbol_pairs(alt_titles_str)
+            alt_titles, alt_symbols, former_alt_titles, former_alt_symbols = \
+                separate_former_titles_and_symbols(alt_titles, alt_symbols)
+            alt_titles, alt_symbols = clean_alt_and_included_titles(alt_titles, alt_symbols)
+            former_alt_titles, former_alt_symbols = clean_alt_and_included_titles(former_alt_titles, former_alt_symbols)
         if inc_titles_str:
-            included_titles, included_symbols, included_title_endswith_included = \
-                parse_alt_and_included_titles(inc_titles_str)
+            included_titles, included_symbols = parse_title_symbol_pairs(inc_titles_str)
+            included_titles, included_symbols = clean_alt_and_included_titles(included_titles, included_symbols)
+        included_is_included = included_titles or included_symbols  # redundant. can't be included symbol w/out title
 
         # Special cases depending on OMIM term type
         is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
@@ -206,7 +239,7 @@ def omim2obo(use_cache: bool = False):
             gene_label_err = 'Warning: Only 1 symbol picked for label for gene term, but there were 2 to choose' \
                  f'from. Unsure which is best. Picking the first.\nhttps://omim.org/entry/{omim_id} - {pref_symbols}'
             if len(pref_symbols) > 1:
-                LOG.warning(gene_label_err)  # todo: decide the best way to handle these situations
+                LOG.warning(gene_label_err)  # todo: rare (n=1?), but decide the best way to handle these situations
             graph.add((omim_uri, RDFS.label, Literal(pref_symbols[0])))
         else:
             graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(pref_title))))
@@ -217,50 +250,38 @@ def omim2obo(use_cache: bool = False):
         pref_abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
 
         # Add synonyms
+        # - exact titles
         graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, pref_abbrev))))
-        for alt_title in alt_titles:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_title, pref_abbrev))))
-        # TODO: add abbrevs for all types. this good now? just check, then remove theis temp code
-        i = 0
-        for abbrevs in [pref_symbols, alt_symbols, included_symbols]:
-            i += 1
-            if i == 2 and alt_symbols:
-                print()  # TODO: make sure at least one case
-            if i == 3 and included_symbols:
-                print()  # TODO: make sure at least one case
+        for title in alt_titles:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(title, pref_abbrev))))
+        # - related titles
+        for title in former_alt_titles:
+            graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(label_cleaner.clean(title, pref_abbrev))))
+        # - exact abbreviations
+        # todo #1: Consider included_symbols for 'exact' list https://github.com/monarch-initiative/omim/issues/140
+        for abbrevs in [pref_symbols, alt_symbols]:
             for abbreviation in abbrevs:
-                graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
-                # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
-                axiom = BNode()
-                graph.add((axiom, RDF.type, OWL.Axiom))
-                graph.add((axiom, OWL.annotatedSource, omim_uri))
-                graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
-                graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
-                graph.add((axiom, OBOINOWL.hasSynonymType, MONDONS.abbreviation))
+                add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation),
+                    [(OBOINOWL.hasSynonymType, MONDONS.abbreviation)])
+        # - related, deprecated 'former' titles
+        for title in former_alt_titles:
+            clean_title = Literal(label_cleaner.clean(title, pref_abbrev))
+            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, clean_title,
+                [(OWL.deprecated, Literal(True))])
+        # - related, deprecated 'former' abbreviations
+        for abbreviation in former_alt_symbols:
+            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, Literal(abbreviation),
+                [(OWL.deprecated, Literal(True)), (OBOINOWL.hasSynonymType, MONDONS.abbreviation)])
 
-        # Add 'included' entry properties
-        included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
-        if alt_title_endswith_included or included_title_endswith_included:
-            graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
-        # TODO: are these correct? Do all such labels in inc_labels and alt_labels end with 'INCLUDED'? Or just 1 of
-        #  them, given this boolean? there probably is only 1 such title, and otherwise are symbols. so need to refactor
-        #  should not be iterating here. symbols should be added elsewhere
-        #   - If #1 and #2 never happen, then the _parse*() func shouldn't return this bool, or we shouldn't use it.
-        #     And if we don't use it, then if we only set titles = parse*(), does the boolean get tacked on there? if
-        #     not, then remove its assignment.
-        for alt_title in alt_titles:
-            # TODO: #1 Check: do alt titles really ever end with text 'included'? if not, remove this whole variable
-            if alt_title_endswith_included:
-                graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(alt_title, pref_abbrev))))
-            # TODO: Don't we want to add synonym otherwise?
-            # TODO: Ref issue here if exists, else make, and then convert to lowercase todo
-            else:
-                print()
-                # graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_title, pref_abbrev))))
-        for included_title in included_titles:
-            if not included_title_endswith_included:  # #2 TODO: this shouldn't happen. check
-                print()
-            graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(included_title, pref_abbrev))))
+        # 'Included' entries
+        included_comment = "This term has one or more labels that end with ', INCLUDED'."
+        if included_is_included:
+            graph.add((omim_uri, RDFS['comment'], Literal(included_comment)))
+        for title in included_titles:
+            graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(label_cleaner.clean(title, pref_abbrev))))
+        # todo #1: Consider adding included_symbols https://github.com/monarch-initiative/omim/issues/140
+        # for symbol in included_symbols:
+        #     graph.add((omim_uri, URIRef(INCLUDED_URI), Literal(symbol)))
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
