@@ -165,6 +165,7 @@ def _detect_abbreviations(
     return replacements
 
 
+# todo: explicit_abbrev: Change to List[str]. See: https://github.com/monarch-initiative/omim/issues/129
 def cleanup_label(
         label: str,
         explicit_abbrev: str = None,
