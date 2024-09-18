@@ -262,7 +262,7 @@ def omim2obo(use_cache: bool = False):
         for abbrevs in [pref_symbols, alt_symbols]:
             for abbreviation in abbrevs:
                 add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation),
-                    [(OBOINOWL.hasSynonymType, MONDONS.abbreviation)])
+                    [(OBOINOWL.hasSynonymType, MONDONS.ABBREVIATION)])
         # - related, deprecated 'former' titles
         for title in former_alt_titles:
             clean_title = Literal(label_cleaner.clean(title, pref_abbrev))
@@ -271,7 +271,7 @@ def omim2obo(use_cache: bool = False):
         # - related, deprecated 'former' abbreviations
         for abbreviation in former_alt_symbols:
             add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, Literal(abbreviation),
-                [(OWL.deprecated, Literal(True)), (OBOINOWL.hasSynonymType, MONDONS.abbreviation)])
+                [(OWL.deprecated, Literal(True)), (OBOINOWL.hasSynonymType, MONDONS.ABBREVIATION)])
 
         # 'Included' entries
         included_comment = "This term has one or more labels that end with ', INCLUDED'."

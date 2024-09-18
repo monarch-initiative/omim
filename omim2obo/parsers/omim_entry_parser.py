@@ -181,48 +181,42 @@ def cleanup_label(
     word_replacements: Dict[str, str] = None  # w/ known cols
 ) -> str:
     """Reformat the ALL CAPS OMIM labels to something more pleasant to read.
-
-    This will:
-    1.  remove the abbreviation suffixes
-    2.  convert the roman numerals to arabic
-    3.  make the text title case,
-        except for suplied conjunctions/prepositions/articles
-
-    Resources
-    - https://pythex.org/
+    
+    1. Removes the abbreviation suffixes
+    2. Converts roman numerals to arabic
+    3. Makes the text Title Case, except for supplied conjunctions/prepositions/articles
 
     Assumptions:
-        1. All acronyms are capitalized
+    1. All acronyms are capitalized
 
-    # TODO Laters:
-    # 1: Find a pattern for hyphenated types, and maintain acronym capitalization
-    # ...e.g. MITF-related melanoma and renal cell carcinoma predisposition syndrome
-    # ...e.g. ATP1A3-associated neurological disorder
-    # 2. Make pattern for chromosomes
-    # ...agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple extragenital malformations
-    # ...Chromosome special formatting capitalization?
-    # ...There seems to be special formatting for chromosome refs; they have a comma in the middle, but with no space
-    # ...after the comma, though some places I saw on the internet contained a space.
-    # ...e.g. "46,XY" in: agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple extragenital malformations
-    # 3. How to find acronym if it is capitalized but only includes char [A-Z], and
-    # ... every other char in the string is also capitalized? I don't see a way unless
-    # ... checking every word against an explicit dictionary of terms, though there are sure
-    # ... to also be (i) acronyms in that dictionary, and (ii) non-acronyms missing from
-    # ... that dictionary. And also concern (iii), where to get such an extensive dictionary?
-    # 4. Add "special character" inclusion into acronym regexp. But which special
-    # ... chars to include, and which not to include?
-    # 5. Acronym capture extension: case where at least 1 word is not capitalized:
-    # ... any word that is fully capitalized might as well be acronym, so long
-    # ...as at least 1 other word in the label is not all caps. Maybe not a good rule,
-    # ...because there could be some violations, and this probably would not happen
-    # ...that often anwyay
-    # ... - Not sure what I meant about (5) - joeflack4 2021/09/10
-    # 6. Eponyms: re-capitalize first char?
-    # ...e.g.: Balint syndrome, Barre-Lieou syndrome, Wallerian degeneration, etc.
-    # ...How to do this? Simply get/create a list of known eponyms? Is this feasible?
-
-    :param synonym: str
-    :return: str
+    todo later's:
+    1: Find a pattern for hyphenated types, and maintain acronym capitalization
+       e.g. MITF-related melanoma and renal cell carcinoma predisposition syndrome
+       e.g. ATP1A3-associated neurological disorder
+    2. Make pattern for chromosomes
+       agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple extragenital
+         malformations
+       Chromosome special formatting capitalization?
+       There seems to be special formatting for chromosome refs; they have a comma in the middle, but with no space
+       after the comma, though some places I saw on the internet contained a space.
+       e.g. "46,XY" in: agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple
+         extragenital malformations
+    3. How to find acronym if it is capitalized but only includes char [A-Z], and
+        every other char in the string is also capitalized? I don't see a way unless
+        checking every word against an explicit dictionary of terms, though there are sure
+        to also be (i) acronyms in that dictionary, and (ii) non-acronyms missing from
+        that dictionary. And also concern (iii), where to get such an extensive dictionary?
+    4. Add "special character" inclusion into acronym regexp. But which special
+        chars to include, and which not to include?
+    5. Acronym capture extension: case where at least 1 word is not capitalized:
+        any word that is fully capitalized might as well be acronym, so long
+       as at least 1 other word in the label is not all caps. Maybe not a good rule,
+       because there could be some violations, and this probably would not happen
+       that often anwyay
+        - Not sure what I meant about (5) - joeflack4 2021/09/10
+    6. Eponyms: re-capitalize first char?
+       e.g.: Balint syndrome, Barre-Lieou syndrome, Wallerian degeneration, etc.
+       How to do this? Simply get/create a list of known eponyms? Is this feasible?
     """
     # 1/3: Detect abbreviations / acronyms
     label2 = label.split(r';')[0] if r';' in label else label
