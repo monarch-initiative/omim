@@ -141,6 +141,7 @@ def omim2obo(use_cache: bool = False):
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
     graph.add((URIRef('http://www.geneontology.org/formats/oboInOwl#hasSynonymType'), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo#omim_included'), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef('http://purl.obolibrary.org/obo/mondo#ABBREVIATION'), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
     graph.add((TAX_URI, RDF.type, OWL.Class))
     graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
@@ -220,7 +221,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((axiom, OWL.annotatedSource, omim_uri))
             graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
             graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
-            graph.add((axiom, OBOINOWL.hasSynonymType, MONDONS.abbreviation))
+            graph.add((axiom, OBOINOWL.hasSynonymType, MONDONS.ABBREVIATION))
 
         # Add 'included' entry properties
         included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
