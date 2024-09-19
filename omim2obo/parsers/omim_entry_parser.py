@@ -62,9 +62,9 @@ def transform_entry(entry) -> Graph:
     else:  # ^ or NULL (no prefix character)
         graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
 
-    graph.add((omim_uri, OBOINOWL.hasExactSynonym, Literal(label)))
+    graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label)))
     for label in other_labels:
-        graph.add((omim_uri, OBOINOWL.hasRelatedSynonym, Literal(label)))
+        graph.add((omim_uri, oboInOwl.hasRelatedSynonym, Literal(label)))
 
     if 'geneMapExists' in entry and entry['geneMapExists']:
         genemap = entry['geneMap']
