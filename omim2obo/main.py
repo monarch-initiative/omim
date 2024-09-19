@@ -139,8 +139,9 @@ def omim2obo(use_cache: bool = False):
     # Populate graph
     # - Non-OMIM triples
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
-    graph.add((URIRef('http://www.geneontology.org/formats/oboInOwl#hasSynonymType'), RDF.type, OWL.AnnotationProperty))
-    graph.add((URIRef('http://purl.obolibrary.org/obo/mondo#omim_included'), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(OBOINOWL.hasSynonymType), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(MONDONS.ABBREVIATION), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
     graph.add((TAX_URI, RDF.type, OWL.Class))
     graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
@@ -160,7 +161,7 @@ def omim2obo(use_cache: bool = False):
                     graph.add((omim_uri, IAO['0100001'], OMIM[label_ids[0]]))
                 elif len(label_ids) > 1:
                     for replaced_mim_num in label_ids:
-                        graph.add((omim_uri, oboInOwl.consider, OMIM[replaced_mim_num]))
+                        graph.add((omim_uri, OBOINOWL.consider, OMIM[replaced_mim_num]))
                 continue
 
         # - Non-deprecated
@@ -209,16 +210,16 @@ def omim2obo(use_cache: bool = False):
         abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
 
         # Add synonyms
-        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, abbrev))))
+        graph.add((omim_uri, OBOINOWL.hasExactSynonym, Literal(label_cleaner.clean(pref_title, abbrev))))
         for alt_label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
+            graph.add((omim_uri, OBOINOWL.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
         for abbreviation in pref_symbols:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
+            graph.add((omim_uri, OBOINOWL.hasExactSynonym, Literal(abbreviation)))
             # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
             axiom = BNode()
             graph.add((axiom, RDF.type, OWL.Axiom))
             graph.add((axiom, OWL.annotatedSource, omim_uri))
-            graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
+            graph.add((axiom, OWL.annotatedProperty, OBOINOWL.hasExactSynonym))
             graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
             graph.add((axiom, OBOINOWL.hasSynonymType, MONDONS.abbreviation))
 
