@@ -1,0 +1,16 @@
+Prefix(:=<http://purl.obolibrary.org/obo/omim/imports/omo_import.owl#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://purl.obolibrary.org/obo/omim/imports/omo_import.owl>
+<http://purl.obolibrary.org/obo/omim/releases/2024-09-19/imports/omo_import.owl>
+
+Declaration(AnnotationProperty(<http://purl.obolibrary.org/obo/OMO_0003012>))
+# Annotation Property: <http://purl.obolibrary.org/obo/OMO_0003012> (acronym)
+AnnotationAssertion(rdfs:label <http://purl.obolibrary.org/obo/OMO_0003012> "acronym")
+SubAnnotationPropertyOf(<http://purl.obolibrary.org/obo/OMO_0003012> <http://www.geneontology.org/formats/oboInOwl#SynonymTypeProperty>)
+)

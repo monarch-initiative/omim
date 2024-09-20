@@ -29,8 +29,8 @@ omim.json: omim.owl
 
 # Create OWL artefact, but adding HGNC links alongside the OMIM genes and
 # Mondo mappings alongside the OMIM diseases
-omim.owl: omim.ttl mondo_exactmatch_omim.sssom.owl mondo_exactmatch_omimps.sssom.owl
-	robot merge $(patsubst %, -i %, $^) \
+omim.owl: omim.ttl mondo_exactmatch_omim.sssom.owl mondo_exactmatch_omimps.sssom.owl imports/omo_mini_import.owl
+	robot --catalog catalog-v001.xml merge $(patsubst %, -i %, $^) \
 		query --update sparql/add_flipped_mondo_mappings.ru \
 		query --update sparql/hgnc_links.ru \
 		convert -f ofn -o $@

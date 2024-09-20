@@ -56,6 +56,7 @@ OBO = Namespace('http://purl.obolibrary.org/obo/')                            # 
 OBOINOWL = Namespace('http://www.geneontology.org/formats/oboInOwl#')         # obo-specific annotation properties, like synonym types
 # 'OMIA' was http://omia.angis.org.au/ IS https://omia.org/         # (see about helping to update original data)
 OMIA = Namespace('https://omia.org/OMIA')                                     # Online Mendelian Inheritance in Animals (disease/species)
+OMO = Namespace('http://purl.obolibrary.org/obo/OMO_')                        # OBO Metadata Ontology
 # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
 LIDA = Namespace('http://sydney.edu.au/vetscience/lida/dogs/search/disorder/')  # Listing of Inherited Disorders in Animals (defunct?)
 OMIM = Namespace('https://omim.org/entry/')                                    # Online Mendelian Inheritance in Man (human disease and variants)
