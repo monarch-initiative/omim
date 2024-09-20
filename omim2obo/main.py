@@ -79,6 +79,33 @@ def get_curie_maps():
     return maps
 
 
+def add_subclassof_restriction(graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef) -> BNode:
+    """Creates a subClassOf someValuesFrom restriction"""
+    b = BNode()
+    graph.add((b, RDF['type'], OWL['Restriction']))
+    graph.add((b, OWL['onProperty'], predicate))
+    graph.add((b, OWL['someValuesFrom'], some_values_from))
+    graph.add((on, RDFS['subClassOf'], b))
+    return b
+
+
+def add_subclassof_restriction_with_evidence(
+    graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef, evidence: Union[str, Literal]
+):
+    """Creates a subClassOf someValuesFrom restriction, and adds an evidence axiom to it."""
+    evidence = Literal(evidence) if type(evidence) is str else evidence
+    # Add restriction on MIM class
+    b: BNode = add_subclassof_restriction(graph, predicate, some_values_from, on)
+    # Add axiom to restriction
+    b2 = BNode()
+    graph.add((b2, RDF['type'], OWL['Axiom']))
+    graph.add((b2, OWL['annotatedSource'], on))
+    graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
+    graph.add((b2, OWL['annotatedTarget'], b))
+    graph.add((b2, BIOLINK['has_evidence'], evidence))
+    graph.add((b2, RDFS['comment'], evidence))
+
+
 # Classes
 class DeterministicBNode(BNode):
     """Overrides BNode to create a deterministic ID"""
@@ -238,11 +265,7 @@ def omim2obo(use_cache: bool = False):
         graph.add((OMIM[mim_number], SKOS.exactMatch, NCBIGENE[entrez_id]))
     for mim_number, entrez_id in pheno_map.items():
         # RO['0002200'] = 'has phenotype'
-        b = BNode()
-        graph.add((b, RDF['type'], OWL['Restriction']))
-        graph.add((b, OWL['onProperty'], RO['0002200']))
-        graph.add((b, OWL['someValuesFrom'], OMIM[mim_number]))
-        graph.add((NCBIGENE[entrez_id], RDFS['subClassOf'], b))
+        add_subclassof_restriction(graph, RO['0002200'], OMIM[mim_number], NCBIGENE[entrez_id])
     hgnc_symbol_id_map: Dict[str, str] = get_hgnc_symbol_id_map()
     for mim_number, hgnc_symbol in hgnc_map.items():
         graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC_symbol[hgnc_symbol]))
@@ -265,18 +288,16 @@ def omim2obo(use_cache: bool = False):
         # todo?: unused `mim_data` keys. Should they be used?
         #  - phenotype_label: Similar to p_lab in 'assocs', but has more info
         #  - gene_symbols
+        # - add cyto location
         cyto_location: str = mim_data['cyto_location']
         if cyto_location:
             # What's 9606chr - joeflack4 2021/11/11
             chr_id = '9606chr' + cyto_location
             # RO:0002525 (is subsequence of)
             # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0002525
-            b = BNode()
-            graph.add((b, RDF['type'], OWL['Restriction']))
-            graph.add((b, OWL['onProperty'], RO['0002525']))
-            graph.add((b, OWL['someValuesFrom'], CHR[chr_id]))
-            graph.add((OMIM[mim_number], RDFS['subClassOf'], b))
+            add_subclassof_restriction(graph, RO['0002525'], CHR[chr_id], OMIM[mim_number])
         assocs: List[Dict] = mim_data['phenotype_associations']
+        # - add associations
         for assoc in assocs:
             # p_lab currently not used
             p_mim, p_lab, p_map_key, p_map_lab = \
@@ -289,54 +310,22 @@ def omim2obo(use_cache: bool = False):
             if p_map_key == '1':
                 continue
 
-            # Precalc: determine mapping predicate
             # RO:0003302 (causes or contributes to condition)
             # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003302
             # Provenance for this decision:
             # - Multiple rows, same mapping key: https://github.com/monarch-initiative/omim/issues/75
             # - Multiple rows, diff mapping keys: https://github.com/monarch-initiative/omim/issues/81
+            evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
             predicate = RO['0003302']  # default if `len(assocs) > 1`
             if len(assocs) == 1:
                 predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key]
-
-            evidence = Literal(f'Evidence: ({p_map_key}) {p_map_lab}')
-            
-            # i. Add to MIM class
-            # noinspection DuplicatedCode  b_and_b3_diff_results
-            b = BNode()
-            graph.add((b, RDF['type'], OWL['Restriction']))
-            graph.add((b, OWL['onProperty'], predicate))
-            graph.add((b, OWL['someValuesFrom'], OMIM[p_mim]))
-            graph.add((OMIM[mim_number], RDFS['subClassOf'], b))
-
-            # ii. add axiom
-            b2 = BNode()
-            graph.add((b2, RDF['type'], OWL['Axiom']))
-            graph.add((b2, OWL['annotatedSource'], OMIM[mim_number]))
-            graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
-            graph.add((b2, OWL['annotatedTarget'], b))
-            graph.add((b2, BIOLINK['has_evidence'], evidence))
-            graph.add((b2, RDFS['comment'], evidence))
-            
+            add_subclassof_restriction_with_evidence(graph, predicate, OMIM[p_mim], OMIM[mim_number], evidence)
             if predicate in MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES:
                 # The following code basically just adds the converse relation:
                 # If there is g2d in the previous code, we now, in addition, add d2g
                 inverse_predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES[predicate]
-               
-                # i. Add to MIM class
-                b = BNode()
-                graph.add((b, RDF['type'], OWL['Restriction']))
-                graph.add((b, OWL['onProperty'], inverse_predicate))
-                graph.add((b, OWL['someValuesFrom'], OMIM[mim_number]))
-                graph.add((OMIM[p_mim], RDFS['subClassOf'], b))
-                
-                b2 = BNode()
-                graph.add((b2, RDF['type'], OWL['Axiom']))
-                graph.add((b2, OWL['annotatedSource'], OMIM[p_mim]))
-                graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
-                graph.add((b2, OWL['annotatedTarget'], b))
-                graph.add((b2, BIOLINK['has_evidence'], evidence))
-                graph.add((b2, RDFS['comment'], evidence))
+                add_subclassof_restriction_with_evidence(
+                    graph, inverse_predicate, OMIM[mim_number], OMIM[p_mim], evidence)
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
