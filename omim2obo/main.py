@@ -218,7 +218,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((axiom, OWL.annotatedSource, omim_uri))
             graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
             graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
-            graph.add((axiom, oboInOwl.hasSynonymType, MONDONS.abbreviation))
+            graph.add((axiom, oboInOwl.hasSynonymType, OMO['0003000']))
 
         # Add 'included' entry properties
         included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
