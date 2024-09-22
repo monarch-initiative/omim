@@ -60,7 +60,6 @@ from omim2obo.parsers.omim_txt_parser import *
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
-ISSUES_OUTPATH = os.path.join(ROOT_DIR, 'omimIssues.json')
 INCLUDED_URI = 'http://purl.obolibrary.org/obo/mondo#omim_included'
 
 
@@ -119,7 +118,6 @@ CONFIG = {
 # Main
 def omim2obo(use_cache: bool = False):
     """Run program"""
-    issues = {}
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
 
@@ -220,7 +218,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((axiom, OWL.annotatedSource, omim_uri))
             graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
             graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
-            graph.add((axiom, OBOINOWL.hasSynonymType, OMO['0003000']))
+            graph.add((axiom, oboInOwl.hasSynonymType, OMO['0003000']))
 
         # Add 'included' entry properties
         included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
@@ -365,22 +363,6 @@ def omim2obo(use_cache: bool = False):
 
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
-    if issues:
-        print(f'Warning: Issues detected. Check for details: {ISSUES_OUTPATH}', file=sys.stderr)
-        with open(ISSUES_OUTPATH, 'w') as f:
-            json.dump(issues, f, indent=2)
-        # todo: report in TSV. remove when we are done looking over this issue
-        #  - https://github.com/monarch-initiative/omim/issues/78
-        rows = []
-        for row in [
-            x['morbidmap.txt_original_row'] for x in issues['morbid_map']['issue:nonNumericPhenotypeId'].values()
-        ]:
-            new_row = {}
-            new_row['Phenotype'], new_row['Gene Symbols'], new_row['MIM Number'], new_row['Cyto Location'] = \
-                row.split('\t')
-            rows.append(new_row)
-        missing_mimnum_report = pd.DataFrame(rows)
-        missing_mimnum_report.to_csv('~/Desktop/noMimNumsInPhenoLabels.tsv', sep='\t', index=False)
 
 
 if __name__ == '__main__':

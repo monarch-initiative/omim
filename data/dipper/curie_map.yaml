@@ -104,6 +104,7 @@
 'EMAPA': 'http://purl.obolibrary.org/obo/EMAPA_'                    # Mouse gross anatomy and development, timed
 'XAO': 'http://purl.obolibrary.org/obo/XAO_'                        # Xenopus Anatomy and development
 'MONDO': 'http://purl.obolibrary.org/obo/MONDO_'                    # Monarch Disease Ontology
+'MONDONS': 'http://purl.obolibrary.org/obo/mondo#'                  # Monarch Disease Ontology, alternative
 'NCIT': 'http://purl.obolibrary.org/obo/NCIT_'                      # National Cancer Institute Thesaurus
 'SEPIO': 'http://purl.obolibrary.org/obo/SEPIO_'                    # Scientific Evidence and Provenance Information Ontology
 'VIVO': 'http://vivoweb.org/ontology/core#'                         # ontology for representing scholarship
