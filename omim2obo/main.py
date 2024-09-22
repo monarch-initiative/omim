@@ -65,7 +65,6 @@ from omim2obo.parsers.omim_txt_parser import *
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
-ISSUES_OUTPATH = os.path.join(ROOT_DIR, 'omimIssues.json')
 INCLUDED_URI = 'http://purl.obolibrary.org/obo/mondo#omim_included'
 
 
@@ -153,7 +152,6 @@ CONFIG = {
 # Main
 def omim2obo(use_cache: bool = False):
     """Run program"""
-    issues = {}
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
 
@@ -261,17 +259,17 @@ def omim2obo(use_cache: bool = False):
         # todo #1: Consider included_symbols for 'exact' list https://github.com/monarch-initiative/omim/issues/140
         for abbrevs in [pref_symbols, alt_symbols]:
             for abbreviation in abbrevs:
-                add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation),
-                    [(OBOINOWL.hasSynonymType, MONDONS.ABBREVIATION)])
+                add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, abbreviation,
+                    [(oboInOwl.hasSynonymType, OMO['0003000'])])
         # - related, deprecated 'former' titles
         for title in former_alt_titles:
-            clean_title = Literal(label_cleaner.clean(title, pref_abbrev))
+            clean_title = label_cleaner.clean(title, pref_abbrev)
             add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, clean_title,
                 [(OWL.deprecated, Literal(True))])
         # - related, deprecated 'former' abbreviations
         for abbreviation in former_alt_symbols:
-            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, Literal(abbreviation),
-                [(OWL.deprecated, Literal(True)), (OBOINOWL.hasSynonymType, MONDONS.ABBREVIATION)])
+            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, abbreviation,
+                [(OWL.deprecated, Literal(True)), (oboInOwl.hasSynonymType, OMO['0003000'])])
 
         # 'Included' entries
         included_comment = "This term has one or more labels that end with ', INCLUDED'."
@@ -419,22 +417,6 @@ def omim2obo(use_cache: bool = False):
 
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
-    if issues:
-        print(f'Warning: Issues detected. Check for details: {ISSUES_OUTPATH}', file=sys.stderr)
-        with open(ISSUES_OUTPATH, 'w') as f:
-            json.dump(issues, f, indent=2)
-        # todo: report in TSV. remove when we are done looking over this issue
-        #  - https://github.com/monarch-initiative/omim/issues/78
-        rows = []
-        for row in [
-            x['morbidmap.txt_original_row'] for x in issues['morbid_map']['issue:nonNumericPhenotypeId'].values()
-        ]:
-            new_row = {}
-            new_row['Phenotype'], new_row['Gene Symbols'], new_row['MIM Number'], new_row['Cyto Location'] = \
-                row.split('\t')
-            rows.append(new_row)
-        missing_mimnum_report = pd.DataFrame(rows)
-        missing_mimnum_report.to_csv('~/Desktop/noMimNumsInPhenoLabels.tsv', sep='\t', index=False)
 
 
 if __name__ == '__main__':
