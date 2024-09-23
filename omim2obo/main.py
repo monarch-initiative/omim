@@ -56,8 +56,9 @@ from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import get_alt_and_included_titles_and_symbols, get_pubs, get_mapped_ids, \
-    LabelCleaner
+from omim2obo.parsers.omim_entry_parser import cleanup_title, get_alt_and_included_titles_and_symbols, get_pubs, \
+    get_mapped_ids, \
+    recapitalize_acronyms_in_title
 from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
 from omim2obo.parsers.omim_txt_parser import *
 
@@ -140,7 +141,6 @@ TAX_LABEL = 'Homo sapiens'
 TAX_ID = GLOBAL_TERMS[TAX_LABEL]
 TAX_URI = URIRef(NCBITAXON + TAX_ID.split(':')[1])
 CURIE_MAP = get_curie_maps()
-label_cleaner = LabelCleaner()
 CONFIG = {
     'verbose': False
 }
@@ -197,7 +197,7 @@ def omim2obo(use_cache: bool = False):
         # Parse titles & symbols
         omim_type, pref_titles_str, alt_titles_str, inc_titles_str = omim_type_and_titles[omim_id]
         pref_titles_and_symbols: List[str] = [x.strip() for x in pref_titles_str.split(';')]
-        pref_title, pref_symbols = pref_titles_and_symbols[0], pref_titles_and_symbols[1:]
+        pref_title, pref_symbols = cleanup_title(pref_titles_and_symbols[0]), pref_titles_and_symbols[1:]
         alt_titles, alt_symbols, former_alt_titles, former_alt_symbols = \
             get_alt_and_included_titles_and_symbols(alt_titles_str)
         included_titles, included_symbols, former_included_titles, former_included_symbols = \
@@ -225,7 +225,7 @@ def omim2obo(use_cache: bool = False):
                 LOG.warning(gene_label_err)  # todo: rare (n=1?), but decide the best way to handle these situations
             graph.add((omim_uri, RDFS.label, Literal(pref_symbols[0])))
         else:
-            graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(pref_title))))
+            graph.add((omim_uri, RDFS.label, Literal(pref_title)))
 
         # todo: .clean()/.cleanup_label() 2nd param `explicit_abbrev` should be List[str] instead of str. And below,
         #  should pass all symbols/abbrevs from each of preferred, alt, included each time it is called. If no symbols
@@ -234,9 +234,9 @@ def omim2obo(use_cache: bool = False):
 
         # Add synonyms
         # - exact titles
-        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, pref_abbrev))))
+        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(recapitalize_acronyms_in_title(pref_title, pref_abbrev))))
         for title in alt_titles:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(title, pref_abbrev))))
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(recapitalize_acronyms_in_title(title, pref_abbrev))))
         # - exact abbreviations
         for abbrevs in [pref_symbols, alt_symbols]:
             for abbreviation in abbrevs:
@@ -244,7 +244,7 @@ def omim2obo(use_cache: bool = False):
                     [(oboInOwl.hasSynonymType, OMO['0003000'])])
         # - related, deprecated 'former' titles
         for title in former_alt_titles:
-            clean_title = label_cleaner.clean(title, pref_abbrev)
+            clean_title = recapitalize_acronyms_in_title(title, pref_abbrev)
             add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, clean_title,
                 [(OWL.deprecated, Literal(True))])
         # - related, deprecated 'former' abbreviations
@@ -259,7 +259,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((omim_uri, RDFS['comment'], Literal(included_comment)))
         # - titles
         for title in included_titles:
-            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(label_cleaner.clean(title, pref_abbrev))))
+            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(recapitalize_acronyms_in_title(title, pref_abbrev))))
         # - symbols
         for symbol in included_symbols:
             add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol, [
@@ -268,7 +268,7 @@ def omim2obo(use_cache: bool = False):
             ])
         # - deprecated, 'former'
         for title in former_included_titles:
-            clean_title = label_cleaner.clean(title, pref_abbrev)
+            clean_title = recapitalize_acronyms_in_title(title, pref_abbrev)
             add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), clean_title,
                 [(OWL.deprecated, Literal(True))])
         for symbol in former_included_symbols:

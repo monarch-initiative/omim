@@ -19,6 +19,31 @@ from omim2obo.utils.romanplus import *
 LOG = logging.getLogger('omim2obo.parsers.api_entry_parser')
 
 
+def get_known_capitalizations() -> Dict[str, str]:
+    """Get list of known capitalizations for proper names, acronyms, and the like.
+    TODO: Contains space-delimited words, e.g. "vitamin d". The way that
+     cleanup_label is currently implemented, each word in the label gets
+     replaced; i.e. it would try to replace "vitamin" and "d" separately. Hence,
+     this would fail.
+     Therefore, we should probably do this in 2 different operations: (1) use
+     the current 'word replacement' logic, but also, (2), at the end, do a
+     generic string replacement (e.g. my_str.replace(a, b). When implementing
+     (2), we should also split this dictionary into two separate dictionaries,
+     each for 1 of these 2 different purposes."""
+    path = DATA_DIR / 'known_capitalizations.tsv'
+    with open(path, "r") as file:
+        data_io = csv.reader(file, delimiter="\t")
+        data: List[List[str]] = [x for x in data_io]
+    df = pd.DataFrame(data[1:], columns=data[0])
+    d = {}
+    for index, row in df.iterrows():
+        d[row['lower_name']] = row['cap_name']
+    return d
+
+
+CAPITALIZATION_REPLACEMENTS: Dict[str, str] = get_known_capitalizations()
+
+
 # todo: This isn't used in the ingest to create omim.ttl. Did this have some other use case?
 def transform_entry(entry) -> Graph:
     """
@@ -49,7 +74,7 @@ def transform_entry(entry) -> Graph:
     abbrev = label.split(';')[1].strip() if ';' in label else None
 
     if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER.value:  # %
-        graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
+        graph.add((omim_uri, RDFS.label, Literal(cleanup_title(label))))
         graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
     elif omim_type == OmimType.GENE.value or omim_type == OmimType.HAS_AFFECTED_FEATURE.value:  # * or +
         omim_type = OmimType.GENE.value
@@ -57,10 +82,10 @@ def transform_entry(entry) -> Graph:
         graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))
         graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
     elif omim_type == OmimType.PHENOTYPE.value:  # #
-        graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
+        graph.add((omim_uri, RDFS.label, Literal(cleanup_title(label))))
         graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
     else:  # ^ or NULL (no prefix character)
-        graph.add((omim_uri, RDFS.label, Literal(cleanup_label(label))))
+        graph.add((omim_uri, RDFS.label, Literal(cleanup_title(label))))
 
     graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label)))
     for label in other_labels:
@@ -122,12 +147,8 @@ def transform_entry(entry) -> Graph:
     return graph
 
 
-def _detect_abbreviations(
-        label: str,
-        explicit_abbrev: str = None,
-        trailing_abbrev: str = None,
-        CAPITALIZATION_THRESHOLD = 0.75
-):
+# todo: probably best to combine explicit abbrevs outside of this func
+def _detect_abbreviations(label: str, explicit_abbrev: str = None, capitalization_threshold=0.75) -> List[str]:
     """Detect possible abbreviations / acronyms"""
     # Compile regexp
     acronyms_without_periods_compiler = re.compile('[A-Z]{1}[A-Z0-9]{1,}')
@@ -142,7 +163,7 @@ def _detect_abbreviations(
         if word.upper() == word:
             fully_capitalized_count += 1
     is_largely_uppercase = \
-        fully_capitalized_count / len(words) >= CAPITALIZATION_THRESHOLD
+        fully_capitalized_count / len(words) >= capitalization_threshold
 
     # Detect acronyms without periods
     if is_largely_uppercase:
@@ -155,8 +176,7 @@ def _detect_abbreviations(
     # Combine list of things to re-format
     replacements = []
     candidates: List[List[str]] = [
-        acronyms_with_periods, acronyms_without_periods, title_cased_abbrevs,
-        [trailing_abbrev], [explicit_abbrev]]
+        acronyms_with_periods, acronyms_without_periods, title_cased_abbrevs, [explicit_abbrev]]
     for item_list in candidates:
         for item in item_list:
             if item:
@@ -166,22 +186,17 @@ def _detect_abbreviations(
 
 
 # todo: rename? It's doing more than cleaning; it's mutating
-# todo: This step should no longer be necessary as it is now done beforehand: "remove the abbreviation suffixes"
-# todo: explicit_abbrev: Change to List[str]. See: https://github.com/monarch-initiative/omim/issues/129
-def cleanup_label(
-    label: str,
-    explicit_abbrev: str = None,
-    replacement_case_method: str = 'lower',  # lower | title | upper
-    replacement_case_method_acronyms: str = 'upper',  # lower | title | upper
+def cleanup_title(
+    title: str,
     conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
-    little_preps: List[str] = [
-        'at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
+    little_preps: List[str] = ['at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
     articles: List[str] = ['a', 'an', 'the'],
-    CAPITALIZATION_THRESHOLD = 0.75,
-    word_replacements: Dict[str, str] = None  # w/ known cols
+    word_replacements: Dict[str, str] = CAPITALIZATION_REPLACEMENTS,
 ) -> str:
     """Reformat the ALL CAPS OMIM labels to something more pleasant to read.
-    
+
+    :param title: A preferred, alternative, or included title.
+
     1. Removes the abbreviation suffixes
     2. Converts roman numerals to arabic
     3. Makes the text Title Case, except for supplied conjunctions/prepositions/articles
@@ -218,19 +233,12 @@ def cleanup_label(
        e.g.: Balint syndrome, Barre-Lieou syndrome, Wallerian degeneration, etc.
        How to do this? Simply get/create a list of known eponyms? Is this feasible?
     """
-    # 1/3: Detect abbreviations / acronyms
-    label2 = label.split(r';')[0] if r';' in label else label
-    trailing_abbrev = label.split(r';')[1] if r';' in label else ''
-    possible_abbreviations = _detect_abbreviations(
-        label2, explicit_abbrev, trailing_abbrev, CAPITALIZATION_THRESHOLD)
-
-    # 2/3: Format label
     # Simple method: Lower/title case everything but acronyms
     # label_newcase = getattr(label2, replacement_case_method)()
     # Advanced method: iteritavely format words
     fixedwords = []
     i = 0
-    for wrd in label2.split():
+    for wrd in title.split():
         i += 1
         # convert the roman numerals to numbers,
         # but assume that the first word is not
@@ -246,22 +254,29 @@ def cleanup_label(
                 suffix = wrd.replace(toRoman(num), '', 1)
                 fixed = ''.join((str(num), suffix))
                 wrd = fixed
-        wrd = getattr(wrd, replacement_case_method)()
+        # todo: next few lines don't make sense. why lower 'wrd', and then conditionally lowercase it again?
+        wrd = wrd.lower()
         # replace interior conjunctions, prepositions, and articles with lowercase, always
-        if wrd.lower() in (conjunctions + little_preps + articles) and i != 1:
+        if wrd in (conjunctions + little_preps + articles) and i != 1:
             wrd = wrd.lower()
         if word_replacements:
             wrd = word_replacements.get(wrd, wrd)
         fixedwords.append(wrd)
     label_newcase = ' '.join(fixedwords)
 
-    # 3/3 Re-capitalize acronyms / words based on information contained w/in original label
-    formatted_label = copy(label_newcase)
-    for item in possible_abbreviations:
-        to_replace = getattr(item, replacement_case_method_acronyms)()
-        formatted_label = formatted_label.replace(to_replace, item)
+    return label_newcase
 
-    return formatted_label
+
+# todo: explicit_abbrev: Change to List[str]. See: https://github.com/monarch-initiative/omim/issues/129
+def recapitalize_acronyms_in_title(title: str, explicit_abbrev=None, capitalization_threshold=0.75) -> str:
+    """Re-capitalize acronyms / words based on information contained w/in original label"""
+    # todo: probably best to combine explicit abbrevs outside of this func
+    possible_abbreviations = _detect_abbreviations(
+        title, explicit_abbrev, capitalization_threshold=capitalization_threshold)
+    title2 = title
+    for abbrev in possible_abbreviations:
+        title2 = title2.replace(abbrev.upper(), abbrev)
+    return title2
 
 
 def remove_included_and_formerly_suffixes(title: str) -> str:
@@ -288,7 +303,7 @@ def clean_alt_and_included_titles(titles: List[str], symbols: List[str]) -> Tupl
     titles2 = [remove_included_and_formerly_suffixes(x) for x in titles]
     symbols2 = [remove_included_and_formerly_suffixes(x) for x in symbols]
     # additional reformatting for titles
-    titles3 = [cleanup_label(x) for x in titles2]
+    titles3 = [cleanup_title(x) for x in titles2]
     return titles3, symbols2
 
 
@@ -387,38 +402,3 @@ def get_phenotypic_series(entry) -> List[str]:
 def get_process_allelic_variants(entry) -> List:
     # Not sure when/if Dazhi intended to use this - joeflack4 2021/12/20
     return []
-
-
-def get_known_capitalizations() -> Dict[str, str]:
-    """Get list of known capitalizations for proper names, acronyms, and the like.
-    TODO: Contains space-delimited words, e.g. "vitamin d". The way that
-     cleanup_label is currently implemented, each word in the label gets
-     replaced; i.e. it would try to replace "vitamin" and "d" separately. Hence,
-     this would fail.
-     Therefore, we should probably do this in 2 different operations: (1) use
-     the current 'word replacement' logic, but also, (2), at the end, do a
-     generic string replacement (e.g. my_str.replace(a, b). When implementing
-     (2), we should also split this dictionary into two separate dictionaries,
-     each for 1 of these 2 different purposes."""
-    path = DATA_DIR / 'known_capitalizations.tsv'
-    with open(path, "r") as file:
-        data_io = csv.reader(file, delimiter="\t")
-        data: List[List[str]] = [x for x in data_io]
-    df = pd.DataFrame(data[1:], columns=data[0])
-    d = {}
-    for index, row in df.iterrows():
-        d[row['lower_name']] = row['cap_name']
-    return d
-
-
-class LabelCleaner():
-    """Cleans labels"""
-
-    def __init__(self):
-        """New obj"""
-        self.word_replacements: Dict[str, str] = get_known_capitalizations()
-
-    def clean(self, label, *args, **kwargs):
-        """Overrides cleanup_label by adding word_replacements"""
-        return cleanup_label(
-            label, *args, **kwargs, word_replacements=self.word_replacements)
