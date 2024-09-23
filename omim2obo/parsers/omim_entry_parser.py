@@ -288,15 +288,23 @@ def clean_alt_and_included_titles(titles: List[str], symbols: List[str]) -> Tupl
     titles2 = [remove_included_and_formerly_suffixes(x) for x in titles]
     symbols2 = [remove_included_and_formerly_suffixes(x) for x in symbols]
     # additional reformatting for titles
-    titles2 = [cleanup_label(x) for x in titles2]  # todo: is this redundant? gets done when adding synonyms to graph
-    return titles2, symbols2
+    titles3 = [cleanup_label(x) for x in titles2]
+    return titles3, symbols2
 
 
 def parse_title_symbol_pairs(title_symbol_pairs_str: str) -> Tuple[List[str], List[str]]:
-    """Separate string of delimited titles/symbol pairs into lists of titles and symbols
+    """Parses a string containing title-symbol pairs.
 
-    :param title_symbol_pairs_str: a string of 1+ pairs of symbol/titles, delimited by ;;, 1 title and and 0-2+ symbols
-      per pair, delimited by ;, e.g.:
+    :param title_symbol_pairs_str: A string representing title-symbol pairs.
+    Format:
+    - Pairs are separated by ';;'
+    - Within each pair:
+        - The first element is always a title
+        - Optionally followed by zero or more symbols, separated by ';'
+
+    Examples:
+      Positional semantics:
+        Title1;Symbol1;Symbol2;;Title2;;Title3;Symbol3
       Alternative Title(s); symbol(s):
         ACROCEPHALOSYNDACTYLY, TYPE V; ACS5;; ACS V;; NOACK SYNDROME
       Included Title(s); symbols:
@@ -310,6 +318,20 @@ def parse_title_symbol_pairs(title_symbol_pairs_str: str) -> Tuple[List[str], Li
         titles.append(pair[0])
         symbols.extend(pair[1:])
     return titles, symbols
+
+
+def get_alt_and_included_titles_and_symbols(title_symbol_pair_str) -> Tuple[List[str], List[str], List[str], List[str]]:
+    """Separates different types of titles/symbols, and cleans them."""
+    titles: List[str] = []
+    symbols: List[str] = []
+    former_titles: List[str] = []
+    former_symbols: List[str] = []
+    if title_symbol_pair_str:
+        titles, symbols = parse_title_symbol_pairs(title_symbol_pair_str)
+        titles, symbols, former_titles, former_symbols = separate_former_titles_and_symbols(titles, symbols)
+        titles, symbols = clean_alt_and_included_titles(titles, symbols)
+        former_titles, former_symbols = clean_alt_and_included_titles(former_titles, former_symbols)
+    return titles, symbols, former_titles, former_symbols
 
 
 def get_mapped_gene_ids(entry) -> List[str]:
