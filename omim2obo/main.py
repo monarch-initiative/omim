@@ -60,8 +60,6 @@ from omim2obo.parsers.omim_txt_parser import *
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
-ISSUES_OUTPATH = os.path.join(ROOT_DIR, 'omimIssues.json')
-
 
 # Logging
 LOG = logging.getLogger(__name__)
@@ -118,7 +116,6 @@ CONFIG = {
 # Main
 def omim2obo(use_cache: bool = False):
     """Run program"""
-    issues = {}
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
 
@@ -163,12 +160,15 @@ def omim2obo(use_cache: bool = False):
                 continue
 
         # - Non-deprecated
-        omim_type, pref_label, alt_labels, inc_labels = omim_type_and_titles[omim_id]
-        label = pref_label
+        # Parse titles
+        omim_type, pref_labels_str, alt_labels, inc_labels = omim_type_and_titles[omim_id]
         other_labels = []
         cleaned_inc_labels = []
         label_endswith_included_alt = False
         label_endswith_included_inc = False
+        pref_labels: List[str] = [x.strip() for x in pref_labels_str.split(';')]
+        pref_title: str = pref_labels[0]
+        pref_symbols: List[str] = pref_labels[1:]
         if alt_labels:
             cleaned_alt_labels, label_endswith_included_alt = get_alt_labels(alt_labels)
             other_labels += cleaned_alt_labels
@@ -176,16 +176,11 @@ def omim2obo(use_cache: bool = False):
             cleaned_inc_labels, label_endswith_included_inc = get_alt_labels(inc_labels)
             # other_labels += cleaned_inc_labels  # deactivated 7/2024 in favor of alternative for tagging 'included'
 
-        included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
-        if label_endswith_included_alt or label_endswith_included_inc:
-            graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
-
-        use_abbrev_over_label = False
-        abbrev = label.split(';')[1].strip() if ';' in label else None
+        # Special cases depending on OMIM term type
+        is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # %
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-        elif omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE:  # * or +
-            use_abbrev_over_label = True
+        elif is_gene:  # * or +
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))  # gene
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.nonDisease))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
@@ -193,23 +188,40 @@ def omim2obo(use_cache: bool = False):
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))  # phenotype ~= disease
         elif omim_type == OmimType.SUSPECTED:
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.excludeTrait))
-        else:
-            pass
 
-        if use_abbrev_over_label and abbrev:
-            graph.add((omim_uri, RDFS.label, Literal(abbrev)))
+        # Alternative rdfs:label for genes
+        if is_gene and pref_symbols:
+            gene_label_err = 'Warning: Only 1 symbol picked for label for gene term, but there were 2 to choose' \
+                 f'from. Unsure which is best. Picking the first.\nhttps://omim.org/entry/{omim_id} - {pref_symbols}'
+            if len(pref_symbols) > 1:
+                LOG.warning(gene_label_err)  # todo: decide the best way to handle these situations
+            graph.add((omim_uri, RDFS.label, Literal(pref_symbols[0])))
         else:
-            graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(label))))
+            graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(pref_title))))
 
-        exact_labels = [s.strip() for s in label.split(';')]
-        # the last string is an abbreviation. Add OWL reification. See issue #2
-        if len(exact_labels) > 1:
-            abbr = exact_labels.pop()
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbr)))
-        for exact_label in exact_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(exact_label, abbrev))))
-        for label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(label, abbrev))))
+        # todo: .clean()/.cleanup_label() 2nd param `explicit_abbrev` should be List[str] instead of str. And below,
+        #  should pass all symbols/abbrevs from each of preferred, alt, included each time it is called. If no symbols
+        #  for given term, should pass empty list. See: https://github.com/monarch-initiative/omim/issues/129
+        abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
+
+        # Add synonyms
+        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, abbrev))))
+        for alt_label in other_labels:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
+        for abbreviation in pref_symbols:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
+            # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
+            axiom = BNode()
+            graph.add((axiom, RDF.type, OWL.Axiom))
+            graph.add((axiom, OWL.annotatedSource, omim_uri))
+            graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
+            graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
+            graph.add((axiom, oboInOwl.hasSynonymType, OMO['0003000']))
+
+        # Add 'included' entry properties
+        included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
+        if label_endswith_included_alt or label_endswith_included_inc:
+            graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
         for included_label in cleaned_inc_labels:
             graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(label_cleaner.clean(included_label, abbrev))))
 
@@ -349,22 +361,6 @@ def omim2obo(use_cache: bool = False):
 
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
-    if issues:
-        print(f'Warning: Issues detected. Check for details: {ISSUES_OUTPATH}', file=sys.stderr)
-        with open(ISSUES_OUTPATH, 'w') as f:
-            json.dump(issues, f, indent=2)
-        # todo: report in TSV. remove when we are done looking over this issue
-        #  - https://github.com/monarch-initiative/omim/issues/78
-        rows = []
-        for row in [
-            x['morbidmap.txt_original_row'] for x in issues['morbid_map']['issue:nonNumericPhenotypeId'].values()
-        ]:
-            new_row = {}
-            new_row['Phenotype'], new_row['Gene Symbols'], new_row['MIM Number'], new_row['Cyto Location'] = \
-                row.split('\t')
-            rows.append(new_row)
-        missing_mimnum_report = pd.DataFrame(rows)
-        missing_mimnum_report.to_csv('~/Desktop/noMimNumsInPhenoLabels.tsv', sep='\t', index=False)
 
 
 if __name__ == '__main__':
