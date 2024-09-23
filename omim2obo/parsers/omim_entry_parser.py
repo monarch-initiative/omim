@@ -38,10 +38,10 @@ def transform_entry(entry) -> Graph:
     omim_uri = URIRef(OMIM[omim_num])
     other_labels = []
     if 'alternativeTitles' in titles:
-        cleaned, label_endswith_included = get_alt_labels(titles['alternativeTitles'])
+        cleaned, label_endswith_included = parse_title_symbol_pairs(titles['alternativeTitles'])
         other_labels += cleaned
     if 'includedTitles' in titles:
-        cleaned, label_endswith_included = get_alt_labels(titles['includedTitles'])
+        cleaned, label_endswith_included = parse_title_symbol_pairs(titles['includedTitles'])
         other_labels += cleaned
 
     graph.add((omim_uri, RDF.type, OWL.Class))
@@ -165,62 +165,58 @@ def _detect_abbreviations(
     return replacements
 
 
+# todo: rename? It's doing more than cleaning; it's mutating
+# todo: This step should no longer be necessary as it is now done beforehand: "remove the abbreviation suffixes"
 # todo: explicit_abbrev: Change to List[str]. See: https://github.com/monarch-initiative/omim/issues/129
 def cleanup_label(
-        label: str,
-        explicit_abbrev: str = None,
-        replacement_case_method: str = 'lower',  # lower | title | upper
-        replacement_case_method_acronyms = 'upper',  # lower | title | upper
-        conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
-        little_preps: List[str] = [
-            'at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
-        articles: List[str] = ['a', 'an', 'the'],
-        CAPITALIZATION_THRESHOLD = 0.75,
-        word_replacements: Dict[str, str] = None  # w/ known cols
+    label: str,
+    explicit_abbrev: str = None,
+    replacement_case_method: str = 'lower',  # lower | title | upper
+    replacement_case_method_acronyms: str = 'upper',  # lower | title | upper
+    conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
+    little_preps: List[str] = [
+        'at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
+    articles: List[str] = ['a', 'an', 'the'],
+    CAPITALIZATION_THRESHOLD = 0.75,
+    word_replacements: Dict[str, str] = None  # w/ known cols
 ) -> str:
-    """
-    Reformat the ALL CAPS OMIM labels to something more pleasant to read.
-    This will:
-    1.  remove the abbreviation suffixes
-    2.  convert the roman numerals to integer numbers
-    3.  make the text title case,
-        except for suplied conjunctions/prepositions/articles
-
-    Resources
-    - https://pythex.org/
+    """Reformat the ALL CAPS OMIM labels to something more pleasant to read.
+    
+    1. Removes the abbreviation suffixes
+    2. Converts roman numerals to arabic
+    3. Makes the text Title Case, except for supplied conjunctions/prepositions/articles
 
     Assumptions:
-        1. All acronyms are capitalized
+    1. All acronyms are capitalized
 
-    # TODO Laters:
-    # 1: Find a pattern for hyphenated types, and maintain acronym capitalization
-    # ...e.g. MITF-related melanoma and renal cell carcinoma predisposition syndrome
-    # ...e.g. ATP1A3-associated neurological disorder
-    # 2. Make pattern for chromosomes
-    # ...agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple extragenital malformations
-    # ...Chromosome special formatting capitalization?
-    # ...There seems to be special formatting for chromosome refs; they have a comma in the middle, but with no space
-    # ...after the comma, though some places I saw on the internet contained a space.
-    # ...e.g. "46,XY" in: agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple extragenital malformations
-    # 3. How to find acronym if it is capitalized but only includes char [A-Z], and
-    # ... every other char in the string is also capitalized? I don't see a way unless
-    # ... checking every word against an explicit dictionary of terms, though there are sure
-    # ... to also be (i) acronyms in that dictionary, and (ii) non-acronyms missing from
-    # ... that dictionary. And also concern (iii), where to get such an extensive dictionary?
-    # 4. Add "special character" inclusion into acronym regexp. But which special
-    # ... chars to include, and which not to include?
-    # 5. Acronym capture extension: case where at least 1 word is not capitalized:
-    # ... any word that is fully capitalized might as well be acronym, so long
-    # ...as at least 1 other word in the label is not all caps. Maybe not a good rule,
-    # ...because there could be some violations, and this probably would not happen
-    # ...that often anwyay
-    # ... - Not sure what I meant about (5) - joeflack4 2021/09/10
-    # 6. Eponyms: re-capitalize first char?
-    # ...e.g.: Balint syndrome, Barre-Lieou syndrome, Wallerian degeneration, etc.
-    # ...How to do this? Simply get/create a list of known eponyms? Is this feasible?
-
-    :param synonym: str
-    :return: str
+    todo later's:
+    1: Find a pattern for hyphenated types, and maintain acronym capitalization
+       e.g. MITF-related melanoma and renal cell carcinoma predisposition syndrome
+       e.g. ATP1A3-associated neurological disorder
+    2. Make pattern for chromosomes
+       agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple extragenital
+         malformations
+       Chromosome special formatting capitalization?
+       There seems to be special formatting for chromosome refs; they have a comma in the middle, but with no space
+       after the comma, though some places I saw on the internet contained a space.
+       e.g. "46,XY" in: agonadism, 46,XY, with intellectual disability, short stature, retarded bone age, and multiple
+         extragenital malformations
+    3. How to find acronym if it is capitalized but only includes char [A-Z], and
+        every other char in the string is also capitalized? I don't see a way unless
+        checking every word against an explicit dictionary of terms, though there are sure
+        to also be (i) acronyms in that dictionary, and (ii) non-acronyms missing from
+        that dictionary. And also concern (iii), where to get such an extensive dictionary?
+    4. Add "special character" inclusion into acronym regexp. But which special
+        chars to include, and which not to include?
+    5. Acronym capture extension: case where at least 1 word is not capitalized:
+        any word that is fully capitalized might as well be acronym, so long
+       as at least 1 other word in the label is not all caps. Maybe not a good rule,
+       because there could be some violations, and this probably would not happen
+       that often anwyay
+        - Not sure what I meant about (5) - joeflack4 2021/09/10
+    6. Eponyms: re-capitalize first char?
+       e.g.: Balint syndrome, Barre-Lieou syndrome, Wallerian degeneration, etc.
+       How to do this? Simply get/create a list of known eponyms? Is this feasible?
     """
     # 1/3: Detect abbreviations / acronyms
     label2 = label.split(r';')[0] if r';' in label else label
@@ -268,31 +264,74 @@ def cleanup_label(
     return formatted_label
 
 
-def get_alt_labels(titles: str) -> Tuple[List[str], bool]:
-    """
-    From a string of delimited titles, make an array.
-    This assumes that the titles are double-semicolon (';;') delimited.
-    This will additionally pass each through the _cleanup_label method to
-    convert the screaming ALL CAPS to something more pleasant to read.
-    :param titles:
-    :return: an array of cleaned-up labels
-    """
+def remove_included_and_formerly_suffixes(title: str) -> str:
+    """Remove ', INCLUDED' and ', FORMERLY' suffixes from a title"""
+    for suffix in ['FORMERLY', 'INCLUDED']:
+        title = re.sub(r',\s*' + suffix, '', title, re.IGNORECASE)
+    return title
 
-    labels = []
-    label_endswith_included = False
-    # "alternativeTitles": "
-    #   ACROCEPHALOSYNDACTYLY, TYPE V; ACS5;;\nACS V;;\nNOACK SYNDROME",
-    # "includedTitles":
-    #   "CRANIOFACIAL-SKELETAL-DERMATOLOGIC DYSPLASIA, INCLUDED"
-    for title in titles.split(';;'):
-        # remove ', included', if present
-        title = title.strip()
-        label = re.sub(r',\s*INCLUDED', '', title, re.IGNORECASE)
-        label_endswith_included = label != title
-        label = cleanup_label(label)
-        labels.append(label)
 
-    return labels, label_endswith_included
+def separate_former_titles_and_symbols(
+    titles: List[str], symbols: List[str]
+) -> Tuple[List[str], List[str], List[str], List[str]]:
+    """Separate current title/symbols from deprecated (marked 'former') ones"""
+    former_titles = [x for x in titles if ', FORMERLY' in x.upper()]
+    former_symbols = [x for x in symbols if ', FORMERLY' in x.upper()]
+    current_titles = [x for x in titles if ', FORMERLY' not in x.upper()]
+    current_symbols = [x for x in symbols if ', FORMERLY' not in x.upper()]
+    return current_titles, current_symbols, former_titles, former_symbols
+
+
+def clean_alt_and_included_titles(titles: List[str], symbols: List[str]) -> Tuple[List[str], List[str]]:
+    """Remove ', INCLUDED' and ', FORMERLY' suffixes from titles/symbols & misc title reformatting"""
+    # remove ', included' and ', formerly', if present
+    titles2 = [remove_included_and_formerly_suffixes(x) for x in titles]
+    symbols2 = [remove_included_and_formerly_suffixes(x) for x in symbols]
+    # additional reformatting for titles
+    titles3 = [cleanup_label(x) for x in titles2]
+    return titles3, symbols2
+
+
+def parse_title_symbol_pairs(title_symbol_pairs_str: str) -> Tuple[List[str], List[str]]:
+    """Parses a string containing title-symbol pairs.
+
+    :param title_symbol_pairs_str: A string representing title-symbol pairs.
+    Format:
+    - Pairs are separated by ';;'
+    - Within each pair:
+        - The first element is always a title
+        - Optionally followed by zero or more symbols, separated by ';'
+
+    Examples:
+      Positional semantics:
+        Title1;Symbol1;Symbol2;;Title2;;Title3;Symbol3
+      Alternative Title(s); symbol(s):
+        ACROCEPHALOSYNDACTYLY, TYPE V; ACS5;; ACS V;; NOACK SYNDROME
+      Included Title(s); symbols:
+        CRANIOFACIAL-SKELETAL-DERMATOLOGIC DYSPLASIA, INCLUDED
+    """
+    titles: List[str] = []
+    symbols: List[str] = []
+    title_symbol_pairs: List[str] = title_symbol_pairs_str.split(';;')
+    for pair_str in title_symbol_pairs:
+        pair: List[str] = [x.strip() for x in pair_str.split(';')]
+        titles.append(pair[0])
+        symbols.extend(pair[1:])
+    return titles, symbols
+
+
+def get_alt_and_included_titles_and_symbols(title_symbol_pair_str) -> Tuple[List[str], List[str], List[str], List[str]]:
+    """Separates different types of titles/symbols, and cleans them."""
+    titles: List[str] = []
+    symbols: List[str] = []
+    former_titles: List[str] = []
+    former_symbols: List[str] = []
+    if title_symbol_pair_str:
+        titles, symbols = parse_title_symbol_pairs(title_symbol_pair_str)
+        titles, symbols, former_titles, former_symbols = separate_former_titles_and_symbols(titles, symbols)
+        titles, symbols = clean_alt_and_included_titles(titles, symbols)
+        former_titles, former_symbols = clean_alt_and_included_titles(former_titles, former_symbols)
+    return titles, symbols, former_titles, former_symbols
 
 
 def get_mapped_gene_ids(entry) -> List[str]:
