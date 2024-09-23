@@ -4,7 +4,7 @@ import logging
 # import re
 from collections import defaultdict
 from copy import copy
-from typing import List, Dict, Tuple
+from typing import List, Dict, Set, Tuple, Union
 
 import pandas as pd
 from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, SKOS, URIRef
@@ -21,7 +21,7 @@ LOG = logging.getLogger('omim2obo.parsers.api_entry_parser')
 
 def get_known_capitalizations() -> Dict[str, str]:
     """Get list of known capitalizations for proper names, acronyms, and the like.
-    TODO: Contains space-delimited words, e.g. "vitamin d". The way that
+    todo: Contains space-delimited words, e.g. "vitamin d". The way that
      cleanup_label is currently implemented, each word in the label gets
      replaced; i.e. it would try to replace "vitamin" and "d" separately. Hence,
      this would fail.
@@ -29,7 +29,13 @@ def get_known_capitalizations() -> Dict[str, str]:
      the current 'word replacement' logic, but also, (2), at the end, do a
      generic string replacement (e.g. my_str.replace(a, b). When implementing
      (2), we should also split this dictionary into two separate dictionaries,
-     each for 1 of these 2 different purposes."""
+     each for 1 of these 2 different purposes.
+
+    todo: known_capitalizations.tsv can be refactored possibly. It really only needs 1 column, the case to replaace. The
+     pattern column is not used, and the first column (lowercase) can be computed by using .lower() on the case to
+     replace. We could also leave as-is since this file is shared elsewhere in the project infrastructure, though I do
+     not know its source-of-truth location.
+    """
     path = DATA_DIR / 'known_capitalizations.tsv'
     with open(path, "r") as file:
         data_io = csv.reader(file, delimiter="\t")
@@ -147,8 +153,7 @@ def transform_entry(entry) -> Graph:
     return graph
 
 
-# todo: probably best to combine explicit abbrevs outside of this func
-def _detect_abbreviations(label: str, explicit_abbrev: str = None, capitalization_threshold=0.75) -> List[str]:
+def detect_abbreviations(label: str, capitalization_threshold=0.75) -> List[str]:
     """Detect possible abbreviations / acronyms"""
     # Compile regexp
     acronyms_without_periods_compiler = re.compile('[A-Z]{1}[A-Z0-9]{1,}')
@@ -165,29 +170,21 @@ def _detect_abbreviations(label: str, explicit_abbrev: str = None, capitalizatio
     is_largely_uppercase = \
         fully_capitalized_count / len(words) >= capitalization_threshold
 
-    # Detect acronyms without periods
+    # Detect cases
     if is_largely_uppercase:
         acronyms_without_periods = []  # can't infer because everything was uppercase
     else:
-        acronyms_without_periods = acronyms_without_periods_compiler.findall(label)
-    # Detect more
-    title_cased_abbrevs = title_cased_abbrev_compiler.findall(label)
-    acronyms_with_periods = acronyms_with_periods_compiler.findall(label)
-    # Combine list of things to re-format
-    replacements = []
-    candidates: List[List[str]] = [
-        acronyms_with_periods, acronyms_without_periods, title_cased_abbrevs, [explicit_abbrev]]
-    for item_list in candidates:
-        for item in item_list:
-            if item:
-                replacements.append(item)
+        acronyms_without_periods: List[str] = acronyms_without_periods_compiler.findall(label)
+    title_cased_abbrevs: List[str] = title_cased_abbrev_compiler.findall(label)
+    acronyms_with_periods: List[str] = acronyms_with_periods_compiler.findall(label)
 
-    return replacements
+    return acronyms_with_periods + acronyms_without_periods + title_cased_abbrevs
 
 
 # todo: rename? It's doing more than cleaning; it's mutating
 def cleanup_title(
     title: str,
+    replacement_case_method: str = 'lower',  # 'upper', 'title', 'lower', 'capitalize' (=sentence case)
     conjunctions: List[str] = ['and', 'but', 'yet', 'for', 'nor', 'so'],
     little_preps: List[str] = ['at', 'by', 'in', 'of', 'on', 'to', 'up', 'as', 'it', 'or'],
     articles: List[str] = ['a', 'an', 'the'],
@@ -197,9 +194,10 @@ def cleanup_title(
 
     :param title: A preferred, alternative, or included title.
 
-    1. Removes the abbreviation suffixes
-    2. Converts roman numerals to arabic
-    3. Makes the text Title Case, except for supplied conjunctions/prepositions/articles
+    1. Converts roman numerals to arabic
+    2. Makes the text adhere to the case of `replacement_case_method`, except for supplied
+    conjunctions, prepositions, and articles, which will always be lowercased. NOTE: The default for this is 'lower',
+    meaning that this operation by default does nothing.
 
     Assumptions:
     1. All acronyms are capitalized
@@ -233,9 +231,6 @@ def cleanup_title(
        e.g.: Balint syndrome, Barre-Lieou syndrome, Wallerian degeneration, etc.
        How to do this? Simply get/create a list of known eponyms? Is this feasible?
     """
-    # Simple method: Lower/title case everything but acronyms
-    # label_newcase = getattr(label2, replacement_case_method)()
-    # Advanced method: iteritavely format words
     fixedwords = []
     i = 0
     for wrd in title.split():
@@ -254,8 +249,7 @@ def cleanup_title(
                 suffix = wrd.replace(toRoman(num), '', 1)
                 fixed = ''.join((str(num), suffix))
                 wrd = fixed
-        # todo: next few lines don't make sense. why lower 'wrd', and then conditionally lowercase it again?
-        wrd = wrd.lower()
+        wrd = getattr(wrd, replacement_case_method)()
         # replace interior conjunctions, prepositions, and articles with lowercase, always
         if wrd in (conjunctions + little_preps + articles) and i != 1:
             wrd = wrd.lower()
@@ -267,16 +261,39 @@ def cleanup_title(
     return label_newcase
 
 
-# todo: explicit_abbrev: Change to List[str]. See: https://github.com/monarch-initiative/omim/issues/129
-def recapitalize_acronyms_in_title(title: str, explicit_abbrev=None, capitalization_threshold=0.75) -> str:
-    """Re-capitalize acronyms / words based on information contained w/in original label"""
-    # todo: probably best to combine explicit abbrevs outside of this func
-    possible_abbreviations = _detect_abbreviations(
-        title, explicit_abbrev, capitalization_threshold=capitalization_threshold)
-    title2 = title
-    for abbrev in possible_abbreviations:
-        title2 = title2.replace(abbrev.upper(), abbrev)
+def recapitalize_acronyms_in_title(title: str, known_abbrevs: Set[str] = None, capitalization_threshold=0.75) -> str:
+    """Re-capitalize acronyms / words based on information contained w/in original label
+
+    todo: If title has been used on cleanup_title() using a replacement_case_method other than the non-default 'lower',
+     then the .replace() operation will not work. To solve, this (a) capture the replacement_case_method used and
+     pass that here, or (b) duplicate the .replace() line and call it on alternative casing variations (.title() and
+     capitalize() (=sentence case)), (c) possibly just compare to word.lower() instead of 'word.
+    """
+    inferred_abbrevs: Set[str] = set(detect_abbreviations(title, capitalization_threshold))
+    abbrevs: Set[str] = known_abbrevs.union(inferred_abbrevs)
+    if not abbrevs:
+        return title
+    title2_words: List[str] = []
+    for word in title.split():
+        abbrev_match = False
+        for abbrev in abbrevs:
+            if abbrev.lower() == word:
+                title2_words.append(abbrev)
+                abbrev_match = True
+                break
+        if not abbrev_match:
+            title2_words.append(word)
+    title2 = ' '.join(title2_words)
     return title2
+
+
+def recapitalize_acronyms_in_titles(
+    titles: Union[str, List[str]], known_abbrevs: Set[str] = None, capitalization_threshold=0.75
+) -> Union[str, List[str]]:
+    """Re-capitalize acronyms in a list of titles"""
+    if isinstance(titles, str):
+        return recapitalize_acronyms_in_title(titles, known_abbrevs, capitalization_threshold)
+    return [recapitalize_acronyms_in_title(title, known_abbrevs, capitalization_threshold) for title in titles]
 
 
 def remove_included_and_formerly_suffixes(title: str) -> str:
