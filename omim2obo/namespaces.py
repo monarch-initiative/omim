@@ -53,6 +53,7 @@ OBA = Namespace('http://purl.obolibrary.org/obo/OBA_')                        # 
 OBAN = Namespace('http://purl.org/oban/')                                     # Open Biomedical Annotation Model
 OBI = Namespace('http://purl.obolibrary.org/obo/OBI_')                        # Ontology of Biomedical Investigations
 OBO = Namespace('http://purl.obolibrary.org/obo/')                            # Biological Ontology namespace (this is not itself an ontology)
+oboInOwl = Namespace('http://www.geneontology.org/formats/oboInOwl#')         # obo-specific annotation properties, like synonym types
 # 'OMIA' was http://omia.angis.org.au/ IS https://omia.org/         # (see about helping to update original data)
 OMIA = Namespace('https://omia.org/OMIA')                                     # Online Mendelian Inheritance in Animals (disease/species)
 OMO = Namespace('http://purl.obolibrary.org/obo/OMO_')                        # OBO Metadata Ontology
@@ -249,7 +250,6 @@ WD_ENTITY = Namespace('https://www.wikidata.org/wiki/')               # Wikidata
 PMID = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
 ORPHANET = Namespace('http://www.orpha.net/ORDO/Orphanet_')
 UMLS = Namespace('http://linkedlifedata.com/resource/umls/id/')
-oboInOwl = Namespace('http://www.geneontology.org/formats/oboInOwl#')
 
 # # Monarch-specific
 # '': 'https://monarchinitiative.org/'                                # local BASE IRI
@@ -323,7 +323,6 @@ oboInOwl = Namespace('http://www.geneontology.org/formats/oboInOwl#')
 # 'OBAN': 'http://purl.org/oban/'                                     # Open Biomedical Annotation Model
 # 'OBI': 'http://purl.obolibrary.org/obo/OBI_'                        # Ontology of Biomedical Investigations
 # 'OBO': 'http://purl.obolibrary.org/obo/'                            # Biological Ontology namespace (this is not itself an ontology)
-# 'oboInOwl': 'http://www.geneontology.org/formats/oboInOwl#'         # obo-specific annotation properties, like synonym types
 # # 'OMIA' was http://omia.angis.org.au/ IS https://omia.org/         # (see about helping to update original data)
 # 'OMIA': 'https://omia.org/OMIA'                                     # Online Mendelian Inheritance in Animals (disease/species)
 # # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
