@@ -268,6 +268,14 @@ def recapitalize_acronyms_in_title(title: str, known_abbrevs: Set[str] = None, c
      then the .replace() operation will not work. To solve, this (a) capture the replacement_case_method used and
      pass that here, or (b) duplicate the .replace() line and call it on alternative casing variations (.title() and
      capitalize() (=sentence case)), (c) possibly just compare to word.lower() instead of 'word.
+    todo: (more important): It's probable that .split(' ') is not enough to cover all cases. Should also run the check
+     by splitting on other characters. E.g. consider the following potential cases: "TITLE (ACRONYM)",
+     "TITLE: ACRONYM1&ACRONYM2", "TITLE/ACRONYM" or "TITLE ACRONYM/ACRONYM", "TITLE {ACRONYM1,ACRONYM2}",
+     "TITLE[ACRONYM]",  "TITLE-ACRONYM", or less likely cases such as "TITLE_ACRONYM", "TITLE.ACRONYM". There are quite
+      a few different combos of special char usage that could theoretically arise. It might be possible for thisthat to
+      utilize the regular expressions in detect_abbreviations(), and substitute in the acronym in the place of the [A-Z]
+      part. It is also possible to improve detect_abbreviations() by considering some of thes eother possible example
+      cases above.
     """
     inferred_abbrevs: Set[str] = set(detect_abbreviations(title, capitalization_threshold))
     abbrevs: Set[str] = known_abbrevs.union(inferred_abbrevs)
