@@ -202,7 +202,6 @@ def omim2obo(use_cache: bool = False):
             get_alt_and_included_titles_and_symbols(alt_titles_str)
         included_titles, included_symbols, former_included_titles, former_included_symbols = \
             get_alt_and_included_titles_and_symbols(inc_titles_str)
-        included_is_included = included_titles or included_symbols  # redundant. can't be included symbol w/out title
 
         # Special cases depending on OMIM term type
         is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
@@ -233,28 +232,28 @@ def omim2obo(use_cache: bool = False):
         pref_abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
 
         # Add synonyms
-        # - exact titles
+        # - exact synonyms: titles
         graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, pref_abbrev))))
         for title in alt_titles:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(title, pref_abbrev))))
-        # - exact abbreviations
+        # - exact synonyms: abbreviations
         for abbrevs in [pref_symbols, alt_symbols]:
             for abbreviation in abbrevs:
                 add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, abbreviation,
                     [(oboInOwl.hasSynonymType, OMO['0003000'])])
-        # - related, deprecated 'former' titles
+        # - related, deprecated 'former' synonyms: titles
         for title in former_alt_titles:
             clean_title = label_cleaner.clean(title, pref_abbrev)
             add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, clean_title,
                 [(OWL.deprecated, Literal(True))])
-        # - related, deprecated 'former' abbreviations
+        # - related, deprecated 'former' synonyms: abbreviations
         for abbreviation in former_alt_symbols:
             add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, abbreviation,
                 [(OWL.deprecated, Literal(True)), (oboInOwl.hasSynonymType, OMO['0003000'])])
 
         # Add 'included' entries
         # - comment
-        if included_is_included:
+        if included_titles:  # fyi: only need to check titles; there will never be included symbols w/out titles
             included_comment = "This term has one or more labels that end with ', INCLUDED'."
             graph.add((omim_uri, RDFS['comment'], Literal(included_comment)))
         # - titles
