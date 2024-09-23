@@ -51,10 +51,9 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003304
     '4': RO['0003304'],
 }
-
 MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES = {
    RO['0004013']: RO['0004003'],
-} 
+}
 
 
 def convert_txt_to_tsv(file_name: str):
