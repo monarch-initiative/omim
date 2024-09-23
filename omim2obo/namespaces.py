@@ -84,7 +84,10 @@ ZP = Namespace('http://purl.obolibrary.org/obo/ZP_')                          # 
 WBBT = Namespace('http://purl.obolibrary.org/obo/WBbt_')                      # C. elegans gross anatomy
 EMAPA = Namespace('http://purl.obolibrary.org/obo/EMAPA_')                    # Mouse gross anatomy and development, timed
 XAO = Namespace('http://purl.obolibrary.org/obo/XAO_')                        # Xenopus Anatomy and development
+# MonDO (Monarch Disease Ontology): About the 2 URI prefixes - The one ending in MONDO_ is the canonical URI and is the
+#   OBO conformant. The one ending in mondo# is an historical URI prefix which is a consequence of OBO format.
 MONDO = Namespace('http://purl.obolibrary.org/obo/MONDO_')                    # Monarch Disease Ontology
+MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')                  # Monarch Disease Ontology
 NCIT = Namespace('http://purl.obolibrary.org/obo/NCIT_')                      # National Cancer Institute Thesaurus
 SEPIO = Namespace('http://purl.obolibrary.org/obo/SEPIO_')                    # Scientific Evidence and Provenance Information Ontology
 VIVO = Namespace('http://vivoweb.org/ontology/core#')                         # ontology for representing scholarship
@@ -248,7 +251,6 @@ ORPHANET = Namespace('http://www.orpha.net/ORDO/Orphanet_')
 UMLS = Namespace('http://linkedlifedata.com/resource/umls/id/')
 oboInOwl = Namespace('http://www.geneontology.org/formats/oboInOwl#')
 
-MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')
 # # Monarch-specific
 # '': 'https://monarchinitiative.org/'                                # local BASE IRI
 # 'MONARCH': 'https://monarchinitiative.org/MONARCH_'                 # local BOGUS IRI effectivly bnodes but less
@@ -352,7 +354,6 @@ MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')
 # 'WBbt': 'http://purl.obolibrary.org/obo/WBbt_'                      # C. elegans gross anatomy
 # 'EMAPA': 'http://purl.obolibrary.org/obo/EMAPA_'                    # Mouse gross anatomy and development, timed
 # 'XAO': 'http://purl.obolibrary.org/obo/XAO_'                        # Xenopus Anatomy and development
-# 'MONDO': 'http://purl.obolibrary.org/obo/MONDO_'                    # Monarch Disease Ontology
 # 'NCIT': 'http://purl.obolibrary.org/obo/NCIT_'                      # National Cancer Institute Thesaurus
 # 'SEPIO': 'http://purl.obolibrary.org/obo/SEPIO_'                    # Scientific Evidence and Provenance Information Ontology
 # 'VIVO': 'http://vivoweb.org/ontology/core#'                         # ontology for representing scholarship
