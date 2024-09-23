@@ -56,6 +56,7 @@ OBO = Namespace('http://purl.obolibrary.org/obo/')                            # 
 oboInOwl = Namespace('http://www.geneontology.org/formats/oboInOwl#')         # obo-specific annotation properties, like synonym types
 # 'OMIA' was http://omia.angis.org.au/ IS https://omia.org/         # (see about helping to update original data)
 OMIA = Namespace('https://omia.org/OMIA')                                     # Online Mendelian Inheritance in Animals (disease/species)
+OMO = Namespace('http://purl.obolibrary.org/obo/OMO_')                        # OBO Metadata Ontology
 # LIDIA seems retired. so these are not resovable                   # Also: http://www.vetsci.usyd.edu.au/lida/
 LIDA = Namespace('http://sydney.edu.au/vetscience/lida/dogs/search/disorder/')  # Listing of Inherited Disorders in Animals (defunct?)
 OMIM = Namespace('https://omim.org/entry/')                                    # Online Mendelian Inheritance in Man (human disease and variants)
@@ -84,7 +85,10 @@ ZP = Namespace('http://purl.obolibrary.org/obo/ZP_')                          # 
 WBBT = Namespace('http://purl.obolibrary.org/obo/WBbt_')                      # C. elegans gross anatomy
 EMAPA = Namespace('http://purl.obolibrary.org/obo/EMAPA_')                    # Mouse gross anatomy and development, timed
 XAO = Namespace('http://purl.obolibrary.org/obo/XAO_')                        # Xenopus Anatomy and development
+# MonDO (Monarch Disease Ontology): About the 2 URI prefixes - The one ending in MONDO_ is the canonical URI and is the
+#   OBO conformant. The one ending in mondo# is an historical URI prefix which is a consequence of OBO format.
 MONDO = Namespace('http://purl.obolibrary.org/obo/MONDO_')                    # Monarch Disease Ontology
+MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')                  # Monarch Disease Ontology
 NCIT = Namespace('http://purl.obolibrary.org/obo/NCIT_')                      # National Cancer Institute Thesaurus
 SEPIO = Namespace('http://purl.obolibrary.org/obo/SEPIO_')                    # Scientific Evidence and Provenance Information Ontology
 VIVO = Namespace('http://vivoweb.org/ontology/core#')                         # ontology for representing scholarship
@@ -247,7 +251,6 @@ PMID = Namespace('http://www.ncbi.nlm.nih.gov/pubmed/')
 ORPHANET = Namespace('http://www.orpha.net/ORDO/Orphanet_')
 UMLS = Namespace('http://linkedlifedata.com/resource/umls/id/')
 
-MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')
 # # Monarch-specific
 # '': 'https://monarchinitiative.org/'                                # local BASE IRI
 # 'MONARCH': 'https://monarchinitiative.org/MONARCH_'                 # local BOGUS IRI effectivly bnodes but less
@@ -350,7 +353,6 @@ MONDONS = Namespace('http://purl.obolibrary.org/obo/mondo#')
 # 'WBbt': 'http://purl.obolibrary.org/obo/WBbt_'                      # C. elegans gross anatomy
 # 'EMAPA': 'http://purl.obolibrary.org/obo/EMAPA_'                    # Mouse gross anatomy and development, timed
 # 'XAO': 'http://purl.obolibrary.org/obo/XAO_'                        # Xenopus Anatomy and development
-# 'MONDO': 'http://purl.obolibrary.org/obo/MONDO_'                    # Monarch Disease Ontology
 # 'NCIT': 'http://purl.obolibrary.org/obo/NCIT_'                      # National Cancer Institute Thesaurus
 # 'SEPIO': 'http://purl.obolibrary.org/obo/SEPIO_'                    # Scientific Evidence and Provenance Information Ontology
 # 'VIVO': 'http://vivoweb.org/ontology/core#'                         # ontology for representing scholarship
