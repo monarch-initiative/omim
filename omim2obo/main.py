@@ -237,19 +237,22 @@ def omim2obo(use_cache: bool = False):
         for title in alt_titles:
             graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(title, pref_abbrev))))
         # - exact synonyms: abbreviations
-        for abbrevs in [pref_symbols, alt_symbols]:
-            for abbreviation in abbrevs:
-                add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, abbreviation,
+        for symbols in [pref_symbols, alt_symbols]:
+            for symbol in symbols:
+                add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, symbol,
                     [(oboInOwl.hasSynonymType, OMO['0003000'])])
         # - related, deprecated 'former' synonyms: titles
         for title in former_alt_titles:
             clean_title = label_cleaner.clean(title, pref_abbrev)
-            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, clean_title,
-                [(OWL.deprecated, Literal(True))])
+            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, clean_title)
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_formerly), clean_title)
         # - related, deprecated 'former' synonyms: abbreviations
-        for abbreviation in former_alt_symbols:
-            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, abbreviation,
-                [(OWL.deprecated, Literal(True)), (oboInOwl.hasSynonymType, OMO['0003000'])])
+        for symbol in former_alt_symbols:
+            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, symbol,
+                [(oboInOwl.hasSynonymType, OMO['0003000'])])
+            # Though these are abbreviations, MONDONS.omim_formerly is not (yet) a synonym
+            # type, so can't add axiom: (oboInOwl.hasSynonymType, OMO['0003000'])
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_formerly), symbol)
 
         # Add 'included' entries
         # - comment
@@ -268,14 +271,14 @@ def omim2obo(use_cache: bool = False):
         # - deprecated, 'former'
         for title in former_included_titles:
             clean_title = label_cleaner.clean(title, pref_abbrev)
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), clean_title,
-                [(OWL.deprecated, Literal(True))])
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), clean_title)
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_formerly), clean_title)
         for symbol in former_included_symbols:
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol, [
-                (OWL.deprecated, Literal(True)),
-                # Though these are abbreviations, MONDONS.omim_included is not a synonym type, so can't add axiom:
-                # (oboInOwl.hasSynonymType, OMO['0003000'])
-            ])
+            # Though these are abbreviations, MONDONS.omim_included and MONDONS.omim_formerly is not (yet) a synonym
+            # type, so can't add axiom: (oboInOwl.hasSynonymType, OMO['0003000'])
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol)
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_formerly), symbol)
+
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
