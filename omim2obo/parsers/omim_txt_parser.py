@@ -40,7 +40,7 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_MEANINGS = {
 # MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES provenance:
 # - https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
 MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
-    '1': None,
+    '1': None,  # association with unknown defect
     # RO:0003303 (causes condition)
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003303
     '2': RO['0003303'],
