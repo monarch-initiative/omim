@@ -78,14 +78,6 @@ def get_curie_maps():
 
 def add_subclassof_restriction(graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef) -> BNode:
     """Creates a subClassOf someValuesFrom restriction"""
-    if (str(some_values_from) == 'https://omim.org/entry/613659') or (str(on) == 'https://omim.org/entry/613659'):
-        print('subclassof restriction')
-        print('predicate', predicate)
-        print('on', predicate)
-        print('predicate', predicate)
-        print('some_values_from', some_values_from)
-        print()
-
     b = BNode()
     graph.add((b, RDF['type'], OWL['Restriction']))
     graph.add((b, OWL['onProperty'], predicate))
@@ -101,15 +93,6 @@ def add_subclassof_restriction_with_evidence(
     evidence = Literal(evidence) if type(evidence) is str else evidence
     # Add restriction on MIM class
     b: BNode = add_subclassof_restriction(graph, predicate, some_values_from, on)
-
-    if (str(some_values_from) == 'https://omim.org/entry/613659') or (str(on) == 'https://omim.org/entry/613659'):
-        print('axiom on: subclassof restriction')
-        print('annotatedSource', on)
-        print('annotatedProperty', 'rdfs:subClassOf')
-        print('annotatedTarget', '(subClassOf restriction)')
-        print('has_evidence', evidence)
-        print('comment', evidence)
-        print()
 
     # Add axiom to restriction
     b2 = BNode()
@@ -159,7 +142,7 @@ CONFIG = {
 
 
 # Main
-def omim2obo(use_cache: bool = True):
+def omim2obo(use_cache: bool = False):
     """Run program"""
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
@@ -318,11 +301,13 @@ def omim2obo(use_cache: bool = True):
             p_mim, p_lab, p_map_key, p_map_lab = \
                 assoc['phenotype_mim_number'], assoc['phenotype_label'], assoc['phenotype_mapping_info_key'], \
                 assoc['phenotype_mapping_info_label']
-            # Provenance: https://github.com/monarch-initiative/omim/issues/78
-            if not p_mim:  # not an association to another MIM; ignore
+            # not an association to another MIM; ignore (Provenance:
+            #   https://github.com/monarch-initiative/omim/issues/78)
+            if not p_mim:
                 continue
-            # Provenance: https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
-            if p_map_key == '1':  # association w/ unknown defect; skipping
+            # association w/ unknown defect; skip (Provenance:
+            #   https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780)
+            if p_map_key == '1':
                 continue
 
             # Multiple associations: RO:0003302 (causes or contributes to condition)
@@ -337,20 +322,6 @@ def omim2obo(use_cache: bool = True):
             # Single associations: Use OMIM's assigned association
             if len(assocs) == 1:
                 predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key]
-
-            if p_mim == '613659':
-                print()
-                print()
-                print('----------')
-                print('MIM number', mim_number)
-                # print('MIM pref title', mim_data['title'])
-                print('p_mim', p_mim)
-                print('p_lab', p_lab)
-                print('p_map_key', p_map_key)
-                print('p_map_lab', p_map_lab)
-                print('n associations', len(assocs))
-                print('predicate', predicate)
-                print()
 
             add_subclassof_restriction_with_evidence(graph, predicate, OMIM[p_mim], OMIM[mim_number], evidence)
 
