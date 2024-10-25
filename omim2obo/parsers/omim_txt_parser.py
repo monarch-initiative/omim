@@ -52,6 +52,11 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
     '4': RO['0003304'],
 }
 
+# RO:0004013 (is causal germline mutation in)
+# https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
+#  is inverse of:
+# RO:0004003 (has material basis in germline mutation in)
+# https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
 MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES = {
    RO['0004013']: RO['0004003'],
 } 

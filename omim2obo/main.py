@@ -301,25 +301,29 @@ def omim2obo(use_cache: bool = False):
                 assoc['phenotype_mim_number'], assoc['phenotype_label'], assoc['phenotype_mapping_info_key'], \
                 assoc['phenotype_mapping_info_label']
             # Provenance: https://github.com/monarch-initiative/omim/issues/78
-            if not p_mim:
+            if not p_mim:  # not an association to another MIM; ignore
                 continue
             # Provenance: https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
-            if p_map_key == '1':
+            if p_map_key == '1':  # not a gene-disease association
                 continue
 
-            # RO:0003302 (causes or contributes to condition)
+            # Multiple associations: RO:0003302 (causes or contributes to condition)
+            # - If multiple associations, we don't consider strictly causal, and use the more lax RO:0003302
             # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003302
             # Provenance for this decision:
             # - Multiple rows, same mapping key: https://github.com/monarch-initiative/omim/issues/75
             # - Multiple rows, diff mapping keys: https://github.com/monarch-initiative/omim/issues/81
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
             predicate = RO['0003302']  # default if `len(assocs) > 1`
+
+            # Single associations: Use OMIM's assigned association
             if len(assocs) == 1:
                 predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key]
             add_subclassof_restriction_with_evidence(graph, predicate, OMIM[p_mim], OMIM[mim_number], evidence)
+
+            # Add converse association
+            # For qualifying G2D (Gene-to-Disease) relation, also add  D2G (Disease-to-Gene) relation in other direction
             if predicate in MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES:
-                # The following code basically just adds the converse relation:
-                # If there is g2d in the previous code, we now, in addition, add d2g
                 inverse_predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES[predicate]
                 add_subclassof_restriction_with_evidence(
                     graph, inverse_predicate, OMIM[mim_number], OMIM[p_mim], evidence)
