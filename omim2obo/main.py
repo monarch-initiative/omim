@@ -93,7 +93,6 @@ def add_subclassof_restriction_with_evidence(
     evidence = Literal(evidence) if type(evidence) is str else evidence
     # Add restriction on MIM class
     b: BNode = add_subclassof_restriction(graph, predicate, some_values_from, on)
-
     # Add axiom to restriction
     b2 = BNode()
     graph.add((b2, RDF['type'], OWL['Axiom']))
@@ -281,56 +280,61 @@ def omim2obo(use_cache: bool = False):
             graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps_id]))
 
     # Morbid map
-    morbid_map: Dict = parse_morbid_map(get_mim_file('morbidmap', download_files_tf))
-    for mim_number, mim_data in morbid_map.items():
-        # todo?: unused `mim_data` keys. Should they be used?
-        #  - phenotype_label: Similar to p_lab in 'assocs', but has more info
-        #  - gene_symbols
-        # - add cyto location
-        cyto_location: str = mim_data['cyto_location']
-        if cyto_location:
-            # What's 9606chr - joeflack4 2021/11/11
-            chr_id = '9606chr' + cyto_location
-            # RO:0002525 (is subsequence of)
-            # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0002525
-            add_subclassof_restriction(graph, RO['0002525'], CHR[chr_id], OMIM[mim_number])
-        assocs: List[Dict] = mim_data['phenotype_associations']
-        # - add associations
+    gene_phenotypes: Dict[str, Dict] = parse_morbid_map(get_mim_file('morbidmap', download_files_tf))
+
+    # - Cyto location: Add RO:0002525 (is subsequence of)
+    # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0002525
+    for gene_mim, gene_data in gene_phenotypes.items():
+        if gene_data['cyto_location']:
+            chr_id = '9606chr' + gene_data['cyto_location']  # todo: document meaning of 9606chr
+            add_subclassof_restriction(graph, RO['0002525'], CHR[chr_id], OMIM[gene_mim])
+
+    # TODO: @Trish: I've removed addition of gene->disease relations, leaving only disease->gene. Is that what we want?
+    #  Removed because extra complexity. Want to get down disease->gene code first. And Mondo doesn't need them.
+
+    # - Disease-Gene relations, 1 of 2: Collect phenotype MIMs & associated gene MIMs and relationship info
+    phenotype_genes: Dict[str, List] = defaultdict(list)
+    for gene_mim, gene_data in gene_phenotypes.items():
+        for assoc in gene_data['phenotype_associations']:
+            p_mim, p_lab, p_map_key, p_map_lab = assoc['phenotype_mim_number'], assoc['phenotype_label'], \
+                assoc['phenotype_mapping_info_key'], assoc['phenotype_mapping_info_label']
+            if not p_mim:  # not an association to another MIM; ignore
+                continue  # see: https://github.com/monarch-initiative/omim/issues/78
+            # TODO: @Trish: Should we still consider this? if so, here or further down?
+            # if p_map_key == '1':  # association w/ unknown defect; skip
+            #     continue  # See: https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780)
+            phenotype_genes[p_mim].append({
+                'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
+
+    # - Disease-Gene relations, 2 of 2: Add relations (subclass restrictions)
+    #   Only add if 1 association, or 2 associations and phenotype is digenic
+    for p_mim, assocs in phenotype_genes.items():
+        p_lab: str = assocs[0]['phenotype_label']
+        is_digenic = 'digenic' in p_lab.lower()
+        if is_digenic and len(assocs) == 1:
+            print('Unexpected only 1 gene-phenotype association found in digenic phenotype:', p_mim, p_lab,
+                file=sys.stderr)
+        if is_digenic and len(assocs) > 2:
+            print('Unexpected >2 gene-phenotype associations found in digenic phenotype:', p_mim, p_lab,
+                file=sys.stderr)
+        if len(assocs) > 1 and not is_digenic:
+            continue
         for assoc in assocs:
-            # p_lab currently not used
-            p_mim, p_lab, p_map_key, p_map_lab = \
-                assoc['phenotype_mim_number'], assoc['phenotype_label'], assoc['phenotype_mapping_info_key'], \
-                assoc['phenotype_mapping_info_label']
-            # not an association to another MIM; ignore (Provenance:
-            #   https://github.com/monarch-initiative/omim/issues/78)
-            if not p_mim:
-                continue
-            # association w/ unknown defect; skip (Provenance:
-            #   https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780)
-            if p_map_key == '1':
-                continue
-
-            # Multiple associations: RO:0003302 (causes or contributes to condition)
-            # - If multiple associations, we don't consider strictly causal, and use the more lax RO:0003302
-            # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003302
-            # Provenance for this decision:
-            # - Multiple rows, same mapping key: https://github.com/monarch-initiative/omim/issues/75
-            # - Multiple rows, diff mapping keys: https://github.com/monarch-initiative/omim/issues/81
-            evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
-            predicate = RO['0003302']  # default if `len(assocs) > 1`
-
-            # Single associations: Use OMIM's assigned association
-            if len(assocs) == 1:
-                predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key]
-
-            add_subclassof_restriction_with_evidence(graph, predicate, OMIM[p_mim], OMIM[mim_number], evidence)
-
-            # Add converse association
-            # For qualifying G2D (Gene-to-Disease) relation, also add  D2G (Disease-to-Gene) relation in other direction
-            if predicate in MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES:
-                inverse_predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES[predicate]
-                add_subclassof_restriction_with_evidence(
-                    graph, inverse_predicate, OMIM[mim_number], OMIM[p_mim], evidence)
+            gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
+                assoc['mapping_key'], assoc['mapping_label']
+            # TODO: @Trish: Decide: Should have more relationships now because I simplified to what Sabrina asked.
+            #  I'm not sure if this is what we want. Please review.
+            #  Sabrina said that if 1 gene assoc w/ disease, it's causal, and we can declare it
+            #  "RO:0004003 (has material basis in germline mutation in)". But before, we were only doing that if OMIM
+            #  specified the gene->disease relation as "'3': 'The molecular basis for the disorder is known; a mutation
+            #  has been found in the gene.',", which we have associated with RO:0004013 (is causal germline mutation in)
+            #  , and that is the inverse of RO:0004003
+            #  For reference, see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES, and
+            #  MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES, which are now unused.
+            # RO:0004003 (has material basis in germline mutation in)
+            # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
+            add_subclassof_restriction_with_evidence(
+                graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], f'Evidence: ({p_map_key}) {p_map_lab}')
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11

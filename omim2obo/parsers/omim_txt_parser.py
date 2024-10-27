@@ -325,7 +325,7 @@ def parse_mim2gene(lines: List[str], filename='mim2gene.tsv', filename2='genemap
     return gene_map, pheno_map, hgnc_map
 
 
-def parse_morbid_map(lines) -> Dict:
+def parse_morbid_map(lines) -> Dict[str, Dict]:
     """Parse morbid map file. Part of this inspired by:
     https://github.com/monarch-initiative/monarch-ingest/blob/main/monarch_ingest/ingests/omim/gene_to_disease.py
 
@@ -338,7 +338,7 @@ def parse_morbid_map(lines) -> Dict:
     phenotype_label_no_mim_regex = re.compile(r'(.*)\s+\((\d+)\)')
 
     # Aggregate data by gene MIM
-    d = {}
+    gene_phenotypes: Dict[str, Dict] = {}
     for line in lines:
         if line.startswith('#'):
             continue
@@ -362,8 +362,8 @@ def parse_morbid_map(lines) -> Dict:
         else:
             print(f'Warning: Failed to parse phenotype label in morbidmap.txt row: {line}', file=sys.stderr)
 
-        if mim_number not in d:
-            d[mim_number] = {
+        if mim_number not in gene_phenotypes:
+            gene_phenotypes[mim_number] = {
                 'gene_mim_number': mim_number,
                 'cyto_location': cyto_location,
                 'gene_symbols': gene_symbols,
@@ -372,14 +372,14 @@ def parse_morbid_map(lines) -> Dict:
         # todo: gene_mim_number in gene_mim_data:, print warning / raise err if gene_mim_number, cyto_location, or
         #  gene_symbols are != what's already there, but it shouldn't happen if morbidmap.txt is valid, I think.
         # noinspection PyTypeChecker
-        d[mim_number]['phenotype_associations'].append({
+        gene_phenotypes[mim_number]['phenotype_associations'].append({
             'phenotype_mim_number': phenotype_mim_number,
             'phenotype_label': phenotype_label,
             'phenotype_mapping_info_key': association_key,
             'phenotype_mapping_info_label': MORBIDMAP_PHENOTYPE_MAPPING_KEY_MEANINGS[association_key],
         })
 
-    return d
+    return gene_phenotypes
 
 
 def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
