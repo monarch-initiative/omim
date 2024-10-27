@@ -37,8 +37,9 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_MEANINGS = {
 }
 # todo: double check / handle edge cases if/as needed for any concerns:
 #  - https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
-# MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES provenance:
-# - https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
+# MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
+# - Gene-to-Disease predicates
+# - Provenance https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
 MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
     '1': None,  # association with unknown defect
     # RO:0003303 (causes condition)
@@ -52,6 +53,8 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
     '4': RO['0003304'],
 }
 
+# MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES
+# - Disease-to-Gene predicates
 # RO:0004013 (is causal germline mutation in)
 # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
 #  is inverse of:

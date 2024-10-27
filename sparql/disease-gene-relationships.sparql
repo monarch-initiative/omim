@@ -1,0 +1,44 @@
+# Query Disease-to-Gene relationships
+# todo: Simplify: Direction computable via RO pred rather than biolink prop.
+# todo: Relationship -(rename)-> Predicate
+# todo: PredLabel
+prefix biolink: <https://w3id.org/biolink/vocab/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT ?SubId ?SubLabel ?Relationship ?ObjId ?ObjLabel ?Direction
+WHERE {
+  ?SubUri a owl:Class ;
+    rdfs:label ?SubLabel ;
+    rdfs:subClassOf ?restriction .
+
+  OPTIONAL {
+    ?SubUri biolink:category ?SubDiseaseOrGene .
+  }
+
+  ?restriction a owl:Restriction ;
+    owl:onProperty ?RelationshipUri ;
+    owl:someValuesFrom ?ObjUri .
+
+  ?ObjUri a owl:Class ;
+    rdfs:label ?ObjLabel .
+
+  FILTER(
+    ?RelationshipUri IN (
+      <http://purl.obolibrary.org/obo/RO_0003303>,
+      <http://purl.obolibrary.org/obo/RO_0003304>,
+      <http://purl.obolibrary.org/obo/RO_0004013>,
+      <http://purl.obolibrary.org/obo/RO_0004003>))
+
+  BIND(
+    IF(?SubDiseaseOrGene = biolink:Gene,
+       "Gene2Disease",
+       IF(?SubDiseaseOrGene = biolink:Disease,
+          "Disease2Gene",
+          "Unknown")
+    ) AS ?Direction)
+  BIND(REPLACE(STR(?RelationshipUri), "http://purl.obolibrary.org/obo/RO_", "RO:") AS ?Relationship)
+  BIND(REPLACE(STR(?SubUri), "https://omim.org/entry/", "OMIM:") AS ?SubId)
+  BIND(REPLACE(STR(?ObjUri), "https://omim.org/entry/", "OMIM:") AS ?ObjId)
+}
+ORDER BY ?Direction ?Relationship ?SubId ?ObjId
