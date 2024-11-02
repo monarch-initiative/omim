@@ -12,7 +12,8 @@ __pycache__/
 *ignore/
 analyses/**/*.ipynb_checkpoints
 analyses/**/*.tsv
-
+analyses/**/*.csv
+analyses/**/*.xls
 
 # Inputs
 mim2gene.txt
