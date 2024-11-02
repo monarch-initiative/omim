@@ -10,6 +10,9 @@ __pycache__/
 .ipynb_checkpoints/omim-checkpoint.ipynb
 .git.bfg-report/
 *ignore/
+analyses/**/*.ipynb_checkpoints
+analyses/**/*.tsv
+
 
 # Inputs
 mim2gene.txt
