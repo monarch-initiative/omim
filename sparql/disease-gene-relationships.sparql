@@ -6,39 +6,40 @@ prefix biolink: <https://w3id.org/biolink/vocab/>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix owl: <http://www.w3.org/2002/07/owl#>
 
-SELECT ?SubId ?SubLabel ?Relationship ?ObjId ?ObjLabel ?Direction
+SELECT ?SubId ?SubLabel ?SubBiolink ?Pred ?PredDirection ?ObjId ?ObjLabel ?ObjBiolink
 WHERE {
   ?SubUri a owl:Class ;
     rdfs:label ?SubLabel ;
     rdfs:subClassOf ?restriction .
 
-  OPTIONAL {
-    ?SubUri biolink:category ?SubDiseaseOrGene .
-  }
-
   ?restriction a owl:Restriction ;
-    owl:onProperty ?RelationshipUri ;
+    owl:onProperty ?PredUri ;
     owl:someValuesFrom ?ObjUri .
 
   ?ObjUri a owl:Class ;
     rdfs:label ?ObjLabel .
 
+  OPTIONAL { ?SubUri biolink:category ?SubBiolinkUri . }
+  OPTIONAL { ?ObjUri biolink:category ?ObjBiolinkUri . }
+
   FILTER(
-    ?RelationshipUri IN (
+    ?PredUri IN (
       <http://purl.obolibrary.org/obo/RO_0003303>,
       <http://purl.obolibrary.org/obo/RO_0003304>,
       <http://purl.obolibrary.org/obo/RO_0004013>,
       <http://purl.obolibrary.org/obo/RO_0004003>))
 
   BIND(
-    IF(?SubDiseaseOrGene = biolink:Gene,
-       "Gene2Disease",
-       IF(?SubDiseaseOrGene = biolink:Disease,
-          "Disease2Gene",
-          "Unknown")
-    ) AS ?Direction)
-  BIND(REPLACE(STR(?RelationshipUri), "http://purl.obolibrary.org/obo/RO_", "RO:") AS ?Relationship)
+    IF(?PredUri = <http://purl.obolibrary.org/obo/RO_0004003>,
+       "Disease2Gene",
+       "Gene2Disease"
+    ) AS ?PredDirection
+  )
+
+  BIND(REPLACE(STR(?PredUri), "http://purl.obolibrary.org/obo/RO_", "RO:") AS ?Pred)
   BIND(REPLACE(STR(?SubUri), "https://omim.org/entry/", "OMIM:") AS ?SubId)
   BIND(REPLACE(STR(?ObjUri), "https://omim.org/entry/", "OMIM:") AS ?ObjId)
+  BIND(REPLACE(STR(?SubBiolinkUri), "https://w3id.org/biolink/vocab/", "") AS ?SubBiolink)
+  BIND(REPLACE(STR(?ObjBiolinkUri), "https://w3id.org/biolink/vocab/", "") AS ?ObjBiolink)
 }
-ORDER BY ?Direction ?Relationship ?SubId ?ObjId
+ORDER BY ?PredDirection ?SubBiolink ?Pred ?SubId ?ObjBiolink ?ObjId
