@@ -43,26 +43,41 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_MEANINGS = {
 MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
     '1': None,  # association with unknown defect
     # RO:0003303 (causes condition)
+    # A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a
+    # condition (a phenotype or disease), where the entity has some causal role for the condition.
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003303
     '2': RO['0003303'],
     # RO:0004013 (is causal germline mutation in)
+    # Relates a gene to condition, such that a mutation in this gene is sufficient to produce the condition and that
+    # can be passed on to offspring[modified from orphanet].
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
     '3': RO['0004013'],
     # RO:0003304 (contributes to condition)
+    # A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a
+    # condition (a phenotype or disease), where the entity has some contributing role that influences the condition.
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003304
     '4': RO['0003304'],
 }
 
-# MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES
+# RO:0003302 (causes or contributes to condition)
+# - Note: This is used in main.py, but collecting documentation for it here.
+# A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure)
+# and a condition (a phenotype or disease), where the entity has some causal or contributing role that
+# influences the condition.
+# https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003302
+# Provenance for this decision:
+# - Multiple rows, same mapping key: https://github.com/monarch-initiative/omim/issues/75
+# - Multiple rows, diff mapping keys: https://github.com/monarch-initiative/omim/issues/81
+
+## todo: these are unused variables. remove?:
 # - Disease-to-Gene predicates
 # RO:0004013 (is causal germline mutation in)
 # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
 #  is inverse of:
 # RO:0004003 (has material basis in germline mutation in)
 # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
-MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES = {
-   RO['0004013']: RO['0004003'],
-} 
+CAUSAL_GERMLINE_MUTATION_INVERSE_PREDICATES_G2D = {RO['0004013']: RO['0004003']}
+CAUSAL_GERMLINE_MUTATION_INVERSE_PREDICATES_D2G = {RO['0004003']: RO['0004013']}
 
 
 def convert_txt_to_tsv(file_name: str):

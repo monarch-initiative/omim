@@ -51,7 +51,7 @@ from hashlib import md5
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
-from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
+from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS, ReviewCase
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, get_mapped_ids, LabelCleaner
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
@@ -64,6 +64,7 @@ OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
+REVIEW_CASES: List[ReviewCase] = []
 
 
 # Funcs
@@ -140,7 +141,7 @@ CONFIG = {
 
 
 # Main
-def omim2obo(use_cache: bool = True):
+def omim2obo(use_cache: bool = False):
     """Run program"""
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
@@ -281,6 +282,7 @@ def omim2obo(use_cache: bool = True):
     # Morbid map
     gene_phenotypes: Dict[str, Dict] = parse_morbid_map(get_mim_file('morbidmap', download_files_tf))
 
+    # Gene-Chromosome relationships
     # - Cyto location: Add RO:0002525 (is subsequence of)
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0002525
     for gene_mim, gene_data in gene_phenotypes.items():
@@ -288,10 +290,8 @@ def omim2obo(use_cache: bool = True):
             chr_id = '9606chr' + gene_data['cyto_location']  # todo: document meaning of 9606chr
             add_subclassof_restriction(graph, RO['0002525'], CHR[chr_id], OMIM[gene_mim])
 
-    # TODO: @Trish: I've removed addition of gene->disease relations, leaving only disease->gene. Is that what we want?
-    #  Removed because extra complexity. Want to get down disease->gene code first. And Mondo doesn't need them.
-
-    # - Disease-Gene relations, 1 of 2: Collect phenotype MIMs & associated gene MIMs and relationship info
+    # Disease->Gene (& more Gene->Disease) relationships
+    # - Collect phenotype MIMs & associated gene MIMs and relationship info
     phenotype_genes: Dict[str, List[Dict[str, str]]] = defaultdict(list)
     for gene_mim, gene_data in gene_phenotypes.items():
         for assoc in gene_data['phenotype_associations']:
@@ -299,25 +299,52 @@ def omim2obo(use_cache: bool = True):
                 assoc['phenotype_mapping_info_key'], assoc['phenotype_mapping_info_label']
             if not p_mim:  # not an association to another MIM; ignore
                 continue  # see: https://github.com/monarch-initiative/omim/issues/78
-            # TODO: @Trish: Should we still consider this? if so, here or further down?
-            # if p_map_key == '1':  # association w/ unknown defect; skip
-            #     continue  # See: https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780)
             phenotype_genes[p_mim].append({
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
-    # - Disease-Gene relations, 2 of 2: Add relations (subclass restrictions)
-    #   Only add if (1) only 1 association (2)‚mapping key = 3, (3) 'definitive'
-    phenotype_genes2: Dict[str, Dict[str, str]] = {k: v[0] for k, v in phenotype_genes.items() if len(v) == 1}  # 1assoc
-    phenotype_genes2 = {k: v for k, v in phenotype_genes2.items() if p2g_is_definitive(v['phenotype_label'])}
-    for p_mim, assoc in phenotype_genes2.items():
-        gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
-            assoc['mapping_key'], assoc['mapping_label']
-        if p_map_key != '3':  # 3: The molecular basis for the disorder is known; a mutation has been found in the gene.
-            continue
-        # RO:0004003 (has material basis in germline mutation in)
-        # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
-        add_subclassof_restriction_with_evidence(
-            graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], f'Evidence: ({p_map_key}) {p_map_lab}')
+    # - Add relations (subclass restrictions)
+    for p_mim, assocs in phenotype_genes.items():
+        for assoc in assocs:
+            gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
+                assoc['mapping_key'], assoc['mapping_label']
+            evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
+
+            # General skippable cases
+            # - not p_mim: Skip because not an association to another MIM (Provenance:
+            #  https://github.com/monarch-initiative/omim/issues/78)
+            # - p_map_key == '1': Skip because association w/ unknown defect (Provenance:
+            #  https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780)
+            if not p_mim or p_map_key == '1':
+                continue
+
+            # Gene->Disease non-causal relationships
+            # - RO:0003302 docs: see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
+            g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
+            add_subclassof_restriction_with_evidence(graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence)
+
+            # Disease->Gene & Gene->Disease: Causal relationships
+            # - Skip non-causal cases
+            #  - 3: The molecular basis for the disorder is known; a mutation has been found in the gene.
+            if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
+                continue
+            #  - Digenic': Should technically be none marked 'digenic' if only 1 association, but there are.
+            if 'digenic' in p_lab.lower():
+                # noinspection PyTypeChecker typecheck_fail_old_Python
+                REVIEW_CASES.append({
+                    "classCode": 1,
+                    "classShortName": "causalD2gButMarkedDigenic",
+                    "value": f"OMIM:{p_mim}: {p_lab} (Gene: OMIM:{gene_mim})",
+                })
+                continue
+
+            # Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
+            # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
+            add_subclassof_restriction_with_evidence(
+                graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], evidence)
+            # Gene --(RO:0004013 'is causal germline mutation in')--> Disease
+            # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
+            add_subclassof_restriction_with_evidence(
+                graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence)
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
@@ -344,6 +371,8 @@ def omim2obo(use_cache: bool = True):
         for orphanet_id in orphanet_ids:
             graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
+    review_df = pd.DataFrame(REVIEW_CASES)  # todo: ensure comment field exists even when no row uses
+    review_df.to_csv(REVIEW_CASES_PATH, index=False, sep='\t')
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
 

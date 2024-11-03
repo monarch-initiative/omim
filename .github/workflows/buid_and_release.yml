@@ -41,3 +41,4 @@ jobs:
           omim.owl
           omim.sssom.tsv
           mondo-omim-genes.robot.tsv
+          review.tsv
