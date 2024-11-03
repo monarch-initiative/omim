@@ -447,3 +447,18 @@ def get_hgnc_symbol_id_map(input_path=os.path.join(DATA_DIR, 'hgnc', 'hgnc_compl
         map[row['symbol']] = row['hgnc_id'].split(':')[1]
 
     return map
+
+def p2g_is_definitive(label: str) -> bool:
+    """Is phenotype to gene association definitive?
+
+    AKA doesn't have the special syntax asdescribed in: https://www.omim.org/help/faq#1_6
+
+    1. Brackets, "[ ]", Non-diseases: indicate "nondiseases," mainly genetic variations that lead to apparently
+    abnormal laboratory test values (e.g., dysalbuminemic euthyroidal hyperthyroxinemia).
+    2. Braces, "{ }", Susceptibility: indicate mutations that contribute to susceptibility to multifactorial
+    disorders (e.g., diabetes, asthma) or to susceptibility to infection (e.g., malaria).
+    3. A question mark, "?", Provisionality: before the phenotype name indicates that the relationship between
+    the phenotype and gene is provisional. More details about this relationship are provided in the comment field
+    of the map and in the gene and phenotype OMIM entries.
+    """
+    return not any(label.startswith(x) for x in ['[', '{', '?'])

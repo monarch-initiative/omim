@@ -51,11 +51,10 @@ from hashlib import md5
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
-from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, \
-    get_mapped_ids, LabelCleaner
 from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
-from omim2obo.parsers.omim_txt_parser import *
+from omim2obo.namespaces import *
+from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, get_mapped_ids, LabelCleaner
+from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
 
 
 # Vars
@@ -141,7 +140,7 @@ CONFIG = {
 
 
 # Main
-def omim2obo(use_cache: bool = False):
+def omim2obo(use_cache: bool = True):
     """Run program"""
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
@@ -219,7 +218,7 @@ def omim2obo(use_cache: bool = False):
 
         # Alternative rdfs:label for genes
         if is_gene and pref_symbols:
-            gene_label_err = 'Warning: Only 1 symbol picked for label for gene term, but there were 2 to choose' \
+            gene_label_err = 'Warning: Only 1 symbol picked for label for gene term, but there were 2 to choose ' \
                  f'from. Unsure which is best. Picking the first.\nhttps://omim.org/entry/{omim_id} - {pref_symbols}'
             if len(pref_symbols) > 1:
                 LOG.warning(gene_label_err)  # todo: decide the best way to handle these situations
@@ -293,7 +292,7 @@ def omim2obo(use_cache: bool = False):
     #  Removed because extra complexity. Want to get down disease->gene code first. And Mondo doesn't need them.
 
     # - Disease-Gene relations, 1 of 2: Collect phenotype MIMs & associated gene MIMs and relationship info
-    phenotype_genes: Dict[str, List] = defaultdict(list)
+    phenotype_genes: Dict[str, List[Dict[str, str]]] = defaultdict(list)
     for gene_mim, gene_data in gene_phenotypes.items():
         for assoc in gene_data['phenotype_associations']:
             p_mim, p_lab, p_map_key, p_map_lab = assoc['phenotype_mim_number'], assoc['phenotype_label'], \
@@ -307,34 +306,18 @@ def omim2obo(use_cache: bool = False):
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
     # - Disease-Gene relations, 2 of 2: Add relations (subclass restrictions)
-    #   Only add if 1 association, or 2 associations and phenotype is digenic
-    for p_mim, assocs in phenotype_genes.items():
-        p_lab: str = assocs[0]['phenotype_label']
-        is_digenic = 'digenic' in p_lab.lower()
-        if is_digenic and len(assocs) == 1:
-            print('Unexpected only 1 gene-phenotype association found in digenic phenotype:', p_mim, p_lab,
-                file=sys.stderr)
-        if is_digenic and len(assocs) > 2:
-            print('Unexpected >2 gene-phenotype associations found in digenic phenotype:', p_mim, p_lab,
-                file=sys.stderr)
-        if len(assocs) > 1 and not is_digenic:
+    #   Only add if (1) only 1 association (2)‚mapping key = 3, (3) 'definitive'
+    phenotype_genes2: Dict[str, Dict[str, str]] = {k: v[0] for k, v in phenotype_genes.items() if len(v) == 1}  # 1assoc
+    phenotype_genes2 = {k: v for k, v in phenotype_genes2.items() if p2g_is_definitive(v['phenotype_label'])}
+    for p_mim, assoc in phenotype_genes2.items():
+        gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
+            assoc['mapping_key'], assoc['mapping_label']
+        if p_map_key != '3':  # 3: The molecular basis for the disorder is known; a mutation has been found in the gene.
             continue
-        for assoc in assocs:
-            gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
-                assoc['mapping_key'], assoc['mapping_label']
-            # TODO: @Trish: Decide: Should have more relationships now because I simplified to what Sabrina asked.
-            #  I'm not sure if this is what we want. Please review.
-            #  Sabrina said that if 1 gene assoc w/ disease, it's causal, and we can declare it
-            #  "RO:0004003 (has material basis in germline mutation in)". But before, we were only doing that if OMIM
-            #  specified the gene->disease relation as "'3': 'The molecular basis for the disorder is known; a mutation
-            #  has been found in the gene.',", which we have associated with RO:0004013 (is causal germline mutation in)
-            #  , and that is the inverse of RO:0004003
-            #  For reference, see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES, and
-            #  MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES, which are now unused.
-            # RO:0004003 (has material basis in germline mutation in)
-            # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
-            add_subclassof_restriction_with_evidence(
-                graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], f'Evidence: ({p_map_key}) {p_map_lab}')
+        # RO:0004003 (has material basis in germline mutation in)
+        # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
+        add_subclassof_restriction_with_evidence(
+            graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], f'Evidence: ({p_map_key}) {p_map_lab}')
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
