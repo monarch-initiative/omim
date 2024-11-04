@@ -99,9 +99,12 @@ code_tuples = get_codes_by_yyyy_mm('2021/05')
 - `mondo-omim-genes.robot.tsv`: ROBOT template for adding OMIM genes to Mondo
 - `review.tsv`: Special cases to consider for manual review
 
+Notice: These are generated based on the latest downloadable data files from [omim.org](https://omim.org), updated 
+daily, rather than what is seen on the _omim.org/entry/MIM#_ pages, which lag behind the data files.
+
 ### `review.tsv`
 Columns:
-- `classCode`: integer: ID of of review case class
+- `classCode`: integer: ID of review case class
 - `classShortName`: string (camelCase): describing the review case class
 - `value`: any: Some form of data to review
 - `comment`: string (optional)
