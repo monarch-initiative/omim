@@ -65,7 +65,7 @@ get-pmids:
 
 # SETUP / INSTALLATION -------------------------------------------------------------------------------------------------
 install:
-	pip install -r requirements-unlocked.txt
+	pip install -r requirements-unlocked.txt --user --break-system-packages
 
 # QA / TESTING ---------------------------------------------------------------------------------------------------------
 test:
