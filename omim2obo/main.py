@@ -319,8 +319,9 @@ def omim2obo(use_cache: bool = False):
 
             # Gene->Disease non-causal relationships
             # - RO:0003302 docs: see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
-            g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
-            add_subclassof_restriction_with_evidence(graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence)
+            if p_map_key != '3':  # 3 = 'causal'. Handled separately below.
+                g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
+                add_subclassof_restriction_with_evidence(graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence)
 
             # Disease->Gene & Gene->Disease: Causal relationships
             # - Skip non-causal cases
