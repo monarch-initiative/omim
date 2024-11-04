@@ -100,7 +100,8 @@ code_tuples = get_codes_by_yyyy_mm('2021/05')
 - `review.tsv`: Special cases to consider for manual review
 
 Notice: These are generated based on the latest downloadable data files from [omim.org](https://omim.org), updated 
-daily, rather than what is seen on the _omim.org/entry/MIM#_ pages, which lag behind the data files.
+daily, rather than what is seen on the _omim.org/entry/MIM#_ pages. Note that the data files and the entry pages aren't 
+always in sync, and that one or the other may be slightly more up-to or out-of date for a period of time.
 
 ### `review.tsv`
 Columns:
