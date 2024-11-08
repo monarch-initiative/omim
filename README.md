@@ -111,9 +111,9 @@ Columns:
 - `comment`: string (optional)
 
 #### 1. `causalD2gButMarkedDigenic`
-This review case involves what would be otherwise considered a valid disease-gene relationship, but for the fact that  
+This review case involves what would be otherwise considered a valid disease-gene relationship, but for the fact that 
 it quite unusually includes 'digenic' in the label, even though it only had 1 association. OMIM doesn't have a 
-guarnatee on the data quality of its disease-gene associations marked 'digenic', so for any of these entries, it could 
+guaranatee on the data quality of its disease-gene associations marked 'digenic', so for any of these entries, it could 
 be the case that either (a) it is not 'digenic'; OMIM should remove that from the label, and Mondo can make an explicit 
 exception to add the relationship, or could otherwise wait until OMIM fixes the issue and it will automatically be 
 added, or (b) it is in fact 'digenic', and OMIM should add the missing 2nd gene association.
