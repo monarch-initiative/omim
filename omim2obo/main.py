@@ -336,7 +336,6 @@ def omim2obo(use_cache: bool = False):
                     "classShortName": "causalD2gButMarkedDigenic",
                     "value": f"OMIM:{p_mim}: {p_lab} (Gene: OMIM:{gene_mim})",
                 })
-                continue
 
             # Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
             # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
