@@ -348,7 +348,7 @@ def parse_morbid_map(lines) -> Dict[str, Dict]:
     """
     # phenotype_label_regex: groups: (1) phenotype label, (2) MIM number (optional),
     # (3) phenotype mapping key (optional)
-    phenotype_label_regex = re.compile(r'(.*), (\d{6})\s*(?:\((\d+)\))?')
+    phenotype_label_regex = re.compile(r'(.*)(\d{6})\s*(?:\((\d+)\))?')
     # phenotype_label_regex: groups: (1) phenotype label, (2) phenotype mapping key (optional)
     phenotype_label_no_mim_regex = re.compile(r'(.*)\s+\((\d+)\)')
 

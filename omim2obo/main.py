@@ -153,6 +153,7 @@ def omim2obo(use_cache: bool = False):
     # Parse mimTitles.txt
     # - Get id's, titles, and type
     omim_type_and_titles, omim_replaced = parse_mim_titles(get_mim_file('mimTitles', download_files_tf))
+    omim_types: Dict[str, str] = {k: v[0].name for k, v in omim_type_and_titles.items()}
     omim_ids = list(omim_type_and_titles.keys())
 
     if CONFIG['verbose']:
@@ -287,7 +288,7 @@ def omim2obo(use_cache: bool = False):
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0002525
     for gene_mim, gene_data in gene_phenotypes.items():
         if gene_data['cyto_location']:
-            chr_id = '9606chr' + gene_data['cyto_location']  # todo: document meaning of 9606chr
+            chr_id = '9606chr' + gene_data['cyto_location']  # 9606: NCBI Taxonomy ID for Homo Sapiens
             add_subclassof_restriction(graph, RO['0002525'], CHR[chr_id], OMIM[gene_mim])
 
     # Disease->Gene (& more Gene->Disease) relationships
@@ -328,7 +329,7 @@ def omim2obo(use_cache: bool = False):
             #  - 3: The molecular basis for the disorder is known; a mutation has been found in the gene.
             if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
                 continue
-            #  - Digenic': Should technically be none marked 'digenic' if only 1 association, but there are.
+            #  - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
             if 'digenic' in p_lab.lower():
                 # noinspection PyTypeChecker typecheck_fail_old_Python
                 REVIEW_CASES.append({
@@ -336,6 +337,13 @@ def omim2obo(use_cache: bool = False):
                     "classShortName": "causalD2gButMarkedDigenic",
                     "value": f"OMIM:{p_mim}: {p_lab} (Gene: OMIM:{gene_mim})",
                 })
+            p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
+            mim_type_err = f"Warning: Unexpected MIM type {p_mim_type} for Phenotype {p_mim} when parsing phenotype-" \
+                f"disease relationships. Skipping."
+            if p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
+                print(mim_type_err, file=sys.stderr)  # Hasn't happened. Failsafe.
+            if p_mim_type == 'GENE':  # *
+                print(mim_type_err, file=sys.stderr)  # OMIM recognized as data quality issue. Fixed 2024/11. Failsafe.
 
             # Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
             # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
