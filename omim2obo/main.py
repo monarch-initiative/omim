@@ -141,7 +141,7 @@ CONFIG = {
 
 
 # Main
-def omim2obo(use_cache: bool = False):
+def omim2obo(use_cache: bool = True):
     """Run program"""
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
@@ -303,6 +303,8 @@ def omim2obo(use_cache: bool = False):
             phenotype_genes[p_mim].append({
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
+    self_ref_case = 0
+    self_ref_rows: List[Dict] = []
     # - Add relations (subclass restrictions)
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
@@ -345,6 +347,31 @@ def omim2obo(use_cache: bool = False):
             if p_mim_type == 'GENE':  # *
                 print(mim_type_err, file=sys.stderr)  # OMIM recognized as data quality issue. Fixed 2024/11. Failsafe.
 
+            def get_self_ref_assocs(_mim: str) -> List[Dict]:
+                """Find any cases where it appears that there is a self-referential gene-disease association"""
+                if p_mim not in gene_phenotypes:
+                    return []
+                _assocs = gene_phenotypes[_mim]['phenotype_associations']
+                _self_ref_assocs = []
+                for _assoc in _assocs:
+                    if not _assoc['phenotype_mim_number']:
+                        _self_ref_assocs.append(_assoc)
+                return _self_ref_assocs
+            self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim)
+            if len(self_ref_assocs) > 1:
+                raise RuntimeError('Unexpected self-referential disease-gene assoc w/ > 1 self ref')  # Failsafe. n=0
+            if self_ref_assocs:
+                self_ref_case += 1
+                self_ref_rows.append({
+                    'case': self_ref_case, 'disease': p_mim, 'disease_label': p_lab, 'map_key': p_map_key,
+                    'gene': gene_mim
+                })
+                for ass in self_ref_assocs:
+                    self_ref_rows.append({
+                        'case': self_ref_case, 'disease': '', 'disease_label': ass['phenotype_label'], 'map_key':
+                        ass['phenotype_mapping_info_key'], 'gene': p_mim
+                    })
+
             # Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
             # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
             add_subclassof_restriction_with_evidence(
@@ -353,6 +380,9 @@ def omim2obo(use_cache: bool = False):
             # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
             add_subclassof_restriction_with_evidence(
                 graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence)
+
+    self_ref_df = pd.DataFrame(self_ref_rows)
+    self_ref_df.to_csv('~/Desktop/self-referential-g2d.tsv', index=False, sep='\t')
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
