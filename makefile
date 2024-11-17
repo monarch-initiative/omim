@@ -43,6 +43,10 @@ mondo-omim-genes.tsv: omim.owl
 mondo-omim-genes.robot.tsv: mondo-omim-genes.tsv
 	python -m omim2obo.mondo_omim_genes_robot_tsv --inpath $< --outpath $@
 
+# Ad hoc: Create a TSV of MIM-RO-MIM Gene-to-Disease realtions in omim.ttl
+disease-gene-relationships.tsv: omim.ttl
+	robot query -i $< --query sparql/disease-gene-relationships.sparql $@
+
 cleanup:
 	@rm -f omim.json
 

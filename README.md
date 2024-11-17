@@ -90,6 +90,30 @@ from omim2obo.omim_code_scraper import get_codes_by_yyyy_mm
 code_tuples = get_codes_by_yyyy_mm('2021/05')
 ```
 
-
 </p>
 </details> 
+
+## Release files
+- `omim.ttl`: OMIM ontologized
+- `omim.sssom.tsv`: SSSOM mapping file
+- `mondo-omim-genes.robot.tsv`: ROBOT template for adding OMIM genes to Mondo
+- `review.tsv`: Special cases to consider for manual review
+
+Notice: These are generated based on the latest downloadable data files from [omim.org](https://omim.org), updated 
+daily, rather than what is seen on the _omim.org/entry/MIM#_ pages. Note that the data files and the entry pages aren't 
+always in sync, and that one or the other may be slightly more up-to or out-of date for a period of time.
+
+### `review.tsv`
+Columns:
+- `classCode`: integer: ID of review case class
+- `classShortName`: string (camelCase): describing the review case class
+- `value`: any: Some form of data to review
+- `comment`: string (optional)
+
+#### 1. `causalD2gButMarkedDigenic`
+This review case involves what would be otherwise considered a valid disease-gene relationship, but for the fact that 
+it quite unusually includes 'digenic' in the label, even though it only had 1 association. OMIM doesn't have a 
+guaranatee on the data quality of its disease-gene associations marked 'digenic', so for any of these entries, it could 
+be the case that either (a) it is not 'digenic'; OMIM should remove that from the label, and Mondo can make an explicit 
+exception to add the relationship, or could otherwise wait until OMIM fixes the issue and it will automatically be 
+added, or (b) it is in fact 'digenic', and OMIM should add the missing 2nd gene association.
