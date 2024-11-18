@@ -395,14 +395,3 @@ def get_self_ref_assocs(phenotype_mim: str, gene_phenotypes: Dict[str, Dict]) ->
         if not _assoc['phenotype_mim_number']:
             _self_ref_assocs.append(_assoc)
     return _self_ref_assocs
-
-
-def has_self_ref_assocs(phenotype_mim: str, gene_phenotypes: Dict[str, Dict]) -> bool:
-    """Check whether has self referential associations
-
-    Several anomalies with these:
-     Self-referential “phenotype in the gene position + Phenotype field without a MIM” + "morbidmap.txt entry not in
-      Phenotype-Gene Relationships table" on website
-     Also all marked as 'somatic'.
-    """
-    return len(get_self_ref_assocs(phenotype_mim, gene_phenotypes)) > 0

@@ -105,15 +105,31 @@ always in sync, and that one or the other may be slightly more up-to or out-of d
 
 ### `review.tsv`
 Columns:
-- `classCode`: integer: ID of review case class
-- `classShortName`: string (camelCase): describing the review case class
+- `classCode`: integer
+- `classLabel`: string
 - `value`: any: Some form of data to review
 - `comment`: string (optional)
 
-#### 1. `causalD2gButMarkedDigenic`
-This review case involves what would be otherwise considered a valid disease-gene relationship, but for the fact that 
-it quite unusually includes 'digenic' in the label, even though it only had 1 association. OMIM doesn't have a 
+#### 1. D2G Disease-defining but marked digenic
+This review case involves what would be otherwise considered a valid disease-gene (D2G) relationship, but for the fact 
+that it quite unusually includes 'digenic' in the label, even though it only had 1 association. OMIM doesn't have a 
 guaranatee on the data quality of its disease-gene associations marked 'digenic', so for any of these entries, it could 
 be the case that either (a) it is not 'digenic'; OMIM should remove that from the label, and Mondo can make an explicit 
 exception to add the relationship, or could otherwise wait until OMIM fixes the issue and it will automatically be 
 added, or (b) it is in fact 'digenic', and OMIM should add the missing 2nd gene association.
+
+#### 2. D2G: Disease-defining; self-referential
+The unique characteristics of cases of this class are as follows: 
+- Each case has 2 rows in `morbidmap.txt` and are related.
+- Row 1: One row is a typical, valid, disease-defining entry. For the given phenotype MIM in that row, there are no 
+- other rows in `morbidmap.txt` where it appears as a phenotype having an association with another gene.
+  - In all such cases seen thus far as of 2024/11/18, all of these are cancer cases, and the label ends with "somatic".
+  - This entry appears in the Phenotype-Gene Relationships table on the MIM's omim.org/entry page.
+- Row 2: There is a second row where the phenotype in the first row appears as a gene.
+  - For this row, there is no MIM in the phenotype field.
+  - This row does not appear in the Gene-Phenotype Relationships table on the MIM's omim.org/entry page.
+  - This row is self-referential. The label in the Phenotype field is one of the titles of the MIM in the Gene field.
+
+There is a spreadsheet which collates all known cases as of 2024/11/18: [google sheet](
+https://docs.google.com/spreadsheets/d/1hKSp2dyKye6y_20NK2HwLsaKNzWfGCMJMP52lKrkHtU/). The MIMs of the known cases are: 
+159595, 182280, 607107, and 615830.
