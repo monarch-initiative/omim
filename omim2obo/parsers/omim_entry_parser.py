@@ -383,3 +383,26 @@ class LabelCleaner():
         """Overrides cleanup_label by adding word_replacements"""
         return cleanup_label(
             label, *args, **kwargs, word_replacements=self.word_replacements)
+
+
+def get_self_ref_assocs(phenotype_mim: str, gene_phenotypes: Dict[str, Dict]) -> List[Dict]:
+    """Find any cases where it appears that there is a self-referential gene-disease association"""
+    if phenotype_mim not in gene_phenotypes:
+        return []
+    _assocs = gene_phenotypes[phenotype_mim]['phenotype_associations']
+    _self_ref_assocs = []
+    for _assoc in _assocs:
+        if not _assoc['phenotype_mim_number']:
+            _self_ref_assocs.append(_assoc)
+    return _self_ref_assocs
+
+
+def has_self_ref_assocs(phenotype_mim: str, gene_phenotypes: Dict[str, Dict]) -> bool:
+    """Check whether has self referential associations
+
+    Several anomalies with these:
+     Self-referential “phenotype in the gene position + Phenotype field without a MIM” + "morbidmap.txt entry not in
+      Phenotype-Gene Relationships table" on website
+     Also all marked as 'somatic'.
+    """
+    return len(get_self_ref_assocs(phenotype_mim, gene_phenotypes)) > 0
