@@ -133,3 +133,87 @@ The unique characteristics of cases of this class are as follows:
 There is a spreadsheet which collates all known cases as of 2024/11/18: [google sheet](
 https://docs.google.com/spreadsheets/d/1hKSp2dyKye6y_20NK2HwLsaKNzWfGCMJMP52lKrkHtU/). The MIMs of the known cases are: 
 159595, 182280, 607107, and 615830.
+
+## Under the hood: Design decisions, etc.
+### Gene-Disease pipeline
+This pipeline involves the processing of `morbidmap.txt` to create ontological representations of Gene --> Disease and 
+Disease --> Gene associations.
+
+#### Example input/output
+##### Input: `morbidmap.txt`
+| Phenotype                        | Gene/Locus And Other Related Symbols | MIM Number | Cyto Location |
+|----------------------------------|--------------------------------------|------------|---------------|
+| Prune belly syndrome, 100100 (3) | CHRM3, PBS, EGBRS                    | 118494     | 1q43          |
+
+`OMIM:100100` (Prune belly syndrome) is the Phenotype ("Disease"), and `OMIM:118494` (CHRM3) is the associated Gene. 
+They are related via mapping key `(3)` (explained below).
+
+##### Output: `omim.ttl`
+```ttl
+OMIM:100100 a owl:Class ;
+    rdfs:label "prune belly syndrome" ;
+    rdfs:subClassOf _:N2fd22c9bb2f04630b81414cff9514660 ;
+    biolink:category biolink:Disease .
+    
+_:N2fd22c9bb2f04630b81414cff9514660 a owl:Restriction ;
+    owl:onProperty RO:0004003 ;
+    owl:someValuesFrom OMIM:118494 .
+```
+
+The association is represented as an `rdfs:subClassOf` `owl:Restriction`, where mapping key `(3)` is represented as 
+`RO:0004003`.
+
+#### OMIM MorbidMap mapping keys & Relationship Ontology predicates
+In order to add these associations to an OWL ontology, we must use an appropriate predicate. Below are the 4 OMIM 
+`morbidmap.txt` mapping keys and [their definitions](https://omim.org/help/faq#1_6), alongside the RO predicates we've 
+chosen to represent them.
+
+Note that the directionality of these associations / predicates is in the Disease->Gene direction:
+(Disease MIM) --(Mapping key / RO predicate)--> (Gene MIM)
+
+1: The disorder is placed on the map based on its association with a gene, but the underlying defect is not known.  
+Not ontologized. These types are ignored due to the uncertainty of the nature of the association.
+
+2: The disorder has been placed on the map by linkage or other statistical method; no mutation has been found.  
+[RO:0003303 (causes condition)](https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003303): 
+A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a 
+condition (a phenotype or disease), where the entity has some causal role for the condition.
+
+3: The molecular basis for the disorder is known; a mutation has been found in the gene.  
+[RO:0004013 (is causal germline mutation in)](https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013): 
+Relates a gene to condition, such that a mutation in this gene is sufficient to produce the condition and that can be 
+passed on to offspring[modified from orphanet].
+
+Note: For these "mapping key (3)" cases, there also exists an inverse predicate which we ontologize in the 
+inverse direction: (Gene MIM) --(Mapping key 3 / RO:0004003)--> (Disease MIM):
+[RO:0004003 (has material basis in germline mutation in)](https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003) 
+
+4: A contiguous gene deletion or duplication syndrome, multiple genes are deleted or duplicated causing the phenotype.  
+[RO:0003304 (contributes to condition)](https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003304): 
+A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a 
+condition (a phenotype or disease), where the entity has some contributing role that influences the condition.
+
+**Important caveat: Singular vs multiple associations**
+These above RO predicates are only used if there is only 1 gene associated with a given disease, i.e. 
+in `morbidmap.txt`, there is only 1 row where the MIM appears in the `Phenotype` field.
+
+In cases where there is >1 association, the following RO predicate is used instead, regardless of if the mapping key is 
+(2), (3), or (4):
+[RO:0003302 (causes or contributes to condition)](https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003302): 
+A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a 
+condition (a phenotype or disease), where the entity has some causal or contributing role that influences the condition.
+
+#### Necessary conditions for disease-defining associations (RO:0004013)
+Of the above 3 Disease->Gene association predicates (those with mapping keys (2), (3), and (4)), the one which we 
+consider "disease defining" is (3) (RO:0004013). For this association, we also have other conditions that we check. If 
+not all of these conditions are met, then the association does not get ontologized; no association gets added to 
+`omim.ttl`. The extra conditions are that (i) the Phenotype not be marked as a non-disease (represented by the label 
+being wrapped in `[]`), (ii) that is not a mutation that contribute to susceptibility to multifactorial disorders 
+(e.g., diabetes, asthma) or to susceptibility to infection (e.g., malaria) (represented by the label being wrapped in 
+`{}`), and (iii) not be marked provisional (represented by the label beginning with `?`). These 3 special markers are 
+further explained in the [OMIM FAQ](https://omim.org/help/faq#1_6). So, all of the conditions together are:
+1. Mapping key is (3)
+2. Only 1 association
+3. Phenotype not marked as non-disease (`[]`)
+4. Phenotype not marked as susceptibility to multifactorial disorders or infection (`{}`)
+5. Phenotype not marked provisional (`?`)
