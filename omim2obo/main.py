@@ -164,7 +164,7 @@ def omim2obo(use_cache: bool = False):
     # - Non-OMIM triples
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
     graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
-    graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(MONDONS.includedEntryInOMIM), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(OMO['0003000']), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
     graph.add((TAX_URI, RDF.type, OWL.Class))
@@ -252,7 +252,7 @@ def omim2obo(use_cache: bool = False):
         if label_endswith_included_alt or label_endswith_included_inc:
             graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
         for included_label in cleaned_inc_labels:
-            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(label_cleaner.clean(included_label, abbrev))))
+            graph.add((omim_uri, URIRef(MONDONS.includedEntryInOMIM), Literal(label_cleaner.clean(included_label, abbrev))))
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
