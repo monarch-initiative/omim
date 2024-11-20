@@ -169,7 +169,7 @@ def omim2obo(use_cache: bool = False):
     # - Non-OMIM triples
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
     graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
-    graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(MONDONS.includedEntryInOMIM), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(OMO['0003000']), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
     graph.add((TAX_URI, RDF.type, OWL.Class))
@@ -245,14 +245,14 @@ def omim2obo(use_cache: bool = False):
         for title in former_alt_titles:
             clean_title = label_cleaner.clean(title, pref_abbrev)
             add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, clean_title)
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_formerly), clean_title)
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omimFormerly), clean_title)
         # - related, deprecated 'former' synonyms: abbreviations
         for symbol in former_alt_symbols:
             add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, symbol,
                 [(oboInOwl.hasSynonymType, OMO['0003000'])])
-            # Though these are abbreviations, MONDONS.omim_formerly is not (yet) a synonym
+            # Though these are abbreviations, MONDONS.omimFormerly is not (yet) a synonym
             # type, so can't add axiom: (oboInOwl.hasSynonymType, OMO['0003000'])
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_formerly), symbol)
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omimFormerly), symbol)
 
         # Add 'included' entries
         # - comment
@@ -261,24 +261,23 @@ def omim2obo(use_cache: bool = False):
             graph.add((omim_uri, RDFS['comment'], Literal(included_comment)))
         # - titles
         for title in included_titles:
-            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(label_cleaner.clean(title, pref_abbrev))))
+            graph.add((omim_uri, URIRef(MONDONS.includedEntryInOMIM), Literal(label_cleaner.clean(title, pref_abbrev))))
         # - symbols
         for symbol in included_symbols:
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol, [
-                # Though these are abbreviations, MONDONS.omim_included is not a synonym type, so can't add axiom:
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.includedEntryInOMIM), symbol, [
+                # Though these are abbreviations, MONDONS.includedEntryInOMIM is not a synonym type, so can't add axiom:
                 # (oboInOwl.hasSynonymType, OMO['0003000'])
             ])
         # - deprecated, 'former'
         for title in former_included_titles:
             clean_title = label_cleaner.clean(title, pref_abbrev)
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), clean_title)
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_formerly), clean_title)
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.includedEntryInOMIM), clean_title)
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omimFormerly), clean_title)
         for symbol in former_included_symbols:
-            # Though these are abbreviations, MONDONS.omim_included and MONDONS.omim_formerly is not (yet) a synonym
+            # Though these are abbreviations, MONDONS.includedEntryInOMIM & MONDONS.omimFormerly is not (yet) a synonym
             # type, so can't add axiom: (oboInOwl.hasSynonymType, OMO['0003000'])
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol)
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_formerly), symbol)
-
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.includedEntryInOMIM), symbol)
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omimFormerly), symbol)
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
