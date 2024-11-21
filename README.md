@@ -120,7 +120,7 @@ added, or (b) it is in fact 'digenic', and OMIM should add the missing 2nd gene 
 
 #### 2. D2G: Disease-defining; self-referential
 The unique characteristics of cases of this class are as follows: 
-- Each case has 2 rows in `morbidmap.txt` and are related.
+- Each case has 2 rows in `morbidmap.txt` and are part of a pattern. 
 - Row 1: One row is a typical, valid, disease-defining entry. For the given phenotype MIM in that row, there are no 
 - other rows in `morbidmap.txt` where it appears as a phenotype having an association with another gene.
   - In all such cases seen thus far as of 2024/11/18, all of these are cancer cases, and the label ends with "somatic".
@@ -130,9 +130,16 @@ The unique characteristics of cases of this class are as follows:
   - This row does not appear in the Gene-Phenotype Relationships table on the MIM's omim.org/entry page.
   - This row is self-referential. The label in the Phenotype field is one of the titles of the MIM in the Gene field.
 
+**Example case**:
+|Phenotype|Gene/Locus And Other Related Symbols|MIM Number|Cyto Location|
+|-|-|-|-|
+|Small cell cancer of the lung, somatic, 182280 (3)|RB1|614041|13q14.2|
+|Small-cell cancer of lung (2)|SCLC1|182280|3p23-p21|
+
+
+**All known cases**:
 There is a spreadsheet which collates all known cases as of 2024/11/18: [google sheet](
-https://docs.google.com/spreadsheets/d/1hKSp2dyKye6y_20NK2HwLsaKNzWfGCMJMP52lKrkHtU/). The MIMs of the known cases are: 
-159595, 182280, 607107, and 615830.
+https://docs.google.com/spreadsheets/d/1hKSp2dyKye6y_20NK2HwLsaKNzWfGCMJMP52lKrkHtU/). The MIMs of the known cases are: `159595`, `182280`, `607107`, and `615830`.
 
 ## Under the hood: Design decisions, etc.
 ### Gene-Disease pipeline

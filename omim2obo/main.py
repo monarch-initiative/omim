@@ -320,13 +320,13 @@ def omim2obo(use_cache: bool = False):
             if not p_mim or p_map_key == '1':
                 continue
 
-            # Add restrictions: Gene->Disease non-causal relationships
+            # Add restrictions: Gene->Disease non-causal (disease-defining) relationships
             # - RO:0003302 docs: see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
-            if p_map_key != '3':  # 3 = 'causal'. Handled separately below.
+            if p_map_key != '3':  # 3 = 'causal' (disease-defining). Handled separately below.
                 g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
                 add_subclassof_restriction_with_evidence(graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence)
 
-            # Skip non-causal cases
+            # Skip non-causal (disease-defining) cases
             if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
                 continue
 
@@ -339,7 +339,7 @@ def omim2obo(use_cache: bool = False):
                     "classShortName": "D2G: Disease-defining but marked digenic",
                     "value": f"(Phenotype: {p_mim} {p_lab}) (Gene: {gene_mim})",
                 })
-            # -Self-referential cases
+            # - Self-referential cases
             self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
             if self_ref_assocs:
                 self_ref_case += 1
@@ -367,7 +367,7 @@ def omim2obo(use_cache: bool = False):
             if p_mim_type == 'GENE':  # *
                 print(mim_type_err, file=sys.stderr)  # OMIM recognized as data quality issue. Fixed 2024/11. Failsafe.
 
-            # Add restrictions: causal germline mutation
+            # Add restrictions: Disease-defining ('causal germline mutation')
             # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
             #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
             add_subclassof_restriction_with_evidence(
