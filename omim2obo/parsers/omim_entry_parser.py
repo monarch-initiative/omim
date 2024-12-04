@@ -427,3 +427,15 @@ def get_phenotypic_series(entry) -> List[str]:
 def get_process_allelic_variants(entry) -> List:
     # Not sure when/if Dazhi intended to use this - joeflack4 2021/12/20
     return []
+
+
+def get_self_ref_assocs(phenotype_mim: str, gene_phenotypes: Dict[str, Dict]) -> List[Dict]:
+    """Find any cases where it appears that there is a self-referential gene-disease association"""
+    if phenotype_mim not in gene_phenotypes:
+        return []
+    _assocs = gene_phenotypes[phenotype_mim]['phenotype_associations']
+    _self_ref_assocs = []
+    for _assoc in _assocs:
+        if not _assoc['phenotype_mim_number']:
+            _self_ref_assocs.append(_assoc)
+    return _self_ref_assocs
