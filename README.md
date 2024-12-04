@@ -175,8 +175,8 @@ In order to add these associations to an OWL ontology, we must use an appropriat
 `morbidmap.txt` mapping keys and [their definitions](https://omim.org/help/faq#1_6), alongside the RO predicates we've 
 chosen to represent them.
 
-Note that the directionality of these associations / predicates is in the Disease->Gene direction:
-(Disease MIM) --(Mapping key / RO predicate)--> (Gene MIM)
+Note that the directionality of these associations / predicates is in the Gene->Disease direction:
+(Gene MIM) --(Mapping key / RO predicate)--> (Disease MIM)
 
 1: The disorder is placed on the map based on its association with a gene, but the underlying defect is not known.  
 Not ontologized. These types are ignored due to the uncertainty of the nature of the association.
@@ -192,7 +192,7 @@ Relates a gene to condition, such that a mutation in this gene is sufficient to 
 passed on to offspring[modified from orphanet].
 
 Note: For these "mapping key (3)" cases, there also exists an inverse predicate which we ontologize in the 
-inverse direction: (Gene MIM) --(Mapping key 3 / RO:0004003)--> (Disease MIM):
+inverse direction: (Disease MIM) --(Mapping key 3 / RO:0004003)--> (Gene MIM):
 [RO:0004003 (has material basis in germline mutation in)](https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003) 
 
 4: A contiguous gene deletion or duplication syndrome, multiple genes are deleted or duplicated causing the phenotype.  
@@ -210,15 +210,18 @@ In cases where there is >1 association, the following RO predicate is used inste
 A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a 
 condition (a phenotype or disease), where the entity has some causal or contributing role that influences the condition.
 
-#### Necessary conditions for disease-defining associations (RO:0004013)
-Of the above 3 Disease->Gene association predicates (those with mapping keys (2), (3), and (4)), the one which we 
-consider "disease defining" is (3) (RO:0004013). For this association, we also have other conditions that we check. If 
-not all of these conditions are met, then the association does not get ontologized; no association gets added to 
-`omim.ttl`. The extra conditions are that (i) the Phenotype not be marked as a non-disease (represented by the label 
+#### Necessary conditions for disease-defining associations
+Of the above 3 Gene->Disease association predicates (those with mapping keys (2), (3), and (4)), the one which we 
+consider "disease defining" is (3) (RO:0004013). For these cases, as mentioned above, we also declare an association in 
+the Disease->Gene direction, RO:0004003. However, we only declare these associations if several other conditions are 
+also met. These other conditions are: (i) the Phenotype not be marked as a non-disease (represented by the label 
 being wrapped in `[]`), (ii) that is not a mutation that contribute to susceptibility to multifactorial disorders 
 (e.g., diabetes, asthma) or to susceptibility to infection (e.g., malaria) (represented by the label being wrapped in 
 `{}`), and (iii) not be marked provisional (represented by the label beginning with `?`). These 3 special markers are 
-further explained in the [OMIM FAQ](https://omim.org/help/faq#1_6). So, all of the conditions together are:
+further explained in the [OMIM FAQ](https://omim.org/help/faq#1_6). Additionally, as mentioned above, we only declare 
+the association in `omim.ttl` if there is 1 and only 1 association shown in `morbidmap.txt
+
+So, all of the conditions together are:
 1. Mapping key is (3)
 2. Only 1 association
 3. Phenotype not marked as non-disease (`[]`)
