@@ -37,23 +37,47 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_MEANINGS = {
 }
 # todo: double check / handle edge cases if/as needed for any concerns:
 #  - https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
-# MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES provenance:
-# - https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
+# MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
+# - Gene-to-Disease predicates
+# - Provenance https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
 MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
-    '1': None,
+    '1': None,  # association with unknown defect
     # RO:0003303 (causes condition)
+    # A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a
+    # condition (a phenotype or disease), where the entity has some causal role for the condition.
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003303
     '2': RO['0003303'],
     # RO:0004013 (is causal germline mutation in)
+    # Relates a gene to condition, such that a mutation in this gene is sufficient to produce the condition and that
+    # can be passed on to offspring[modified from orphanet].
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
     '3': RO['0004013'],
     # RO:0003304 (contributes to condition)
+    # A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a
+    # condition (a phenotype or disease), where the entity has some contributing role that influences the condition.
     # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003304
     '4': RO['0003304'],
 }
-MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES = {
-   RO['0004013']: RO['0004003'],
-}
+
+# RO:0003302 (causes or contributes to condition)
+# - Note: This is used in main.py, but collecting documentation for it here.
+# A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure)
+# and a condition (a phenotype or disease), where the entity has some causal or contributing role that
+# influences the condition.
+# https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003302
+# Provenance for this decision:
+# - Multiple rows, same mapping key: https://github.com/monarch-initiative/omim/issues/75
+# - Multiple rows, diff mapping keys: https://github.com/monarch-initiative/omim/issues/81
+
+## todo: these are unused variables. remove?:
+# - Disease-to-Gene predicates
+# RO:0004013 (is causal germline mutation in)
+# https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
+#  is inverse of:
+# RO:0004003 (has material basis in germline mutation in)
+# https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
+CAUSAL_GERMLINE_MUTATION_INVERSE_PREDICATES_G2D = {RO['0004013']: RO['0004003']}
+CAUSAL_GERMLINE_MUTATION_INVERSE_PREDICATES_D2G = {RO['0004003']: RO['0004013']}
 
 
 def convert_txt_to_tsv(file_name: str):
@@ -316,7 +340,7 @@ def parse_mim2gene(lines: List[str], filename='mim2gene.tsv', filename2='genemap
     return gene_map, pheno_map, hgnc_map
 
 
-def parse_morbid_map(lines) -> Dict:
+def parse_morbid_map(lines) -> Dict[str, Dict]:
     """Parse morbid map file. Part of this inspired by:
     https://github.com/monarch-initiative/monarch-ingest/blob/main/monarch_ingest/ingests/omim/gene_to_disease.py
 
@@ -324,12 +348,12 @@ def parse_morbid_map(lines) -> Dict:
     """
     # phenotype_label_regex: groups: (1) phenotype label, (2) MIM number (optional),
     # (3) phenotype mapping key (optional)
-    phenotype_label_regex = re.compile(r'(.*), (\d{6})\s*(?:\((\d+)\))?')
+    phenotype_label_regex = re.compile(r'(.*)(\d{6})\s*(?:\((\d+)\))?')
     # phenotype_label_regex: groups: (1) phenotype label, (2) phenotype mapping key (optional)
     phenotype_label_no_mim_regex = re.compile(r'(.*)\s+\((\d+)\)')
 
     # Aggregate data by gene MIM
-    d = {}
+    gene_phenotypes: Dict[str, Dict] = {}
     for line in lines:
         if line.startswith('#'):
             continue
@@ -353,8 +377,8 @@ def parse_morbid_map(lines) -> Dict:
         else:
             print(f'Warning: Failed to parse phenotype label in morbidmap.txt row: {line}', file=sys.stderr)
 
-        if mim_number not in d:
-            d[mim_number] = {
+        if mim_number not in gene_phenotypes:
+            gene_phenotypes[mim_number] = {
                 'gene_mim_number': mim_number,
                 'cyto_location': cyto_location,
                 'gene_symbols': gene_symbols,
@@ -363,14 +387,14 @@ def parse_morbid_map(lines) -> Dict:
         # todo: gene_mim_number in gene_mim_data:, print warning / raise err if gene_mim_number, cyto_location, or
         #  gene_symbols are != what's already there, but it shouldn't happen if morbidmap.txt is valid, I think.
         # noinspection PyTypeChecker
-        d[mim_number]['phenotype_associations'].append({
+        gene_phenotypes[mim_number]['phenotype_associations'].append({
             'phenotype_mim_number': phenotype_mim_number,
             'phenotype_label': phenotype_label,
             'phenotype_mapping_info_key': association_key,
             'phenotype_mapping_info_label': MORBIDMAP_PHENOTYPE_MAPPING_KEY_MEANINGS[association_key],
         })
 
-    return d
+    return gene_phenotypes
 
 
 def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
@@ -438,3 +462,18 @@ def get_hgnc_symbol_id_map(input_path=os.path.join(DATA_DIR, 'hgnc', 'hgnc_compl
         map[row['symbol']] = row['hgnc_id'].split(':')[1]
 
     return map
+
+def p2g_is_definitive(label: str) -> bool:
+    """Is phenotype to gene association definitive?
+
+    AKA doesn't have the special syntax asdescribed in: https://www.omim.org/help/faq#1_6
+
+    1. Brackets, "[ ]", Non-diseases: indicate "nondiseases," mainly genetic variations that lead to apparently
+    abnormal laboratory test values (e.g., dysalbuminemic euthyroidal hyperthyroxinemia).
+    2. Braces, "{ }", Susceptibility: indicate mutations that contribute to susceptibility to multifactorial
+    disorders (e.g., diabetes, asthma) or to susceptibility to infection (e.g., malaria).
+    3. A question mark, "?", Provisionality: before the phenotype name indicates that the relationship between
+    the phenotype and gene is provisional. More details about this relationship are provided in the comment field
+    of the map and in the gene and phenotype OMIM entries.
+    """
+    return not any(label.startswith(x) for x in ['[', '{', '?'])

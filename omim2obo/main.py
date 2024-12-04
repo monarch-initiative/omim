@@ -55,12 +55,12 @@ from hashlib import md5
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
+from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS, ReviewCase
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import cleanup_title, get_alt_and_included_titles_and_symbols, get_pubs, \
-    get_mapped_ids, \
-    recapitalize_acronyms_in_title
+    get_mapped_ids, recapitalize_acronyms_in_title, get_self_ref_assocs
 from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
-from omim2obo.parsers.omim_txt_parser import *
+from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
 
 
 # Vars
@@ -70,6 +70,7 @@ OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
+REVIEW_CASES: List[ReviewCase] = []
 
 
 # Funcs
@@ -108,6 +109,33 @@ def add_triple_and_optional_annotations(
     graph.add((source, prop, target))
     if anno_pred_vals:
         add_axiom_annotations(graph, source, prop, target, anno_pred_vals)
+
+
+def add_subclassof_restriction(graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef) -> BNode:
+    """Creates a subClassOf someValuesFrom restriction"""
+    b = BNode()
+    graph.add((b, RDF['type'], OWL['Restriction']))
+    graph.add((b, OWL['onProperty'], predicate))
+    graph.add((b, OWL['someValuesFrom'], some_values_from))
+    graph.add((on, RDFS['subClassOf'], b))
+    return b
+
+
+def add_subclassof_restriction_with_evidence(
+    graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef, evidence: Union[str, Literal]
+):
+    """Creates a subClassOf someValuesFrom restriction, and adds an evidence axiom to it."""
+    evidence = Literal(evidence) if type(evidence) is str else evidence
+    # Add restriction on MIM class
+    b: BNode = add_subclassof_restriction(graph, predicate, some_values_from, on)
+    # Add axiom to restriction
+    b2 = BNode()
+    graph.add((b2, RDF['type'], OWL['Axiom']))
+    graph.add((b2, OWL['annotatedSource'], on))
+    graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
+    graph.add((b2, OWL['annotatedTarget'], b))
+    graph.add((b2, BIOLINK['has_evidence'], evidence))
+    graph.add((b2, RDFS['comment'], evidence))
 
 
 # Classes
@@ -159,6 +187,7 @@ def omim2obo(use_cache: bool = False):
     # Parse mimTitles.txt
     # - Get id's, titles, and type
     omim_type_and_titles, omim_replaced = parse_mim_titles(get_mim_file('mimTitles', download_files_tf))
+    omim_types: Dict[str, str] = {k: v[0].name for k, v in omim_type_and_titles.items()}
     omim_ids = list(omim_type_and_titles.keys())
 
     if CONFIG['verbose']:
@@ -206,20 +235,20 @@ def omim2obo(use_cache: bool = False):
 
         # Special cases depending on OMIM term type
         is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
-        if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # %
+        if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # '%' char
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-        elif is_gene:  # * or +
+        elif is_gene:  # * or + chars
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))  # gene
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.nonDisease))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
-        elif omim_type == OmimType.PHENOTYPE:
+        elif omim_type == OmimType.PHENOTYPE:  # '#' char
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))  # phenotype ~= disease
-        elif omim_type == OmimType.SUSPECTED:
+        elif omim_type == OmimType.SUSPECTED:  # NULL
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.excludeTrait))
 
         # Alternative rdfs:label for genes
         if is_gene and pref_symbols:
-            gene_label_err = 'Warning: Only 1 symbol picked for label for gene term, but there were 2 to choose' \
+            gene_label_err = 'Warning: Only 1 symbol picked for label for gene term, but there were 2 to choose ' \
                  f'from. Unsure which is best. Picking the first.\nhttps://omim.org/entry/{omim_id} - {pref_symbols}'
             if len(pref_symbols) > 1:
                 LOG.warning(gene_label_err)  # todo: rare (n=1?), but decide the best way to handle these situations
@@ -287,11 +316,7 @@ def omim2obo(use_cache: bool = False):
         graph.add((OMIM[mim_number], SKOS.exactMatch, NCBIGENE[entrez_id]))
     for mim_number, entrez_id in pheno_map.items():
         # RO['0002200'] = 'has phenotype'
-        b = BNode()
-        graph.add((b, RDF['type'], OWL['Restriction']))
-        graph.add((b, OWL['onProperty'], RO['0002200']))
-        graph.add((b, OWL['someValuesFrom'], OMIM[mim_number]))
-        graph.add((NCBIGENE[entrez_id], RDFS['subClassOf'], b))
+        add_subclassof_restriction(graph, RO['0002200'], OMIM[mim_number], NCBIGENE[entrez_id])
     hgnc_symbol_id_map: Dict[str, str] = get_hgnc_symbol_id_map()
     for mim_number, hgnc_symbol in hgnc_map.items():
         graph.add((OMIM[mim_number], SKOS.exactMatch, HGNC_symbol[hgnc_symbol]))
@@ -309,83 +334,100 @@ def omim2obo(use_cache: bool = False):
             graph.add((OMIM[mim_number], RDFS.subClassOf, OMIMPS[ps_id]))
 
     # Morbid map
-    morbid_map: Dict = parse_morbid_map(get_mim_file('morbidmap', download_files_tf))
-    for mim_number, mim_data in morbid_map.items():
-        # todo?: unused `mim_data` keys. Should they be used?
-        #  - phenotype_label: Similar to p_lab in 'assocs', but has more info
-        #  - gene_symbols
-        cyto_location: str = mim_data['cyto_location']
-        if cyto_location:
-            # What's 9606chr - joeflack4 2021/11/11
-            chr_id = '9606chr' + cyto_location
-            # RO:0002525 (is subsequence of)
-            # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0002525
-            b = BNode()
-            graph.add((b, RDF['type'], OWL['Restriction']))
-            graph.add((b, OWL['onProperty'], RO['0002525']))
-            graph.add((b, OWL['someValuesFrom'], CHR[chr_id]))
-            graph.add((OMIM[mim_number], RDFS['subClassOf'], b))
-        assocs: List[Dict] = mim_data['phenotype_associations']
+    gene_phenotypes: Dict[str, Dict] = parse_morbid_map(get_mim_file('morbidmap', download_files_tf))
+
+    # Gene-Chromosome relationships
+    # - Cyto location: Add RO:0002525 (is subsequence of)
+    # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0002525
+    for gene_mim, gene_data in gene_phenotypes.items():
+        if gene_data['cyto_location']:
+            chr_id = '9606chr' + gene_data['cyto_location']  # 9606: NCBI Taxonomy ID for Homo Sapiens
+            add_subclassof_restriction(graph, RO['0002525'], CHR[chr_id], OMIM[gene_mim])
+
+    # Disease->Gene (& more Gene->Disease) relationships
+    # - Collect phenotype MIMs & associated gene MIMs and relationship info
+    phenotype_genes: Dict[str, List[Dict[str, str]]] = defaultdict(list)
+    for gene_mim, gene_data in gene_phenotypes.items():
+        for assoc in gene_data['phenotype_associations']:
+            p_mim, p_lab, p_map_key, p_map_lab = assoc['phenotype_mim_number'], assoc['phenotype_label'], \
+                assoc['phenotype_mapping_info_key'], assoc['phenotype_mapping_info_label']
+            if not p_mim:  # not an association to another MIM; ignore
+                continue  # see: https://github.com/monarch-initiative/omim/issues/78
+            phenotype_genes[p_mim].append({
+                'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
+
+    self_ref_case = 0
+    # - Add relations (subclass restrictions)
+    for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
-            # p_lab currently not used
-            p_mim, p_lab, p_map_key, p_map_lab = \
-                assoc['phenotype_mim_number'], assoc['phenotype_label'], assoc['phenotype_mapping_info_key'], \
-                assoc['phenotype_mapping_info_label']
-            # Provenance: https://github.com/monarch-initiative/omim/issues/78
-            if not p_mim:
+            gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
+                assoc['mapping_key'], assoc['mapping_label']
+            evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
+
+            # Skip: No phenotype or unknown defect
+            # - not p_mim: Skip because not an association to another MIM (Provenance:
+            #  https://github.com/monarch-initiative/omim/issues/78)
+            # - p_map_key == '1': Skip because association w/ unknown defect (Provenance:
+            #  https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780)
+            if not p_mim or p_map_key == '1':
                 continue
-            # Provenance: https://github.com/monarch-initiative/omim/issues/79#issuecomment-1319408780
-            if p_map_key == '1':
+
+            # Add restrictions: Gene->Disease non-causal (disease-defining) relationships
+            # - RO:0003302 docs: see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
+            if p_map_key != '3':  # 3 = 'causal' (disease-defining). Handled separately below.
+                g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
+                add_subclassof_restriction_with_evidence(graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence)
+
+            # Skip non-causal (disease-defining) cases
+            if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
                 continue
 
-            # Precalc: determine mapping predicate
-            # RO:0003302 (causes or contributes to condition)
-            # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0003302
-            # Provenance for this decision:
-            # - Multiple rows, same mapping key: https://github.com/monarch-initiative/omim/issues/75
-            # - Multiple rows, diff mapping keys: https://github.com/monarch-initiative/omim/issues/81
-            predicate = RO['0003302']  # default if `len(assocs) > 1`
-            if len(assocs) == 1:
-                predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key]
+            # Log review cases
+            # - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
+            if 'digenic' in p_lab.lower():
+                # noinspection PyTypeChecker typecheck_fail_old_Python
+                REVIEW_CASES.append({
+                    "classCode": 1,
+                    "classShortName": "D2G: Disease-defining but marked digenic",
+                    "value": f"(Phenotype: {p_mim} {p_lab}) (Gene: {gene_mim})",
+                })
+            # - Self-referential cases
+            self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
+            if self_ref_assocs:
+                self_ref_case += 1
+                REVIEW_CASES.append({
+                    "classCode": 2,
+                    "classShortName": "D2G: Disease-defining; self-referential",
+                    "value":
+                        f"{self_ref_case}: (Phenotype: {p_mim} {p_lab}), (Map key: {p_map_key}), (Gene: {gene_mim})",
+                })
+            for self_ref_assoc in self_ref_assocs:
+                # noinspection PyTypeChecker typecheck_fail_old_Python
+                REVIEW_CASES.append({
+                    "classCode": 2,
+                    "classShortName": "D2G: Disease-defining; self-referential",
+                    "value": f"{self_ref_case}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
+                             f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: OMIM:{p_mim})",
+                })
+            # - Unexpected non-phenotype MIM types
+            # todo: these need to be in review.tsv as well
+            p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
+            mim_type_err = f"Warning: Unexpected MIM type {p_mim_type} for Phenotype {p_mim} when parsing phenotype-" \
+                f"disease relationships. Skipping."
+            if p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
+                print(mim_type_err, file=sys.stderr)  # Hasn't happened. Failsafe.
+            if p_mim_type == 'GENE':  # *
+                print(mim_type_err, file=sys.stderr)  # OMIM recognized as data quality issue. Fixed 2024/11. Failsafe.
 
-            evidence = Literal(f'Evidence: ({p_map_key}) {p_map_lab}')
-            
-            # i. Add to MIM class
-            # noinspection DuplicatedCode  b_and_b3_diff_results
-            b = BNode()
-            graph.add((b, RDF['type'], OWL['Restriction']))
-            graph.add((b, OWL['onProperty'], predicate))
-            graph.add((b, OWL['someValuesFrom'], OMIM[p_mim]))
-            graph.add((OMIM[mim_number], RDFS['subClassOf'], b))
-
-            # ii. add axiom
-            b2 = BNode()
-            graph.add((b2, RDF['type'], OWL['Axiom']))
-            graph.add((b2, OWL['annotatedSource'], OMIM[mim_number]))
-            graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
-            graph.add((b2, OWL['annotatedTarget'], b))
-            graph.add((b2, BIOLINK['has_evidence'], evidence))
-            graph.add((b2, RDFS['comment'], evidence))
-            
-            if predicate in MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES:
-                # The following code basically just adds the converse relation:
-                # If there is g2d in the previous code, we now, in addition, add d2g
-                inverse_predicate = MORBIDMAP_PHENOTYPE_MAPPING_KEY_INVERSE_PREDICATES[predicate]
-               
-                # i. Add to MIM class
-                b = BNode()
-                graph.add((b, RDF['type'], OWL['Restriction']))
-                graph.add((b, OWL['onProperty'], inverse_predicate))
-                graph.add((b, OWL['someValuesFrom'], OMIM[mim_number]))
-                graph.add((OMIM[p_mim], RDFS['subClassOf'], b))
-                
-                b2 = BNode()
-                graph.add((b2, RDF['type'], OWL['Axiom']))
-                graph.add((b2, OWL['annotatedSource'], OMIM[p_mim]))
-                graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
-                graph.add((b2, OWL['annotatedTarget'], b))
-                graph.add((b2, BIOLINK['has_evidence'], evidence))
-                graph.add((b2, RDFS['comment'], evidence))
+            # Add restrictions: Disease-defining ('causal germline mutation')
+            # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
+            #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
+            add_subclassof_restriction_with_evidence(
+                graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], evidence)
+            # - Gene --(RO:0004013 'is causal germline mutation in')--> Disease
+            #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
+            add_subclassof_restriction_with_evidence(
+                graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence)
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
@@ -412,6 +454,9 @@ def omim2obo(use_cache: bool = False):
         for orphanet_id in orphanet_ids:
             graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
+    # todo: ensure comment field exists even when no row uses
+    review_df = pd.DataFrame(REVIEW_CASES).sort_values(by=['classCode'])
+    review_df.to_csv(REVIEW_CASES_PATH, index=False, sep='\t')
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
 

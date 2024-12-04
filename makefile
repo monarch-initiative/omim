@@ -37,11 +37,15 @@ omim.owl: omim.ttl mondo_exactmatch_omim.sssom.owl mondo_exactmatch_omimps.sssom
 
 # Create a TSV of relational information for gene and disease classes
 mondo-omim-genes.tsv: omim.owl
-	robot query -i omim.owl --query sparql/mondo-omim-genes.sparql $@
+	robot query -i $< --query sparql/mondo-omim-genes.sparql $@
 
 # Create a TSV of relational information for gene and disease classes, as a ROBOT template
 mondo-omim-genes.robot.tsv: mondo-omim-genes.tsv
 	python -m omim2obo.mondo_omim_genes_robot_tsv --inpath $< --outpath $@
+
+# Ad hoc: Create a TSV of MIM-RO-MIM Gene-to-Disease realtions in omim.ttl
+disease-gene-relationships.tsv: omim.ttl
+	robot query -i $< --query sparql/disease-gene-relationships.sparql $@
 
 cleanup:
 	@rm -f omim.json
