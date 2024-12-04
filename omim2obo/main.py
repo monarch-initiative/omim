@@ -53,7 +53,8 @@ from rdflib.term import Identifier
 
 from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS, ReviewCase
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, get_mapped_ids, LabelCleaner
+from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, get_mapped_ids, LabelCleaner, \
+    get_self_ref_assocs
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
 
 
@@ -303,6 +304,7 @@ def omim2obo(use_cache: bool = False):
             phenotype_genes[p_mim].append({
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
+    self_ref_case = 0
     # - Add relations (subclass restrictions)
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
@@ -310,7 +312,7 @@ def omim2obo(use_cache: bool = False):
                 assoc['mapping_key'], assoc['mapping_label']
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
 
-            # General skippable cases
+            # Skip: No phenotype or unknown defect
             # - not p_mim: Skip because not an association to another MIM (Provenance:
             #  https://github.com/monarch-initiative/omim/issues/78)
             # - p_map_key == '1': Skip because association w/ unknown defect (Provenance:
@@ -318,25 +320,45 @@ def omim2obo(use_cache: bool = False):
             if not p_mim or p_map_key == '1':
                 continue
 
-            # Gene->Disease non-causal relationships
+            # Add restrictions: Gene->Disease non-causal (disease-defining) relationships
             # - RO:0003302 docs: see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
-            if p_map_key != '3':  # 3 = 'causal'. Handled separately below.
+            if p_map_key != '3':  # 3 = 'causal' (disease-defining). Handled separately below.
                 g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
                 add_subclassof_restriction_with_evidence(graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence)
 
-            # Disease->Gene & Gene->Disease: Causal relationships
-            # - Skip non-causal cases
-            #  - 3: The molecular basis for the disorder is known; a mutation has been found in the gene.
+            # Skip non-causal (disease-defining) cases
             if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
                 continue
-            #  - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
+
+            # Log review cases
+            # - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
             if 'digenic' in p_lab.lower():
                 # noinspection PyTypeChecker typecheck_fail_old_Python
                 REVIEW_CASES.append({
                     "classCode": 1,
-                    "classShortName": "causalD2gButMarkedDigenic",
-                    "value": f"OMIM:{p_mim}: {p_lab} (Gene: OMIM:{gene_mim})",
+                    "classShortName": "D2G: Disease-defining but marked digenic",
+                    "value": f"(Phenotype: {p_mim} {p_lab}) (Gene: {gene_mim})",
                 })
+            # - Self-referential cases
+            self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
+            if self_ref_assocs:
+                self_ref_case += 1
+                REVIEW_CASES.append({
+                    "classCode": 2,
+                    "classShortName": "D2G: Disease-defining; self-referential",
+                    "value":
+                        f"{self_ref_case}: (Phenotype: {p_mim} {p_lab}), (Map key: {p_map_key}), (Gene: {gene_mim})",
+                })
+            for self_ref_assoc in self_ref_assocs:
+                # noinspection PyTypeChecker typecheck_fail_old_Python
+                REVIEW_CASES.append({
+                    "classCode": 2,
+                    "classShortName": "D2G: Disease-defining; self-referential",
+                    "value": f"{self_ref_case}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
+                             f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: OMIM:{p_mim})",
+                })
+            # - Unexpected non-phenotype MIM types
+            # todo: these need to be in review.tsv as well
             p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
             mim_type_err = f"Warning: Unexpected MIM type {p_mim_type} for Phenotype {p_mim} when parsing phenotype-" \
                 f"disease relationships. Skipping."
@@ -345,12 +367,13 @@ def omim2obo(use_cache: bool = False):
             if p_mim_type == 'GENE':  # *
                 print(mim_type_err, file=sys.stderr)  # OMIM recognized as data quality issue. Fixed 2024/11. Failsafe.
 
-            # Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
-            # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
+            # Add restrictions: Disease-defining ('causal germline mutation')
+            # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
+            #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
             add_subclassof_restriction_with_evidence(
                 graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], evidence)
-            # Gene --(RO:0004013 'is causal germline mutation in')--> Disease
-            # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
+            # - Gene --(RO:0004013 'is causal germline mutation in')--> Disease
+            #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
             add_subclassof_restriction_with_evidence(
                 graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence)
 
@@ -379,7 +402,8 @@ def omim2obo(use_cache: bool = False):
         for orphanet_id in orphanet_ids:
             graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
-    review_df = pd.DataFrame(REVIEW_CASES)  # todo: ensure comment field exists even when no row uses
+    # todo: ensure comment field exists even when no row uses
+    review_df = pd.DataFrame(REVIEW_CASES).sort_values(by=['classCode'])
     review_df.to_csv(REVIEW_CASES_PATH, index=False, sep='\t')
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
