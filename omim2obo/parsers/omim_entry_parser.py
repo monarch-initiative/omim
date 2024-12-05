@@ -1,14 +1,11 @@
 """OMIM Entry parsers"""
 import csv
 import logging
-# import re
 from collections import defaultdict
-from copy import copy
 from typing import List, Dict, Tuple
 
 import pandas as pd
 from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, SKOS, URIRef
-# from rdflib import Namespace
 
 from omim2obo.config import DATA_DIR
 from omim2obo.omim_type import OmimType, get_omim_type
@@ -45,6 +42,8 @@ CAPITALIZATION_REPLACEMENTS: Dict[str, str] = get_known_capitalizations()
 
 
 # todo: This isn't used in the ingest to create omim.ttl. Did this have some other use case?
+#  - If working on this again, remove these noinspect warning suppressions and address them
+# noinspection PyUnusedLocal,PyUnboundLocalVariable,PyTypeChecker
 def transform_entry(entry) -> Graph:
     """
     Transforms an OMIM API entry to a graph.
@@ -133,11 +132,11 @@ def transform_entry(entry) -> Graph:
     for phenotypic_serie in get_phenotypic_series(entry):
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER.value or omim_type == OmimType.PHENOTYPE.value:
             graph.add((omim_uri, RDFS.subClassOf, OMIMPS[phenotypic_serie]))
-        elif omim_type == OmimType.GENE.vaule or omim_type == OmimType.HAS_AFFECTED_FEATURE.value:
+        elif omim_type == OmimType.GENE.value or omim_type == OmimType.HAS_AFFECTED_FEATURE.value:
             graph.add((omim_uri, RO['0003304'], OMIMPS[phenotypic_serie]))
 
     # NCBI ENTREZ Gene IDs
-    if omim_type == OmimType.GENE.value or omim_type ==  OmimType.HAS_AFFECTED_FEATURE.value:
+    if omim_type == OmimType.GENE.value or omim_type == OmimType.HAS_AFFECTED_FEATURE.value:
         for gene_id in get_mapped_gene_ids(entry):
             graph.add((omim_uri, OWL.equivalentClass, NCBIGENE[gene_id]))
 
@@ -148,10 +147,12 @@ def transform_entry(entry) -> Graph:
 
 
 # todo: probably best to combine explicit abbrevs outside of this func
+# noinspection RegExpSimplifiable eventually_should_address
 def _detect_abbreviations(label: str, explicit_abbrev: str = None, capitalization_threshold=0.75) -> List[str]:
     """Detect possible abbreviations / acronyms"""
     # Compile regexp
     acronyms_without_periods_compiler = re.compile('[A-Z]{1}[A-Z0-9]{1,}')
+    # todo: PyCharm flagged as invalid escape sequence, but this code seems to work? Should double check
     acronyms_with_periods_compiler = re.compile('[A-Z]{1}\.([A-Z0-9]\.){1,}')
     title_cased_abbrev_compiler = re.compile('[A-Z]{1}[a-zA-Z]{1,}\.')
 
@@ -350,25 +351,13 @@ def get_alt_and_included_titles_and_symbols(title_symbol_pair_str) -> Tuple[List
 
 
 def get_mapped_gene_ids(entry) -> List[str]:
+    """Get mapped gene IDs from an OMIM entry"""
     gene_ids = entry.get('externalLinks', {}).get('geneIDs', '')
     return [s.strip() for s in gene_ids.split(',')]
-    # omim_num = str(entry['mimNumber'])
-    # omim_curie = 'OMIM:' + omim_num
-    # if 'externalLinks' in entry:
-    #     links = entry['externalLinks']
-    #     omimtype = omim_type[omim_num]
-    #     if 'geneIDs' in links:
-    #         entrez_mappings = links['geneIDs']
-    #         gene_ids = entrez_mappings.split(',')
-    #         omim_ncbigene_idmap[omim_curie] = gene_ids
-    #         if omimtype in [
-    #                 globaltt['gene'], self.globaltt['has_affected_feature']]:
-    #             for ncbi in gene_ids:
-    #                 model.addEquivalentClass(omim_curie, 'NCBIGene:' + str(ncbi))
-    # return gene_ids
 
 
 def get_pubs(entry) -> List[str]:
+    """Get pubmed information from an OMIM entry"""
     result = []
     for rlst in entry.get('referenceList', []):
         if 'pubmedID' in rlst['reference']:
@@ -377,6 +366,7 @@ def get_pubs(entry) -> List[str]:
 
 
 def get_mapped_ids(entry) -> Dict[Namespace, List[str]]:
+    """Get mapped IDs from an OMIM entry"""
     external_links = entry.get('externalLinks', {})
     result = defaultdict(list)
     if 'orphanetDiseases' in external_links:
@@ -388,6 +378,7 @@ def get_mapped_ids(entry) -> Dict[Namespace, List[str]]:
 
 
 def get_phenotypic_series(entry) -> List[str]:
+    """Get phenotypic series info from an OMIM entry"""
     result = []
     for pheno in entry.get('phenotypeMapList', []):
         if 'phenotypicSeriesNumber' in pheno['phenotypeMap']:
@@ -400,6 +391,7 @@ def get_phenotypic_series(entry) -> List[str]:
 
 # noinspection PyUnusedLocal
 def get_process_allelic_variants(entry) -> List:
+    """Process allelic variants from an OMIM entry"""
     # Not sure when/if Dazhi intended to use this - joeflack4 2021/12/20
     return []
 
