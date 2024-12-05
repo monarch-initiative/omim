@@ -412,7 +412,7 @@ def omim2obo(use_cache: bool = False):
             self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
             if self_ref_assocs:
                 self_ref_case += 1
-                _add_to_review_tsv(2,f"{self_ref_case}: {basic_review_info}")
+                _add_to_review_tsv(2, f"{self_ref_case}: {basic_review_info}")
             for self_ref_assoc in self_ref_assocs:
                 _add_to_review_tsv(2, f"{self_ref_case}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
                     f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: {p_mim})",)
@@ -460,7 +460,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
     # todo: ensure comment field exists even when no row uses
-    review_df = pd.DataFrame(REVIEW_CASES).sort_values(by=['classCode'])
+    review_df = pd.DataFrame(REVIEW_CASES).sort_values(by=['classCode', 'value'])
     review_df.to_csv(REVIEW_CASES_PATH, index=False, sep='\t')
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))

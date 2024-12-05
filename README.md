@@ -136,15 +136,25 @@ The unique characteristics of cases of this class are as follows:
 |Small cell cancer of the lung, somatic, 182280 (3)|RB1|614041|13q14.2|
 |Small-cell cancer of lung (2)|SCLC1|182280|3p23-p21|
 
-
 **All known cases**:
 There is a spreadsheet which collates all known cases as of 2024/11/18: [google sheet](
 https://docs.google.com/spreadsheets/d/1hKSp2dyKye6y_20NK2HwLsaKNzWfGCMJMP52lKrkHtU/). The MIMs of the known cases are: `159595`, `182280`, `607107`, and `615830`.
+
+**Additional notes**:
+Note that unlike the other `review.tsv` cases, for this one, a single case spans multiple rows. The cases can be 
+identified easily because they are enumerated with a leading number in the `value` column, e.g. "1: " for the first case
+, and so on.
+
+Also, see note in section "3. D2G: somatic" about intersection between these two cases. 
 
 #### 3. D2G: somatic
 Happens when all conditions were met for this association to be considered disease-defining, but the word 'somatic' is 
 in the phenotype label. These are somatic mutation entries in OMIM, but typically they are germline mutations, and that 
 is what we ideally always expect to see, so these should be given a look.
+
+Note that there is an intersection between this case and case 2, "D2G: self-referential". Sometimes the somatic cases 
+will also be self-referential, but not always. However, all cases of "D2G: self-referential" have historically included 
+a row where the phenotype includes the word 'somatic'.
 
 #### 4. D2G: Phenotype is gene
 Happens when all conditions were met for this association to be considered disease-defining. However, the phenotype in 
