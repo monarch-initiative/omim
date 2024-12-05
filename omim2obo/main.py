@@ -57,10 +57,10 @@ from hashlib import md5
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
-from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS, ReviewCase
+from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import cleanup_title, get_alt_and_included_titles_and_symbols, get_pubs, \
-    get_mapped_ids, capitalize_acronyms_in_title, get_self_ref_assocs
+from omim2obo.parsers.omim_entry_parser import REVIEW_CASES, log_review_cases, cleanup_title, \
+    get_alt_and_included_titles_and_symbols, get_pubs, get_mapped_ids, capitalize_acronyms_in_title
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
 
 
@@ -71,22 +71,6 @@ OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
-REVIEW_CASES: List[ReviewCase] = []
-REVIEW_CASE_NAME_MAP: Dict[int, str] = {
-    1: "D2G: digenic",
-    2: "D2G: self-referential",
-    3: "D2G: somatic",
-    4: "D2G: Phenotype is gene",
-    5: "D2G: Phenotype type error",
-}
-
-def _add_to_review_tsv(class_code: int, value: str):
-    """Update REVIEW_CASES with review cases, which will later be written to review.tsv"""
-    REVIEW_CASES.append({
-        "classCode": class_code,
-        "classShortName": REVIEW_CASE_NAME_MAP[class_code],
-        "value": value,
-    })
 
 
 # Funcs
@@ -373,7 +357,6 @@ def omim2obo(use_cache: bool = False):
             phenotype_genes[p_mim].append({
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
-    self_ref_case = 0
     # - Add relations (subclass restrictions)
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
@@ -399,31 +382,8 @@ def omim2obo(use_cache: bool = False):
             if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
                 continue
 
-            # Log review cases
-            p_lab_lower: str = p_lab.lower()
-            basic_review_info = f"(Phenotype: {p_mim} {p_lab}), (Map key: {p_map_key}), (Gene: {gene_mim})"
-            # - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
-            if 'digenic' in p_lab_lower:
-                _add_to_review_tsv(1, basic_review_info)
-            # = Somatic mutations
-            if 'somatic' in p_lab_lower:
-                _add_to_review_tsv(3, basic_review_info)
-            # - Self-referential cases
-            self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
-            if self_ref_assocs:
-                self_ref_case += 1
-                _add_to_review_tsv(2, f"{self_ref_case}: {basic_review_info}")
-            for self_ref_assoc in self_ref_assocs:
-                _add_to_review_tsv(2, f"{self_ref_case}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
-                    f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: {p_mim})",)
-            # - Unexpected non-phenotype MIM types
-            p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
-            mim_type_err = f"(Phenotype MIM type {p_mim_type}), {basic_review_info}"
-            if p_mim_type == 'GENE':  # *
-                _add_to_review_tsv(4, mim_type_err)
-            elif p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
-                _add_to_review_tsv(5, mim_type_err)
-
+            # Log review.tsv cases
+            log_review_cases(p_mim, p_lab, p_map_key, gene_mim, gene_phenotypes, omim_types)
             # Add restrictions: Disease-defining ('causal germline mutation')
             # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
             #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003

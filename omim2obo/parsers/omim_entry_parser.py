@@ -7,14 +7,22 @@ from typing import List, Dict, Tuple
 import pandas as pd
 from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, SKOS, URIRef
 
-from omim2obo.config import DATA_DIR
+from omim2obo.config import DATA_DIR, ReviewCase
 from omim2obo.omim_type import OmimType, get_omim_type
 from omim2obo.namespaces import *
 from omim2obo.utils.romanplus import *
 
 
 LOG = logging.getLogger('omim2obo.parsers.api_entry_parser')
-
+REVIEW_SELF_REF_CASE_I = 0
+REVIEW_CASES: List[ReviewCase] = []
+REVIEW_CASE_NAME_MAP: Dict[int, str] = {
+    1: "D2G: digenic",
+    2: "D2G: self-referential",
+    3: "D2G: somatic",
+    4: "D2G: Phenotype is gene",
+    5: "D2G: Phenotype type error",
+}
 
 def get_known_capitalizations() -> Dict[str, str]:
     """Get list of known capitalizations for proper names, acronyms, and the like.
@@ -406,3 +414,44 @@ def get_self_ref_assocs(phenotype_mim: str, gene_phenotypes: Dict[str, Dict]) ->
         if not _assoc['phenotype_mim_number']:
             _self_ref_assocs.append(_assoc)
     return _self_ref_assocs
+
+
+def _add_to_review_tsv(class_code: int, value: str):
+    """Update REVIEW_CASES with review cases, which will later be written to review.tsv"""
+    REVIEW_CASES.append({
+        "classCode": class_code,
+        "classShortName": REVIEW_CASE_NAME_MAP[class_code],
+        "value": value,
+    })
+
+
+def log_review_cases(
+    p_mim: str, p_lab: str, p_map_key: str, gene_mim: str, gene_phenotypes: Dict[str, Dict],
+    omim_types: Dict[str, str]
+):
+    """Log cases that need to be reviewed"""
+    global REVIEW_SELF_REF_CASE_I
+    p_lab_lower: str = p_lab.lower()
+    basic_review_info = f"(Phenotype: {p_mim} {p_lab}), (Map key: {p_map_key}), (Gene: {gene_mim})"
+
+    # - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
+    if 'digenic' in p_lab_lower:
+        _add_to_review_tsv(1, basic_review_info)
+    # = Somatic mutations
+    if 'somatic' in p_lab_lower:
+        _add_to_review_tsv(3, basic_review_info)
+    # - Self-referential cases
+    self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
+    if self_ref_assocs:
+        REVIEW_SELF_REF_CASE_I += 1
+        _add_to_review_tsv(2, f"{REVIEW_SELF_REF_CASE_I}: {basic_review_info}")
+    for self_ref_assoc in self_ref_assocs:
+        _add_to_review_tsv(2, f"{REVIEW_SELF_REF_CASE_I}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
+            f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: {p_mim})", )
+    # - Unexpected non-phenotype MIM types
+    p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
+    mim_type_err = f"(Phenotype MIM type {p_mim_type}), {basic_review_info}"
+    if p_mim_type == 'GENE':  # *
+        _add_to_review_tsv(4, mim_type_err)
+    elif p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
+        _add_to_review_tsv(5, mim_type_err)
