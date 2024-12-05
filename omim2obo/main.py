@@ -72,6 +72,21 @@ LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
 REVIEW_CASES: List[ReviewCase] = []
+REVIEW_CASE_NAME_MAP: Dict[int, str] = {
+    1: "D2G: digenic",
+    2: "D2G: self-referential",
+    3: "D2G: somatic",
+    4: "D2G: Phenotype is gene",
+    5: "D2G: Phenotype type error",
+}
+
+def _add_to_review_tsv(class_code: int, value: str):
+    """Update REVIEW_CASES with review cases, which will later be written to review.tsv"""
+    REVIEW_CASES.append({
+        "classCode": class_code,
+        "classShortName": REVIEW_CASE_NAME_MAP[class_code],
+        "value": value,
+    })
 
 
 # Funcs
@@ -385,41 +400,29 @@ def omim2obo(use_cache: bool = False):
                 continue
 
             # Log review cases
+            p_lab_lower: str = p_lab.lower()
+            basic_review_info = f"(Phenotype: {p_mim} {p_lab}), (Map key: {p_map_key}), (Gene: {gene_mim})"
             # - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
-            if 'digenic' in p_lab.lower():
-                # noinspection PyTypeChecker typecheck_fail_old_Python
-                REVIEW_CASES.append({
-                    "classCode": 1,
-                    "classShortName": "D2G: Disease-defining but marked digenic",
-                    "value": f"(Phenotype: {p_mim} {p_lab}) (Gene: {gene_mim})",
-                })
+            if 'digenic' in p_lab_lower:
+                _add_to_review_tsv(1, basic_review_info)
+            # = Somatic mutations
+            if 'somatic' in p_lab_lower:
+                _add_to_review_tsv(3, basic_review_info)
             # - Self-referential cases
             self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
             if self_ref_assocs:
                 self_ref_case += 1
-                REVIEW_CASES.append({
-                    "classCode": 2,
-                    "classShortName": "D2G: Disease-defining; self-referential",
-                    "value":
-                        f"{self_ref_case}: (Phenotype: {p_mim} {p_lab}), (Map key: {p_map_key}), (Gene: {gene_mim})",
-                })
+                _add_to_review_tsv(2,f"{self_ref_case}: {basic_review_info}")
             for self_ref_assoc in self_ref_assocs:
-                # noinspection PyTypeChecker typecheck_fail_old_Python
-                REVIEW_CASES.append({
-                    "classCode": 2,
-                    "classShortName": "D2G: Disease-defining; self-referential",
-                    "value": f"{self_ref_case}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
-                             f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: OMIM:{p_mim})",
-                })
+                _add_to_review_tsv(2, f"{self_ref_case}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
+                    f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: {p_mim})",)
             # - Unexpected non-phenotype MIM types
-            # todo: these need to be in review.tsv as well
             p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
-            mim_type_err = f"Warning: Unexpected MIM type {p_mim_type} for Phenotype {p_mim} when parsing phenotype-" \
-                f"disease relationships. Skipping."
-            if p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
-                print(mim_type_err, file=sys.stderr)  # Hasn't happened. Failsafe.
+            mim_type_err = f"(Phenotype MIM type {p_mim_type}), {basic_review_info}"
             if p_mim_type == 'GENE':  # *
-                print(mim_type_err, file=sys.stderr)  # OMIM recognized as data quality issue. Fixed 2024/11. Failsafe.
+                _add_to_review_tsv(4, mim_type_err)
+            elif p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
+                _add_to_review_tsv(5, mim_type_err)
 
             # Add restrictions: Disease-defining ('causal germline mutation')
             # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene

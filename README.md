@@ -110,15 +110,15 @@ Columns:
 - `value`: any: Some form of data to review
 - `comment`: string (optional)
 
-#### 1. D2G Disease-defining but marked digenic
-This review case involves what would be otherwise considered a valid disease-gene (D2G) relationship, but for the fact 
-that it quite unusually includes 'digenic' in the label, even though it only had 1 association. OMIM doesn't have a 
-guaranatee on the data quality of its disease-gene associations marked 'digenic', so for any of these entries, it could 
-be the case that either (a) it is not 'digenic'; OMIM should remove that from the label, and Mondo can make an explicit 
-exception to add the relationship, or could otherwise wait until OMIM fixes the issue and it will automatically be 
-added, or (b) it is in fact 'digenic', and OMIM should add the missing 2nd gene association.
+#### 1. D2G: digenic
+This review case involves what would be otherwise considered a valid, disease-defining disease-gene (D2G) relationship, 
+but for the fact  that it quite unusually includes 'digenic' in the label, even though it only had 1 association. OMIM 
+doesn't have a guaranatee on the data quality of its disease-gene associations marked 'digenic', so for any of these 
+entries, it could  be the case that either (a) it is not 'digenic'; OMIM should remove that from the label, and Mondo 
+can make an explicit exception to add the relationship, or could otherwise wait until OMIM fixes the issue and it will 
+automatically be added, or (b) it is in fact 'digenic', and OMIM should add the missing 2nd gene association.
 
-#### 2. D2G: Disease-defining; self-referential
+#### 2. D2G: self-referential
 The unique characteristics of cases of this class are as follows: 
 - Each case has 2 rows in `morbidmap.txt` and are part of a pattern. 
 - Row 1: One row is a typical, valid, disease-defining entry. For the given phenotype MIM in that row, there are no 
@@ -140,6 +140,21 @@ The unique characteristics of cases of this class are as follows:
 **All known cases**:
 There is a spreadsheet which collates all known cases as of 2024/11/18: [google sheet](
 https://docs.google.com/spreadsheets/d/1hKSp2dyKye6y_20NK2HwLsaKNzWfGCMJMP52lKrkHtU/). The MIMs of the known cases are: `159595`, `182280`, `607107`, and `615830`.
+
+#### 3. D2G: somatic
+Happens when all conditions were met for this association to be considered disease-defining, but the word 'somatic' is 
+in the phenotype label. These are somatic mutation entries in OMIM, but typically they are germline mutations, and that 
+is what we ideally always expect to see, so these should be given a look.
+
+#### 4. D2G: Phenotype is gene
+Happens when all conditions were met for this association to be considered disease-defining. However, the phenotype in 
+the association unexpectedly has the type of "gene" rather than "phenotype". This is unexpected and considered a data 
+quality issue on the OMIM side. As of 2024/10, we flagged this to the OMIM team and they corrected all such cases.
+
+#### 5. D2G: Phenotype type error
+Happens when all conditions were met for this association to be considered disease-defining. However, the phenotype in 
+the association has an unexpected type of either 'OBSOLETE', 'SUSPECTED', or 'HAS_AFFECTED_FEATURE'. As of 2024/12, we 
+have not seen such cases appear, but we have set this review case up to watch for them should they occur.
 
 ## Under the hood: Design decisions, etc.
 ### Gene-Disease pipeline
