@@ -31,6 +31,7 @@ Steps
   - links omim entry (~gene) to phenotype
     - I thought phenotypic series did something like the sme?
   - links omim entry to chromosome location
+  - Add disease-gene associations
 - Parses BioPortal's omim.ttl
   At least, I think that's where that .ttl file comes from. Adds following info to graph:
   - pmid info
@@ -45,6 +46,7 @@ Steps
   A tab-delimited file with purpose unknown to me (Joe), but has mappings between HGNC symbols and IDs.
   - Get HGNC symbol::id mappings.
 todo: The downloads should all happen at beginning of script
+todo: This is last updated 4/2022 and now does not fully describe everything that happens.
 
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
@@ -58,8 +60,7 @@ from rdflib.term import Identifier
 from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS, ReviewCase
 from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import cleanup_title, get_alt_and_included_titles_and_symbols, get_pubs, \
-    get_mapped_ids, recapitalize_acronyms_in_title, get_self_ref_assocs
-from omim2obo.config import ROOT_DIR, GLOBAL_TERMS
+    get_mapped_ids, capitalize_acronyms_in_title, get_self_ref_assocs
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
 
 
@@ -263,9 +264,9 @@ def omim2obo(use_cache: bool = False):
 
         # Add synonyms
         # - exact titles
-        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(recapitalize_acronyms_in_title(pref_title, pref_abbrev))))
+        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(capitalize_acronyms_in_title(pref_title, pref_abbrev))))
         for title in alt_titles:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(recapitalize_acronyms_in_title(title, pref_abbrev))))
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(capitalize_acronyms_in_title(title, pref_abbrev))))
         # - exact abbreviations
         for abbrevs in [pref_symbols, alt_symbols]:
             for abbreviation in abbrevs:
@@ -273,7 +274,7 @@ def omim2obo(use_cache: bool = False):
                     [(oboInOwl.hasSynonymType, OMO['0003000'])])
         # - related, deprecated 'former' titles
         for title in former_alt_titles:
-            clean_title = recapitalize_acronyms_in_title(title, pref_abbrev)
+            clean_title = capitalize_acronyms_in_title(title, pref_abbrev)
             add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, clean_title,
                 [(OWL.deprecated, Literal(True))])
         # - related, deprecated 'former' abbreviations
@@ -288,7 +289,8 @@ def omim2obo(use_cache: bool = False):
             graph.add((omim_uri, RDFS['comment'], Literal(included_comment)))
         # - titles
         for title in included_titles:
-            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(recapitalize_acronyms_in_title(title, pref_abbrev))))
+            graph.add((
+                omim_uri, URIRef(MONDONS.omim_included), Literal(capitalize_acronyms_in_title(title, pref_abbrev))))
         # - symbols
         for symbol in included_symbols:
             add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol, [
@@ -297,7 +299,7 @@ def omim2obo(use_cache: bool = False):
             ])
         # - deprecated, 'former'
         for title in former_included_titles:
-            clean_title = recapitalize_acronyms_in_title(title, pref_abbrev)
+            clean_title = capitalize_acronyms_in_title(title, pref_abbrev)
             add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), clean_title,
                 [(OWL.deprecated, Literal(True))])
         for symbol in former_included_symbols:

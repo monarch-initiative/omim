@@ -268,7 +268,7 @@ def cleanup_title(
 
 
 # todo: explicit_abbrev: Change to List[str]. See: https://github.com/monarch-initiative/omim/issues/129
-def recapitalize_acronyms_in_title(title: str, explicit_abbrev=None, capitalization_threshold=0.75) -> str:
+def capitalize_acronyms_in_title(title: str, explicit_abbrev=None, capitalization_threshold=0.75) -> str:
     """Re-capitalize acronyms / words based on information contained w/in original label"""
     # todo: probably best to combine explicit abbrevs outside of this func
     possible_abbreviations = _detect_abbreviations(
