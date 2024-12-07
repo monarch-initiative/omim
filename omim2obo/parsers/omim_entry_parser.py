@@ -451,7 +451,7 @@ def log_review_cases(
     # - Unexpected non-phenotype MIM types
     p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
     mim_type_err = f"(Phenotype MIM type {p_mim_type}), {basic_review_info}"
-    if p_mim_type == 'GENE':  # *
+    if p_mim_type == 'GENE':  # Represented by: *
         _add_to_review_tsv(4, mim_type_err)
-    elif p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
+    elif p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # Represented by: ^, NULL, +
         _add_to_review_tsv(5, mim_type_err)

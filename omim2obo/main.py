@@ -237,7 +237,7 @@ def omim2obo(use_cache: bool = False):
         is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # '%' char
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-        elif is_gene:  # * or + chars
+        elif is_gene:  # Represented by: * or + chars
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))  # gene
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.nonDisease))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
