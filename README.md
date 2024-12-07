@@ -141,9 +141,9 @@ There is a spreadsheet which collates all known cases as of 2024/11/18: [google 
 https://docs.google.com/spreadsheets/d/1hKSp2dyKye6y_20NK2HwLsaKNzWfGCMJMP52lKrkHtU/). The MIMs of the known cases are: `159595`, `182280`, `607107`, and `615830`.
 
 **Additional notes**:
-Note that unlike the other `review.tsv` cases, for this one, a single case spans multiple rows. The cases can be 
-identified easily because they are enumerated with a leading number in the `value` column, e.g. "1: " for the first case
-, and so on.
+Note that unlike the other cases, a single case of "D2G: self-referential" spans multiple rows in `review.tsv`. 
+The cases are enumerated in the TSV, with individual cases identifiable via a leading integer in the `value` column, 
+e.g. "1: " for the first case, "2: " for the second, and so on.
 
 Also, see note in section "3. D2G: somatic" about intersection between these two cases. 
 
