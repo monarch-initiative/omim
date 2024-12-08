@@ -57,10 +57,10 @@ from hashlib import md5
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
-from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS, ReviewCase
+from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import cleanup_title, get_alt_and_included_titles_and_symbols, get_pubs, \
-    get_mapped_ids, capitalize_acronyms_in_title, get_self_ref_assocs
+from omim2obo.parsers.omim_entry_parser import REVIEW_CASES, log_review_cases, cleanup_title, \
+    get_alt_and_included_titles_and_symbols, get_pubs, get_mapped_ids, capitalize_acronyms_in_title
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
 
 
@@ -71,7 +71,6 @@ OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
-REVIEW_CASES: List[ReviewCase] = []
 
 
 # Funcs
@@ -238,7 +237,7 @@ def omim2obo(use_cache: bool = False):
         is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # '%' char
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-        elif is_gene:  # * or + chars
+        elif is_gene:  # Represented by: * or + chars
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))  # gene
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.nonDisease))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
@@ -358,7 +357,6 @@ def omim2obo(use_cache: bool = False):
             phenotype_genes[p_mim].append({
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
-    self_ref_case = 0
     # - Add relations (subclass restrictions)
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
@@ -384,43 +382,8 @@ def omim2obo(use_cache: bool = False):
             if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
                 continue
 
-            # Log review cases
-            # - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
-            if 'digenic' in p_lab.lower():
-                # noinspection PyTypeChecker typecheck_fail_old_Python
-                REVIEW_CASES.append({
-                    "classCode": 1,
-                    "classShortName": "D2G: Disease-defining but marked digenic",
-                    "value": f"(Phenotype: {p_mim} {p_lab}) (Gene: {gene_mim})",
-                })
-            # - Self-referential cases
-            self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
-            if self_ref_assocs:
-                self_ref_case += 1
-                REVIEW_CASES.append({
-                    "classCode": 2,
-                    "classShortName": "D2G: Disease-defining; self-referential",
-                    "value":
-                        f"{self_ref_case}: (Phenotype: {p_mim} {p_lab}), (Map key: {p_map_key}), (Gene: {gene_mim})",
-                })
-            for self_ref_assoc in self_ref_assocs:
-                # noinspection PyTypeChecker typecheck_fail_old_Python
-                REVIEW_CASES.append({
-                    "classCode": 2,
-                    "classShortName": "D2G: Disease-defining; self-referential",
-                    "value": f"{self_ref_case}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
-                             f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: OMIM:{p_mim})",
-                })
-            # - Unexpected non-phenotype MIM types
-            # todo: these need to be in review.tsv as well
-            p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
-            mim_type_err = f"Warning: Unexpected MIM type {p_mim_type} for Phenotype {p_mim} when parsing phenotype-" \
-                f"disease relationships. Skipping."
-            if p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
-                print(mim_type_err, file=sys.stderr)  # Hasn't happened. Failsafe.
-            if p_mim_type == 'GENE':  # *
-                print(mim_type_err, file=sys.stderr)  # OMIM recognized as data quality issue. Fixed 2024/11. Failsafe.
-
+            # Log review.tsv cases
+            log_review_cases(p_mim, p_lab, p_map_key, gene_mim, gene_phenotypes, omim_types)
             # Add restrictions: Disease-defining ('causal germline mutation')
             # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
             #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
@@ -457,7 +420,7 @@ def omim2obo(use_cache: bool = False):
             graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
     # todo: ensure comment field exists even when no row uses
-    review_df = pd.DataFrame(REVIEW_CASES).sort_values(by=['classCode'])
+    review_df = pd.DataFrame(REVIEW_CASES).sort_values(by=['classCode', 'value'])
     review_df.to_csv(REVIEW_CASES_PATH, index=False, sep='\t')
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
