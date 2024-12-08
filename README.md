@@ -148,9 +148,7 @@ e.g. "1: " for the first case, "2: " for the second, and so on.
 Also, see note in section "3. D2G: somatic" about intersection between these two cases. 
 
 #### 3. D2G: somatic
-Happens when all conditions were met for this association to be considered disease-defining, but the word 'somatic' is 
-in the phenotype label. These are somatic mutation entries in OMIM, but typically they are germline mutations, and that 
-is what we ideally always expect to see, so these should be given a look.
+Happens when all conditions were met for this association to be considered disease-defining, but the mutation is a somatic cell mutation, rather than a germline mutation. This is indicated by the appearance of the word 'somatic' in the label of the phenotype MIM in the association. These cases should be reviewed because currently any association meeting the criteria to be considered disease-defining is also considered a germline mutation and the association is represented in `omim.owl` using the property 'is causal germline mutation in' (RO:0004013).
 
 Note that there is an intersection between this case and case 2, "D2G: self-referential". Sometimes the somatic cases 
 will also be self-referential, but not always. However, all cases of "D2G: self-referential" have historically included 
