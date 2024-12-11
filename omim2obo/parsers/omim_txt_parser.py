@@ -10,7 +10,6 @@ from typing import List, Dict, Tuple, Union
 import requests
 import re
 import pandas as pd
-# from rdflib import URIRef
 
 from omim2obo.config import CONFIG, DATA_DIR
 from omim2obo.namespaces import RO
@@ -69,7 +68,7 @@ MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES = {
 # - Multiple rows, same mapping key: https://github.com/monarch-initiative/omim/issues/75
 # - Multiple rows, diff mapping keys: https://github.com/monarch-initiative/omim/issues/81
 
-## todo: these are unused variables. remove?:
+# todo: these are unused variables. remove?:
 # - Disease-to-Gene predicates
 # RO:0004013 (is causal germline mutation in)
 # https://www.ebi.ac.uk/ols/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
@@ -250,6 +249,7 @@ def parse_mim_titles(lines) -> Tuple[Dict[str, Tuple[OmimType, str, str, str]], 
 
 
 def parse_phenotypic_series_titles(lines) -> Dict[str, List]:
+    """Parse phenotypic series titles"""
     ret = defaultdict(list)
     for line in lines:
         if line.startswith('#'):
@@ -274,8 +274,8 @@ def parse_gene_map(lines):
 
 def get_hgnc_map(filename, symbol_col, mim_col='MIM Number') -> Dict:
     """Get HGNC Map"""
-    map = {}
-    input_path = os.path.join(DATA_DIR, filename)
+    d = {}
+    input_path = DATA_DIR / filename
     try:
         df = pd.read_csv(input_path, delimiter='\t', comment='#').fillna('')
         df[mim_col] = df[mim_col].astype(int)  # these were being read as floats
@@ -298,9 +298,9 @@ def get_hgnc_map(filename, symbol_col, mim_col='MIM Number') -> Dict:
         if symbol:
             # Useful to read as `int` to catch any erroneous entries, but convert to str for compatibility with rest of
             # codebase, which is currently reading as `str` for now.
-            map[str(row[mim_col])] = symbol
+            d[str(row[mim_col])] = symbol
 
-    return map
+    return d
 
 
 def parse_mim2gene(lines: List[str], filename='mim2gene.tsv', filename2='genemap2.tsv') -> Tuple[Dict, Dict, Dict]:
@@ -334,8 +334,8 @@ def parse_mim2gene(lines: List[str], filename='mim2gene.tsv', filename2='genemap
         if mim_num not in hgnc_map:
             hgnc_map[mim_num] = symbol
         elif hgnc_map[mim_num] != symbol:
-                LOG.warning(warning.format(mim_num, hgnc_map[mim_num], symbol))
-                del hgnc_map[mim_num]
+            LOG.warning(warning.format(mim_num, hgnc_map[mim_num], symbol))
+            del hgnc_map[mim_num]
 
     return gene_map, pheno_map, hgnc_map
 
@@ -428,11 +428,10 @@ def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
     return pmid_maps, umls_maps, orphanet_maps
 
 
+# todo: Update this function to dynamically retrieve the updated records
+# noinspection PyUnusedLocal address_if_this_gets_reimplemented
 def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month=8):
-    """
-    TODO: Update this function to dynamically retrieve the updated records
-    :return:
-    """
+    """Get updated entries from OMIM API."""
     # updated_mims = set()
     # updated_entries = []
     # for year in range(start_year, end_year):
@@ -452,16 +451,17 @@ def get_hgnc_symbol_id_map(input_path=os.path.join(DATA_DIR, 'hgnc', 'hgnc_compl
     """Get mapping between HGNC symbols and IDs
     todo: Ideally download the latest file: http://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt
     todo: Address or suppress warning. I dont even need these columns anyway:
-     /Users/joeflack4/projects/omim/omim2obo/main.py:208: DtypeWarning: Columns (32,34,38,40,50) have mixed types.Specify dtype option on import or set low_memory=False.
+     /Users/joeflack4/projects/omim/omim2obo/main.py:208: DtypeWarning: Columns (32,34,38,40,50) have mixed types.
+     Specify dtype option on import or set low_memory=False.
      hgnc_symbol_id_map: Dict = get_hgnc_symbol_id_map()
     """
-    map = {}
+    d = {}
     df = pd.read_csv(input_path, sep='\t')
     for index, row in df.iterrows():
         # hgnc_id is formatted as "hgnc:<id>"
-        map[row['symbol']] = row['hgnc_id'].split(':')[1]
+        d[row['symbol']] = row['hgnc_id'].split(':')[1]
 
-    return map
+    return d
 
 def p2g_is_definitive(label: str) -> bool:
     """Is phenotype to gene association definitive?

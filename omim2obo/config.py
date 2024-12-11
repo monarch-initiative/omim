@@ -20,6 +20,7 @@ CONFIG = dotenv_values(ENV_PATH)
 
 # ReviewCase: See README.md for review class documentation
 class ReviewCase(TypedDict):
+    """See README.md docs for: review.tsv"""
     classCode: int
     classShortName: str
     value: str

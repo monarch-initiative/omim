@@ -1,23 +1,28 @@
 """OMIM Entry parsers"""
 import csv
 import logging
-# import re
 from collections import defaultdict
-from copy import copy
 from typing import List, Dict, Set, Tuple, Union
 
 import pandas as pd
 from rdflib import Graph, RDF, RDFS, DC, Literal, OWL, SKOS, URIRef
-# from rdflib import Namespace
 
-from omim2obo.config import DATA_DIR
+from omim2obo.config import DATA_DIR, ReviewCase
 from omim2obo.omim_type import OmimType, get_omim_type
 from omim2obo.namespaces import *
 from omim2obo.utils.romanplus import *
 
 
 LOG = logging.getLogger('omim2obo.parsers.api_entry_parser')
-
+REVIEW_SELF_REF_CASE_I = 0
+REVIEW_CASES: List[ReviewCase] = []
+REVIEW_CASE_NAME_MAP: Dict[int, str] = {
+    1: "D2G: digenic",
+    2: "D2G: self-referential",
+    3: "D2G: somatic",
+    4: "D2G: Phenotype is gene",
+    5: "D2G: Phenotype type error",
+}
 
 def get_known_capitalizations() -> Dict[str, str]:
     """Get list of known capitalizations for proper names, acronyms, and the like.
@@ -51,6 +56,8 @@ CAPITALIZATION_REPLACEMENTS: Dict[str, str] = get_known_capitalizations()
 
 
 # todo: This isn't used in the ingest to create omim.ttl. Did this have some other use case?
+#  - If working on this again, remove these noinspect warning suppressions and address them
+# noinspection PyUnusedLocal,PyUnboundLocalVariable,PyTypeChecker
 def transform_entry(entry) -> Graph:
     """
     Transforms an OMIM API entry to a graph.
@@ -139,11 +146,11 @@ def transform_entry(entry) -> Graph:
     for phenotypic_serie in get_phenotypic_series(entry):
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER.value or omim_type == OmimType.PHENOTYPE.value:
             graph.add((omim_uri, RDFS.subClassOf, OMIMPS[phenotypic_serie]))
-        elif omim_type == OmimType.GENE.vaule or omim_type == OmimType.HAS_AFFECTED_FEATURE.value:
+        elif omim_type == OmimType.GENE.value or omim_type == OmimType.HAS_AFFECTED_FEATURE.value:
             graph.add((omim_uri, RO['0003304'], OMIMPS[phenotypic_serie]))
 
     # NCBI ENTREZ Gene IDs
-    if omim_type == OmimType.GENE.value or omim_type ==  OmimType.HAS_AFFECTED_FEATURE.value:
+    if omim_type == OmimType.GENE.value or omim_type == OmimType.HAS_AFFECTED_FEATURE.value:
         for gene_id in get_mapped_gene_ids(entry):
             graph.add((omim_uri, OWL.equivalentClass, NCBIGENE[gene_id]))
 
@@ -156,7 +163,9 @@ def transform_entry(entry) -> Graph:
 def detect_abbreviations(label: str, capitalization_threshold=0.75) -> List[str]:
     """Detect possible abbreviations / acronyms"""
     # Compile regexp
+    # todo: handle several warnings: {1} redundant, {1,} simplified to +
     acronyms_without_periods_compiler = re.compile('[A-Z]{1}[A-Z0-9]{1,}')
+    # todo: PyCharm flagged next 2 lines as invalid escape sequence, but this code seems to work? Should double check
     acronyms_with_periods_compiler = re.compile('[A-Z]{1}\.([A-Z0-9]\.){1,}')
     title_cased_abbrev_compiler = re.compile('[A-Z]{1}[a-zA-Z]{1,}\.')
 
@@ -375,25 +384,13 @@ def get_alt_and_included_titles_and_symbols(title_symbol_pair_str) -> Tuple[List
 
 
 def get_mapped_gene_ids(entry) -> List[str]:
+    """Get mapped gene IDs from an OMIM entry"""
     gene_ids = entry.get('externalLinks', {}).get('geneIDs', '')
     return [s.strip() for s in gene_ids.split(',')]
-    # omim_num = str(entry['mimNumber'])
-    # omim_curie = 'OMIM:' + omim_num
-    # if 'externalLinks' in entry:
-    #     links = entry['externalLinks']
-    #     omimtype = omim_type[omim_num]
-    #     if 'geneIDs' in links:
-    #         entrez_mappings = links['geneIDs']
-    #         gene_ids = entrez_mappings.split(',')
-    #         omim_ncbigene_idmap[omim_curie] = gene_ids
-    #         if omimtype in [
-    #                 globaltt['gene'], self.globaltt['has_affected_feature']]:
-    #             for ncbi in gene_ids:
-    #                 model.addEquivalentClass(omim_curie, 'NCBIGene:' + str(ncbi))
-    # return gene_ids
 
 
 def get_pubs(entry) -> List[str]:
+    """Get pubmed information from an OMIM entry"""
     result = []
     for rlst in entry.get('referenceList', []):
         if 'pubmedID' in rlst['reference']:
@@ -402,6 +399,7 @@ def get_pubs(entry) -> List[str]:
 
 
 def get_mapped_ids(entry) -> Dict[Namespace, List[str]]:
+    """Get mapped IDs from an OMIM entry"""
     external_links = entry.get('externalLinks', {})
     result = defaultdict(list)
     if 'orphanetDiseases' in external_links:
@@ -413,6 +411,7 @@ def get_mapped_ids(entry) -> Dict[Namespace, List[str]]:
 
 
 def get_phenotypic_series(entry) -> List[str]:
+    """Get phenotypic series info from an OMIM entry"""
     result = []
     for pheno in entry.get('phenotypeMapList', []):
         if 'phenotypicSeriesNumber' in pheno['phenotypeMap']:
@@ -425,6 +424,7 @@ def get_phenotypic_series(entry) -> List[str]:
 
 # noinspection PyUnusedLocal
 def get_process_allelic_variants(entry) -> List:
+    """Process allelic variants from an OMIM entry"""
     # Not sure when/if Dazhi intended to use this - joeflack4 2021/12/20
     return []
 
@@ -439,3 +439,44 @@ def get_self_ref_assocs(phenotype_mim: str, gene_phenotypes: Dict[str, Dict]) ->
         if not _assoc['phenotype_mim_number']:
             _self_ref_assocs.append(_assoc)
     return _self_ref_assocs
+
+
+def _add_to_review_tsv(class_code: int, value: str):
+    """Update REVIEW_CASES with review cases, which will later be written to review.tsv"""
+    REVIEW_CASES.append({
+        "classCode": class_code,
+        "classShortName": REVIEW_CASE_NAME_MAP[class_code],
+        "value": value,
+    })
+
+
+def log_review_cases(
+    p_mim: str, p_lab: str, p_map_key: str, gene_mim: str, gene_phenotypes: Dict[str, Dict],
+    omim_types: Dict[str, str]
+):
+    """Log cases that need to be reviewed"""
+    global REVIEW_SELF_REF_CASE_I
+    p_lab_lower: str = p_lab.lower()
+    basic_review_info = f"(Phenotype: {p_mim} {p_lab}), (Map key: {p_map_key}), (Gene: {gene_mim})"
+
+    # - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
+    if 'digenic' in p_lab_lower:
+        _add_to_review_tsv(1, basic_review_info)
+    # = Somatic mutations
+    if 'somatic' in p_lab_lower:
+        _add_to_review_tsv(3, basic_review_info)
+    # - Self-referential cases
+    self_ref_assocs: List[Dict] = get_self_ref_assocs(p_mim, gene_phenotypes)
+    if self_ref_assocs:
+        REVIEW_SELF_REF_CASE_I += 1
+        _add_to_review_tsv(2, f"{REVIEW_SELF_REF_CASE_I}: {basic_review_info}")
+    for self_ref_assoc in self_ref_assocs:
+        _add_to_review_tsv(2, f"{REVIEW_SELF_REF_CASE_I}: (Phenotype: {self_ref_assoc['phenotype_label']}), (Map key: "
+            f"{self_ref_assoc['phenotype_mapping_info_key']}), (Gene: {p_mim})", )
+    # - Unexpected non-phenotype MIM types
+    p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
+    mim_type_err = f"(Phenotype MIM type {p_mim_type}), {basic_review_info}"
+    if p_mim_type == 'GENE':  # Represented by: *
+        _add_to_review_tsv(4, mim_type_err)
+    elif p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # Represented by: ^, NULL, +
+        _add_to_review_tsv(5, mim_type_err)

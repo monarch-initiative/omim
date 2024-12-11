@@ -110,15 +110,15 @@ Columns:
 - `value`: any: Some form of data to review
 - `comment`: string (optional)
 
-#### 1. D2G Disease-defining but marked digenic
-This review case involves what would be otherwise considered a valid disease-gene (D2G) relationship, but for the fact 
-that it quite unusually includes 'digenic' in the label, even though it only had 1 association. OMIM doesn't have a 
-guaranatee on the data quality of its disease-gene associations marked 'digenic', so for any of these entries, it could 
-be the case that either (a) it is not 'digenic'; OMIM should remove that from the label, and Mondo can make an explicit 
-exception to add the relationship, or could otherwise wait until OMIM fixes the issue and it will automatically be 
-added, or (b) it is in fact 'digenic', and OMIM should add the missing 2nd gene association.
+#### 1. D2G: digenic
+This review case involves what would be otherwise considered a valid, disease-defining disease-gene (D2G) relationship, 
+but for the fact  that it quite unusually includes 'digenic' in the label, even though it only had 1 association. OMIM 
+doesn't have a guaranatee on the data quality of its disease-gene associations marked 'digenic', so for any of these 
+entries, it could  be the case that either (a) it is not 'digenic'; OMIM should remove that from the label, and Mondo 
+can make an explicit exception to add the relationship, or could otherwise wait until OMIM fixes the issue and it will 
+automatically be added, or (b) it is in fact 'digenic', and OMIM should add the missing 2nd gene association.
 
-#### 2. D2G: Disease-defining; self-referential
+#### 2. D2G: self-referential
 The unique characteristics of cases of this class are as follows: 
 - Each case has 2 rows in `morbidmap.txt` and are part of a pattern. 
 - Row 1: One row is a typical, valid, disease-defining entry. For the given phenotype MIM in that row, there are no 
@@ -136,10 +136,33 @@ The unique characteristics of cases of this class are as follows:
 |Small cell cancer of the lung, somatic, 182280 (3)|RB1|614041|13q14.2|
 |Small-cell cancer of lung (2)|SCLC1|182280|3p23-p21|
 
-
 **All known cases**:
 There is a spreadsheet which collates all known cases as of 2024/11/18: [google sheet](
 https://docs.google.com/spreadsheets/d/1hKSp2dyKye6y_20NK2HwLsaKNzWfGCMJMP52lKrkHtU/). The MIMs of the known cases are: `159595`, `182280`, `607107`, and `615830`.
+
+**Additional notes**:
+Note that unlike the other cases, a single case of "D2G: self-referential" spans multiple rows in `review.tsv`. 
+The cases are enumerated in the TSV, with individual cases identifiable via a leading integer in the `value` column, 
+e.g. "1: " for the first case, "2: " for the second, and so on.
+
+Also, see note in section "3. D2G: somatic" about intersection between these two cases. 
+
+#### 3. D2G: somatic
+Happens when all conditions were met for this association to be considered disease-defining, but the mutation is a somatic cell mutation, rather than a germline mutation. This is indicated by the appearance of the word 'somatic' in the label of the phenotype MIM in the association. These cases should be reviewed because currently any association meeting the criteria to be considered disease-defining is also considered a germline mutation and the association is represented in `omim.owl` using the property 'is causal germline mutation in' (RO:0004013).
+
+Note that there is an intersection between this case and case 2, "D2G: self-referential". Sometimes the somatic cases 
+will also be self-referential, but not always. However, all cases of "D2G: self-referential" have historically included 
+a row where the phenotype includes the word 'somatic'.
+
+#### 4. D2G: Phenotype is gene
+Happens when all conditions were met for this association to be considered disease-defining. However, the phenotype in 
+the association unexpectedly has the type of "gene" rather than "phenotype". This is unexpected and considered a data 
+quality issue on the OMIM side. As of 2024/10, we flagged this to the OMIM team and they corrected all such cases.
+
+#### 5. D2G: Phenotype type error
+Happens when all conditions were met for this association to be considered disease-defining. However, the phenotype in 
+the association has an unexpected type of either 'OBSOLETE', 'SUSPECTED', or 'HAS_AFFECTED_FEATURE'. As of 2024/12, we 
+have not seen such cases appear, but we have set this review case up to watch for them should they occur.
 
 ## Under the hood: Design decisions, etc.
 ### Gene-Disease pipeline
