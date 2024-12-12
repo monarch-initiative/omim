@@ -102,6 +102,7 @@ EOM_IMG = Namespace('https://elementsofmorphology.nih.gov/images/terms/')
 # publication/citation/reference sources
 DOI = Namespace('http://dx.doi.org/')                                         # Digital Object identifier
 GENEREVIEWS = Namespace('http://www.ncbi.nlm.nih.gov/books/')                 # NCBI gene and diseases
+ORCID = Namespace('https://orcid.org/')                                        # Open Researcher and Contributor ID
 # more bogus IRIs
 ISBN = Namespace('https://monarchinitiative.org/ISBN_')                       # International Standard Book Number
 ISBN_10 = Namespace('https://monarchinitiative.org/ISBN10_')                  # Same as ISBN has 10 digits pre 2007

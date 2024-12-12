@@ -51,7 +51,7 @@ todo: This is last updated 4/2022 and now does not fully describe everything tha
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
 """
-from typing import Set
+from typing import Optional, Set
 
 import yaml
 from hashlib import md5
@@ -64,7 +64,7 @@ from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import REVIEW_CASES, cleanup_title, get_alt_and_included_titles_and_symbols, \
     get_pubs, get_mapped_ids, log_review_cases, recapitalize_acronyms_in_titles
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
-
+from omim2obo.utils.utils import get_d2g_exclusions_by_curator
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
@@ -123,21 +123,36 @@ def add_subclassof_restriction(graph: Graph, predicate: URIRef, some_values_from
     return b
 
 
-def add_subclassof_restriction_with_evidence(
-    graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef, evidence: Union[str, Literal]
+def add_subclassof_restriction_with_evidence_and_source(
+    graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef, evidence: Union[str, Literal],
+    source: Optional[URIRef] = None,
 ):
     """Creates a subClassOf someValuesFrom restriction, and adds an evidence axiom to it."""
     evidence = Literal(evidence) if type(evidence) is str else evidence
     # Add restriction on MIM class
     b: BNode = add_subclassof_restriction(graph, predicate, some_values_from, on)
     # Add axiom to restriction
-    b2 = BNode()
-    graph.add((b2, RDF['type'], OWL['Axiom']))
-    graph.add((b2, OWL['annotatedSource'], on))
-    graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
-    graph.add((b2, OWL['annotatedTarget'], b))
-    graph.add((b2, BIOLINK['has_evidence'], evidence))
-    graph.add((b2, RDFS['comment'], evidence))
+    # TODO temp: remove comments when verified in OFN that there is no diff
+    # b2 = BNode()
+    # graph.add((b2, RDF['type'], OWL['Axiom']))
+    # graph.add((b2, OWL['annotatedSource'], on))
+    # graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
+    # graph.add((b2, OWL['annotatedTarget'], b))
+
+    #     axiom = BNode()
+    #     graph.add((axiom, RDF.type, OWL.Axiom))
+    #     graph.add((axiom, OWL.annotatedProperty, prop))
+    #     graph.add((axiom, OWL.annotatedTarget, target))
+
+    # graph.add((b2, BIOLINK['has_evidence'], evidence))
+    # graph.add((b2, RDFS['comment'], evidence))
+    annotation_pred_vals = [
+        (BIOLINK['has_evidence'], evidence),
+        (RDFS['comment'], evidence)
+    ]
+    annotation_pred_vals += [(oboInOwl.source, source)] if source else []
+
+    add_axiom_annotations(graph, on, RDFS['subClassOf'], b, annotation_pred_vals)
 
 
 # Classes
@@ -200,6 +215,7 @@ def omim2obo(use_cache: bool = False):
     # - Non-OMIM triples
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
     graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(oboInOwl.source), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(OMO['0003000']), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
@@ -362,11 +378,13 @@ def omim2obo(use_cache: bool = False):
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
     # - Add relations (subclass restrictions)
+    exclusions_p_mim_orcid_map = get_d2g_exclusions_by_curator()
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
             gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
                 assoc['mapping_key'], assoc['mapping_label']
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
+            p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
 
             # Skip: No phenotype or unknown defect
             # - not p_mim: Skip because not an association to another MIM (Provenance:
@@ -378,24 +396,29 @@ def omim2obo(use_cache: bool = False):
 
             # Add restrictions: Gene->Disease non-causal (disease-defining) relationships
             # - RO:0003302 docs: see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
-            if p_map_key != '3':  # 3 = 'causal' (disease-defining). Handled separately below.
+            # - Mapping key 3 = 'causal' (disease-defining). Handled separately below.
+            if p_map_key != '3' or p_mim_excluded:
                 g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
-                add_subclassof_restriction_with_evidence(graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence)
+                orcid: Optional[URIRef] = exclusions_p_mim_orcid_map[p_mim] if p_mim_excluded else None
+                add_subclassof_restriction_with_evidence_and_source(
+                    graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence, orcid)
+                continue
 
             # Skip non-causal (disease-defining) cases
-            if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
+            if len(assocs) > 1 or not p2g_is_definitive(p_lab):  # or cases above: (p_map_key != '3') & p_mim_excluded
                 continue
 
             # Log review.tsv cases
             log_review_cases(p_mim, p_lab, p_map_key, gene_mim, gene_phenotypes, omim_types)
+
             # Add restrictions: Disease-defining ('causal germline mutation')
             # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
             #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
-            add_subclassof_restriction_with_evidence(
+            add_subclassof_restriction_with_evidence_and_source(
                 graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], evidence)
             # - Gene --(RO:0004013 'is causal germline mutation in')--> Disease
             #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
-            add_subclassof_restriction_with_evidence(
+            add_subclassof_restriction_with_evidence_and_source(
                 graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence)
 
     # PUBMED, UMLS
