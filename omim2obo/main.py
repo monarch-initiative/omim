@@ -132,20 +132,6 @@ def add_subclassof_restriction_with_evidence_and_source(
     # Add restriction on MIM class
     b: BNode = add_subclassof_restriction(graph, predicate, some_values_from, on)
     # Add axiom to restriction
-    # TODO temp: remove comments when verified in OFN that there is no diff
-    # b2 = BNode()
-    # graph.add((b2, RDF['type'], OWL['Axiom']))
-    # graph.add((b2, OWL['annotatedSource'], on))
-    # graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
-    # graph.add((b2, OWL['annotatedTarget'], b))
-
-    #     axiom = BNode()
-    #     graph.add((axiom, RDF.type, OWL.Axiom))
-    #     graph.add((axiom, OWL.annotatedProperty, prop))
-    #     graph.add((axiom, OWL.annotatedTarget, target))
-
-    # graph.add((b2, BIOLINK['has_evidence'], evidence))
-    # graph.add((b2, RDFS['comment'], evidence))
     annotation_pred_vals = [
         (BIOLINK['has_evidence'], evidence),
         (RDFS['comment'], evidence)
@@ -394,11 +380,13 @@ def omim2obo(use_cache: bool = False):
             if not p_mim or p_map_key == '1':
                 continue
 
-            # Add restrictions: Gene->Disease non-causal (disease-defining) relationships
+            # Add restrictions: Gene->Disease non-causal / non-disease-defining relationships
             # - RO:0003302 docs: see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
             # - Mapping key 3 = 'causal' (disease-defining). Handled separately below.
             if p_map_key != '3' or p_mim_excluded:
-                g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
+                g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] \
+                    if len(assocs) == 1 and not p_mim_excluded \
+                    else RO['0003302']
                 orcid: Optional[URIRef] = exclusions_p_mim_orcid_map[p_mim] if p_mim_excluded else None
                 add_subclassof_restriction_with_evidence_and_source(
                     graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence, orcid)

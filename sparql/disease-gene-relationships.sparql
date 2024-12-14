@@ -24,6 +24,7 @@ WHERE {
 
   FILTER(
     ?PredUri IN (
+      <http://purl.obolibrary.org/obo/RO_0003302>,
       <http://purl.obolibrary.org/obo/RO_0003303>,
       <http://purl.obolibrary.org/obo/RO_0003304>,
       <http://purl.obolibrary.org/obo/RO_0004013>,
