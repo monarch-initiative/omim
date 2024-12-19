@@ -37,7 +37,7 @@ omim.owl: omim.ttl mondo_exactmatch_omim.sssom.owl mondo_exactmatch_omimps.sssom
 
 # Create a TSV of relational information for gene and disease classes
 mondo-omim-genes.tsv: omim.owl
-	robot query -i omim.owl --query sparql/mondo-omim-genes.sparql $@
+	robot query -i $< --query sparql/mondo-omim-genes.sparql $@
 
 # Create a TSV of relational information for gene and disease classes, as a ROBOT template
 mondo-omim-genes.robot.tsv: mondo-omim-genes.tsv
@@ -69,7 +69,7 @@ get-pmids:
 
 # SETUP / INSTALLATION -------------------------------------------------------------------------------------------------
 install:
-	pip install -r requirements-unlocked.txt
+	pip install -r requirements-unlocked.txt --user --break-system-packages
 
 # QA / TESTING ---------------------------------------------------------------------------------------------------------
 test:

@@ -3,6 +3,10 @@
 Resources
 - https://monarch-initiative.github.io/monarch-ingest/Sources/OMIM/
 
+FYIs
+"Included Title(s)" in mimTitles.txt is the same as the "Other entities represented in this entry" section in omim.org
+entry pages.
+
 Steps
 - Loads prefixes
 - Parses mimTitles.txt
@@ -27,6 +31,7 @@ Steps
   - links omim entry (~gene) to phenotype
     - I thought phenotypic series did something like the sme?
   - links omim entry to chromosome location
+  - Add disease-gene associations
 - Parses BioPortal's omim.ttl
   At least, I think that's where that .ttl file comes from. Adds following info to graph:
   - pmid info
@@ -41,21 +46,25 @@ Steps
   A tab-delimited file with purpose unknown to me (Joe), but has mappings between HGNC symbols and IDs.
   - Get HGNC symbol::id mappings.
 todo: The downloads should all happen at beginning of script
+todo: This is last updated 4/2022 and now does not fully describe everything that happens.
 
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
 """
+from typing import Optional, Set
+
 import yaml
 from hashlib import md5
 
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
-from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS, ReviewCase
+from omim2obo.config import REVIEW_CASES_PATH, ROOT_DIR, GLOBAL_TERMS
 from omim2obo.namespaces import *
-from omim2obo.parsers.omim_entry_parser import get_alt_labels, get_pubs, get_mapped_ids, LabelCleaner
+from omim2obo.parsers.omim_entry_parser import REVIEW_CASES, cleanup_title, get_alt_and_included_titles_and_symbols, \
+    get_pubs, get_mapped_ids, log_review_cases, recapitalize_acronyms_in_titles
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
-
+from omim2obo.utils.utils import get_d2g_exclusions_by_curator
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
@@ -64,7 +73,6 @@ OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 LOG.addHandler(logging.StreamHandler(sys.stdout))
-REVIEW_CASES: List[ReviewCase] = []
 
 
 # Funcs
@@ -74,6 +82,35 @@ def get_curie_maps():
     with open(map_file, "r") as f:
         maps = yaml.safe_load(f)
     return maps
+
+
+def add_axiom_annotations(
+    graph: Graph, source: URIRef, prop: URIRef, target: Union[Literal, str, URIRef],
+    anno_pred_vals: List[Tuple[URIRef, Union[Literal, str, URIRef]]]
+):
+    """Add an axiom annotation to the graph."""
+    target = Literal(target) if type(target) is str else target
+
+    axiom = BNode()
+    graph.add((axiom, RDF.type, OWL.Axiom))
+    graph.add((axiom, OWL.annotatedSource, source))
+    graph.add((axiom, OWL.annotatedProperty, prop))
+    graph.add((axiom, OWL.annotatedTarget, target))
+    for pred, val in anno_pred_vals:
+        val = Literal(val) if type(target) is str else val
+        graph.add((axiom, pred, val))
+
+
+def add_triple_and_optional_annotations(
+    graph: Graph, source: URIRef, prop: URIRef, target: Union[Literal, str, URIRef],
+    anno_pred_vals: List[Tuple[URIRef, Union[Literal, str, URIRef]]] = None
+):
+    """Add a triple and optional annotations to the graph."""
+    target = Literal(target) if type(target) is str else target
+
+    graph.add((source, prop, target))
+    if anno_pred_vals:
+        add_axiom_annotations(graph, source, prop, target, anno_pred_vals)
 
 
 def add_subclassof_restriction(graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef) -> BNode:
@@ -86,21 +123,22 @@ def add_subclassof_restriction(graph: Graph, predicate: URIRef, some_values_from
     return b
 
 
-def add_subclassof_restriction_with_evidence(
-    graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef, evidence: Union[str, Literal]
+def add_subclassof_restriction_with_evidence_and_source(
+    graph: Graph, predicate: URIRef, some_values_from: URIRef, on: URIRef, evidence: Union[str, Literal],
+    source: Optional[URIRef] = None,
 ):
     """Creates a subClassOf someValuesFrom restriction, and adds an evidence axiom to it."""
     evidence = Literal(evidence) if type(evidence) is str else evidence
     # Add restriction on MIM class
     b: BNode = add_subclassof_restriction(graph, predicate, some_values_from, on)
     # Add axiom to restriction
-    b2 = BNode()
-    graph.add((b2, RDF['type'], OWL['Axiom']))
-    graph.add((b2, OWL['annotatedSource'], on))
-    graph.add((b2, OWL['annotatedProperty'], RDFS['subClassOf']))
-    graph.add((b2, OWL['annotatedTarget'], b))
-    graph.add((b2, BIOLINK['has_evidence'], evidence))
-    graph.add((b2, RDFS['comment'], evidence))
+    annotation_pred_vals = [
+        (BIOLINK['has_evidence'], evidence),
+        (RDFS['comment'], evidence)
+    ]
+    annotation_pred_vals += [(oboInOwl.source, source)] if source else []
+
+    add_axiom_annotations(graph, on, RDFS['subClassOf'], b, annotation_pred_vals)
 
 
 # Classes
@@ -134,7 +172,6 @@ TAX_LABEL = 'Homo sapiens'
 TAX_ID = GLOBAL_TERMS[TAX_LABEL]
 TAX_URI = URIRef(NCBITAXON + TAX_ID.split(':')[1])
 CURIE_MAP = get_curie_maps()
-label_cleaner = LabelCleaner()
 CONFIG = {
     'verbose': False
 }
@@ -164,6 +201,7 @@ def omim2obo(use_cache: bool = False):
     # - Non-OMIM triples
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
     graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(oboInOwl.source), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(OMO['0003000']), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
@@ -189,27 +227,31 @@ def omim2obo(use_cache: bool = False):
                 continue
 
         # - Non-deprecated
-        # Parse titles
-        omim_type, pref_labels_str, alt_labels, inc_labels = omim_type_and_titles[omim_id]
-        other_labels = []
-        cleaned_inc_labels = []
-        label_endswith_included_alt = False
-        label_endswith_included_inc = False
-        pref_labels: List[str] = [x.strip() for x in pref_labels_str.split(';')]
-        pref_title: str = pref_labels[0]
-        pref_symbols: List[str] = pref_labels[1:]
-        if alt_labels:
-            cleaned_alt_labels, label_endswith_included_alt = get_alt_labels(alt_labels)
-            other_labels += cleaned_alt_labels
-        if inc_labels:
-            cleaned_inc_labels, label_endswith_included_inc = get_alt_labels(inc_labels)
-            # other_labels += cleaned_inc_labels  # deactivated 7/2024 in favor of alternative for tagging 'included'
+        # Parse titles & symbols
+        omim_type, pref_titles_str, alt_titles_str, inc_titles_str = omim_type_and_titles[omim_id]
+        pref_titles_and_symbols: List[str] = [x.strip() for x in pref_titles_str.split(';')]
+        pref_title, pref_symbols = cleanup_title(pref_titles_and_symbols[0]), pref_titles_and_symbols[1:]
+        alt_titles, alt_symbols, former_alt_titles, former_alt_symbols = \
+            get_alt_and_included_titles_and_symbols(alt_titles_str)
+        included_titles, included_symbols, former_included_titles, former_included_symbols = \
+            get_alt_and_included_titles_and_symbols(inc_titles_str)
+        included_is_included = included_titles or included_symbols  # redundant. can't be included symbol w/out title
+
+        # Recapitalize acronyms in titles
+        all_abbrevs: Set[str] = \
+            set(pref_symbols + alt_symbols + former_alt_symbols + included_symbols + former_included_symbols)
+        # todo: consider DRYing to 1 call by passing all 5 title types to a wrapper function
+        pref_title = recapitalize_acronyms_in_titles(pref_title, all_abbrevs)
+        alt_titles = recapitalize_acronyms_in_titles(alt_titles, all_abbrevs)
+        former_alt_titles = recapitalize_acronyms_in_titles(former_alt_titles, all_abbrevs)
+        included_titles = recapitalize_acronyms_in_titles(included_titles, all_abbrevs)
+        former_included_titles = recapitalize_acronyms_in_titles(former_included_titles, all_abbrevs)
 
         # Special cases depending on OMIM term type
         is_gene = omim_type == OmimType.GENE or omim_type == OmimType.HAS_AFFECTED_FEATURE
         if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER:  # '%' char
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Disease']))
-        elif is_gene:  # * or + chars
+        elif is_gene:  # Represented by: * or + chars
             graph.add((omim_uri, RDFS.subClassOf, SO['0000704']))  # gene
             graph.add((omim_uri, MONDO.exclusionReason, MONDO.nonDisease))
             graph.add((omim_uri, BIOLINK['category'], BIOLINK['Gene']))
@@ -223,36 +265,54 @@ def omim2obo(use_cache: bool = False):
             gene_label_err = 'Warning: Only 1 symbol picked for label for gene term, but there were 2 to choose ' \
                  f'from. Unsure which is best. Picking the first.\nhttps://omim.org/entry/{omim_id} - {pref_symbols}'
             if len(pref_symbols) > 1:
-                LOG.warning(gene_label_err)  # todo: decide the best way to handle these situations
+                LOG.warning(gene_label_err)  # todo: rare (n=1?), but decide the best way to handle these situations
             graph.add((omim_uri, RDFS.label, Literal(pref_symbols[0])))
         else:
-            graph.add((omim_uri, RDFS.label, Literal(label_cleaner.clean(pref_title))))
-
-        # todo: .clean()/.cleanup_label() 2nd param `explicit_abbrev` should be List[str] instead of str. And below,
-        #  should pass all symbols/abbrevs from each of preferred, alt, included each time it is called. If no symbols
-        #  for given term, should pass empty list. See: https://github.com/monarch-initiative/omim/issues/129
-        abbrev: Union[str, None] = None if not pref_symbols else pref_symbols[0]
+            graph.add((omim_uri, RDFS.label, Literal(pref_title)))
 
         # Add synonyms
-        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(pref_title, abbrev))))
-        for alt_label in other_labels:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(label_cleaner.clean(alt_label, abbrev))))
-        for abbreviation in pref_symbols:
-            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(abbreviation)))
-            # Reify on abbreviations. See: https://github.com/monarch-initiative/omim/issues/2
-            axiom = BNode()
-            graph.add((axiom, RDF.type, OWL.Axiom))
-            graph.add((axiom, OWL.annotatedSource, omim_uri))
-            graph.add((axiom, OWL.annotatedProperty, oboInOwl.hasExactSynonym))
-            graph.add((axiom, OWL.annotatedTarget, Literal(abbreviation)))
-            graph.add((axiom, oboInOwl.hasSynonymType, OMO['0003000']))
+        # - exact titles
+        graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(pref_title)))
+        for title in alt_titles:
+            graph.add((omim_uri, oboInOwl.hasExactSynonym, Literal(title)))
+        # - exact abbreviations
+        for abbrevs in [pref_symbols, alt_symbols]:
+            for abbreviation in abbrevs:
+                add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasExactSynonym, abbreviation,
+                    [(oboInOwl.hasSynonymType, OMO['0003000'])])
+        # - related, deprecated 'former' titles
+        for title in former_alt_titles:
+            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, title,
+                [(OWL.deprecated, Literal(True))])
+        # - related, deprecated 'former' abbreviations
+        for abbreviation in former_alt_symbols:
+            add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, abbreviation,
+                [(OWL.deprecated, Literal(True)), (oboInOwl.hasSynonymType, OMO['0003000'])])
 
-        # Add 'included' entry properties
-        included_detected_comment = "This term has one or more labels that end with ', INCLUDED'."
-        if label_endswith_included_alt or label_endswith_included_inc:
-            graph.add((omim_uri, RDFS['comment'], Literal(included_detected_comment)))
-        for included_label in cleaned_inc_labels:
-            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(label_cleaner.clean(included_label, abbrev))))
+        # Add 'included' entries
+        # - comment
+        if included_is_included:
+            included_comment = "This term has one or more labels that end with ', INCLUDED'."
+            graph.add((omim_uri, RDFS['comment'], Literal(included_comment)))
+        # - titles
+        for title in included_titles:
+            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(title)))
+        # - symbols
+        for symbol in included_symbols:
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol, [
+                # Though these are abbreviations, MONDONS.omim_included is not a synonym type, so can't add axiom:
+                # (oboInOwl.hasSynonymType, OMO['0003000'])
+            ])
+        # - deprecated, 'former'
+        for title in former_included_titles:
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), title,
+                [(OWL.deprecated, Literal(True))])
+        for symbol in former_included_symbols:
+            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol, [
+                (OWL.deprecated, Literal(True)),
+                # Though these are abbreviations, MONDONS.omim_included is not a synonym type, so can't add axiom:
+                # (oboInOwl.hasSynonymType, OMO['0003000'])
+            ])
 
     # Gene ID
     # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
@@ -304,13 +364,15 @@ def omim2obo(use_cache: bool = False):
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
     # - Add relations (subclass restrictions)
+    exclusions_p_mim_orcid_map = get_d2g_exclusions_by_curator()
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
             gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
                 assoc['mapping_key'], assoc['mapping_label']
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
+            p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
 
-            # General skippable cases
+            # Skip: No phenotype or unknown defect
             # - not p_mim: Skip because not an association to another MIM (Provenance:
             #  https://github.com/monarch-initiative/omim/issues/78)
             # - p_map_key == '1': Skip because association w/ unknown defect (Provenance:
@@ -318,40 +380,33 @@ def omim2obo(use_cache: bool = False):
             if not p_mim or p_map_key == '1':
                 continue
 
-            # Gene->Disease non-causal relationships
+            # Add restrictions: Gene->Disease non-causal / non-disease-defining relationships
             # - RO:0003302 docs: see MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES
-            if p_map_key != '3':  # 3 = 'causal'. Handled separately below.
-                g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] if len(assocs) == 1 else RO['0003302']
-                add_subclassof_restriction_with_evidence(graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence)
-
-            # Disease->Gene & Gene->Disease: Causal relationships
-            # - Skip non-causal cases
-            #  - 3: The molecular basis for the disorder is known; a mutation has been found in the gene.
-            if len(assocs) > 1 or p_map_key != '3' or not p2g_is_definitive(p_lab):
+            # - Mapping key 3 = 'causal' (disease-defining). Handled separately below.
+            if p_map_key != '3' or p_mim_excluded:
+                g2d_pred = MORBIDMAP_PHENOTYPE_MAPPING_KEY_PREDICATES[p_map_key] \
+                    if len(assocs) == 1 and not p_mim_excluded \
+                    else RO['0003302']
+                orcid: Optional[URIRef] = exclusions_p_mim_orcid_map[p_mim] if p_mim_excluded else None
+                add_subclassof_restriction_with_evidence_and_source(
+                    graph, g2d_pred, OMIM[p_mim], OMIM[gene_mim], evidence, orcid)
                 continue
-            #  - Digenic: Should technically be none marked 'digenic' if only 1 association, but there are.
-            if 'digenic' in p_lab.lower():
-                # noinspection PyTypeChecker typecheck_fail_old_Python
-                REVIEW_CASES.append({
-                    "classCode": 1,
-                    "classShortName": "causalD2gButMarkedDigenic",
-                    "value": f"OMIM:{p_mim}: {p_lab} (Gene: OMIM:{gene_mim})",
-                })
-            p_mim_type: str = omim_types[p_mim]  # Allowable: PHENOTYPE, HERITABLE_PHENOTYPIC_MARKER (#, %)
-            mim_type_err = f"Warning: Unexpected MIM type {p_mim_type} for Phenotype {p_mim} when parsing phenotype-" \
-                f"disease relationships. Skipping."
-            if p_mim_type in ('OBSOLETE', 'SUSPECTED', 'HAS_AFFECTED_FEATURE'):  # ^, NULL, +
-                print(mim_type_err, file=sys.stderr)  # Hasn't happened. Failsafe.
-            if p_mim_type == 'GENE':  # *
-                print(mim_type_err, file=sys.stderr)  # OMIM recognized as data quality issue. Fixed 2024/11. Failsafe.
 
-            # Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
-            # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
-            add_subclassof_restriction_with_evidence(
+            # Skip non-causal (disease-defining) cases
+            if len(assocs) > 1 or not p2g_is_definitive(p_lab):  # or cases above: (p_map_key != '3') & p_mim_excluded
+                continue
+
+            # Log review.tsv cases
+            log_review_cases(p_mim, p_lab, p_map_key, gene_mim, gene_phenotypes, omim_types)
+
+            # Add restrictions: Disease-defining ('causal germline mutation')
+            # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
+            #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
+            add_subclassof_restriction_with_evidence_and_source(
                 graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], evidence)
-            # Gene --(RO:0004013 'is causal germline mutation in')--> Disease
-            # https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
-            add_subclassof_restriction_with_evidence(
+            # - Gene --(RO:0004013 'is causal germline mutation in')--> Disease
+            #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
+            add_subclassof_restriction_with_evidence_and_source(
                 graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence)
 
     # PUBMED, UMLS
@@ -379,7 +434,8 @@ def omim2obo(use_cache: bool = False):
         for orphanet_id in orphanet_ids:
             graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
 
-    review_df = pd.DataFrame(REVIEW_CASES)  # todo: ensure comment field exists even when no row uses
+    # todo: ensure comment field exists even when no row uses
+    review_df = pd.DataFrame(REVIEW_CASES).sort_values(by=['classCode', 'value'])
     review_df.to_csv(REVIEW_CASES_PATH, index=False, sep='\t')
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
