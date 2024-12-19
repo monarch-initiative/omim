@@ -38,7 +38,8 @@ jobs:
         title: "${{ steps.current-time.outputs.formattedTime }}"
         prerelease: false
         files: |
+          disease-gene-relationships-qc.tsv
+          mondo-omim-genes.robot.tsv
           omim.owl
           omim.sssom.tsv
-          mondo-omim-genes.robot.tsv
           review.tsv
