@@ -42,11 +42,12 @@ Steps
 - Parses mim2gene2.txt
   A tab-delimited file linking MIM numbers with NCBI Gene IDs, Ensembl Gene IDs, and HGNC Approved Gene Symbols.
   - Adds HGNC symbols
-- TODO: Parses hgnc/hgnc_complete_set.txt
-  A tab-delimited file with purpose unknown to me (Joe), but has mappings between HGNC symbols and IDs.
-  - Get HGNC symbol::id mappings.
-todo: The downloads should all happen at beginning of script
-todo: This is last updated 4/2022 and now does not fully describe everything that happens.
+- Parses: hgnc/hgnc_complete_set.txt: mappings between  HGNC symbols and IDs. Get HGNC symbol::id mappings.
+
+todo's
+ - Downloads should all happen at beginning of script
+ - This is last updated 4/2022 and now does not fully describe everything that happens.
+ - Codestyle: Namespace prop access should be consistenly NAMESPACE.prop or NAMESPACE['prop'] (choose one)
 
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
