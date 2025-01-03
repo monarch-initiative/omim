@@ -2,7 +2,7 @@
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
-all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv
+all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv disease-gene-relationships-qc.tsv
 
 # build: Create new omim.ttl
 omim.ttl:
@@ -43,8 +43,8 @@ mondo-omim-genes.tsv: omim.owl
 mondo-omim-genes.robot.tsv: mondo-omim-genes.tsv
 	python -m omim2obo.mondo_omim_genes_robot_tsv --inpath $< --outpath $@
 
-# Ad hoc: Create a TSV of MIM-RO-MIM Gene-to-Disease realtions in omim.ttl
-disease-gene-relationships.tsv: omim.ttl
+# Create a QC file of MIM-RO-MIM Gene-to-Disease associations in omim.ttl
+disease-gene-relationships-qc.tsv: omim.ttl
 	robot query -i $< --query sparql/disease-gene-relationships.sparql $@
 
 cleanup:
@@ -69,7 +69,7 @@ get-pmids:
 
 # SETUP / INSTALLATION -------------------------------------------------------------------------------------------------
 install:
-	pip install -r requirements-unlocked.txt
+	pip install -r requirements-unlocked.txt --user --break-system-packages
 
 # QA / TESTING ---------------------------------------------------------------------------------------------------------
 test:

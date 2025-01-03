@@ -1,1 +1,7 @@
+beautifulsoup4
+pandas
 python-dotenv
+pyyaml
+rdflib
+requests
+sssom
