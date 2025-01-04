@@ -146,7 +146,6 @@ def add_included_synonym(graph: Graph, omim_uri: URIRef, synonym: str, is_symbol
     """Add title or symbol as synonym"""
     annotations = [
         (oboInOwl.hasSynonymType, URIRef(MONDONS['OMIM_INCLUDED'])),
-        (oboInOwl.source, Literal('MONDO:includedEntryInOMIM')),
     ]
     if is_symbol:
         annotations.append((oboInOwl.hasSynonymType, OMO['0003000']))
@@ -220,7 +219,6 @@ def omim2obo(use_cache: bool = False):
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(oboInOwl.SynonymTypeProperty), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
-    graph.add((URIRef(MONDONS.includedEntryInOMIM), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(MONDONS.OMIM_INCLUDED), RDFS.subPropertyOf, oboInOwl.SynonymTypeProperty))
     graph.add((URIRef(MONDONS.OMIM_FORMERLY), RDFS.subPropertyOf, oboInOwl.SynonymTypeProperty))
 
