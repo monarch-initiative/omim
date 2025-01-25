@@ -210,6 +210,8 @@ def omim2obo(use_cache: bool = False):
     graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
 
     # - OMIM triples
+    # TODO temp
+    mim_included_titles_map: Dict[str, List[str]] = {}
     for omim_id in omim_ids:
         omim_uri = OMIM[omim_id]
         graph.add((omim_uri, RDF.type, OWL.Class))
@@ -236,6 +238,7 @@ def omim2obo(use_cache: bool = False):
             get_alt_and_included_titles_and_symbols(alt_titles_str)
         included_titles, included_symbols, former_included_titles, former_included_symbols = \
             get_alt_and_included_titles_and_symbols(inc_titles_str)
+        mim_included_titles_map[omim_id] = included_titles
         included_is_included = included_titles or included_symbols  # redundant. can't be included symbol w/out title
 
         # Recapitalize acronyms in titles
@@ -354,6 +357,8 @@ def omim2obo(use_cache: bool = False):
 
     # Disease->Gene (& more Gene->Disease) relationships
     # - Collect phenotype MIMs & associated gene MIMs and relationship info
+    # TODO: allow unique p_mim
+    # TODO: pipe delim for p_lab?
     phenotype_genes: Dict[str, List[Dict[str, str]]] = defaultdict(list)
     for gene_mim, gene_data in gene_phenotypes.items():
         for assoc in gene_data['phenotype_associations']:
@@ -365,6 +370,8 @@ def omim2obo(use_cache: bool = False):
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
     # - Add relations (subclass restrictions)
+    # TODO temp analysis
+    assocs_1pmim_2plab: List[Dict] = []
     exclusions_p_mim_orcid_map = get_d2g_exclusions_by_curator()
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
@@ -394,6 +401,11 @@ def omim2obo(use_cache: bool = False):
                 continue
 
             # Skip non-causal (disease-defining) cases
+
+            # TODO temp analysis
+            if len(assocs) > 1 and len(set(x['gene_id'] for x in assocs)) == 1:
+                assocs_1pmim_2plab.append({'pheno_mim': p_mim, 'pheno_lab': p_lab, 'gene_mim': gene_mim})
+
             if len(assocs) > 1 or not p2g_is_definitive(p_lab):  # or cases above: (p_map_key != '3') & p_mim_excluded
                 continue
 
@@ -409,6 +421,24 @@ def omim2obo(use_cache: bool = False):
             #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
             add_subclassof_restriction_with_evidence_and_source(
                 graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence)
+
+    # TODO temp
+    assocs_1pmim_2plab_df = pd.DataFrame(assocs_1pmim_2plab)
+    assocs_1pmim_2plab_df['pheno_lab_is_included'] = assocs_1pmim_2plab_df.apply(
+        lambda row: any([x.startswith(row['pheno_lab']) for x in mim_included_titles_map[row['pheno_mim']]]), axis=1)
+    assocs_1pmim_2plab_df['pheno_included_titles'] = assocs_1pmim_2plab_df.apply(
+        lambda row: mim_included_titles_map[row['pheno_mim']], axis=1)
+    assocs_1pmim_2plab_df['pheno_url'] = assocs_1pmim_2plab_df.apply(
+        lambda row: f'https://omim.org/entry/{row["pheno_mim"]}', axis=1)
+    cols = assocs_1pmim_2plab_df.columns.tolist()
+    grp_dfs = []
+    i = 1
+    for combo, df_i in assocs_1pmim_2plab_df.groupby(['pheno_mim', 'gene_mim']):
+        df_i['#'] = i
+        i += 1
+        grp_dfs.append(df_i)
+    assocs_1pmim_2plab_df2 = pd.concat(grp_dfs)[['#'] + cols]
+    assocs_1pmim_2plab_df2.to_csv('~/Desktop/assocs_1pmim_2plab.tsv', sep='\t', index=False)
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
