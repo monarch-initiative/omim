@@ -10,7 +10,7 @@ DATA_DIR = ROOT_DIR / 'data'
 ENV_PATH = ROOT_DIR / '.env'
 REVIEW_CASES_PATH = ROOT_DIR / 'review.tsv'
 DISEASE_GENE_EXCLUSIONS_PATH = DATA_DIR / 'exclusions-disease-gene.tsv'
-DISEASE_GENE_PROTECTIONS_PATH = DATA_DIR / 'protections-disease-gene.tsv'
+DISEASE_GENE_PROTECTIONS_PATH = DATA_DIR / 'protected-disease-gene.tsv'
 
 with open(DATA_DIR / 'dipper/GLOBAL_TERMS.yaml') as file:
     GLOBAL_TERMS = yaml.safe_load(file)
