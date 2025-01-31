@@ -43,6 +43,24 @@ Offline/cache option: `python -m omim2obo --use-cache`
 If there's an issue downloading the files, or you are offline, or you just want 
 to use the cache anyway, you can pass the `--use-cache` flag.
 
+## Curator configuration files
+**[protected-disease-gene.tsv](https://github.com/monarch-initiative/omim/blob/main/data/protected-disease-gene.tsv)**
+This file contains a list of disease-gene associations that should not be removed from the ontology, even if the 
+pipeine logic would otherwise determine that the association is not disease-defining.
+
+**[exclusions-disease-gene.tsv](https://github.com/monarch-initiative/omim/blob/main/data/exclusions-disease-gene.tsv)**
+This file contains a list of disease-gene associations that should be removed from the ontology, even if the 
+pipeine logic would otherwise determine that the association is disease-defining. There is more information about this 
+in the section describing `review.tsv`. 
+
+**[known_capitalizations.tsv](https://github.com/monarch-initiative/omim/blob/main/data/known_capitalizations.tsv).**
+These are known replacements where we want to take matching text (lowercase or otherwise), and replace it with what is 
+shown in the `cap_name` column. There is also a `lower_name` column, which represents the full lowercasing of the 
+string. However, it is a bit superfluous, as it will ensure that any capitalization variation of the string in 
+`cap_name` will get re-capitalized to what is in `cap_name`. E.g. if `cap_name` is "Prune Belly Syndrome", then "prune 
+belly syndrome", or "Prune belly syndrome" would both be replaced with "Prune Belly Syndrome". This logic operates only 
+on OMIM titles (standard title, as well as alt, formerly, and included titles).
+
 ## Additional tools
 <details><summary>Details</summary>
 <p>
@@ -104,6 +122,10 @@ daily, rather than what is seen on the _omim.org/entry/MIM#_ pages. Note that th
 always in sync, and that one or the other may be slightly more up-to or out-of date for a period of time.
 
 ### `review.tsv`
+Currently, all of these review cases are part of the "D2G" (Disease-Gene) pipeline, and reflect cases where we have 
+added associations, but they are strange and need curator review. If the curator decides that an association should not 
+be added, an entry for it should be made in [exclusions-disease-gene.tsv](https://github.com/monarch-initiative/omim/blob/main/data/exclusions-disease-gene.tsv).
+
 Columns:
 - `classCode`: integer
 - `classLabel`: string
