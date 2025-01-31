@@ -65,7 +65,7 @@ from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import REVIEW_CASES, cleanup_title, get_alt_and_included_titles_and_symbols, \
     get_pubs, get_mapped_ids, log_review_cases, recapitalize_acronyms_in_titles
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
-from omim2obo.utils.utils import get_d2g_exclusions_by_curator, get_d2g_protections_by_curator
+from omim2obo.utils.utils import get_d2g_exclusions_by_curator, get_d2g_protected_by_curator
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
@@ -379,17 +379,17 @@ def omim2obo(use_cache: bool = False):
 
     # - Add relations (subclass restrictions)
     exclusions_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_exclusions_by_curator()
-    protections_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_protections_by_curator()
+    protected_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_protected_by_curator()
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
             gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
                 assoc['mapping_key'], assoc['mapping_label']
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
             p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
-            p_mim_protected = p_mim in protections_p_mim_orcid_map
+            p_mim_protected = p_mim in protected_p_mim_orcid_map
 
             if p_mim_protected:  # TODO: Check if is URI ref on orcid  # TODO: Implement for just mim or for triple?
-                orcid: Optional[URIRef] = protections_p_mim_orcid_map[p_mim] if p_mim_protected else None
+                orcid: Optional[URIRef] = protected_p_mim_orcid_map[p_mim] if p_mim_protected else None
                 add_gene_disease_associations(graph, gene_mim, p_mim, evidence, orcid)
                 continue
 

@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Union
 import pandas as pd
 from rdflib import URIRef
 
-from omim2obo.config import DISEASE_GENE_EXCLUSIONS_PATH, DISEASE_GENE_PROTECTIONS_PATH
+from omim2obo.config import DISEASE_GENE_EXCLUSIONS_PATH, DISEASE_GENE_PROTECTED_PATH
 from omim2obo.namespaces import ORCID
 
 
@@ -33,7 +33,7 @@ def get_d2g_config_by_curator(path: str) -> Dict[str, Optional[URIRef]]:
     return {k: ORCID[v] if v else None for k, v in phenotype_mim_orcid_map.items()}
 
 
-def get_d2g_protections_by_curator(path=DISEASE_GENE_PROTECTIONS_PATH) -> Dict[str, Optional[URIRef]]:
+def get_d2g_protected_by_curator(path=DISEASE_GENE_PROTECTED_PATH) -> Dict[str, Optional[URIRef]]:
     """Get disease-gene protections
 
     Situations where the pipeline logic would otherwise exclude a disease-gene association, we want to keep it.
