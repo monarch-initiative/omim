@@ -1,8 +1,9 @@
 omim_id	mondo_id	mondo_label	orcid	exclusion_reason_comment
-OMIM:603956	MONDO:0002974	cervical cancer'	https://orcid.org/0000-0002-4142-7153	evidence of various genes involved
-OMIM:619151	MONDO:0030894	"AMED syndrome, digenic'"	https://orcid.org/0000-0002-4142-7153	digenic
+OMIM:603956	MONDO:0002974	cervical cancer	https://orcid.org/0000-0002-4142-7153	evidence of various genes involved
+OMIM:619151	MONDO:0030894	AMED syndrome, digenic	https://orcid.org/0000-0002-4142-7153	digenic
 OMIM:158901	MONDO:0008031		https://orcid.org/0000-0002-4142-7153	digenic
-OMIM:108770	MONDO:0007171	atrial standstill 1'	https://orcid.org/0000-0002-4142-7153	digenic
-OMIM:620040	MONDO:0031057	"dyskeratosis congenita, digenic'"	https://orcid.org/0000-0002-4142-7153	digenic
-OMIM:619478	MONDO:0030355	"facioscapulohumeral muscular dystrophy 4, digenic'"	https://orcid.org/0000-0002-4142-7153	digenic
+OMIM:108770	MONDO:0007171	atrial standstill 1	https://orcid.org/0000-0002-4142-7153	digenic
+OMIM:620040	MONDO:0031057	dyskeratosis congenita, digenic	https://orcid.org/0000-0002-4142-7153	digenic
+OMIM:619478	MONDO:0030355	facioscapulohumeral muscular dystrophy 4, digenic	https://orcid.org/0000-0002-4142-7153	digenic
 OMIM:300818	MONDO:0010438	paroxysmal nocturnal hemoglobinuria 1	https://orcid.org/0000-0002-4142-7153	"disease caused by a somatic mutation, therefore a gene association stating this is due to a germline mutation should not be added"
+OMIM:278850	MONDO:0010218	46,XX sex reversal 2	https://orcid.org/0000-0002-4142-7153	"evidence that familial 46,XX sex reversal is caused by heterozygous duplication or triplication of a 68-kb regulatory region (XXSR) -584 to -516 kb upstream of the SOX9 gene (608160) on chromosome 17q24."
