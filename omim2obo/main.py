@@ -388,7 +388,7 @@ def omim2obo(use_cache: bool = False):
             p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
             p_mim_protected = p_mim in protected_p_mim_orcid_map
 
-            if p_mim_protected:  # TODO: Check if is URI ref on orcid  # TODO: Implement for just mim or for triple?
+            if p_mim_protected:
                 orcid: Optional[URIRef] = protected_p_mim_orcid_map[p_mim] if p_mim_protected else None
                 add_gene_disease_associations(graph, gene_mim, p_mim, evidence, orcid)
                 continue
@@ -418,7 +418,6 @@ def omim2obo(use_cache: bool = False):
                 continue
 
             log_review_cases(p_mim, p_lab, p_map_key, gene_mim, gene_phenotypes, omim_types)
-            # TODO: move above && use at end of this block, & at beginning of block if in inclusions
             add_gene_disease_associations(graph, gene_mim, p_mim, evidence)
 
     # PUBMED, UMLS
