@@ -1,2 +1,3 @@
 omim_id	mondo_id	mondo_label	orcid	exclusion_reason_comment
+OMIM:603956	MONDO:0002974	cervical cancer'	https://orcid.org/0000-0002-4142-7153	evidence of various genes involved
 OMIM:278850	MONDO:0010218	46,XX sex reversal 2	https://orcid.org/0000-0002-4142-7153	"evidence that familial 46,XX sex reversal is caused by heterozygous duplication or triplication of a 68-kb regulatory region (XXSR) -584 to -516 kb upstream of the SOX9 gene (608160) on chromosome 17q24."
