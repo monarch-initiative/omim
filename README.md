@@ -1,4 +1,4 @@
-# OMIM Data Pipeline Tools
+# OMIM Ingest
 
 ## About OMIM & this repository
 OMIM stands for "Online Mendelian Inheritance in Man", and is an online 
@@ -122,7 +122,7 @@ daily, rather than what is seen on the _omim.org/entry/MIM#_ pages. Note that th
 always in sync, and that one or the other may be slightly more up-to or out-of date for a period of time.
 
 ### `review.tsv`
-Currently, all of these review cases are part of the "D2G" (Disease-Gene) pipeline, and reflect cases where we have 
+Currently, all of these review cases are part of the "D2G" (Disease-Gene) procesing, and reflect cases where we have 
 added associations, but they are strange and need curator review. If the curator decides that an association should not 
 be added, an entry for it should be made in [exclusions-disease-gene.tsv](https://github.com/monarch-initiative/omim/blob/main/data/exclusions-disease-gene.tsv).
 
@@ -187,8 +187,8 @@ the association has an unexpected type of either 'OBSOLETE', 'SUSPECTED', or 'HA
 have not seen such cases appear, but we have set this review case up to watch for them should they occur.
 
 ## Under the hood: Design decisions, etc.
-### Gene-Disease pipeline
-This pipeline involves the processing of `morbidmap.txt` to create ontological representations of Gene --> Disease and 
+### Gene-Disease processing
+Involves the processing of `morbidmap.txt` to create ontological representations of Gene --> Disease and 
 Disease --> Gene associations.
 
 #### Example input/output
