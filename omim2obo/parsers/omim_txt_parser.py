@@ -13,8 +13,9 @@ import pandas as pd
 
 from omim2obo.config import CONFIG, DATA_DIR
 from omim2obo.namespaces import RO
+from omim2obo.omim_client import OmimClient
 from omim2obo.omim_type import OmimType
-
+from omim2obo.utils.omim_code_scraper import get_codes_by_yyyy_mm
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 # MIM_NUMBER_DIGITS = 6  # if you see '6' in a regexp, this is what it refers to
@@ -428,23 +429,31 @@ def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
     return pmid_maps, umls_maps, orphanet_maps
 
 
-# todo: Update this function to dynamically retrieve the updated records
-# noinspection PyUnusedLocal address_if_this_gets_reimplemented
-def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month=8):
+# TODO: Update this function to dynamically retrieve the updated records
+#  - change nature of caching / cache: query this every month, and save the data in tabular format. can probably
+#    commit it too. ideally go backwards, keepign track of the MIM's as I go. If the same MIM appears in a previous
+#    month, I don't need to fetch it. Finally, when I get to 2021/08, I don't need to query that. Can use the existing
+#    cached JSON. And then for before 2020/01, can use the legacy_omim.ttl. Get all this data together and dump in a TSV
+#    then, when we run the ingest, read from this TSV first, and then calculate the max date/mon in the TSV, and based
+#    on that figure out which additional months I need to query (should only ever be 1 month at a time; will run weekly)
+#    And save an updated TSV w/ those new entries as well.
+def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month=8, use_cache=True):
     """Get updated entries from OMIM API."""
-    # updated_mims = set()
-    # updated_entries = []
-    # for year in range(start_year, end_year):
-    #     first_month = start_month if year == start_year else 1
-    #     for month in range(first_month, 13):
-    #         updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))
-    # for month in range(1, end_month + 1):
-    #     updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))
-    # client = OmimClient(api_key=config['API_KEY'], omim_ids=list(updated_mims))
-    # updated_entries.extend(client.fetch_all()['omim']['entryList'])
+    if not use_cache:
+        updated_mims = set()
+        updated_entries = []
+        for year in range(start_year, end_year):
+            first_month = start_month if year == start_year else 1
+            for month in range(first_month, 13):
+                updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))
+        for month in range(1, end_month + 1):
+            updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))
+        client = OmimClient(api_key=CONFIG['API_KEY'], omim_ids=list(updated_mims))
+        updated_entries.extend(client.fetch_all()['omim']['entryList'])
+        return updated_entries
+
     with open(DATA_DIR / 'updated_01_2020_to_08_2021.json', 'r') as json_file:
-        updated_entries = json.load(json_file)
-    return updated_entries
+        return json.load(json_file)
 
 
 def get_hgnc_symbol_id_map(input_path=os.path.join(DATA_DIR, 'hgnc', 'hgnc_complete_set.txt')) -> Dict[str, str]:
