@@ -42,11 +42,12 @@ Steps
 - Parses mim2gene2.txt
   A tab-delimited file linking MIM numbers with NCBI Gene IDs, Ensembl Gene IDs, and HGNC Approved Gene Symbols.
   - Adds HGNC symbols
-- TODO: Parses hgnc/hgnc_complete_set.txt
-  A tab-delimited file with purpose unknown to me (Joe), but has mappings between HGNC symbols and IDs.
-  - Get HGNC symbol::id mappings.
-todo: The downloads should all happen at beginning of script
-todo: This is last updated 4/2022 and now does not fully describe everything that happens.
+- Parses: hgnc/hgnc_complete_set.txt: mappings between  HGNC symbols and IDs. Get HGNC symbol::id mappings.
+
+todo's
+ - Downloads should all happen at beginning of script
+ - This is last updated 4/2022 and now does not fully describe everything that happens.
+ - Codestyle: Namespace prop access should be consistenly NAMESPACE.prop or NAMESPACE['prop'] (choose one)
 
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
@@ -64,7 +65,7 @@ from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import REVIEW_CASES, cleanup_title, get_alt_and_included_titles_and_symbols, \
     get_pubs, get_mapped_ids, log_review_cases, recapitalize_acronyms_in_titles
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
-from omim2obo.utils.utils import get_d2g_exclusions_by_curator
+from omim2obo.utils.utils import get_d2g_exclusions_by_curator, get_d2g_protected_by_curator
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
@@ -151,6 +152,19 @@ class DeterministicBNode(BNode):
         """
         _id: str = md5(source_ref.encode()).hexdigest()
         return Identifier.__new__(cls, _id)
+
+
+def add_gene_disease_associations(graph: Graph, gene_mim: str, p_mim: str, evidence: str, orcid: str = None):
+    """Add gene-disease associations in both directions."""
+    # Add restrictions: Disease-defining ('causal germline mutation')
+    # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
+    #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
+    add_subclassof_restriction_with_evidence_and_source(
+        graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], evidence, orcid)
+    # - Gene --(RO:0004013 'is causal germline mutation in')--> Disease
+    #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
+    add_subclassof_restriction_with_evidence_and_source(
+        graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence, orcid)
 
 
 class OmimGraph(Graph):
@@ -315,7 +329,10 @@ def omim2obo(use_cache: bool = False):
             ])
 
     # Gene ID
-    # Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
+    # - Note that sometimes a gene symbol will appear on the omim.org/entry page, under the Phenotype-Gene or
+    # Gene-Phenotype tables, which will match its entry in morbidmap.txt. However, that does not guarantee that the gene
+    # will appear in mim2gene.txt. If it is not in mim2gene.txt, it will not be added.
+    # - Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
     get_mim_file('genemap2', download_files_tf)  # dl latest file
     mim2gene_lines: List[str] = get_mim_file('mim2gene', download_files_tf)  # dl latest file & return
     gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)
@@ -364,13 +381,20 @@ def omim2obo(use_cache: bool = False):
                 'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
 
     # - Add relations (subclass restrictions)
-    exclusions_p_mim_orcid_map = get_d2g_exclusions_by_curator()
+    exclusions_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_exclusions_by_curator()
+    protected_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_protected_by_curator()
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
             gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
                 assoc['mapping_key'], assoc['mapping_label']
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
             p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
+            p_mim_protected = p_mim in protected_p_mim_orcid_map
+
+            if p_mim_protected:
+                orcid: Optional[URIRef] = protected_p_mim_orcid_map[p_mim] if p_mim_protected else None
+                add_gene_disease_associations(graph, gene_mim, p_mim, evidence, orcid)
+                continue
 
             # Skip: No phenotype or unknown defect
             # - not p_mim: Skip because not an association to another MIM (Provenance:
@@ -396,18 +420,8 @@ def omim2obo(use_cache: bool = False):
             if len(assocs) > 1 or not p2g_is_definitive(p_lab):  # or cases above: (p_map_key != '3') & p_mim_excluded
                 continue
 
-            # Log review.tsv cases
             log_review_cases(p_mim, p_lab, p_map_key, gene_mim, gene_phenotypes, omim_types)
-
-            # Add restrictions: Disease-defining ('causal germline mutation')
-            # - Disease --(RO:0004003 'has material basis in germline mutation in')--> Gene
-            #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004003
-            add_subclassof_restriction_with_evidence_and_source(
-                graph, RO['0004003'], OMIM[gene_mim], OMIM[p_mim], evidence)
-            # - Gene --(RO:0004013 'is causal germline mutation in')--> Disease
-            #   https://www.ebi.ac.uk/ols4/ontologies/ro/properties?iri=http://purl.obolibrary.org/obo/RO_0004013
-            add_subclassof_restriction_with_evidence_and_source(
-                graph, RO['0004013'], OMIM[p_mim], OMIM[gene_mim], evidence)
+            add_gene_disease_associations(graph, gene_mim, p_mim, evidence)
 
     # PUBMED, UMLS
     # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11

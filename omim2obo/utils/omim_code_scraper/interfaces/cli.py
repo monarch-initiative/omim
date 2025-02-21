@@ -1,10 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """Command Line Interface."""
 import sys
 from argparse import ArgumentParser
 
-from omim2obo.omim_code_scraper import get_codes_by_yyyy_mm, OmimDataPipelineError
+from omim2obo.utils.omim_code_scraper import get_codes_by_yyyy_mm, OmimDataPipelineError
 
 
 def get_parser():
@@ -47,16 +45,7 @@ def get_parser():
 
 
 def cli():
-    """Command line interface for package.
-
-    Side Effects: Executes program.
-
-    Command Syntax:
-
-    Examples:
-
-    """
-
+    """Command line interface"""
     parser = get_parser()
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
