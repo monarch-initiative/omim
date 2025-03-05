@@ -28,6 +28,8 @@ phenotypicSeries.txt
 phenotypicSeries.tsv
 allelicVariants.txt
 allelicVariants.tsv
+mim2gene-protected-added.tsv
+morbidmap-protected-added.tsv
 
 # Outputs
 /*.json

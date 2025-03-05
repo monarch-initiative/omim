@@ -11,7 +11,7 @@ import requests
 import re
 import pandas as pd
 
-from omim2obo.config import CONFIG, DATA_DIR
+from omim2obo.config import CONFIG, DATA_DIR, DISEASE_GENE_PROTECTED_PATH
 from omim2obo.namespaces import RO
 from omim2obo.omim_type import OmimType
 
@@ -116,16 +116,42 @@ def convert_txt_to_tsv(file_name: str):
     df.to_csv(mim_file_tsv_path, sep='\t', index=False)
 
 
+# TODO: branch into 2 sep funcs if indeed need to update 2 files
+#  - if only 1 file needed, drop file_name param
+# TODO: do we need to update genemap2? is that even being used?
+#  - if so, need to add here, and in 1 place in get_mim_file()
+def update_mim_file_with_protected(
+    file_name: str, inpath: str, outpath: str, protected_path=DISEASE_GENE_PROTECTED_PATH
+):
+    """Update the files downloaded from OMIM to add information we've set in protected-disease-gene.tsv
+
+    Information about this 'protected' file can be found in the docs (README.md).
+    """
+    df = pd.read_csv(inpath, comment='#', sep='\t')
+    if file_name == 'morbidmap.txt':
+        print()
+    elif file_name == 'mim2gene.txt':
+        print()
+    else:
+        return  # no alterations needed for this file type
+    df.to_csv(outpath, sep='\t', index=False)
+
+
 def get_mim_file(
-    file_name: str, download=False, return_df=False, include_protections=True
+    file_name: str, download=False, return_df=False, include_protected=True
 ) -> Union[List[str], pd.DataFrame]:
     """Retrieve OMIM downloadable text file from the OMIM download server
 
     :param return_df: If False, returns List[str] of each line in the file, else a DataFrame.
     """
+    files_to_include_protected = ('morbidmap.txt', 'mim2gene.txt')
     file_name = file_name if file_name.endswith('.txt') else file_name + '.txt'
     mim_file_path: PosixPath = DATA_DIR / file_name
     mim_file_tsv_path: str = str(mim_file_path).replace('.txt', '.tsv')
+    protected_added_path: str = mim_file_tsv_path.replace('.tsv', '-protected-added.tsv')
+    read_path: str = protected_added_path if include_protected and file_name in files_to_include_protected \
+        and os.path.exists(protected_added_path) \
+        else mim_file_tsv_path
 
     if download:
         print(f'Downloading {file_name} from OMIM...')
@@ -152,10 +178,14 @@ def get_mim_file(
             # LOG.warning('Failed to retrieve mimTitles.txt. Using the cached file.')
             raise RuntimeError(msg)
 
+    # Update w/ protected entries
+    if file_name in files_to_include_protected:
+        update_mim_file_with_protected(file_name, mim_file_tsv_path, protected_added_path)
+
     if return_df:
-        return pd.read_csv(mim_file_tsv_path, comment='#', sep='\t')
+        return pd.read_csv(read_path, comment='#', sep='\t')
     else:
-        with open(mim_file_path, 'r') as fin:
+        with open(read_path, 'r') as fin:
             lines: List[str] = fin.readlines()
             # Remove comments
             # - OMIM files always have comments at the top, and sometimes also at the bottom.
