@@ -30,6 +30,8 @@ allelicVariants.txt
 allelicVariants.tsv
 mim2gene-protected-added.tsv
 morbidmap-protected-added.tsv
+mim2gene-protected-added-with-header.tsv
+morbidmap-protected-added-with-header.tsv
 
 # Outputs
 /*.json

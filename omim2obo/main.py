@@ -52,7 +52,7 @@ todo's
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
 """
-from typing import Optional, Set
+from typing import Optional
 
 import yaml
 from hashlib import md5
@@ -65,7 +65,7 @@ from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import REVIEW_CASES, cleanup_title, get_alt_and_included_titles_and_symbols, \
     get_pubs, get_mapped_ids, log_review_cases, recapitalize_acronyms_in_titles
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
-from omim2obo.utils.utils import get_d2g_exclusions_by_curator, get_d2g_protected_by_curator
+from omim2obo.utils.utils import get_d2g_exclusions_by_curator, get_d2g_digenic_protections
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
@@ -370,29 +370,22 @@ def omim2obo(use_cache: bool = False):
 
     # Disease->Gene (& more Gene->Disease) relationships
     # - Collect phenotype MIMs & associated gene MIMs and relationship info
-    phenotype_genes: Dict[str, List[Dict[str, str]]] = defaultdict(list)
-    for gene_mim, gene_data in gene_phenotypes.items():
-        for assoc in gene_data['phenotype_associations']:
-            p_mim, p_lab, p_map_key, p_map_lab = assoc['phenotype_mim_number'], assoc['phenotype_label'], \
-                assoc['phenotype_mapping_info_key'], assoc['phenotype_mapping_info_label']
-            if not p_mim:  # not an association to another MIM; ignore
-                continue  # see: https://github.com/monarch-initiative/omim/issues/78
-            phenotype_genes[p_mim].append({
-                'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key, 'mapping_label': p_map_lab})
+    phenotype_genes: Dict[str, List[Dict[str, str]]] = get_phenotype_genes(gene_phenotypes)
 
     # - Add relations (subclass restrictions)
     exclusions_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_exclusions_by_curator()
-    protected_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_protected_by_curator()
+    digenic_protection_gene_pheno_orcids: Dict[Tuple[str, str], Optional[URIRef]] = get_d2g_digenic_protections()
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
             gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
                 assoc['mapping_key'], assoc['mapping_label']
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
             p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
-            p_mim_protected = p_mim in protected_p_mim_orcid_map
+            protected_digenic_key = (p_mim, gene_mim)
+            protected_digenic_assoc: bool = protected_digenic_key in digenic_protection_gene_pheno_orcids
 
-            if p_mim_protected:
-                orcid: Optional[URIRef] = protected_p_mim_orcid_map[p_mim] if p_mim_protected else None
+            if protected_digenic_assoc:
+                orcid: Optional[URIRef] = digenic_protection_gene_pheno_orcids[protected_digenic_key]
                 add_gene_disease_associations(graph, gene_mim, p_mim, evidence, orcid)
                 continue
 

@@ -5,13 +5,13 @@ import os
 import sys
 from collections import defaultdict
 from pathlib import PosixPath
-from typing import List, Dict, Tuple, Union
+from typing import List, Dict, Set, Tuple, Union
 
 import requests
 import re
 import pandas as pd
 
-from omim2obo.config import CONFIG, DATA_DIR, DISEASE_GENE_PROTECTED_PATH
+from omim2obo.config import CONFIG, DATA_DIR, DISEASE_GENE_PROTECTED_PATH, HGNC_DATA_PATH
 from omim2obo.namespaces import RO
 from omim2obo.omim_type import OmimType
 
@@ -126,15 +126,86 @@ def update_mim_file_with_protected(
     """Update the files downloaded from OMIM to add information we've set in protected-disease-gene.tsv
 
     Information about this 'protected' file can be found in the docs (README.md).
+
+    mim2gene.txt: As of 2025/03/05, it turned out there were no missing rows in this file. So this code is here now more
+    for futureproofing purposes.
     """
-    df = pd.read_csv(inpath, comment='#', sep='\t')
+    outpath_with_header = outpath.replace('.tsv', '-with-header.tsv')
+    df = pd.read_csv(inpath, comment='#', sep='\t', dtype=str).fillna('')
+    df['is_added_protection'] = False
+    prot_df = pd.read_csv(protected_path, sep='\t').fillna('')
+
+    # TODO: is this needed by morbidmap? if not, move below
+    hgnc_id_symbols: Dict[str, str] = get_hgnc_id_symbol_map()
+
     if file_name == 'morbidmap.txt':
-        print()
+        prot_df = prot_df[prot_df['type'] == 'digenic']
+        new_prot_rows = []
+        for _index, row in prot_df.iterrows():
+            phenotype_mim = row['phenotype_mim'].split(':')[1]
+            gene_mim = row['gene_mim'].split(':')[1]
+            symbol = hgnc_id_symbols[row['hgnc_id']]
+            # Disallow dupes
+            gene_phenos = parse_morbid_map(read_mim_file_as_lines(inpath.replace('.tsv', '.txt')))
+            pheno_genes = get_phenotype_genes(gene_phenos)
+            pheno_genes_flatter = [[
+                (p_mim, assoc['mapping_key'], assoc['gene_id']) for assoc in assocs]
+                for p_mim, assocs in pheno_genes.items()]
+            # - existing_records: Set[Tuple[pheno_mim, mapping_key, gene_mim]]
+            existing_records: Set[Tuple[str, str, str]] = set([x for sublist in pheno_genes_flatter for x in sublist])
+            if (phenotype_mim, '3', gene_mim) in existing_records:  # mapping_key 3 = disease defining
+                continue
+            # Construct phenotype field
+            labels_df = pd.read_csv(DATA_DIR / 'mimTitles.tsv', sep='\t', comment='#')
+            mim_label_map: Dict[str, str] = dict(
+                zip(labels_df['MIM Number'].astype(str), labels_df['Preferred Title; symbol']))
+            phenotype_label = mim_label_map[phenotype_mim].capitalize()  # not perfect case, but fine for our purposes
+            phenotype_field = f'{phenotype_label}, {phenotype_mim} (3)'
+
+            new_prot_rows.append({
+                'Phenotype': phenotype_field,
+                'Gene/Locus And Other Related Symbols': symbol,  # not comprehensive or strictly needed for our purposes
+                'MIM Number': gene_mim,
+                'Cyto Location': '',  # don't have this information; not needed for our purposes
+                'is_added_protection': True,
+            })
+        df = pd.concat([df, pd.DataFrame(new_prot_rows)], ignore_index=True)
     elif file_name == 'mim2gene.txt':
-        print()
+        prot_df = prot_df[prot_df['type'] == 'digenic']
+        existing_records: Set[Tuple[str, str]] = set(
+            zip(df['MIM Number'].astype(str), df['Approved Gene Symbol (HGNC)']))
+        new_prot_rows = []
+        for _index, row in prot_df.iterrows():
+            gene_mim = row['gene_mim'].split(':')[1]
+            symbol = hgnc_id_symbols[row['hgnc_id']]
+            if (gene_mim, symbol) in existing_records:
+                continue
+            new_prot_rows.append({
+                'MIM Number': gene_mim,
+                # Not sure if 'gene/phenotype' is more technically correct, but for our pruposes, shouldn't matter.
+                'MIM Entry Type (see FAQ 1.3 at https://omim.org/help/faq)': 'gene',
+                'Entrez Gene ID (NCBI)': '',  # don't have this information; not needed for our purposes
+                'Approved Gene Symbol (HGNC)': symbol,
+                'Ensembl Gene ID (Ensembl)': '',  # don't have this information; not needed for our purposes
+                'is_added_protection': True,
+            })
+        df = pd.concat([df, pd.DataFrame(new_prot_rows)], ignore_index=True)
     else:
         return  # no alterations needed for this file type
-    df.to_csv(outpath, sep='\t', index=False)
+
+    df = df.astype(str)
+    df.drop(columns=['is_added_protection']).to_csv(outpath, sep='\t', index=False, header=False)
+    df.to_csv(outpath_with_header, sep='\t', index=False)
+
+
+def read_mim_file_as_lines(path) -> List[str]:
+    """Read MIM file as list of field values, rather than a dataframe."""
+    with open(path, 'r') as fin:
+        lines: List[str] = fin.readlines()
+        # Remove # comments
+        # - OMIM files always have comments at the top, and sometimes also at the bottom.
+        lines = [x for x in lines if not x.startswith('#')]
+        return lines
 
 
 def get_mim_file(
@@ -149,9 +220,6 @@ def get_mim_file(
     mim_file_path: PosixPath = DATA_DIR / file_name
     mim_file_tsv_path: str = str(mim_file_path).replace('.txt', '.tsv')
     protected_added_path: str = mim_file_tsv_path.replace('.tsv', '-protected-added.tsv')
-    read_path: str = protected_added_path if include_protected and file_name in files_to_include_protected \
-        and os.path.exists(protected_added_path) \
-        else mim_file_tsv_path
 
     if download:
         print(f'Downloading {file_name} from OMIM...')
@@ -181,16 +249,15 @@ def get_mim_file(
     # Update w/ protected entries
     if file_name in files_to_include_protected:
         update_mim_file_with_protected(file_name, mim_file_tsv_path, protected_added_path)
+    use_protected_file = include_protected and file_name in files_to_include_protected and \
+        os.path.exists(protected_added_path)
 
     if return_df:
+        read_path: str = protected_added_path if use_protected_file else mim_file_tsv_path
         return pd.read_csv(read_path, comment='#', sep='\t')
     else:
-        with open(read_path, 'r') as fin:
-            lines: List[str] = fin.readlines()
-            # Remove comments
-            # - OMIM files always have comments at the top, and sometimes also at the bottom.
-            lines = [x for x in lines if not x.startswith('#')]
-            return lines
+        read_path: str = protected_added_path if use_protected_file else mim_file_path
+        return read_mim_file_as_lines(read_path)
 
 
 def parse_mim_genes(lines):
@@ -479,20 +546,27 @@ def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month
     return updated_entries
 
 
-def get_hgnc_symbol_id_map(input_path=os.path.join(DATA_DIR, 'hgnc', 'hgnc_complete_set.txt')) -> Dict[str, str]:
-    """Get mapping between HGNC symbols and IDs
-    todo: Ideally download the latest file: http://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt
-    todo: Address or suppress warning. I dont even need these columns anyway:
-     /Users/joeflack4/projects/omim/omim2obo/main.py:208: DtypeWarning: Columns (32,34,38,40,50) have mixed types.
-     Specify dtype option on import or set low_memory=False.
-     hgnc_symbol_id_map: Dict = get_hgnc_symbol_id_map()
-    """
+# todo: Both HGNC funcs:
+#  1. Address or suppress warning. I dont even need these columns anyway:
+#   ...omim2obo/main.py:208: DtypeWarning: Columns (32,34,38,40,50) have mixed types.
+#   Specify dtype option on import or set low_memory=False.
+#   hgnc_symbol_id_map: Dict = get_hgnc_symbol_id_map()
+#  2. todo: Ideally download latest file: http://ftp.ebi.ac.uk/pub/databases/genenames/hgnc/tsv/hgnc_complete_set.txt
+def get_hgnc_id_symbol_map(input_path=HGNC_DATA_PATH) -> Dict[str, str]:
+    """Get mapping between HGNC IDs (prefixed) and symbols"""
     d = {}
     df = pd.read_csv(input_path, sep='\t')
     for index, row in df.iterrows():
-        # hgnc_id is formatted as "hgnc:<id>"
-        d[row['symbol']] = row['hgnc_id'].split(':')[1]
+        d[row['hgnc_id']] = row['symbol']
+    return d
 
+
+def get_hgnc_symbol_id_map(input_path=HGNC_DATA_PATH) -> Dict[str, str]:
+    """Get mapping between HGNC symbols (unprefixed) and IDs"""
+    d = {}
+    df = pd.read_csv(input_path, sep='\t')
+    for index, row in df.iterrows():
+        d[row['symbol']] = row['hgnc_id'].split(':')[1]  # split: hgnc_id is formatted as "hgnc:<id>"
     return d
 
 def p2g_is_definitive(label: str) -> bool:
@@ -509,3 +583,21 @@ def p2g_is_definitive(label: str) -> bool:
     of the map and in the gene and phenotype OMIM entries.
     """
     return not any(label.startswith(x) for x in ['[', '{', '?'])
+
+
+def get_phenotype_genes(gene_phenotypes: Dict[str, Dict]) -> Dict[str, List[Dict[str, str]]]:
+    """Get Disease->Gene (& more Gene->Disease) relationships
+
+    Collect phenotype MIMs & associated gene MIMs and relationship info
+    """
+    phenotype_genes: Dict[str, List[Dict[str, str]]] = defaultdict(list)
+    for gene_mim, gene_data in gene_phenotypes.items():
+        for assoc in gene_data['phenotype_associations']:
+            p_mim, p_lab, p_map_key, p_map_lab = assoc['phenotype_mim_number'], assoc['phenotype_label'], \
+                assoc['phenotype_mapping_info_key'], assoc['phenotype_mapping_info_label']
+            if not p_mim:  # not an association to another MIM; ignore
+                continue  # see: https://github.com/monarch-initiative/omim/issues/78
+            phenotype_genes[p_mim].append({
+                'gene_id': gene_mim, 'phenotype_label': p_lab, 'mapping_key': p_map_key,
+                'mapping_label': p_map_lab})
+    return phenotype_genes
