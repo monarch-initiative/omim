@@ -116,7 +116,9 @@ def convert_txt_to_tsv(file_name: str):
     df.to_csv(mim_file_tsv_path, sep='\t', index=False)
 
 
-def get_mim_file(file_name: str, download=False, return_df=False) -> Union[List[str], pd.DataFrame]:
+def get_mim_file(
+    file_name: str, download=False, return_df=False, include_protections=True
+) -> Union[List[str], pd.DataFrame]:
     """Retrieve OMIM downloadable text file from the OMIM download server
 
     :param return_df: If False, returns List[str] of each line in the file, else a DataFrame.
