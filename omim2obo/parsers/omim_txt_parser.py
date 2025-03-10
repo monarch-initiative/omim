@@ -139,7 +139,6 @@ def update_mim_file_with_protected(
     hgnc_id_symbols: Dict[str, str] = get_hgnc_id_symbol_map()
 
     if file_name == 'morbidmap.txt':
-        prot_df = prot_df[prot_df['type'] == 'digenic']
         new_prot_rows = []
         for _index, row in prot_df.iterrows():
             phenotype_mim = row['phenotype_mim'].split(':')[1]
@@ -161,7 +160,6 @@ def update_mim_file_with_protected(
                 zip(labels_df['MIM Number'].astype(str), labels_df['Preferred Title; symbol']))
             phenotype_label = mim_label_map[phenotype_mim].capitalize()  # not perfect case, but fine for our purposes
             phenotype_field = f'{phenotype_label}, {phenotype_mim} (3)'
-
             new_prot_rows.append({
                 'Phenotype': phenotype_field,
                 'Gene/Locus And Other Related Symbols': symbol,  # not comprehensive or strictly needed for our purposes
@@ -171,7 +169,6 @@ def update_mim_file_with_protected(
             })
         df = pd.concat([df, pd.DataFrame(new_prot_rows)], ignore_index=True)
     elif file_name == 'mim2gene.txt':
-        prot_df = prot_df[prot_df['type'] == 'digenic']
         existing_records: Set[Tuple[str, str]] = set(
             zip(df['MIM Number'].astype(str), df['Approved Gene Symbol (HGNC)']))
         new_prot_rows = []
