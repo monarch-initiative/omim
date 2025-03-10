@@ -116,8 +116,6 @@ def convert_txt_to_tsv(file_name: str):
     df.to_csv(mim_file_tsv_path, sep='\t', index=False)
 
 
-# TODO: branch into 2 sep funcs if indeed need to update 2 files
-#  - if only 1 file needed, drop file_name param
 # TODO: do we need to update genemap2? is that even being used?
 #  - if so, need to add here, and in 1 place in get_mim_file()
 def update_mim_file_with_protected(
