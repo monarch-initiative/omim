@@ -116,8 +116,6 @@ def convert_txt_to_tsv(file_name: str):
     df.to_csv(mim_file_tsv_path, sep='\t', index=False)
 
 
-# TODO: do we need to update genemap2? is that even being used?
-#  - if so, need to add here, and in 1 place in get_mim_file()
 def update_mim_file_with_protected(
     file_name: str, inpath: str, outpath: str, protected_path=DISEASE_GENE_PROTECTED_PATH
 ):
@@ -132,8 +130,6 @@ def update_mim_file_with_protected(
     df = pd.read_csv(inpath, comment='#', sep='\t', dtype=str).fillna('')
     df['is_added_protection'] = False
     prot_df = pd.read_csv(protected_path, sep='\t').fillna('')
-
-    # TODO: is this needed by morbidmap? if not, move below
     hgnc_id_symbols: Dict[str, str] = get_hgnc_id_symbol_map()
 
     if file_name == 'morbidmap.txt':
