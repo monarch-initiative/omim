@@ -46,7 +46,11 @@ to use the cache anyway, you can pass the `--use-cache` flag.
 ## Curator configuration files
 **[protected-disease-gene.tsv](https://github.com/monarch-initiative/omim/blob/main/data/protected-disease-gene.tsv)**
 This file contains a list of disease-gene associations that should not be removed from the ontology, even if the 
-pipeine logic would otherwise determine that the association is not disease-defining.
+pipeine logic would otherwise determine that the association is not disease-defining. As of 2025/03/06, the only `type`
+of protection in the file is 'digenic'. For this protection type, there should be 2 rows for a given phenotype MIM. The 
+following fields are required for each row: `phenotype_mim`, `type`, `gene_mim`, `hgnc_id`)  should be filled out 
+in each row. `orcid` is optional but encouraged. `comment`, `mondo_id`, and `mondo_label` are all optional and not used 
+in any programmatic way.
 
 **[exclusions-disease-gene.tsv](https://github.com/monarch-initiative/omim/blob/main/data/exclusions-disease-gene.tsv)**
 This file contains a list of disease-gene associations that should be removed from the ontology, even if the 

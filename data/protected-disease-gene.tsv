@@ -1,7 +1,11 @@
-omim_id	mondo_id	mondo_label	orcid	comment
-OMIM:619151	MONDO:0030894	"AMED syndrome, digenic'"	https://orcid.org/0000-0002-4142-7153	digenic
-OMIM:158901	MONDO:0008031		https://orcid.org/0000-0002-4142-7153	digenic
-OMIM:108770	MONDO:0007171	atrial standstill 1'	https://orcid.org/0000-0002-4142-7153	digenic
-OMIM:620040	MONDO:0031057	"dyskeratosis congenita, digenic'"	https://orcid.org/0000-0002-4142-7153	digenic
-OMIM:619478	MONDO:0030355	"facioscapulohumeral muscular dystrophy 4, digenic'"	https://orcid.org/0000-0002-4142-7153	digenic
-OMIM:300818	MONDO:0010438	paroxysmal nocturnal hemoglobinuria 1	https://orcid.org/0000-0002-4142-7153	"disease caused by a somatic mutation, therefore a gene association stating this is due to a germline mutation should not be added"
+phenotype_mim	mondo_id	mondo_label	type	gene_mim	hgnc_id	orcid	comment
+OMIM:619151	MONDO:0030894	"AMED SYNDROME, DIGENIC"	digenic	OMIM:100650	HGNC:404	https://orcid.org/0000-0002-4142-7153	
+OMIM:619151	MONDO:0030894	"AMED SYNDROME, DIGENIC"	digenic	OMIM:103710	HGNC:253	https://orcid.org/0000-0002-4142-7153	
+OMIM:158901	MONDO:0008031	"FACIOSCAPULOHUMERAL MUSCULAR DYSTROPHY 2, DIGENIC"	digenic	OMIM:614982	HGNC:29090	https://orcid.org/0000-0002-4142-7153	
+OMIM:158901	MONDO:0008031	"FACIOSCAPULOHUMERAL MUSCULAR DYSTROPHY 2, DIGENIC"	digenic	OMIM:606009	HGNC:50800	https://orcid.org/0000-0002-4142-7153	
+OMIM:108770	MONDO:0007171	atrial standstill 1	digenic	OMIM:121013	HGNC:4279	https://orcid.org/0000-0002-4142-7153	
+OMIM:108770	MONDO:0007171	atrial standstill 1	digenic	OMIM:600163	HGNC:10593	https://orcid.org/0000-0002-4142-7153	
+OMIM:620040	MONDO:0031057	"dyskeratosis congenita, digenic"	digenic	OMIM:188350	HGNC:12441	https://orcid.org/0000-0002-4142-7153	
+OMIM:620040	MONDO:0031057	"dyskeratosis congenita, digenic"	digenic	OMIM:607427	HGNC:30365	https://orcid.org/0000-0002-4142-7153	
+OMIM:619478	MONDO:0030355	"facioscapulohumeral muscular dystrophy 4, digenic"	digenic	OMIM:602900	HGNC:2979	https://orcid.org/0000-0002-4142-7153	
+OMIM:619478	MONDO:0030355	"facioscapulohumeral muscular dystrophy 4, digenic"	digenic	OMIM:606009	HGNC:50800	https://orcid.org/0000-0002-4142-7153	
