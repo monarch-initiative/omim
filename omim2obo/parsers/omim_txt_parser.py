@@ -125,6 +125,9 @@ def update_mim_file_with_protected(
 
     mim2gene.txt: As of 2025/03/05, it turned out there were no missing rows in this file. So this code is here now more
     for futureproofing purposes.
+
+    todo: Consider handling situation where protection file is intended only to protect a phenotype without stiupolation
+     of gene. That is, if the gene column is empty, skip to avoid error here: gene_mim = row['gene_mim'].split(':')[1]
     """
     outpath_with_header = outpath.replace('.tsv', '-with-header.tsv')
     df = pd.read_csv(inpath, comment='#', sep='\t', dtype=str).fillna('')
