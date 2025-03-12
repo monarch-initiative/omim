@@ -34,10 +34,6 @@ def mondo_omim_genes_robot_tsv(inpath: Union[Path, str], outpath: Union[Path, st
     # Sort
     df = df.sort_values(by=['mondo_id', 'hgnc_id', 'omim_gene', 'omim_disease_xref'])
 
-    # Remove cases where >1 gene association
-    # - These indicate non-causal relationships, which we don't care about.
-    df = df[~df['omim_disease_xref'].duplicated(keep=False)]
-
     # Insert ROBOT subheader
     df = pd.concat([pd.DataFrame([ROBOT_SUBHEADER]), df])
 

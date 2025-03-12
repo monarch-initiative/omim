@@ -330,9 +330,10 @@ def omim2obo(use_cache: bool = False):
 
     # Gene ID
     # - Note that sometimes a gene symbol will appear on the omim.org/entry page, under the Phenotype-Gene or
-    # Gene-Phenotype tables, which will match its entry in morbidmap.txt. However, that does not guarantee that the gene
-    # will appear in mim2gene.txt. If it is not in mim2gene.txt, it will not be added.
+    #   Gene-Phenotype tables, which will match its entry in morbidmap.txt. However, that does not guarantee that the
+    #   gene will appear in mim2gene.txt. If it is not in mim2gene.txt, it will not be added.
     # - Why is 'skos:exactMatch' appropriate for disease::gene relationships? - joeflack4 2022/06/06
+    # - genemap2: Is currently not used in the pipeline anywhere. It is downloaded simply for local reference.
     get_mim_file('genemap2', download_files_tf)  # dl latest file
     mim2gene_lines: List[str] = get_mim_file('mim2gene', download_files_tf)  # dl latest file & return
     gene_map, pheno_map, hgnc_map = parse_mim2gene(mim2gene_lines)

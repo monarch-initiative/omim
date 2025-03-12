@@ -116,10 +116,6 @@ def convert_txt_to_tsv(file_name: str):
     df.to_csv(mim_file_tsv_path, sep='\t', index=False)
 
 
-# TODO: branch into 2 sep funcs if indeed need to update 2 files
-#  - if only 1 file needed, drop file_name param
-# TODO: do we need to update genemap2? is that even being used?
-#  - if so, need to add here, and in 1 place in get_mim_file()
 def update_mim_file_with_protected(
     file_name: str, inpath: str, outpath: str, protected_path=DISEASE_GENE_PROTECTED_PATH
 ):
@@ -129,13 +125,14 @@ def update_mim_file_with_protected(
 
     mim2gene.txt: As of 2025/03/05, it turned out there were no missing rows in this file. So this code is here now more
     for futureproofing purposes.
+
+    todo: Consider handling situation where protection file is intended only to protect a phenotype without stipulation
+     of gene. That is, if the gene column is empty, skip to avoid error here: gene_mim = row['gene_mim'].split(':')[1]
     """
     outpath_with_header = outpath.replace('.tsv', '-with-header.tsv')
     df = pd.read_csv(inpath, comment='#', sep='\t', dtype=str).fillna('')
     df['is_added_protection'] = False
     prot_df = pd.read_csv(protected_path, sep='\t').fillna('')
-
-    # TODO: is this needed by morbidmap? if not, move below
     hgnc_id_symbols: Dict[str, str] = get_hgnc_id_symbol_map()
 
     if file_name == 'morbidmap.txt':
