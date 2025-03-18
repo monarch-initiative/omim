@@ -12,6 +12,10 @@ REVIEW_CASES_PATH = ROOT_DIR / 'review.tsv'
 DISEASE_GENE_EXCLUSIONS_PATH = DATA_DIR / 'exclusions-disease-gene.tsv'
 DISEASE_GENE_PROTECTED_PATH = DATA_DIR / 'protected-disease-gene.tsv'
 HGNC_DATA_PATH = DATA_DIR / 'hgnc' / 'hgnc_complete_set.txt'
+PUBMED_LINKS_PATH = DATA_DIR / 'pubmed-links-cache.tsv'
+MAPPINGS_PATH = DATA_DIR / 'mappings-cache.tsv'
+CACHE_LAST_UPDATED_PATH = DATA_DIR / 'cache-last-updated.txt'
+CACHE_INCOMPLETENESS_INDICATOR_PATH = DATA_DIR / 'initial-cache-incomplete.txt'
 
 with open(DATA_DIR / 'dipper/GLOBAL_TERMS.yaml') as file:
     GLOBAL_TERMS = yaml.safe_load(file)

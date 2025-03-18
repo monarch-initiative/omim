@@ -4,6 +4,7 @@ import logging
 import os
 import sys
 from collections import defaultdict
+from datetime import datetime
 from pathlib import PosixPath
 from typing import List, Dict, Set, Tuple, Union
 
@@ -11,7 +12,9 @@ import requests
 import re
 import pandas as pd
 
-from omim2obo.config import CONFIG, DATA_DIR, DISEASE_GENE_PROTECTED_PATH, HGNC_DATA_PATH
+from omim2obo.config import CACHE_LAST_UPDATED_PATH, CONFIG, DATA_DIR, DISEASE_GENE_PROTECTED_PATH, HGNC_DATA_PATH, \
+    MAPPINGS_PATH, \
+    PUBMED_LINKS_PATH
 from omim2obo.namespaces import RO
 from omim2obo.omim_client import OmimClient
 from omim2obo.omim_type import OmimType
@@ -522,14 +525,88 @@ def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
     return pmid_maps, umls_maps, orphanet_maps
 
 
-# TODO: Update this function to dynamically retrieve the updated records
-#  - change nature of caching / cache: query this every month, and save the data in tabular format. can probably
-#    commit it too. ideally go backwards, keepign track of the MIM's as I go. If the same MIM appears in a previous
-#    month, I don't need to fetch it. Finally, when I get to 2021/08, I don't need to query that. Can use the existing
-#    cached JSON. And then for before 2020/01, can use the legacy_omim.ttl. Get all this data together and dump in a TSV
-#    then, when we run the ingest, read from this TSV first, and then calculate the max date/mon in the TSV, and based
-#    on that figure out which additional months I need to query (should only ever be 1 month at a time; will run weekly)
-#    And save an updated TSV w/ those new entries as well.
+def get_all_phenotype_mims() -> Set[str]:
+    """Get all phenotype MIM numbers"""
+    p_mims = []
+    gene_phenotypes: Dict[str, Dict] = parse_morbid_map(get_mim_file('morbidmap'))
+    for gene, d in gene_phenotypes.items():
+        for assoc in d['phenotype_associations']:
+            p_mims.append(assoc['phenotype_mim_number'])
+    return set(p_mims)
+
+
+def fetch_and_cache_all_entries(phenotypes_only=True):
+    """TODO"""
+    # Get MIMs to fetch
+    mims: Set[str]
+    if phenotypes_only:
+        mims = get_all_phenotype_mims()
+    else:
+        df = pd.read_csv('data/mimTitles.tsv', sep='\t')
+        mims = set(df['MIM Number'])
+
+    # Fetch
+    # TODO fetch
+    # TODO: what to do about MAX_TOTAL = 5k? see fetch_all()...
+    client = OmimClient(api_key=CONFIG['API_KEY'], omim_ids=list(mims))
+    results: List = client.fetch_all()
+    # results2 = results['omim']['entryList']  # todo why this work below but here is list?
+
+    # Save
+    # TODO: Save
+    #  - If cache is incomplete thus far, should I say anthing here? or is the message printed in the client enough?
+    #  - i think the client took care of saving the necessary files & dates?
+
+    print()
+
+
+# TODO
+def update_entries_if_needed(
+    pubmed_links_path=PUBMED_LINKS_PATH, mappings_path=MAPPINGS_PATH, cache_date_path=CACHE_LAST_UPDATED_PATH
+):
+    """TODO"""
+    # Fetch everything if no cache
+    if not os.path.exists(cache_date_path):
+        fetch_and_cache_all_entries()
+
+    # TODO: Find out if cache is up-to-date
+    # Find out if cache is up-to-date
+    # TODO: else statement here or?
+    last_month_fetched = None
+    with open(cache_date_path, 'r') as f:
+        last_updated_str = f.readline().strip()
+        last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
+
+    # TODO fetch (IF wasn't done last month)
+    #  - assumes the release for a given month happens after the month. otherwise i would fetch March in March
+
+    # TODO update both files,
+
+    print()
+
+
+def get_pubmed_links(path=PUBMED_LINKS_PATH) -> pd.DataFrame:
+    """Get Pubmed links for MIMs*
+
+    *: Mondo only needs phenotypes, so not all MIMs are represented in cached data. Cached data was first updated in
+    2025/03. At this time, only phenotype MIM information was saved. However, OMIM releases information about what MIMs
+    were updated monthly, and this is used to update the cache. That information does not discriminate between phenotype
+    and non-phenotype, so the cache will include any non-MIMs that were updated after 2025/03.
+    """
+    update_entries_if_needed()
+    return pd.read_csv(path, sep='\t')
+
+
+def get_mappings(path=MAPPINGS_PATH) -> pd.DataFrame:
+    """Get mappings for MIMs*
+
+    *: See * comment in get_pubmed_links()
+    """
+    update_entries_if_needed()
+    return pd.read_csv(path, sep='\t')
+
+
+# TODO: refactor old / delete this code
 def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month=8, use_cache=True):
     """Get updated entries from OMIM API."""
     if not use_cache:

@@ -422,6 +422,12 @@ def omim2obo(use_cache: bool = False):
     pmid_map, umls_map, orphanet_map = get_maps_from_turtle()
 
     # Get the recent updated
+    # TODO: update w/ new structure
+    # TODO: define data type
+    pubmed_links_df: pd.DataFrame = get_pubmed_links()
+    mappings_df: pd.DataFrame = get_mappings()
+
+    # TODO: refactor old
     updated_entries = get_updated_entries()
     for entry in updated_entries:
         entry = entry['entry']
