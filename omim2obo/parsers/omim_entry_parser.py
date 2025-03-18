@@ -112,7 +112,7 @@ def transform_entry(entry) -> Graph:
             if len(ncbi_ids) > 0:
                 feature_uri = NCBIGENE[ncbi_ids[0]]
             for ncbi_id in ncbi_ids:
-                # TODO: This might need to be bnodes
+                # todo: This might be better as bnodes
                 # MONARCH:b10cbd376598f2d328ff a OBAN:association ;
                 #     OBAN:association_has_object OMIM:100070 ;
                 #     OBAN:association_has_predicate RO:0002200 ;
