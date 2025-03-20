@@ -423,12 +423,13 @@ def omim2obo(use_cache: bool = False):
 
     # Get the recent updated
     # TODO: update w/ new structure
-    # TODO: define data type
-    pubmed_links_df: pd.DataFrame = get_pubmed_links()
-    mappings_df: pd.DataFrame = get_mappings()
+    #  - note mappings and pubmed ids in | delim list
+    #  - deal w/ null vals
+    pubmed_links_df, mappings_df = get_pubmed_refs_and_mappings()
 
     # TODO: refactor old
-    updated_entries = get_updated_entries()
+    #  - delete this imported method from that file at end
+    updated_entries = fetch_and_cache_entries_by_dates()
     for entry in updated_entries:
         entry = entry['entry']
         mim_number = str(entry['mimNumber'])
