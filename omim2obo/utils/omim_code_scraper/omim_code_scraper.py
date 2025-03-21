@@ -55,6 +55,8 @@ def get_codes_by_yyyy_mm(yyyy_mm: str, outpath: str = '') -> List[tuple]:
     headers = requests.utils.default_headers()
     headers.update({'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0', })
     page = requests.get(url, headers=headers)
+    if page.status_code >= 400:
+        raise OmimDataPipelineError(f'Failed to fetch data from {url}')
     soup = BeautifulSoup(page.text, 'html.parser')
     elements: ResultSet = soup.find_all('span', {'class': 'mim-font mim-hint'})
 

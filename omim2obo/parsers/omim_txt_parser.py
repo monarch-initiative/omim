@@ -21,7 +21,7 @@ from omim2obo.namespaces import ORPHANET, RO, UMLS
 from omim2obo.omim_client import OmimClient
 from omim2obo.omim_type import OmimType
 from omim2obo.parsers.omim_entry_parser import get_mapped_ids, get_pubs
-from omim2obo.utils.omim_code_scraper import get_codes_by_yyyy_mm
+from omim2obo.utils.omim_code_scraper import OmimDataPipelineError, get_codes_by_yyyy_mm
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 # MIM_NUMBER_DIGITS = 6  # if you see '6' in a regexp, this is what it refers to
@@ -540,7 +540,7 @@ def get_all_phenotype_mims() -> Set[str]:
     return p_mims
 
 
-def fetch_and_cache_all_entries(phenotypes_only=True):
+def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
     """Fetch and cache all MIM entries from the OMIM API
 
     For more information, see: omim_client.py
@@ -558,10 +558,10 @@ def fetch_and_cache_all_entries(phenotypes_only=True):
     mims_cached: Set[str] = set()
     mappings_df_cached = pd.DataFrame()
     pubmed_df_cached = pd.DataFrame()
-    if os.path.exists(MAPPINGS_PATH):
+    if os.path.exists(MAPPINGS_PATH) and not overwrite:
         mappings_df_cached = pd.read_csv(MAPPINGS_PATH, sep='\t', dtype=str)
         mims_cached = set(mappings_df_cached['mim'])
-    if os.path.exists(PUBMED_REFS_PATH):
+    if os.path.exists(PUBMED_REFS_PATH) and not overwrite:
         pubmed_df_cached = pd.read_csv(PUBMED_REFS_PATH, sep='\t', dtype=str)
         mims_cached |= set(pubmed_df_cached['mim'])
     # - Determine MIMs to fetch
@@ -577,7 +577,11 @@ def fetch_and_cache_all_entries(phenotypes_only=True):
     for entry in results:
         mim = str(entry['mimNumber'])
         mapppings = get_mapped_ids(entry)
-        common_data = {'mim': mim, 'is_phenotype': mim in mims_phenos}
+        common_data = {
+            'mim': mim,
+            'is_phenotype': mim in mims_phenos,
+            'date_fetched': datetime.now().strftime("%Y-%m-%d"),
+        }
         mappings_rows.append({**common_data, **{
             'umls_ids': '|'.join(mapppings[UMLS]),
             'orphanet_ids': '|'.join(mapppings[ORPHANET]),
@@ -595,7 +599,11 @@ def fetch_and_cache_all_entries(phenotypes_only=True):
 
 # TODO
 def update_entries_if_needed():
-    """Update cache for MIM entries (pubmed refs & mappings) if cache is not complete or there is possibly new data"""
+    """Update cache for MIM entries (pubmed refs & mappings) if cache is not complete or there is possibly new data
+
+    Todo: @matentzn: Will update so that when this runs during releases, it will open up a PR for the updated files.
+     - Note that this runs on main, but we would want these files on main and develop (if we continue to keep develop)
+    """
     # Fetch everything if no cache or cache incomplete
     # TODO: after finishing this func & main.py, come out here and uncomment to continue
     # if not os.path.exists(cache_date_path) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
@@ -628,20 +636,40 @@ def update_entries_if_needed():
 
 # TODO: refactor
 # TODO: what if tries and page for mon doesn't exist? what if gap between months?
-def fetch_and_cache_entries_by_dates(
-    start_year=2020, start_month=1, end_year=datetime.now().year, end_month=datetime.now().month,
-):
+# TODO: !! deprecate this func and fetch weekly instead
+def fetch_and_cache_entries_by_dates(start_year=2020, start_month=1, end_year=None, end_month=None):
     """Fetch and cache data for any MIMs updated within date range."""
+    end_year = end_year if end_year else datetime.now().year
+    end_month = end_month if end_month else datetime.now().month
+    current_year, current_month = start_year, start_month
+
     updated_mims = set()
-    for year in range(start_year, end_year + 1):
-        first_month = start_month if year == start_year else 1  # todo: does this make sense?
-        for month in range(first_month, 13):
-            # TODO temp: test if func works properly. set aribtrary dates, and print to make sure every month called
-            # updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))  # 02d: 0-padded
-            print(year, month)
-    for month in range(1, end_month + 1):  # todo: is thi sneeded in addition to the above block?
-        # updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))  # 02d: 0-padded
-        print(end_year, month)
+    errs = []
+    while (current_year < end_year) or (current_year == end_year and current_month <= end_month):
+        print(f"Processing: {current_year}-{current_month:02d}")  # TODO temp: test to see if algo works
+        try:
+            updated_mims |= set(get_codes_by_yyyy_mm(f'{current_year}/{current_month:02d}'))  # 02d: 0-padded
+        except OmimDataPipelineError:
+            errs.append(f"{current_year}-{current_month:02d}")
+        current_month += 1
+        if current_month > 12:
+            current_month = 1
+            current_year += 1
+
+    if errs:
+        LOG.warning(f"Failed to fetch data for the following months: {errs}.\nCheck website to see if perhaps no page "
+            f"exists because no updates were made in these months.")
+
+    # original algo
+    # for year in range(start_year, end_year + 1):
+    #     first_month = start_month if year == start_year else 1  # todo: does this make sense?
+    #     for month in range(first_month, 13):
+    #         # todo temp: test if func works properly. set aribtrary dates, and print to make sure every month called
+    #         # updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))  # 02d: 0-padded
+    #         print(year, month)
+    # for month in range(1, end_month + 1):  # todo: is thi sneeded in addition to the above block?
+    #     # updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))  # 02d: 0-padded
+    #     print(end_year, month)
 
     # TODO: break apart fetch_and_cache_all_entries() and re-use some of that here
     #  - fetch
