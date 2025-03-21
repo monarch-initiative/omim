@@ -214,6 +214,7 @@ def get_mim_file(
     """Retrieve OMIM downloadable text file from the OMIM download server
 
     :param return_df: If False, returns List[str] of each line in the file, else a DataFrame.
+    :param include_protected: Only matters if file_name is in files_to_include_protected.
     """
     files_to_include_protected = ('morbidmap.txt', 'mim2gene.txt')
     file_name = file_name if file_name.endswith('.txt') else file_name + '.txt'
@@ -551,13 +552,15 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
 
     For more information, see: omim_client.py
     """
+    LOG.info('Cache for pubmed references and mappings is incomplete.')
     # Get MIMs to fetch
     # - Get all MIMs
     mims_phenos: Set[str] = get_all_phenotype_mims()
     if phenotypes_only:
         mims_all = mims_phenos
     else:
-        df = pd.read_csv('data/mimTitles.tsv', sep='\t', dtype=str)
+        df = get_mim_file('mimTitles', return_df=True)
+        df['MIM Number'] = df['MIM Number'].astype(str)
         mims_all = set(df['MIM Number'])
     mims_all.discard('')
     # - Get cached MIMs
@@ -574,8 +577,10 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
     mims_to_fetch = mims_all - mims_cached
 
     # Fetch
+    LOG.info(f'- Fetching {len(mims_to_fetch)} MIMs from OMIM entry API')
     client = OmimClient(api_key=CONFIG['API_KEY'], omim_ids=list(mims_to_fetch))
     results: List = [x['entry'] for x in client.fetch_all(seed_run=True)]
+    LOG.info(f'- Fetched data for {len(results)} MIMs. Saving results.')
 
     # Save
     mappings_rows: List[Dict] = []
@@ -599,6 +604,9 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
     pubmed_df_new = pd.DataFrame(pubmed_rows)
     mappings_df = pd.concat([mappings_df_cached, mappings_df_new], ignore_index=True).sort_values(['mim'])
     pubmed_df = pd.concat([pubmed_df_cached, pubmed_df_new], ignore_index=True).sort_values(['mim'])
+    # TODO temp: .drop_duplicates() daily.
+    #  check to see if any exist: a1 = pubmed_df.drop_duplicates() / len(a1) == len(pubmed_df)
+    #  if this problem continues, may want to figure out why. i think was just a temporary issue to do w/ debugging
     mappings_df.to_csv(MAPPINGS_PATH, sep='\t', index=False)
     pubmed_df.to_csv(PUBMED_REFS_PATH, sep='\t', index=False)
 
@@ -612,9 +620,10 @@ def update_entries_if_needed():
     """
     # Fetch everything if no cache or cache incomplete
     # TODO: after finishing this func & main.py, come out here and uncomment to continue
-    # if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
-    #     fetch_and_cache_all_entries()
-    #     return
+    if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
+        fetch_and_cache_all_entries()
+        print()
+        return
     # TODO temp: 2. remove this after main.py done
     # TODO temp: 1. re-enable when this func is done and i've tested it out
     # return

@@ -74,10 +74,12 @@ class OmimClient:
             #  case, then throw error in calling func
             elif err:
                 raise RuntimeError(err)
+            elif len(entries) != len(ids):
+                raise RuntimeError(f'Query on ids {ids} returned {len(entries)} results, but expected {len(ids)}.')
             elif not entries:
                 raise RuntimeError(f'Query on ids {ids} returned no results.')
             results += entries
-            time.sleep(2)  # todo: is this necessary?
+            time.sleep(2)  # todo: is this necessary? or could we reduce?
             count += BATCH_SIZE
 
         # Update cache data
