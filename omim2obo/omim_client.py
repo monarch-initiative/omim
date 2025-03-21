@@ -30,8 +30,8 @@ RATE_ERR = ('Rate limit error: MIMs fetched exceeded allowable API limit(normall
     'MIM\'s data might be updated between the start and end date of this initial setup process.\n\n'
     'After this initial setup is complete, the cache will be regularly updated in a different way, no more '
     'than 1x/month.\n\n'
-    'Advice: After this run compeltes, to manually fetch regularly, no more than 1x/day, until are data for all MIMs '
-    'has been fetched.'.format(CACHE_INCOMPLETENESS_INDICATOR_PATH, CACHE_LAST_UPDATED_PATH))
+    'Advice: After this run completes, you should manually fetch regularly, no more than 1x/day, until data for all '
+    'MIMs has been fetched.'.format(CACHE_INCOMPLETENESS_INDICATOR_PATH, CACHE_LAST_UPDATED_PATH))
 
 def _log_incomplete_seed_run():
     """Write to disk an indication that the seed run was incomplete.

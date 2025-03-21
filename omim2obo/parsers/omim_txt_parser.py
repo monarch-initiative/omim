@@ -1,5 +1,4 @@
 """Text parsing utilities"""
-import json
 import logging
 import os
 import sys
@@ -540,6 +539,13 @@ def get_all_phenotype_mims() -> Set[str]:
     return p_mims
 
 
+def _read_cached_entry_df(path: str) -> pd.DataFrame:
+    """Read a dataframe containing MIM entries data cached from the OMIM API"""
+    df = pd.read_csv(path, sep='\t', dtype=str)
+    df['is_phenotype'] = df['is_phenotype'].astype(bool)
+    return df
+
+
 def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
     """Fetch and cache all MIM entries from the OMIM API
 
@@ -551,7 +557,7 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
     if phenotypes_only:
         mims_all = mims_phenos
     else:
-        df = pd.read_csv('data/mimTitles.tsv', sep='\t')
+        df = pd.read_csv('data/mimTitles.tsv', sep='\t', dtype=str)
         mims_all = set(df['MIM Number'])
     mims_all.discard('')
     # - Get cached MIMs
@@ -559,10 +565,10 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
     mappings_df_cached = pd.DataFrame()
     pubmed_df_cached = pd.DataFrame()
     if os.path.exists(MAPPINGS_PATH) and not overwrite:
-        mappings_df_cached = pd.read_csv(MAPPINGS_PATH, sep='\t', dtype=str)
+        mappings_df_cached = _read_cached_entry_df(MAPPINGS_PATH)
         mims_cached = set(mappings_df_cached['mim'])
     if os.path.exists(PUBMED_REFS_PATH) and not overwrite:
-        pubmed_df_cached = pd.read_csv(PUBMED_REFS_PATH, sep='\t', dtype=str)
+        pubmed_df_cached = _read_cached_entry_df(PUBMED_REFS_PATH)
         mims_cached |= set(pubmed_df_cached['mim'])
     # - Determine MIMs to fetch
     mims_to_fetch = mims_all - mims_cached
@@ -606,7 +612,7 @@ def update_entries_if_needed():
     """
     # Fetch everything if no cache or cache incomplete
     # TODO: after finishing this func & main.py, come out here and uncomment to continue
-    # if not os.path.exists(cache_date_path) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
+    # if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
     #     fetch_and_cache_all_entries()
     #     return
     # TODO temp: 2. remove this after main.py done
@@ -624,6 +630,9 @@ def update_entries_if_needed():
     # - Will always check if new data is available, even if cache was updated recently
     # TODO temp: test if func works properly. set aribtrary dates, and print to make sure every month called
     #  - re-enable next line when testing done
+    #  ! Currently, it: fetches this month again. I think I should change make the following change:
+    #  it to 'last fetched month'. that way i don't do again. but what if i set up in march and the
+    #  updates come out later in march? i think
     # fetch_and_cache_entries_by_dates(next_month_date.year, next_month_date.month)
     # TODO: the printout shows it is not working correctly
     #  - i could also get claude to refactor it / fix any errors. i could show it the output
@@ -632,6 +641,7 @@ def update_entries_if_needed():
         print('starting: ', combo)
         fetch_and_cache_entries_by_dates(combo[0], combo[1])
         print()
+    print()
 
 
 # TODO: refactor
@@ -646,11 +656,11 @@ def fetch_and_cache_entries_by_dates(start_year=2020, start_month=1, end_year=No
     updated_mims = set()
     errs = []
     while (current_year < end_year) or (current_year == end_year and current_month <= end_month):
-        print(f"Processing: {current_year}-{current_month:02d}")  # TODO temp: test to see if algo works
-        try:
-            updated_mims |= set(get_codes_by_yyyy_mm(f'{current_year}/{current_month:02d}'))  # 02d: 0-padded
-        except OmimDataPipelineError:
-            errs.append(f"{current_year}-{current_month:02d}")
+        print(f"{current_year}-{current_month:02d}")  # TODO temp: test to see if algo works
+        # try:
+        #     updated_mims |= set(get_codes_by_yyyy_mm(f'{current_year}/{current_month:02d}'))  # 02d: 0-padded
+        # except OmimDataPipelineError:
+        #     errs.append(f"{current_year}-{current_month:02d}")
         current_month += 1
         if current_month > 12:
             current_month = 1
@@ -678,8 +688,9 @@ def fetch_and_cache_entries_by_dates(start_year=2020, start_month=1, end_year=No
     #  - remove old row and add a new one
     updated_entries = []
 
-    with open(CACHE_LAST_UPDATED_PATH, 'w') as file:
-        file.write(datetime.now().strftime("%Y-%m-%d"))  # YYYY-MM-DD
+    # TODO temp: re enable when func complete
+    # with open(CACHE_LAST_UPDATED_PATH, 'w') as file:
+    #     file.write(datetime.now().strftime("%Y-%m-%d"))  # YYYY-MM-DD
     return updated_entries
 
 
