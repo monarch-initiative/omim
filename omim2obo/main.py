@@ -208,8 +208,8 @@ def omim2obo(use_cache: bool = False):
     omim_ids = list(omim_type_and_titles.keys())
 
     if CONFIG['verbose']:
-        LOG.info('Tot MIM numbers from mimTitles.txt: %i', len(omim_ids))
-        LOG.info('Tot MIM types: %i', len(omim_type_and_titles))
+        print('Tot MIM numbers from mimTitles.txt: %i', len(omim_ids))
+        print('Tot MIM types: %i', len(omim_type_and_titles))
 
     # Populate graph
     # - Non-OMIM triples

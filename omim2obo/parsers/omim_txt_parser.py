@@ -236,7 +236,6 @@ def get_mim_file(
                 with open(mim_file_path, 'w') as fout:
                     fout.write(text)
                 convert_txt_to_tsv(file_name)
-                LOG.info(f'{file_name} retrieved and updated')
             else:
                 raise RuntimeError('Unexpected response: ' + text)
         else:
@@ -552,7 +551,7 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
 
     For more information, see: omim_client.py
     """
-    LOG.info('Cache for pubmed references and mappings is incomplete.')
+    print('Cache for pubmed references and mappings is incomplete.')
     # Get MIMs to fetch
     # - Get all MIMs
     mims_phenos: Set[str] = get_all_phenotype_mims()
@@ -577,10 +576,10 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
     mims_to_fetch = mims_all - mims_cached
 
     # Fetch
-    LOG.info(f'- Fetching {len(mims_to_fetch)} MIMs from OMIM entry API')
+    print(f'- Fetching {len(mims_to_fetch)} MIMs from OMIM entry API')
     client = OmimClient(api_key=CONFIG['API_KEY'], omim_ids=list(mims_to_fetch))
     results: List = [x['entry'] for x in client.fetch_all(seed_run=True)]
-    LOG.info(f'- Fetched data for {len(results)} MIMs. Saving results.')
+    print(f'- Fetched data for {len(results)} MIMs. Saving results.')
 
     # Save
     mappings_rows: List[Dict] = []
@@ -604,8 +603,8 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
     pubmed_df_new = pd.DataFrame(pubmed_rows)
     mappings_df = pd.concat([mappings_df_cached, mappings_df_new], ignore_index=True).sort_values(['mim'])
     pubmed_df = pd.concat([pubmed_df_cached, pubmed_df_new], ignore_index=True).sort_values(['mim'])
-    # TODO temp: .drop_duplicates() daily.
-    #  check to see if any exist: a1 = pubmed_df.drop_duplicates() / len(a1) == len(pubmed_df)
+    # TODO temp: check .drop_duplicates() daily (just in case)
+    #  check to see if any exist (mappings_df too): a1 = pubmed_df.drop_duplicates() / print(len(a1) == len(pubmed_df))
     #  if this problem continues, may want to figure out why. i think was just a temporary issue to do w/ debugging
     mappings_df.to_csv(MAPPINGS_PATH, sep='\t', index=False)
     pubmed_df.to_csv(PUBMED_REFS_PATH, sep='\t', index=False)
