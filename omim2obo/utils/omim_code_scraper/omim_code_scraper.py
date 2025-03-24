@@ -38,6 +38,7 @@ def validate_args(yyyy_mm):
         raise OmimDataPipelineError(str(err_msg_list))
 
 
+# @deprecated
 def get_codes_by_yyyy_mm(yyyy_mm: str, outpath: str = '') -> List[tuple]:
     """Omim data pipeline: Stats importer: Get codes by year/month
 

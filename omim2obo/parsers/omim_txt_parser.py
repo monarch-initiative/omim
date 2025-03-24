@@ -546,7 +546,9 @@ def _read_cached_entry_df(path: str) -> pd.DataFrame:
     return df
 
 
-def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
+def fetch_and_cache_all_entries(
+    client: OmimClient = OmimClient(api_key=CONFIG['API_KEY']), phenotypes_only=False, overwrite=False
+):
     """Fetch and cache all MIM entries from the OMIM API
 
     For more information, see: omim_client.py
@@ -577,8 +579,8 @@ def fetch_and_cache_all_entries(phenotypes_only=False, overwrite=False):
 
     # Fetch
     print(f'- Fetching {len(mims_to_fetch)} MIMs from OMIM entry API')
-    client = OmimClient(api_key=CONFIG['API_KEY'], omim_ids=list(mims_to_fetch))
-    results: List = [x['entry'] for x in client.fetch_all(seed_run=True)]
+
+    results: List = [x['entry'] for x in client.fetch(seed_run=True, ids=list(mims_to_fetch))]
     print(f'- Fetched data for {len(results)} MIMs. Saving results.')
 
     # Save
@@ -617,12 +619,13 @@ def update_entries_if_needed():
     Todo: @matentzn: Will update so that when this runs during releases, it will open up a PR for the updated files.
      - Note that this runs on main, but we would want these files on main and develop (if we continue to keep develop)
     """
+    client = OmimClient(api_key=CONFIG['API_KEY'])
     # Fetch everything if no cache or cache incomplete
     # TODO: after finishing this func & main.py, come out here and uncomment to continue
-    if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
-        fetch_and_cache_all_entries()
-        print()
-        return
+    # if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
+    #     fetch_and_cache_all_entries(client)
+    #     print()
+    #     return
     # TODO temp: 2. remove this after main.py done
     # TODO temp: 1. re-enable when this func is done and i've tested it out
     # return
@@ -631,71 +634,64 @@ def update_entries_if_needed():
     with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
         last_updated_str = f.readline().strip()
         last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
-    # TODO ensure this doesn't fetch for a month I've already fetched? But what if update was released later that mon?
-    #  - maybe my cache date should be the date of start/end of month fetched, not today's date. But does this conflict
-    #    with the date of the initial cache?
-    next_month_date = last_updated + relativedelta(months=1)
+    # TODO: from since_date: use client
+    results: List[Dict] = client.fetch(since_date=last_updated)
+    # TODO: check for dupes
+    # TODO: DRY conversion of results -> df w/ above func
+
+
+
+
+    # todo: If using old monthly fetching implementation -------------------------
+    # todo ensure this doesn't fetch for a month I've already fetched? But what if update was released later that mon?
+    #  - maybe my cache since_date should be the since_date of start/end of month fetched, not today's since_date. But does this conflict
+    #    with the since_date of the initial cache?
     # - Will always check if new data is available, even if cache was updated recently
-    # TODO temp: test if func works properly. set aribtrary dates, and print to make sure every month called
+    # todo temp: test if func works properly. set aribtrary dates, and print to make sure every month called
     #  - re-enable next line when testing done
-    #  ! Currently, it: fetches this month again. I think I should change make the following change:
-    #  it to 'last fetched month'. that way i don't do again. but what if i set up in march and the
-    #  updates come out later in march? i think
+    # next_month_date = last_updated + relativedelta(months=1)
     # fetch_and_cache_entries_by_dates(next_month_date.year, next_month_date.month)
-    # TODO: the printout shows it is not working correctly
-    #  - i could also get claude to refactor it / fix any errors. i could show it the output
-    combos = [(2025, 3), (2025, 2), (2024, 12), (2024, 11), (2023, 1)]
-    for combo in combos:
-        print('starting: ', combo)
-        fetch_and_cache_entries_by_dates(combo[0], combo[1])
-        print()
+    # combos = [(2025, 3), (2025, 2), (2024, 12), (2024, 11), (2023, 1)]
+    # for combo in combos:
+    #     print('starting: ', combo)
+    #     fetch_and_cache_entries_by_dates(combo[0], combo[1])
+    #     print()
     print()
 
 
 # TODO: refactor
 # TODO: what if tries and page for mon doesn't exist? what if gap between months?
 # TODO: !! deprecate this func and fetch weekly instead
+#  ! Currently, it: fetches this month again. I think I should change make the following change:
+#  it to 'last fetched month'. that way i don't do again. but what if i set up in march and the
+#  updates come out later in march? i think
+# @deprecated & unfinished
 def fetch_and_cache_entries_by_dates(start_year=2020, start_month=1, end_year=None, end_month=None):
-    """Fetch and cache data for any MIMs updated within date range."""
+    """Fetch and cache data for any MIMs updated within since_date range."""
     end_year = end_year if end_year else datetime.now().year
     end_month = end_month if end_month else datetime.now().month
     current_year, current_month = start_year, start_month
 
+    # noinspection PyUnusedLocal temp_while_unfinished
     updated_mims = set()
     errs = []
     while (current_year < end_year) or (current_year == end_year and current_month <= end_month):
         print(f"{current_year}-{current_month:02d}")  # TODO temp: test to see if algo works
-        # try:
-        #     updated_mims |= set(get_codes_by_yyyy_mm(f'{current_year}/{current_month:02d}'))  # 02d: 0-padded
-        # except OmimDataPipelineError:
-        #     errs.append(f"{current_year}-{current_month:02d}")
+        try:
+            updated_mims |= set(get_codes_by_yyyy_mm(f'{current_year}/{current_month:02d}'))  # 02d: 0-padded
+        except OmimDataPipelineError:
+            errs.append(f"{current_year}-{current_month:02d}")
         current_month += 1
         if current_month > 12:
             current_month = 1
             current_year += 1
-
     if errs:
         LOG.warning(f"Failed to fetch data for the following months: {errs}.\nCheck website to see if perhaps no page "
             f"exists because no updates were made in these months.")
 
-    # original algo
-    # for year in range(start_year, end_year + 1):
-    #     first_month = start_month if year == start_year else 1  # todo: does this make sense?
-    #     for month in range(first_month, 13):
-    #         # todo temp: test if func works properly. set aribtrary dates, and print to make sure every month called
-    #         # updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))  # 02d: 0-padded
-    #         print(year, month)
-    # for month in range(1, end_month + 1):  # todo: is thi sneeded in addition to the above block?
-    #     # updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))  # 02d: 0-padded
-    #     print(end_year, month)
-
-    # TODO: break apart fetch_and_cache_all_entries() and re-use some of that here
-    #  - fetch
-    #  - save
-    # TODO update both files
-    #  - remove old row and add a new one
+    # TODO: break apart fetch_and_cache_all_entries() and re-use some of that here: (i) fetch, (ii) save0
+    # TODO update both files: remove old row and add a new one
     updated_entries = []
-
     # TODO temp: re enable when func complete
     # with open(CACHE_LAST_UPDATED_PATH, 'w') as file:
     #     file.write(datetime.now().strftime("%Y-%m-%d"))  # YYYY-MM-DD
