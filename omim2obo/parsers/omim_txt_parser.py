@@ -618,14 +618,8 @@ def update_entries_if_needed():
     """
     client = OmimClient(api_key=CONFIG['API_KEY'])
     # Fetch everything if no cache or cache incomplete
-    # TODO: after finishing this func & main.py, come out here and uncomment to continue
     if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
         fetch_and_cache_all_entries(client)
-        print()
-        return
-    # TODO temp: 2. remove this after main.py done
-    # TODO temp: 1. re-enable when this func is done and i've tested it out
-    # return
 
     # Else fetch new data if available
     with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
