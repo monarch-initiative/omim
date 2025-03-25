@@ -605,9 +605,6 @@ def fetch_and_cache_all_entries(
     pubmed_df_new = pd.DataFrame(pubmed_rows)
     mappings_df = pd.concat([mappings_df_cached, mappings_df_new], ignore_index=True).sort_values(['mim'])
     pubmed_df = pd.concat([pubmed_df_cached, pubmed_df_new], ignore_index=True).sort_values(['mim'])
-    # TODO temp: check .drop_duplicates() daily (just in case)
-    #  check to see if any exist (mappings_df too): a1 = pubmed_df.drop_duplicates() / print(len(a1) == len(pubmed_df))
-    #  if this problem continues, may want to figure out why. i think was just a temporary issue to do w/ debugging
     mappings_df.to_csv(MAPPINGS_PATH, sep='\t', index=False)
     pubmed_df.to_csv(PUBMED_REFS_PATH, sep='\t', index=False)
 
@@ -622,10 +619,10 @@ def update_entries_if_needed():
     client = OmimClient(api_key=CONFIG['API_KEY'])
     # Fetch everything if no cache or cache incomplete
     # TODO: after finishing this func & main.py, come out here and uncomment to continue
-    # if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
-    #     fetch_and_cache_all_entries(client)
-    #     print()
-    #     return
+    if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
+        fetch_and_cache_all_entries(client)
+        print()
+        return
     # TODO temp: 2. remove this after main.py done
     # TODO temp: 1. re-enable when this func is done and i've tested it out
     # return
@@ -634,11 +631,10 @@ def update_entries_if_needed():
     with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
         last_updated_str = f.readline().strip()
         last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
-    # TODO: from since_date: use client
     results: List[Dict] = client.fetch(since_date=last_updated)
+    # TODO: check that results are as expected. and are able to
+    # TODO: DRY conversion of results -> df w/ above func. to get mappings and pmid refs
     # TODO: check for dupes
-    # TODO: DRY conversion of results -> df w/ above func
-
 
 
 
