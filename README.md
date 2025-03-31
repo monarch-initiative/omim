@@ -73,8 +73,12 @@ on OMIM titles (standard title, as well as alt, formerly, and included titles).
 Command: `sh run.sh make get-pmids`
 
 ### OMIM Code Web Scraper
-Currently, the only feature is `get_codes_by_yyyy_mm`, which returns a list of 
-OMIM codes and their prefixes from https://omim.org/statistics/update.
+Currently, the only feature is `get_codes_by_yyyy_mm`, which returns a list of OMIM codes and their prefixes from 
+https://omim.org/statistics/update.
+
+Note that this utility no longer has an identified use case. This used to be our way of determining which MIMs might 
+have out of date PMID references or Orphanet/UMLS mappings, but we've since implemented a way to get these updates 
+through the OMIM entry API. 
 
 #### Usage: Command Line Interface
 ##### Syntax

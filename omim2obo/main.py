@@ -417,41 +417,24 @@ def omim2obo(use_cache: bool = False):
             log_review_cases(p_mim, p_lab, p_map_key, gene_mim, gene_phenotypes, omim_types)
             add_gene_disease_associations(graph, gene_mim, p_mim, evidence)
 
-    # PUBMED, UMLS
-    # How do we get these w/out relying on this ttl file? Possible? Where is it from? - joeflack4 2021/11/11
-    pmid_map, umls_map, orphanet_map = get_maps_from_turtle()
-
-    # Get the recent updated
-    # TODO: update w/ new structure
-    #  - note mappings and pubmed ids in | delim list
-    #  - deal w/ null vals
+    # PubMed refs, UMLS mappings, Orphanet mappings
     pubmed_links_df, mappings_df = get_pubmed_refs_and_mappings()
+    for df, field, pred, obj_ns in [
+        (pubmed_links_df, 'pmid_refs', IAO['0000142'], PMID),
+        (mappings_df, 'umls_ids', SKOS.exactMatch, UMLS),
+        (mappings_df, 'orphanet_ids', SKOS.exactMatch, ORPHANET),
+    ]:
+        for _, row in df.iterrows():
+            ids = str(row[field]).split('|') if row[field] else []
+            for _id in ids:
+                graph.add((OMIM[str(row['mim'])], pred, obj_ns[_id]))  # IAO:0000142: 'mentions'
 
-    # TODO: refactor old
-    #  - delete this imported method from that file at end
-    updated_entries = fetch_and_cache_entries_by_dates()
-    for entry in updated_entries:
-        entry = entry['entry']
-        mim_number = str(entry['mimNumber'])
-        pmid_map[mim_number] = get_pubs(entry)
-        external_maps = get_mapped_ids(entry)
-        umls_map[mim_number] = external_maps[UMLS]
-        orphanet_map[mim_number] = external_maps[ORPHANET]
-
-    for mim_number, pm_ids in pmid_map.items():
-        for pm_id in pm_ids:
-            # What's IAO['0000142'] - joeflack4 2021/11/11
-            graph.add((OMIM[mim_number], IAO['0000142'], PMID[pm_id]))
-    for mim_number, umlsids in umls_map.items():
-        for umls_id in umlsids:
-            graph.add((OMIM[mim_number], SKOS.exactMatch, UMLS[umls_id]))
-    for mim_number, orphanet_ids in orphanet_map.items():
-        for orphanet_id in orphanet_ids:
-            graph.add((OMIM[mim_number], SKOS.exactMatch, ORPHANET[orphanet_id]))
-
-    # todo: ensure comment field exists even when no row uses
+    # Save
+    # - Review file
+    # todo: ensure comment field exists even when no row uses it
     review_df = pd.DataFrame(REVIEW_CASES).sort_values(by=['classCode', 'value'])
     review_df.to_csv(REVIEW_CASES_PATH, index=False, sep='\t')
+    # - Ontology
     with open(OUTPATH, 'w') as f:
         f.write(graph.serialize(format='turtle'))
 

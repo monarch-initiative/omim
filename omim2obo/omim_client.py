@@ -61,14 +61,15 @@ class OmimClient:
     todo: For the raise RuntimeError situations in the fetch_since_date and fetch_ids methods, ideally would also be
      good to cache what we received to this point as well for these unanticipated exceptions, as with the 'rate-limit'
      case, then throw error in calling func.
-     todo: are the sleep(2)s necessary? or could we reduce?
+    todo: are the sleep(2)s necessary? or could we reduce?
     """
     api_key: str
     start: int = 0
     total: int = -1
 
-    def fetch(self, ids: List[str] = None, since_date: datetime = None, seed_run=False) -> List[Dict]:
+    def fetch(self, ids: List[str] = None, since_date: datetime = None, seed_run=False, verbose=True) -> List[Dict]:
         """Fetch MIM entry data from the OMIM API. Can query by explicit IDs, or since since_date."""
+        results: List[Dict] = []
         if ids and since_date:
             raise ValueError('Cannot specify both ids and since_date')
         elif not (ids or since_date):
@@ -76,9 +77,18 @@ class OmimClient:
         elif since_date and seed_run:
             raise ValueError('Cannot specify since_date and seed_run')
         elif ids:
-            return self._fetch_ids(ids, seed_run)
+            if verbose:
+                print(f'- Fetching {len(ids)} MIMs from OMIM entry API')
+            results = self._fetch_ids(ids, seed_run)
         elif since_date:
-            return self._fetch_since_date(since_date)
+            if verbose:
+                print(f'- Fetching MIMs since {str(since_date)} from OMIM entry API')
+            results = self._fetch_since_date(since_date)
+        if verbose:
+            msg = f'- Fetched data for {len(results)} MIMs. Saving results.' if len(results) > 0 else \
+                '- API showing that there are no newly updated MIMs since last fetch.'
+            print(msg)
+        return [x['entry'] for x in results]
 
     def _fetch_since_date(self, since_date: datetime) -> List[Dict]:
         """Fetch all MIMs since the given since_date

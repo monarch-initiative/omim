@@ -46,6 +46,9 @@ def get_codes_by_yyyy_mm(yyyy_mm: str, outpath: str = '') -> List[tuple]:
         yyyy_mm (type): Year and month in format of YYYY/MM
         outpath (str): Path to save output file. If not present, same directory
             of any input files passed will be used.
+
+    FYI: There was a function fetch_and_cache_entries_by_dates() to fetch all data between two dates which utilized this
+    function, but not sure if it ever worked. Last copy of it can be found in 93e4a48aa877207096b56456cc33ba54fc686d23.
     """
     # Get data
     year, month = yyyy_mm.split('/')[0], yyyy_mm.split('/')[1]

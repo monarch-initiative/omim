@@ -10,7 +10,6 @@ from typing import List, Dict, Set, Tuple, Union
 import requests
 import re
 import pandas as pd
-from dateutil.relativedelta import relativedelta
 
 from omim2obo.config import CACHE_INCOMPLETENESS_INDICATOR_PATH, CACHE_LAST_UPDATED_PATH, CONFIG, DATA_DIR, \
     DISEASE_GENE_PROTECTED_PATH, HGNC_DATA_PATH, \
@@ -20,7 +19,7 @@ from omim2obo.namespaces import ORPHANET, RO, UMLS
 from omim2obo.omim_client import OmimClient
 from omim2obo.omim_type import OmimType
 from omim2obo.parsers.omim_entry_parser import get_mapped_ids, get_pubs
-from omim2obo.utils.omim_code_scraper import OmimDataPipelineError, get_codes_by_yyyy_mm
+
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
 # MIM_NUMBER_DIGITS = 6  # if you see '6' in a regexp, this is what it refers to
@@ -496,37 +495,6 @@ def parse_morbid_map(lines) -> Dict[str, Dict]:
     return gene_phenotypes
 
 
-def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
-    """This was created by Dazhi originally to read the prefixes. Generates a maps."""
-    pmid_maps = defaultdict(list)
-    umls_maps = defaultdict(list)
-    orphanet_maps = defaultdict(list)
-    mim_number = None
-
-    # TODO: Where is this file from? bioportal? How did the PMIDs etc get in there?
-    with open(DATA_DIR / 'legacy_omim.ttl', 'r') as file:
-        while line := file.readline():
-            line = line.rstrip()
-            if line.startswith('OMIM:'):
-                mim_number = line.split()[0].split(':')[1]
-            elif line.startswith('PMID:') or line.startswith('UMLS:') or line.startswith('@prefix'):
-                continue
-            else:
-                pm_match = re.compile(r'.*PMID:(\d+).*').match(line)
-                if pm_match:
-                    pm_id = pm_match.group(1)
-                    pmid_maps[mim_number].append(pm_id)
-                umls_match = re.compile(r'.*UMLS:(C\d+).*').match(line)
-                if umls_match:
-                    umls_id = umls_match.group(1)
-                    umls_maps[mim_number].append(umls_id)
-                orphanet_match = re.compile(r'.*ORPHA:(C\d+).*').match(line)
-                if orphanet_match:
-                    orpha_id = orphanet_match.group(1)
-                    orphanet_maps[mim_number].append(orpha_id)
-    return pmid_maps, umls_maps, orphanet_maps
-
-
 def get_all_phenotype_mims() -> Set[str]:
     """Get all phenotype MIM numbers"""
     p_mims = []
@@ -546,51 +514,53 @@ def _read_cached_entry_df(path: str) -> pd.DataFrame:
     return df
 
 
-def fetch_and_cache_all_entries(
-    client: OmimClient = OmimClient(api_key=CONFIG['API_KEY']), phenotypes_only=False, overwrite=False
-):
-    """Fetch and cache all MIM entries from the OMIM API
-
-    For more information, see: omim_client.py
-    """
-    print('Cache for pubmed references and mappings is incomplete.')
-    # Get MIMs to fetch
-    # - Get all MIMs
+def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False, overwrite=False):
+    """Update cache for MIM entries (pubmed refs & mappings) if cache is not complete or there is possibly new data"""
+    # Load existing data
     mims_phenos: Set[str] = get_all_phenotype_mims()
-    if phenotypes_only:
-        mims_all = mims_phenos
-    else:
-        df = get_mim_file('mimTitles', return_df=True)
-        df['MIM Number'] = df['MIM Number'].astype(str)
-        mims_all = set(df['MIM Number'])
-    mims_all.discard('')
-    # - Get cached MIMs
-    mims_cached: Set[str] = set()
-    mappings_df_cached = pd.DataFrame()
-    pubmed_df_cached = pd.DataFrame()
-    if os.path.exists(MAPPINGS_PATH) and not overwrite:
-        mappings_df_cached = _read_cached_entry_df(MAPPINGS_PATH)
-        mims_cached = set(mappings_df_cached['mim'])
-    if os.path.exists(PUBMED_REFS_PATH) and not overwrite:
-        pubmed_df_cached = _read_cached_entry_df(PUBMED_REFS_PATH)
-        mims_cached |= set(pubmed_df_cached['mim'])
-    # - Determine MIMs to fetch
-    mims_to_fetch = mims_all - mims_cached
+    mappings_df_cached = _read_cached_entry_df(MAPPINGS_PATH) if os.path.exists(MAPPINGS_PATH) and not overwrite \
+        else pd.DataFrame()
+    pubmed_df_cached = _read_cached_entry_df(PUBMED_REFS_PATH) if os.path.exists(PUBMED_REFS_PATH) and not overwrite \
+        else pd.DataFrame()
 
     # Fetch
-    print(f'- Fetching {len(mims_to_fetch)} MIMs from OMIM entry API')
-
-    results: List = [x['entry'] for x in client.fetch(seed_run=True, ids=list(mims_to_fetch))]
-    print(f'- Fetched data for {len(results)} MIMs. Saving results.')
+    client = OmimClient(api_key=CONFIG['API_KEY'])
+    # - Fetch everything if no cache or cache incomplete
+    if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
+        print('Cache for pubmed references and mappings is incomplete.')
+        # Determine MIMs to fetch
+        # - Get all MIMs
+        if phenotypes_only_for_cache_init:
+            mims_all = mims_phenos
+        else:
+            df = get_mim_file('mimTitles', return_df=True)
+            df['MIM Number'] = df['MIM Number'].astype(str)
+            mims_all = set(df['MIM Number'])
+        mims_all.discard('')
+        # - Get cached MIMs
+        mims_cached: Set[str] = set(mappings_df_cached['mim']) if len(mappings_df_cached) > 0 else set()
+        mims_cached |= set(pubmed_df_cached['mim']) if len(mappings_df_cached) > 0 else set()
+        # Fetch
+        results: List[Dict] = client.fetch(seed_run=True, ids=list(mims_all - mims_cached))
+    # - Else fetch new data if available
+    else:
+        print('Checking for recently updated MIMs.')
+        with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
+            last_updated_str = f.readline().strip()
+        last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
+        results: List[Dict] = client.fetch(since_date=last_updated)
 
     # Save
+    if len(results) == 0:
+        return
+    # - Create dataframes from fetched data
     mappings_rows: List[Dict] = []
     pubmed_rows: List[Dict] = []
     for entry in results:
         mim = str(entry['mimNumber'])
         mapppings = get_mapped_ids(entry)
         common_data = {
-            'mim': mim,
+            'mim': str(mim),
             'is_phenotype': mim in mims_phenos,
             'date_fetched': datetime.now().strftime("%Y-%m-%d"),
         }
@@ -603,89 +573,14 @@ def fetch_and_cache_all_entries(
         }})
     mappings_df_new = pd.DataFrame(mappings_rows)
     pubmed_df_new = pd.DataFrame(pubmed_rows)
-    mappings_df = pd.concat([mappings_df_cached, mappings_df_new], ignore_index=True).sort_values(['mim'])
-    pubmed_df = pd.concat([pubmed_df_cached, pubmed_df_new], ignore_index=True).sort_values(['mim'])
+    # - remove old data from cache if new data has been fetched
+    mappings_df_cached_del_old = mappings_df_cached[~mappings_df_cached['mim'].isin(mappings_df_new['mim'])]
+    pubmed_df_cached_del_old = pubmed_df_cached[~pubmed_df_cached['mim'].isin(pubmed_df_new['mim'])]
+    # - concat & save
+    mappings_df = pd.concat([mappings_df_cached_del_old, mappings_df_new], ignore_index=True).sort_values(['mim'])
+    pubmed_df = pd.concat([pubmed_df_cached_del_old, pubmed_df_new], ignore_index=True).sort_values(['mim'])
     mappings_df.to_csv(MAPPINGS_PATH, sep='\t', index=False)
     pubmed_df.to_csv(PUBMED_REFS_PATH, sep='\t', index=False)
-
-
-# TODO
-def update_entries_if_needed():
-    """Update cache for MIM entries (pubmed refs & mappings) if cache is not complete or there is possibly new data
-
-    Todo: @matentzn: Will update so that when this runs during releases, it will open up a PR for the updated files.
-     - Note that this runs on main, but we would want these files on main and develop (if we continue to keep develop)
-    """
-    client = OmimClient(api_key=CONFIG['API_KEY'])
-    # Fetch everything if no cache or cache incomplete
-    if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
-        fetch_and_cache_all_entries(client)
-
-    # Else fetch new data if available
-    with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
-        last_updated_str = f.readline().strip()
-        last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
-    results: List[Dict] = client.fetch(since_date=last_updated)
-    # TODO: check that results are as expected. and are able to
-    # TODO: DRY conversion of results -> df w/ above func. to get mappings and pmid refs
-    # TODO: check for dupes
-
-
-
-    # todo: If using old monthly fetching implementation -------------------------
-    # todo ensure this doesn't fetch for a month I've already fetched? But what if update was released later that mon?
-    #  - maybe my cache since_date should be the since_date of start/end of month fetched, not today's since_date. But does this conflict
-    #    with the since_date of the initial cache?
-    # - Will always check if new data is available, even if cache was updated recently
-    # todo temp: test if func works properly. set aribtrary dates, and print to make sure every month called
-    #  - re-enable next line when testing done
-    # next_month_date = last_updated + relativedelta(months=1)
-    # fetch_and_cache_entries_by_dates(next_month_date.year, next_month_date.month)
-    # combos = [(2025, 3), (2025, 2), (2024, 12), (2024, 11), (2023, 1)]
-    # for combo in combos:
-    #     print('starting: ', combo)
-    #     fetch_and_cache_entries_by_dates(combo[0], combo[1])
-    #     print()
-    print()
-
-
-# TODO: refactor
-# TODO: what if tries and page for mon doesn't exist? what if gap between months?
-# TODO: !! deprecate this func and fetch weekly instead
-#  ! Currently, it: fetches this month again. I think I should change make the following change:
-#  it to 'last fetched month'. that way i don't do again. but what if i set up in march and the
-#  updates come out later in march? i think
-# @deprecated & unfinished
-def fetch_and_cache_entries_by_dates(start_year=2020, start_month=1, end_year=None, end_month=None):
-    """Fetch and cache data for any MIMs updated within since_date range."""
-    end_year = end_year if end_year else datetime.now().year
-    end_month = end_month if end_month else datetime.now().month
-    current_year, current_month = start_year, start_month
-
-    # noinspection PyUnusedLocal temp_while_unfinished
-    updated_mims = set()
-    errs = []
-    while (current_year < end_year) or (current_year == end_year and current_month <= end_month):
-        print(f"{current_year}-{current_month:02d}")  # TODO temp: test to see if algo works
-        try:
-            updated_mims |= set(get_codes_by_yyyy_mm(f'{current_year}/{current_month:02d}'))  # 02d: 0-padded
-        except OmimDataPipelineError:
-            errs.append(f"{current_year}-{current_month:02d}")
-        current_month += 1
-        if current_month > 12:
-            current_month = 1
-            current_year += 1
-    if errs:
-        LOG.warning(f"Failed to fetch data for the following months: {errs}.\nCheck website to see if perhaps no page "
-            f"exists because no updates were made in these months.")
-
-    # TODO: break apart fetch_and_cache_all_entries() and re-use some of that here: (i) fetch, (ii) save0
-    # TODO update both files: remove old row and add a new one
-    updated_entries = []
-    # TODO temp: re enable when func complete
-    # with open(CACHE_LAST_UPDATED_PATH, 'w') as file:
-    #     file.write(datetime.now().strftime("%Y-%m-%d"))  # YYYY-MM-DD
-    return updated_entries
 
 
 def get_pubmed_refs_and_mappings(
@@ -697,9 +592,11 @@ def get_pubmed_refs_and_mappings(
     2025/03. At this time, only phenotype MIM information was saved. However, OMIM releases information about what MIMs
     were updated monthly, and this is used to update the cache. That information does not discriminate between phenotype
     and non-phenotype, so the cache will include any non-MIMs that were updated after 2025/03.
+
+    todo: Would be more optimal to load these using dtypes than str cast later
     """
-    update_entries_if_needed()
-    return pd.read_csv(pubmed_path, sep='\t'), pd.read_csv(mappings_path, sep='\t')
+    update_cache__pubmed_refs_and_mappings()
+    return pd.read_csv(pubmed_path, sep='\t').fillna(''), pd.read_csv(mappings_path, sep='\t').fillna('')
 
 
 # todo: Both HGNC funcs:
