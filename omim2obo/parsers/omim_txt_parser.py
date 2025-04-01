@@ -539,7 +539,7 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
         mims_all.discard('')
         # - Get cached MIMs
         mims_cached: Set[str] = set(mappings_df_cached['mim']) if len(mappings_df_cached) > 0 else set()
-        mims_cached |= set(pubmed_df_cached['mim']) if len(mappings_df_cached) > 0 else set()
+        mims_cached |= set(pubmed_df_cached['mim']) if len(pubmed_df_cached) > 0 else set()
         # Fetch
         results: List[Dict] = client.fetch(seed_run=True, ids=list(mims_all - mims_cached))
     # - Else fetch new data if available
