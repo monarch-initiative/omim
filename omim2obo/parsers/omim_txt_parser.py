@@ -558,15 +558,15 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
     pubmed_rows: List[Dict] = []
     for entry in results:
         mim = str(entry['mimNumber'])
-        mapppings = get_mapped_ids(entry)
+        mappings = get_mapped_ids(entry)
         common_data = {
             'mim': str(mim),
             'is_phenotype': mim in mims_phenos,
             'date_fetched': datetime.now().strftime("%Y-%m-%d"),
         }
         mappings_rows.append({**common_data, **{
-            'umls_ids': '|'.join(mapppings[UMLS]),
-            'orphanet_ids': '|'.join(mapppings[ORPHANET]),
+            'umls_ids': '|'.join(mappings[UMLS]),
+            'orphanet_ids': '|'.join(mappings[ORPHANET]),
         }})
         pubmed_rows.append({**common_data, **{
             'pmid_refs': '|'.join(get_pubs(entry)),
