@@ -403,7 +403,7 @@ def get_mapped_ids(entry) -> Dict[Namespace, List[str]]:
     external_links = entry.get('externalLinks', {})
     result = defaultdict(list)
     if 'orphanetDiseases' in external_links:
-        for item in external_links['orphanetDiseases'].strip().split(';;;'):  # Separates multiple Orphanet entries
+        for item in external_links['orphanetDiseases'].strip().split(';;;'):  # Separates multiple Orphanet entries, e.g. '634475;;31692;;Mosaic NF2-related schwannomatosis;;;637;;183;;Full NF2-related schwannomatosis'
             result[ORPHANET].append(item.split(';;')[0].strip())  # Example: '1775;;477;;Dyskeratosis congenita'
     if 'umlsIDs' in external_links:
         result[UMLS] = external_links['umlsIDs'].split(',')
