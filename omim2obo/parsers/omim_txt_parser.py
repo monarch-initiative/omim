@@ -561,7 +561,7 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
         mappings = get_mapped_ids(entry)
         common_data = {
             'mim': str(mim),
-            'is_phenotype': mim in mims_phenos,
+            'is_phenotype': str(mim) in mims_phenos,
             'date_fetched': datetime.now().strftime("%Y-%m-%d"),
         }
         mappings_rows.append({**common_data, **{
