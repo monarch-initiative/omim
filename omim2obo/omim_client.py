@@ -5,13 +5,14 @@ OMIM docs: https://omim.org/help/api
 import os
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 import requests
 import logging
 import re
 import time
 
-from omim2obo.config import CACHE_INCOMPLETENESS_INDICATOR_PATH, CACHE_LAST_UPDATED_PATH
+from omim2obo.config import CACHE_INCOMPLETENESS_INDICATOR_PATH, CACHE_LAST_UPDATED_PATH, MAPPINGS_PATH, \
+    PUBMED_REFS_PATH
 
 # BATCH_SIZE: Don't change!
 #  https://omim.org/help/api: "Entries and clinical synopses are limited to 20 per request if any 'includes' are
@@ -24,7 +25,7 @@ OMIM_ENTRY_SEARCH_API_URL = OMIM_ENTRY_API_URL + '/search'
 
 LOG = logging.getLogger('OmimClient')
 # todo: alternatively, could print a short message and then prompt the user to read a tagged message in dev docs
-RATE_ERR = ('Rate limit error: MIMs fetched exceeded allowable API limit(normally 5,000).\n\n'
+RATE_ERR_SEED_RUN = ('Rate limit error during seed run: MIMs fetched exceeded allowable API limit (normally 5,000).\n\n'
     'The following fetching and caching strategy is set up thusly: For now, as many MIMs as possible up to this limit '
     'will be fetched and data for them will be cached. When this process runs subsequently, it will pick up where it '
     'left off, fetching only the MIMs that have not yet been fetched. Until it is detected that all MIMs have been '
@@ -37,6 +38,12 @@ RATE_ERR = ('Rate limit error: MIMs fetched exceeded allowable API limit(normall
     'than 1x/month.\n\n'
     'Advice: After this run completes, you should manually fetch regularly, no more than 1x/day, until data for all '
     'MIMs has been fetched.'.format(CACHE_INCOMPLETENESS_INDICATOR_PATH, CACHE_LAST_UPDATED_PATH))
+RATE_ERR = (
+    'A rate limit error occurred. Unfortunately, there is currently no logic to handle this, unless the cache '
+    'is considered incomplete and in a "seed run" state. To fix this, erase the cache by deleting {}, {}, and '
+    '{}. Then, run the bulid several times, no more than once a day, until the cache has been filled.'.format(
+        MAPPINGS_PATH, PUBMED_REFS_PATH, CACHE_LAST_UPDATED_PATH))
+ 
 
 def _log_incomplete_seed_run():
     """Write to disk an indication that the seed run was incomplete.
@@ -64,12 +71,16 @@ class OmimClient:
     todo: are the sleep(2)s necessary? or could we reduce?
     """
     api_key: str
-    start: int = 0
-    total: int = -1
 
-    def fetch(self, ids: List[str] = None, since_date: datetime = None, seed_run=False, verbose=True) -> List[Dict]:
+    def fetch(
+        self, ids: List[Union[int, str]] = None, since_date: datetime = None, limit_include=True, seed_run=False,
+        update_cache_metadata=False, verbose=True,
+    ) -> List[Dict]:
         """Fetch MIM entry data from the OMIM API. Can query by explicit IDs, or since since_date."""
+        # Fetch
         results: List[Dict] = []
+        fetch_success = False
+        ids = [str(x) for x in ids] if ids and not isinstance(ids[0], str) else ids
         if ids and since_date:
             raise ValueError('Cannot specify both ids and since_date')
         elif not (ids or since_date):
@@ -79,18 +90,29 @@ class OmimClient:
         elif ids:
             if verbose:
                 print(f'- Fetching {len(ids)} MIMs from OMIM entry API')
-            results = self._fetch_ids(ids, seed_run)
+            results, fetch_success = self._fetch_ids(ids, seed_run, limit_include)
         elif since_date:
             if verbose:
                 print(f'- Fetching MIMs since {str(since_date)} from OMIM entry API')
-            results = self._fetch_since_date(since_date)
+            results, fetch_success = self._fetch_since_date(since_date)
         if verbose:
             msg = f'- Fetched data for {len(results)} MIMs. Saving results.' if len(results) > 0 else \
                 '- API showing that there are no newly updated MIMs since last fetch.'
             print(msg)
+
+        # Update cache metadata
+        # todo: ideally would have cache metadata updated outside of the client
+        # Incompleteness indicator: If fetch was successful and the indicator exists, remove it
+        if fetch_success and os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH) and update_cache_metadata:
+            os.remove(CACHE_INCOMPLETENESS_INDICATOR_PATH)
+        # Date: If it is a seed run, only update it the first time. Ensures no cached entries are outdated when complete
+        if not seed_run or (seed_run and not os.path.exists(CACHE_LAST_UPDATED_PATH)) and update_cache_metadata:
+            with open(CACHE_LAST_UPDATED_PATH, 'w') as file:
+                file.write(datetime.now().strftime("%Y-%m-%d"))  # YYYY-MM-DD
+
         return [x['entry'] for x in results]
 
-    def _fetch_since_date(self, since_date: datetime) -> List[Dict]:
+    def _fetch_since_date(self, since_date: datetime) -> Tuple[List[Dict], bool]:
         """Fetch all MIMs since the given since_date
 
         Relevant OMIM docs: https://omim.org/help/search
@@ -99,17 +121,17 @@ class OmimClient:
         to_date_str = datetime.strftime(datetime.now(), "%Y/%m/%d")
         static_query_params = f'?search=*:*&filter=date_updated:{since_date_str}-{to_date_str}' + \
             f'&sort=score+desc,+prefix_sort+desc&limit={BATCH_SIZE}&format=json'
-        i = 0
+        n_fetched = 0
         results: List[Dict] = []
         while True:
             # Set up
-            start_query_parm = '&start=' + str(i)
+            start_query_parm = '&start=' + str(n_fetched)
             url = OMIM_ENTRY_SEARCH_API_URL + static_query_params + start_query_parm
             response_dict, err = self._request(url, {'apiKey': self.api_key})
             # Query
             entries: List[Dict] = response_dict.get('searchResponse', {}).get('entryList', [])
             results += entries
-            i += BATCH_SIZE
+            n_fetched += BATCH_SIZE
             # Error handling
             if err == 'rate-limit':
                 LOG.warning(f'Records fetched: {len(results)}')
@@ -124,29 +146,35 @@ class OmimClient:
         ids: List[str] = [x['entry']['mimNumber'] for x in results]
         return self._fetch_ids(ids)
 
-    def _fetch_ids(self, ids: List[str] = None, seed_run=False) -> List[Dict]:
+    def _fetch_ids(
+        self, ids: List[Union[int, str]], seed_run=False, limit_include=True
+    ) -> Tuple[List[Dict], bool]:
         """Fetch all MIMs"""
-        count = 0
+        n_fetched = 0
         results: List[Dict] = []
         fetch_success = True
-        self.total = len(ids) if self.total < 0 else self.total
-        while count < self.start + self.total:
+        ids = [str(x) for x in ids] if ids and not isinstance(ids[0], str) else ids
+        while n_fetched < len(ids):
             # Set up
-            current = self.start + count
-            end = self.start + min(count + BATCH_SIZE, self.total)
-            ids_i = ids[current:end]
+            end = min(n_fetched + BATCH_SIZE, len(ids))
+            ids_i = ids[n_fetched:end]
             params = {'format': 'json', 'apiKey': self.api_key, 'mimNumber': ','.join(ids_i), 'include': 'all'}
+            if limit_include:
+                params['include'] = ['referenceList', 'externalLinks']
             # Query
             response_dict, err = self._request(OMIM_ENTRY_API_URL, params, seed_run)
             entries: List[Dict] = response_dict.get('entryList', [])
             results += entries
-            count += BATCH_SIZE
+            n_fetched += BATCH_SIZE
             # Error handling
             if seed_run and (err or not entries):
                 _log_incomplete_seed_run()
             if err == 'rate-limit':
-                LOG.warning(f'Records fetched: {count} of {self.total}')
-                LOG.warning(RATE_ERR)
+                LOG.warning(f'Records fetched: {n_fetched} of {len(ids)}')
+                if seed_run:
+                    LOG.warning(RATE_ERR_SEED_RUN)
+                else:
+                    LOG.warning(RATE_ERR)
                 fetch_success = False
                 break
             elif err:
@@ -157,16 +185,7 @@ class OmimClient:
                 raise RuntimeError(f'Query on ids {ids_i} returned no results.')
             time.sleep(2)
 
-        # Update cache data
-        # Incompleteness indicator: If fetch was successful and the indicator exists, remove it
-        if fetch_success and os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
-            os.remove(CACHE_INCOMPLETENESS_INDICATOR_PATH)
-        # Date: If it is a seed run, only update it the first time. Ensures no cached entries are outdated when complete
-        if not seed_run or (seed_run and not os.path.exists(CACHE_LAST_UPDATED_PATH)):
-            with open(CACHE_LAST_UPDATED_PATH, 'w') as file:
-                file.write(datetime.now().strftime("%Y-%m-%d"))  # YYYY-MM-DD
-
-        return results
+        return results, fetch_success
 
     @staticmethod
     def _request(url: str, params: Dict = {}, seed_run=False) -> Tuple[Dict, Optional[str]]:

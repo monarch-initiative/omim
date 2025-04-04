@@ -541,14 +541,14 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
         mims_cached: Set[str] = set(mappings_df_cached['mim']) if len(mappings_df_cached) > 0 else set()
         mims_cached |= set(pubmed_df_cached['mim']) if len(pubmed_df_cached) > 0 else set()
         # Fetch
-        results: List[Dict] = client.fetch(seed_run=True, ids=list(mims_all - mims_cached))
+        results: List[Dict] = client.fetch(ids=list(mims_all - mims_cached), update_cache_metadata=True, seed_run=True)
     # - Else fetch new data if available
     else:
         print('Checking for recently updated MIMs.')
         with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
             last_updated_str = f.readline().strip()
         last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
-        results: List[Dict] = client.fetch(since_date=last_updated)
+        results: List[Dict] = client.fetch(since_date=last_updated, update_cache_metadata=True)
 
     # Save
     if len(results) == 0:
