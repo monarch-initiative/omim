@@ -5,9 +5,14 @@
 all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv disease-gene-relationships-qc.tsv
 
 # build: Create new omim.ttl
+# - OMIM datasets in data/ dependencies are downloaded by the script at runtime
 omim.ttl:
+	 make data/hgnc/hgnc_complete_set.txt -B
 	 python3 -m omim2obo
 	 make cleanup
+
+data/hgnc/hgnc_complete_set.txt:
+	wget "https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt" -O $@
 
 omim.sssom.tsv: omim.json
 	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
