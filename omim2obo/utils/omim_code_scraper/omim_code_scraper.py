@@ -38,6 +38,7 @@ def validate_args(yyyy_mm):
         raise OmimDataPipelineError(str(err_msg_list))
 
 
+# @deprecated
 def get_codes_by_yyyy_mm(yyyy_mm: str, outpath: str = '') -> List[tuple]:
     """Omim data pipeline: Stats importer: Get codes by year/month
 
@@ -45,6 +46,9 @@ def get_codes_by_yyyy_mm(yyyy_mm: str, outpath: str = '') -> List[tuple]:
         yyyy_mm (type): Year and month in format of YYYY/MM
         outpath (str): Path to save output file. If not present, same directory
             of any input files passed will be used.
+
+    FYI: There was a function fetch_and_cache_entries_by_dates() to fetch all data between two dates which utilized this
+    function, but not sure if it ever worked. Last copy of it can be found in 93e4a48aa877207096b56456cc33ba54fc686d23.
     """
     # Get data
     year, month = yyyy_mm.split('/')[0], yyyy_mm.split('/')[1]
@@ -55,6 +59,8 @@ def get_codes_by_yyyy_mm(yyyy_mm: str, outpath: str = '') -> List[tuple]:
     headers = requests.utils.default_headers()
     headers.update({'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0', })
     page = requests.get(url, headers=headers)
+    if page.status_code >= 400:
+        raise OmimDataPipelineError(f'Failed to fetch data from {url}')
     soup = BeautifulSoup(page.text, 'html.parser')
     elements: ResultSet = soup.find_all('span', {'class': 'mim-font mim-hint'})
 
