@@ -14,6 +14,7 @@ analyses/**/*.ipynb_checkpoints
 analyses/**/*.tsv
 analyses/**/*.csv
 analyses/**/*.xls
+/*.diff
 
 # Inputs
 mim2gene.txt

@@ -1,9 +1,9 @@
 """Text parsing utilities"""
-import json
 import logging
 import os
 import sys
 from collections import defaultdict
+from datetime import datetime
 from pathlib import PosixPath
 from typing import List, Dict, Set, Tuple, Union
 
@@ -11,9 +11,14 @@ import requests
 import re
 import pandas as pd
 
-from omim2obo.config import CONFIG, DATA_DIR, DISEASE_GENE_PROTECTED_PATH, HGNC_DATA_PATH
-from omim2obo.namespaces import RO
+from omim2obo.config import CACHE_INCOMPLETENESS_INDICATOR_PATH, CACHE_LAST_UPDATED_PATH, CONFIG, DATA_DIR, \
+    DISEASE_GENE_PROTECTED_PATH, HGNC_DATA_PATH, \
+    MAPPINGS_PATH, \
+    PUBMED_REFS_PATH
+from omim2obo.namespaces import ORPHANET, RO, UMLS
+from omim2obo.omim_client import OmimClient
 from omim2obo.omim_type import OmimType
+from omim2obo.parsers.omim_entry_parser import get_mapped_ids, get_pubs
 
 
 LOG = logging.getLogger('omim2obo.parser.omim_titles_parser')
@@ -208,6 +213,7 @@ def get_mim_file(
     """Retrieve OMIM downloadable text file from the OMIM download server
 
     :param return_df: If False, returns List[str] of each line in the file, else a DataFrame.
+    :param include_protected: Only matters if file_name is in files_to_include_protected.
     """
     files_to_include_protected = ('morbidmap.txt', 'mim2gene.txt')
     file_name = file_name if file_name.endswith('.txt') else file_name + '.txt'
@@ -229,7 +235,6 @@ def get_mim_file(
                 with open(mim_file_path, 'w') as fout:
                     fout.write(text)
                 convert_txt_to_tsv(file_name)
-                LOG.info(f'{file_name} retrieved and updated')
             else:
                 raise RuntimeError('Unexpected response: ' + text)
         else:
@@ -490,54 +495,108 @@ def parse_morbid_map(lines) -> Dict[str, Dict]:
     return gene_phenotypes
 
 
-def get_maps_from_turtle() -> Tuple[Dict, Dict, Dict]:
-    """This was created by Dazhi originally to read the prefixes. Generates a maps."""
-    pmid_maps = defaultdict(list)
-    umls_maps = defaultdict(list)
-    orphanet_maps = defaultdict(list)
-    mim_number = None
-
-    # TODO: Where is this file from? bioportal? How did the PMIDs etc get in there?
-    with open(DATA_DIR / 'legacy_omim.ttl', 'r') as file:
-        while line := file.readline():
-            line = line.rstrip()
-            if line.startswith('OMIM:'):
-                mim_number = line.split()[0].split(':')[1]
-            elif line.startswith('PMID:') or line.startswith('UMLS:') or line.startswith('@prefix'):
-                continue
-            else:
-                pm_match = re.compile(r'.*PMID:(\d+).*').match(line)
-                if pm_match:
-                    pm_id = pm_match.group(1)
-                    pmid_maps[mim_number].append(pm_id)
-                umls_match = re.compile(r'.*UMLS:(C\d+).*').match(line)
-                if umls_match:
-                    umls_id = umls_match.group(1)
-                    umls_maps[mim_number].append(umls_id)
-                orphanet_match = re.compile(r'.*ORPHA:(C\d+).*').match(line)
-                if orphanet_match:
-                    orpha_id = orphanet_match.group(1)
-                    orphanet_maps[mim_number].append(orpha_id)
-    return pmid_maps, umls_maps, orphanet_maps
+def get_all_phenotype_mims() -> Set[str]:
+    """Get all phenotype MIM numbers"""
+    p_mims = []
+    gene_phenotypes: Dict[str, Dict] = parse_morbid_map(get_mim_file('morbidmap'))
+    for gene, d in gene_phenotypes.items():
+        for assoc in d['phenotype_associations']:
+            p_mims.append(assoc['phenotype_mim_number'])
+    p_mims = set(p_mims)
+    p_mims.discard('')
+    return p_mims
 
 
-# todo: Update this function to dynamically retrieve the updated records
-# noinspection PyUnusedLocal address_if_this_gets_reimplemented
-def get_updated_entries(start_year=2020, start_month=1, end_year=2021, end_month=8):
-    """Get updated entries from OMIM API."""
-    # updated_mims = set()
-    # updated_entries = []
-    # for year in range(start_year, end_year):
-    #     first_month = start_month if year == start_year else 1
-    #     for month in range(first_month, 13):
-    #         updated_mims |= set(get_codes_by_yyyy_mm(f'{year}/{month:02d}'))
-    # for month in range(1, end_month + 1):
-    #     updated_mims |= set(get_codes_by_yyyy_mm(f'{end_year}/{month:02d}'))
-    # client = OmimClient(api_key=config['API_KEY'], omim_ids=list(updated_mims))
-    # updated_entries.extend(client.fetch_all()['omim']['entryList'])
-    with open(DATA_DIR / 'updated_01_2020_to_08_2021.json', 'r') as json_file:
-        updated_entries = json.load(json_file)
-    return updated_entries
+def _read_cached_entry_df(path: str) -> pd.DataFrame:
+    """Read a dataframe containing MIM entries data cached from the OMIM API"""
+    df = pd.read_csv(path, sep='\t', dtype=str)
+    df['is_phenotype'] = df['is_phenotype'].astype(bool)
+    return df
+
+
+def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False, overwrite=False):
+    """Update cache for MIM entries (pubmed refs & mappings) if cache is not complete or there is possibly new data"""
+    # Load existing data
+    mims_phenos: Set[str] = get_all_phenotype_mims()
+    mappings_df_cached = _read_cached_entry_df(MAPPINGS_PATH) if os.path.exists(MAPPINGS_PATH) and not overwrite \
+        else pd.DataFrame()
+    pubmed_df_cached = _read_cached_entry_df(PUBMED_REFS_PATH) if os.path.exists(PUBMED_REFS_PATH) and not overwrite \
+        else pd.DataFrame()
+
+    # Fetch
+    client = OmimClient(api_key=CONFIG['API_KEY'])
+    # - Fetch everything if no cache or cache incomplete
+    if not os.path.exists(CACHE_LAST_UPDATED_PATH) or os.path.exists(CACHE_INCOMPLETENESS_INDICATOR_PATH):
+        print('Cache for pubmed references and mappings is incomplete.')
+        # Determine MIMs to fetch
+        # - Get all MIMs
+        if phenotypes_only_for_cache_init:
+            mims_all = mims_phenos
+        else:
+            df = get_mim_file('mimTitles', return_df=True)
+            df['MIM Number'] = df['MIM Number'].astype(str)
+            mims_all = set(df['MIM Number'])
+        mims_all.discard('')
+        # - Get cached MIMs
+        mims_cached: Set[str] = set(mappings_df_cached['mim']) if len(mappings_df_cached) > 0 else set()
+        mims_cached |= set(pubmed_df_cached['mim']) if len(pubmed_df_cached) > 0 else set()
+        # Fetch
+        results: List[Dict] = client.fetch(ids=list(mims_all - mims_cached), update_cache_metadata=True, seed_run=True)
+    # - Else fetch new data if available
+    else:
+        print('Checking for recently updated MIMs.')
+        with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
+            last_updated_str = f.readline().strip()
+        last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
+        results: List[Dict] = client.fetch(since_date=last_updated, update_cache_metadata=True)
+
+    # Save
+    if len(results) == 0:
+        return
+    # - Create dataframes from fetched data
+    mappings_rows: List[Dict] = []
+    pubmed_rows: List[Dict] = []
+    for entry in results:
+        mim = str(entry['mimNumber'])
+        mappings = get_mapped_ids(entry)
+        common_data = {
+            'mim': str(mim),
+            'is_phenotype': str(mim) in mims_phenos,
+            'date_fetched': datetime.now().strftime("%Y-%m-%d"),
+        }
+        mappings_rows.append({**common_data, **{
+            'umls_ids': '|'.join(mappings[UMLS]),
+            'orphanet_ids': '|'.join(mappings[ORPHANET]),
+        }})
+        pubmed_rows.append({**common_data, **{
+            'pmid_refs': '|'.join(get_pubs(entry)),
+        }})
+    mappings_df_new = pd.DataFrame(mappings_rows)
+    pubmed_df_new = pd.DataFrame(pubmed_rows)
+    # - remove old data from cache if new data has been fetched
+    mappings_df_cached_del_old = mappings_df_cached[~mappings_df_cached['mim'].isin(mappings_df_new['mim'])]
+    pubmed_df_cached_del_old = pubmed_df_cached[~pubmed_df_cached['mim'].isin(pubmed_df_new['mim'])]
+    # - concat & save
+    mappings_df = pd.concat([mappings_df_cached_del_old, mappings_df_new], ignore_index=True).sort_values(['mim'])
+    pubmed_df = pd.concat([pubmed_df_cached_del_old, pubmed_df_new], ignore_index=True).sort_values(['mim'])
+    mappings_df.to_csv(MAPPINGS_PATH, sep='\t', index=False)
+    pubmed_df.to_csv(PUBMED_REFS_PATH, sep='\t', index=False)
+
+
+def get_pubmed_refs_and_mappings(
+    pubmed_path=PUBMED_REFS_PATH, mappings_path=MAPPINGS_PATH
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Get pubmed references &* mappings for MIMs*
+
+    * Mondo only needs phenotypes, so not all MIMs are represented in cached data. Cached data was first updated in
+    2025/03. At this time, only phenotype MIM information was saved. However, OMIM releases information about what MIMs
+    were updated monthly, and this is used to update the cache. That information does not discriminate between phenotype
+    and non-phenotype, so the cache will include any non-MIMs that were updated after 2025/03.
+
+    todo: Would be more optimal to load these using dtypes than str cast later
+    """
+    update_cache__pubmed_refs_and_mappings()
+    return pd.read_csv(pubmed_path, sep='\t').fillna(''), pd.read_csv(mappings_path, sep='\t').fillna('')
 
 
 # todo: Both HGNC funcs:
