@@ -22,18 +22,20 @@ def remove_angle_brackets(uris: Union[str, List[str]]) -> Union[str, List[str]]:
     return uris2[0] if str_input else uris2
 
 
-def get_d2g_digenic_protections(path=DISEASE_GENE_PROTECTED_PATH) -> Dict[Tuple[str, str], Optional[URIRef]]:
+def get_d2g_digenic_protections(
+    path=DISEASE_GENE_PROTECTED_PATH
+) -> Dict[Tuple[str, str], Tuple[str, Optional[URIRef]]]:
     """Get information for manually curated disease-gene association protections.
 
     Protections are associatiosn we want to add even if they (no longer) appear in the OMIM source data.
 
-    :return: Dictionary with phenotype and gene MIMs as keys and ORCID of curator as values.
+    :return: Dictionary with (phenotype MIM, gene MIM) keys and (HGNC id, curator ORCID) values.
     """
     df = pd.read_csv(path, sep='\t').fillna('')
-    for col in ['phenotype_mim', 'gene_mim']:
+    for col in ['phenotype_mim', 'gene_mim', 'hgnc_id']:
         df[col] = df[col].apply(lambda x: x.split(':')[1])
     return {
-        (x['phenotype_mim'], x['gene_mim']): ORCID[x['orcid']] if x['orcid'] else None
+        (x['phenotype_mim'], x['gene_mim']): (x['hgnc_id'], ORCID[x['orcid']] if x['orcid'] else None)
         for x in df.to_dict(orient='records')
     }
 

@@ -375,7 +375,8 @@ def omim2obo(use_cache: bool = False):
 
     # - Add relations (subclass restrictions)
     exclusions_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_exclusions_by_curator()
-    digenic_protection_gene_pheno_orcids: Dict[Tuple[str, str], Optional[URIRef]] = get_d2g_digenic_protections()
+    protections_gene_pheno__hgnc_orcid_map: Dict[Tuple[str, str], Tuple[str, Optional[URIRef]]] = \
+        get_d2g_digenic_protections()
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
             gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
@@ -383,11 +384,14 @@ def omim2obo(use_cache: bool = False):
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
             p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
             protected_digenic_key = (p_mim, gene_mim)
-            protected_digenic_assoc: bool = protected_digenic_key in digenic_protection_gene_pheno_orcids
 
+            protected_digenic_assoc: bool = protected_digenic_key in protections_gene_pheno__hgnc_orcid_map
             if protected_digenic_assoc:
-                orcid: Optional[URIRef] = digenic_protection_gene_pheno_orcids[protected_digenic_key]
-                add_gene_disease_associations(graph, gene_mim, p_mim, evidence, orcid)
+                hgnc_id_protected: str
+                orcid_protected: Optional[URIRef]
+                hgnc_id_protected, orcid_protected = protections_gene_pheno__hgnc_orcid_map[protected_digenic_key]
+                add_gene_disease_associations(graph, gene_mim, p_mim, evidence, orcid_protected)
+                graph.add((OMIM[gene_mim], SKOS.exactMatch, HGNC[hgnc_id_protected]))
                 continue
 
             # Skip: No phenotype or unknown defect
