@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     container: obolibrary/odkfull:v1.5.3
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Install
       run: |
         make install
@@ -43,3 +43,13 @@ jobs:
           omim.owl
           omim.sssom.tsv
           review.tsv
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        branch-suffix: short-commit-hash
+        labels: automated
+        body: "Data cache updates containing updated Pubmed references & Orphanet and UMLS mappings since the last time a build was run."
+        title: "Updates: Pubmed refs, Orphanet & UMLS mappings."
+        base: ${{ github.head_ref }}
+        branch: "cache-updates"
+        token: ${{ secrets.GITHUB_TOKEN }}
