@@ -593,8 +593,16 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
     mappings_df_new = pd.DataFrame(mappings_rows)
     pubmed_df_new = pd.DataFrame(pubmed_rows)
     # Update cache & save
-    mappings_df = _update_cache_df(mappings_df_cached, mappings_df_new)
-    pubmed_df = _update_cache_df(pubmed_df_cached, pubmed_df_new)
+    # - remove old data from cache if new data has been fetched
+    mappings_df_cached_del_old = mappings_df_cached[~mappings_df_cached['mim'].isin(mappings_df_new['mim'])]
+    pubmed_df_cached_del_old = pubmed_df_cached[~pubmed_df_cached['mim'].isin(pubmed_df_new['mim'])]
+    # - concat & save
+    mappings_df = pd.concat([mappings_df_cached_del_old, mappings_df_new], ignore_index=True).sort_values(['mim'])
+    pubmed_df = pd.concat([pubmed_df_cached_del_old, pubmed_df_new], ignore_index=True).sort_values(['mim'])
+    # TODO: see if we like this new method better. If so, use.
+    #  - remove _update_cache_df() func & these lines if not needed. else remove the code above
+    # mappings_df = _update_cache_df(mappings_df_cached, mappings_df_new)
+    # pubmed_df = _update_cache_df(pubmed_df_cached, pubmed_df_new)
     mappings_df.to_csv(MAPPINGS_PATH, sep='\t', index=False)
     pubmed_df.to_csv(PUBMED_REFS_PATH, sep='\t', index=False)
 
