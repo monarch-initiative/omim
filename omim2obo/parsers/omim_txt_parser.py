@@ -509,8 +509,27 @@ def get_all_phenotype_mims() -> Set[str]:
 
 def _read_cached_entry_df(path: str) -> pd.DataFrame:
     """Read a dataframe containing MIM entries data cached from the OMIM API"""
-    df = pd.read_csv(path, sep='\t', dtype=str)
-    df['is_phenotype'] = df['is_phenotype'].astype(bool)
+    return pd.read_csv(path, sep='\t', true_values=['True'], false_values=['False'], dtype={
+        'is_phenotype': bool, 'mim': str, 'umls_ids': str, 'orphanet_ids': str, 'date_fetched': str})
+
+
+def _update_cache_df(cached_df: pd.DataFrame, new_df: pd.DataFrame) -> pd.DataFrame:
+    """Updates cached dataframe with updated and new rows"""
+    # Create a dictionary for fast lookup of new data by mim
+    new_data_lookup: Dict[str, pd.Series] = {row['mim']: row for _, row in new_df.iterrows()}
+    # Update existing rows and track which mims were found
+    df = cached_df.copy()
+    updated_mims: Set[str] = set()
+    for idx, row in df.iterrows():
+        mim = row['mim']
+        if mim in new_data_lookup:
+            df.loc[idx] = new_data_lookup[mim]
+            updated_mims.add(mim)
+    # Add rows for new mims that don't exist in the cached data
+    new_mims: Set[str] = set(new_data_lookup.keys()) - updated_mims
+    if new_mims:
+        new_rows: List[pd.Series] = [new_data_lookup[mim] for mim in new_mims]
+        df = pd.concat([df, pd.DataFrame(new_rows)], ignore_index=True)
     return df
 
 
@@ -573,12 +592,9 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
         }})
     mappings_df_new = pd.DataFrame(mappings_rows)
     pubmed_df_new = pd.DataFrame(pubmed_rows)
-    # - remove old data from cache if new data has been fetched
-    mappings_df_cached_del_old = mappings_df_cached[~mappings_df_cached['mim'].isin(mappings_df_new['mim'])]
-    pubmed_df_cached_del_old = pubmed_df_cached[~pubmed_df_cached['mim'].isin(pubmed_df_new['mim'])]
-    # - concat & save
-    mappings_df = pd.concat([mappings_df_cached_del_old, mappings_df_new], ignore_index=True).sort_values(['mim'])
-    pubmed_df = pd.concat([pubmed_df_cached_del_old, pubmed_df_new], ignore_index=True).sort_values(['mim'])
+    # Update cache & save
+    mappings_df = _update_cache_df(mappings_df_cached, mappings_df_new)
+    pubmed_df = _update_cache_df(pubmed_df_cached, pubmed_df_new)
     mappings_df.to_csv(MAPPINGS_PATH, sep='\t', index=False)
     pubmed_df.to_csv(PUBMED_REFS_PATH, sep='\t', index=False)
 
