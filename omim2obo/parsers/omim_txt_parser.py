@@ -509,9 +509,8 @@ def get_all_phenotype_mims() -> Set[str]:
 
 def _read_cached_entry_df(path: str) -> pd.DataFrame:
     """Read a dataframe containing MIM entries data cached from the OMIM API"""
-    df = pd.read_csv(path, sep='\t', dtype=str)
-    df['is_phenotype'] = df['is_phenotype'].astype(bool)
-    return df
+    return pd.read_csv(path, sep='\t', true_values=['True'], false_values=['False'], dtype={
+        'is_phenotype': bool, 'mim': str, 'umls_ids': str, 'orphanet_ids': str, 'date_fetched': str})
 
 
 def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False, overwrite=False):
@@ -573,6 +572,7 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
         }})
     mappings_df_new = pd.DataFrame(mappings_rows)
     pubmed_df_new = pd.DataFrame(pubmed_rows)
+    # Update cache & save
     # - remove old data from cache if new data has been fetched
     mappings_df_cached_del_old = mappings_df_cached[~mappings_df_cached['mim'].isin(mappings_df_new['mim'])]
     pubmed_df_cached_del_old = pubmed_df_cached[~pubmed_df_cached['mim'].isin(pubmed_df_new['mim'])]
