@@ -3,7 +3,7 @@ import logging
 import os
 import sys
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import PosixPath
 from typing import List, Dict, Set, Tuple, Union
 
@@ -544,9 +544,11 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
     # - Else fetch new data if available
     else:
         print('Checking for recently updated MIMs.')
+        # Applies precaution: -1 day from last fetched: to account for MIMs updated later in the day
         with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
             last_updated_str = f.readline().strip()
         last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
+        last_updated = last_updated - timedelta(days=1)
         results: List[Dict] = client.fetch(since_date=last_updated, update_cache_metadata=True)
 
     # Save
