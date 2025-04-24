@@ -3,7 +3,7 @@ import logging
 import os
 import sys
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import PosixPath
 from typing import List, Dict, Set, Tuple, Union
 
@@ -509,9 +509,8 @@ def get_all_phenotype_mims() -> Set[str]:
 
 def _read_cached_entry_df(path: str) -> pd.DataFrame:
     """Read a dataframe containing MIM entries data cached from the OMIM API"""
-    df = pd.read_csv(path, sep='\t', dtype=str)
-    df['is_phenotype'] = df['is_phenotype'].astype(bool)
-    return df
+    return pd.read_csv(path, sep='\t', true_values=['True'], false_values=['False'], dtype={
+        'is_phenotype': bool, 'mim': str, 'umls_ids': str, 'orphanet_ids': str, 'date_fetched': str})
 
 
 def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False, overwrite=False):
@@ -545,9 +544,11 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
     # - Else fetch new data if available
     else:
         print('Checking for recently updated MIMs.')
+        # Applies precaution: -1 day from last fetched: to account for MIMs updated later in the day
         with open(CACHE_LAST_UPDATED_PATH, 'r') as f:
             last_updated_str = f.readline().strip()
         last_updated: datetime = datetime.strptime(last_updated_str, "%Y-%m-%d")
+        last_updated = last_updated - timedelta(days=1)
         results: List[Dict] = client.fetch(since_date=last_updated, update_cache_metadata=True)
 
     # Save
@@ -573,6 +574,7 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
         }})
     mappings_df_new = pd.DataFrame(mappings_rows)
     pubmed_df_new = pd.DataFrame(pubmed_rows)
+    # Update cache & save
     # - remove old data from cache if new data has been fetched
     mappings_df_cached_del_old = mappings_df_cached[~mappings_df_cached['mim'].isin(mappings_df_new['mim'])]
     pubmed_df_cached_del_old = pubmed_df_cached[~pubmed_df_cached['mim'].isin(pubmed_df_new['mim'])]
