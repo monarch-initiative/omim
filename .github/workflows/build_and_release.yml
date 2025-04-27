@@ -49,7 +49,7 @@ jobs:
         branch-suffix: short-commit-hash
         labels: automated
         body: "Data cache updates containing updated Pubmed references & Orphanet and UMLS mappings since the last time a build was run."
-        title: "Updates: Pubmed refs, Orphanet & UMLS mappings."
+        title: "Updates: PubMed refs, Orphanet & UMLS mappings"
         base: ${{ github.head_ref }}
         branch: "cache-updates"
         token: ${{ secrets.GITHUB_TOKEN }}
