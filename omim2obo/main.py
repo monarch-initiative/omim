@@ -142,6 +142,18 @@ def add_subclassof_restriction_with_evidence_and_source(
     add_axiom_annotations(graph, on, RDFS['subClassOf'], b, annotation_pred_vals)
 
 
+def add_included_synonym(graph: Graph, omim_uri: URIRef, synonym: str, is_symbol=False, is_formerly=False):
+    """Add title or symbol as synonym"""
+    annotations = [
+        (oboInOwl.hasSynonymType, URIRef(MONDONS['OMIM_INCLUDED'])),
+    ]
+    if is_symbol:
+        annotations.append((oboInOwl.hasSynonymType, OMO['0003000']))
+    if is_formerly:
+        annotations.append((oboInOwl.hasSynonymType, URIRef(MONDONS['OMIM_FORMERLY'])))
+    add_triple_and_optional_annotations(graph, omim_uri, oboInOwl.hasRelatedSynonym, synonym, annotations)
+
+
 # Classes
 class DeterministicBNode(BNode):
     """Overrides BNode to create a deterministic ID"""
@@ -214,11 +226,15 @@ def omim2obo(use_cache: bool = False):
     # Populate graph
     # - Non-OMIM triples
     graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
-    graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
+
     graph.add((URIRef(oboInOwl.source), RDF.type, OWL.AnnotationProperty))
-    graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(OMO['0003000']), RDF.type, OWL.AnnotationProperty))
     graph.add((BIOLINK['has_evidence'], RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(oboInOwl.SynonymTypeProperty), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
+    graph.add((URIRef(MONDONS.OMIM_INCLUDED), RDFS.subPropertyOf, oboInOwl.SynonymTypeProperty))
+    graph.add((URIRef(MONDONS.OMIM_FORMERLY), RDFS.subPropertyOf, oboInOwl.SynonymTypeProperty))
+
     graph.add((TAX_URI, RDF.type, OWL.Class))
     graph.add((TAX_URI, RDFS.label, Literal(TAX_LABEL)))
 
@@ -249,7 +265,6 @@ def omim2obo(use_cache: bool = False):
             get_alt_and_included_titles_and_symbols(alt_titles_str)
         included_titles, included_symbols, former_included_titles, former_included_symbols = \
             get_alt_and_included_titles_and_symbols(inc_titles_str)
-        included_is_included = included_titles or included_symbols  # redundant. can't be included symbol w/out title
 
         # Recapitalize acronyms in titles
         all_abbrevs: Set[str] = \
@@ -304,29 +319,17 @@ def omim2obo(use_cache: bool = False):
                 [(OWL.deprecated, Literal(True)), (oboInOwl.hasSynonymType, OMO['0003000'])])
 
         # Add 'included' entries
-        # - comment
-        if included_is_included:
-            included_comment = "This term has one or more labels that end with ', INCLUDED'."
-            graph.add((omim_uri, RDFS['comment'], Literal(included_comment)))
         # - titles
         for title in included_titles:
-            graph.add((omim_uri, URIRef(MONDONS.omim_included), Literal(title)))
+            add_included_synonym(graph, omim_uri, title)
         # - symbols
         for symbol in included_symbols:
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol, [
-                # Though these are abbreviations, MONDONS.omim_included is not a synonym type, so can't add axiom:
-                # (oboInOwl.hasSynonymType, OMO['0003000'])
-            ])
+            add_included_synonym(graph, omim_uri, symbol, is_symbol=True)
         # - deprecated, 'former'
         for title in former_included_titles:
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), title,
-                [(OWL.deprecated, Literal(True))])
+            add_included_synonym(graph, omim_uri, title, is_formerly=True)
         for symbol in former_included_symbols:
-            add_triple_and_optional_annotations(graph, omim_uri, URIRef(MONDONS.omim_included), symbol, [
-                (OWL.deprecated, Literal(True)),
-                # Though these are abbreviations, MONDONS.omim_included is not a synonym type, so can't add axiom:
-                # (oboInOwl.hasSynonymType, OMO['0003000'])
-            ])
+            add_included_synonym(graph, omim_uri, symbol, is_symbol=True, is_formerly=True)
 
     # Gene ID
     # - Note that sometimes a gene symbol will appear on the omim.org/entry page, under the Phenotype-Gene or
