@@ -596,8 +596,8 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
             'date_fetched': datetime.now().strftime("%Y-%m-%d"),
         }
         mappings_rows.append({**common_data, **{
-            'umls_ids': '|'.join(mappings[UMLS]),
-            'orphanet_ids': '|'.join(mappings[ORPHANET]),
+            'umls_ids': '|'.join(mappings.get(UMLS, [])),
+            'orphanet_ids': '|'.join(mappings.get(ORPHANET, [])),
         }})
         pubmed_rows.append({**common_data, **{
             'pmid_refs': '|'.join(get_pubs(entry)),
