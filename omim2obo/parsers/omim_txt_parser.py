@@ -4,12 +4,13 @@ import os
 import sys
 from collections import defaultdict
 from datetime import datetime, timedelta
-from pathlib import PosixPath
+from pathlib import Path, PosixPath
 from typing import List, Dict, Set, Tuple, Union
 
 import requests
 import re
 import pandas as pd
+from pandas import Index
 
 from omim2obo.config import CACHE_INCOMPLETENESS_INDICATOR_PATH, CACHE_LAST_UPDATED_PATH, CONFIG, DATA_DIR, \
     DISEASE_GENE_PROTECTED_PATH, HGNC_DATA_PATH, \
@@ -510,11 +511,40 @@ def get_all_phenotype_mims() -> Set[str]:
 def _read_cached_entry_df(path: str) -> pd.DataFrame:
     """Read a dataframe containing MIM entries data cached from the OMIM API"""
     return pd.read_csv(path, sep='\t', true_values=['True'], false_values=['False'], dtype={
-        'is_phenotype': bool, 'mim': str, 'umls_ids': str, 'orphanet_ids': str, 'date_fetched': str})
+        'is_phenotype': bool, 'mim': str, 'umls_ids': str, 'orphanet_ids': str, 'date_fetched': str}).fillna('')
+
+
+def upsert_cache_df(old_df: pd.DataFrame, new_df: pd.DataFrame, path: Union[str, Path]) -> None:
+    """Add or update rows, and save"""
+    # Cols to diff on (ignore PK + date_fetched)
+    compare_cols = [c for c in new_df.columns if c not in ('mim', 'date_fetched')]
+    # Make indexable versions
+    old_indexed = old_df.set_index('mim')
+    new_indexed = new_df.set_index('mim')
+    # Determine: PKs in both old & new
+    common: Index = new_indexed.index.intersection(old_indexed.index)
+    # Determine: Of those, find where any compare_col differs
+    # noinspection PyUnresolvedReferences false_positive_thinks_df_is_bool
+    diff: Index = common[(old_indexed.loc[common, compare_cols] != new_indexed.loc[common, compare_cols]).any(axis=1)]
+    # Determine PKs only in new
+    new_only: Index = new_indexed.index.difference(old_indexed.index)
+    # Determine PKs we need to upsert
+    to_upsert: Index = diff.union(new_only)
+    # Filter: old rows except those we’ll upsert
+    keep_old = old_df[~old_df['mim'].isin(to_upsert)]
+    # Filter: new/changed rows
+    upsert_rows = new_df[new_df['mim'].isin(to_upsert)]
+    # Combine unchanged w/ changed and new
+    final_df = pd.concat([keep_old, upsert_rows], ignore_index=True).sort_values('mim')
+    # Save
+    final_df.to_csv(path, sep='\t', index=False)
 
 
 def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False, overwrite=False):
-    """Update cache for MIM entries (pubmed refs & mappings) if cache is not complete or there is possibly new data"""
+    """Update cache for MIM entries (pubmed refs & mappings) if cache is not complete or there is possibly new data
+
+    todo: date_fetched would probably be better renamed to last_updated
+    """
     # Load existing data
     mims_phenos: Set[str] = get_all_phenotype_mims()
     mappings_df_cached = _read_cached_entry_df(MAPPINGS_PATH) if os.path.exists(MAPPINGS_PATH) and not overwrite \
@@ -551,7 +581,7 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
         last_updated = last_updated - timedelta(days=1)
         results: List[Dict] = client.fetch(since_date=last_updated, update_cache_metadata=True)
 
-    # Save
+    # Save updates
     if len(results) == 0:
         return
     # - Create dataframes from fetched data
@@ -574,15 +604,9 @@ def update_cache__pubmed_refs_and_mappings(phenotypes_only_for_cache_init=False,
         }})
     mappings_df_new = pd.DataFrame(mappings_rows)
     pubmed_df_new = pd.DataFrame(pubmed_rows)
-    # Update cache & save
-    # - remove old data from cache if new data has been fetched
-    mappings_df_cached_del_old = mappings_df_cached[~mappings_df_cached['mim'].isin(mappings_df_new['mim'])]
-    pubmed_df_cached_del_old = pubmed_df_cached[~pubmed_df_cached['mim'].isin(pubmed_df_new['mim'])]
-    # - concat & save
-    mappings_df = pd.concat([mappings_df_cached_del_old, mappings_df_new], ignore_index=True).sort_values(['mim'])
-    pubmed_df = pd.concat([pubmed_df_cached_del_old, pubmed_df_new], ignore_index=True).sort_values(['mim'])
-    mappings_df.to_csv(MAPPINGS_PATH, sep='\t', index=False)
-    pubmed_df.to_csv(PUBMED_REFS_PATH, sep='\t', index=False)
+    # - Add or update rows, and save
+    upsert_cache_df(mappings_df_cached, mappings_df_new, MAPPINGS_PATH)
+    upsert_cache_df(pubmed_df_cached, pubmed_df_new, PUBMED_REFS_PATH)
 
 
 def get_pubmed_refs_and_mappings(
