@@ -395,7 +395,7 @@ def get_pubs(entry) -> List[str]:
     for rlst in entry.get('referenceList', []):
         if 'pubmedID' in rlst['reference']:
             result.append(str(rlst['reference']['pubmedID']))
-    return result
+    return sorted(result)
 
 
 def get_mapped_ids(entry) -> Dict[Namespace, List[str]]:
@@ -407,7 +407,7 @@ def get_mapped_ids(entry) -> Dict[Namespace, List[str]]:
             result[ORPHANET].append(item.split(';;')[0].strip())  # e.g. '634475;;31692;;Mosaic NF2-related schwannomatosis'
     if 'umlsIDs' in external_links:
         result[UMLS] = external_links['umlsIDs'].split(',')
-    return result
+    return {k: sorted(v) for k, v in result.items()}
 
 
 def get_phenotypic_series(entry) -> List[str]:
