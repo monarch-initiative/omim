@@ -4,3 +4,5 @@ OMIM:278850	MONDO:0010218	46,XX sex reversal 2	https://orcid.org/0000-0002-4142-
 OMIM:159595	MONDO:0008040	transient myeloproliferative syndrome	https://orcid.org/0000-0002-4142-7153
 OMIM:182280	MONDO:0008433	small cell lung carcinoma	https://orcid.org/0000-0002-4142-7153
 OMIM:300818	MONDO:0010438	paroxysmal nocturnal hemoglobinuria 1	https://orcid.org/0000-0002-4142-7153	"disease caused by a somatic mutation, therefore a gene association stating this is due to a germline mutation should not be added"
+OMIM:268210	MONDO:0009993	embryonal rhabdomyosarcoma	https://orcid.org/0000-0002-4142-7153	"disease caused by a somatic mutation, therefore a gene association stating this is due to a germline mutation should not be added"
+OMIM:617931	MONDO:0033482	spinocerebellar ataxia 47	https://orcid.org/0000-0002-5002-8648	"OMIM:617931 was incorporated into 620174 and 620719 and therefore MONDO:0033482 is on the merge/obsoletion list to be merged with MONDO:0958231."
