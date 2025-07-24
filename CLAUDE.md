@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**IMPORTANT: Always read README.md first for detailed context, curator instructions, and the most up-to-date project information before making any changes or answering questions about this codebase.**
+
 ## Overview
 
 This repository transforms OMIM (Online Mendelian Inheritance in Man) data into semantic web formats for integration into the Mondo Disease Ontology. It downloads OMIM data files, parses them, creates disease-gene associations with appropriate relationship ontology predicates, and generates RDF/OWL ontology files.
