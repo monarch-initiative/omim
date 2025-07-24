@@ -213,7 +213,14 @@ def omim2obo(use_cache: bool = False):
 
     # Populate graph
     # - Non-OMIM triples
-    graph.add((URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl'), RDF.type, OWL.Ontology))
+    ontology_iri = URIRef('http://purl.obolibrary.org/obo/mondo/omim.owl')
+    # Add versionIRI with current date
+    from datetime import datetime
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    version_iri = URIRef(f'http://purl.obolibrary.org/obo/mondo/releases/{current_date}/omim.owl')
+    
+    graph.add((ontology_iri, RDF.type, OWL.Ontology))
+    graph.add((ontology_iri, OWL.versionIRI, version_iri))
     graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(oboInOwl.source), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
