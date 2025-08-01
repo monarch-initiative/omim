@@ -637,7 +637,7 @@ def p2g_is_definitive(label: str) -> bool:
     the phenotype and gene is provisional. More details about this relationship are provided in the comment field
     of the map and in the gene and phenotype OMIM entries.
     """
-    return not any(label.startswith(x) for x in ['[', '{', '?'])
+    return not any(label.startswith(x) for x in ['[', '?'])
 
 
 def get_phenotype_genes(gene_phenotypes: Dict[str, Dict]) -> Dict[str, List[Dict[str, str]]]:
