@@ -177,10 +177,18 @@ def write_gene_phenotype_tsv(gene_phenotype_pairs: List[Tuple[str, str]], output
         print(f"Used csv module to write TSV file")
 
 
-def generate_gene_phenotype_tsv() -> None:
-    """Main function to generate gene-phenotypes.tsv file."""
+def generate_gene_phenotype_tsv(input_path: str = None, output_path: str = None) -> None:
+    """Main function to generate gene-phenotypes.tsv file.
+    
+    Args:
+        input_path: Path to morbidmap file (optional, will auto-detect if not provided)
+        output_path: Output path for TSV file (optional, defaults to gene-phenotypes.tsv in root)
+    """
     # Get morbidmap file path
-    morbidmap_path = get_morbidmap_file_path()
+    if input_path:
+        morbidmap_path = input_path
+    else:
+        morbidmap_path = get_morbidmap_file_path()
     
     if not os.path.exists(morbidmap_path):
         raise FileNotFoundError(f"Morbidmap file not found at {morbidmap_path}")
@@ -189,14 +197,29 @@ def generate_gene_phenotype_tsv() -> None:
     gene_phenotype_pairs = extract_gene_phenotype_associations(morbidmap_path)
     
     # Define output path
-    output_path = ROOT_DIR / 'gene-phenotypes.tsv'
+    if output_path:
+        final_output_path = output_path
+    else:
+        final_output_path = ROOT_DIR / 'gene-phenotypes.tsv'
     
     # Write TSV file
-    write_gene_phenotype_tsv(gene_phenotype_pairs, str(output_path))
+    write_gene_phenotype_tsv(gene_phenotype_pairs, str(final_output_path))
     
     print(f"Generated {len(gene_phenotype_pairs)} gene-phenotype associations")
-    print(f"Output written to: {output_path}")
+    print(f"Output written to: {final_output_path}")
 
 
 if __name__ == '__main__':
-    generate_gene_phenotype_tsv()
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Generate gene-phenotype associations TSV file from OMIM morbidmap data')
+    parser.add_argument('--input', '-i', help='Path to morbidmap file (auto-detected if not provided)')
+    parser.add_argument('--output', '-o', help='Output path for TSV file (defaults to gene-phenotypes.tsv)')
+    
+    args = parser.parse_args()
+    
+    try:
+        generate_gene_phenotype_tsv(args.input, args.output)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
