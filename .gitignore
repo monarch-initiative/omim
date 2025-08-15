@@ -41,3 +41,6 @@ morbidmap-protected-added-with-header.tsv
 /*.tsv
 /*.ttl
 /*.txt
+
+# Exception: Allow gene-phenotypes.tsv to be committed
+!/gene-phenotypes.tsv

@@ -124,10 +124,29 @@ code_tuples = get_codes_by_yyyy_mm('2021/05')
 - `omim.sssom.tsv`: SSSOM mapping file
 - `mondo-omim-genes.robot.tsv`: ROBOT template for adding OMIM genes to Mondo
 - `review.tsv`: Special cases to consider for manual review
+- `gene-phenotypes.tsv`: Gene-phenotype associations (two-column format)
 
 Notice: These are generated based on the latest downloadable data files from [omim.org](https://omim.org), updated 
 daily, rather than what is seen on the _omim.org/entry/MIM#_ pages. Note that the data files and the entry pages aren't 
 always in sync, and that one or the other may be slightly more up-to or out-of date for a period of time.
+
+### `gene-phenotypes.tsv`
+A simple two-column TSV file containing gene-phenotype associations extracted from OMIM morbidmap data.
+
+**Format:**
+- Column 1: `Gene_MIM` - OMIM gene identifier
+- Column 2: `Phenotype_MIM` - OMIM phenotype identifier
+
+**Generation:**
+This file can be generated using the `gene_phenotype_tsv.py` module:
+```bash
+python -m omim2obo.gene_phenotype_tsv
+```
+
+**Use cases:**
+- Simple lookup of gene-phenotype relationships
+- Data analysis and statistics
+- Integration with other systems requiring basic gene-phenotype mappings
 
 ### `review.tsv`
 Currently, all of these review cases are part of the "D2G" (Disease-Gene) procesing, and reflect cases where we have 
