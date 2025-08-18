@@ -1,0 +1,45 @@
+name: Validate TSV files
+
+on:
+  pull_request:
+    paths:
+      - 'data/exclusions-disease-gene.tsv'
+      - 'data/protected-disease-gene.tsv'
+  workflow_dispatch:
+
+jobs:
+  validate-tsv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Validate TSV
+        shell: bash
+        run: |
+          set -euo pipefail
+          failed=0
+
+          for f in data/exclusions-disease-gene.tsv data/protected-disease-gene.tsv; do
+            [[ -f "$f" ]] || { echo "::notice file=$f::File not present in this PR, skipping"; continue; }
+
+            echo "Checking $f"
+
+            # Expected number of columns from header
+            header_cols=$(head -n1 "$f" | awk -F'\t' '{print NF}')
+            if [[ $header_cols -lt 2 ]]; then
+              echo "::error file=$f,line=1::Not TAB-delimited (found $header_cols field)"
+              failed=1
+              continue
+            fi
+
+            # Check each row for consistent column count
+            awk -v FS='\t' -v n="$header_cols" 'NR>1 && NF!=n {print NR, NF}' "$f" |
+            while read -r line cols; do
+              echo "::error file=$f,line=$line::Row has $cols columns (expected $header_cols)"
+              failed=1
+            done
+          done
+
+          exit $failed
