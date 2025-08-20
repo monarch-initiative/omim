@@ -25,6 +25,10 @@ The following fields are extracted from the OMIM Web service response:
 - hgncID - the HGNC identifier if present in the web service response
 - textSectionContent - the first Text section in the OMIM entry page
 
+NOTES: 
+- There is one row in the result file for each row seen in the Phenotype-Gene Relationship table in OMIM. 
+- For OMIM entries that _do not_ have the prefix `#` only minimal information is included in the file. 
+
 ### Example output file:
 ```
 mondo_id	mondo_label	xrefs	should have gene annotation	extracted_omim_curie	phenotype	omim_prefix	phenotypeMimNumber	omimURL	phenotypeMappingKey	approvedGeneSymbols	hgncID	textSectionContent
