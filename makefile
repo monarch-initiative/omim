@@ -7,7 +7,8 @@ all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv disease-gene-re
 # build: Create new omim.ttl
 # - OMIM datasets in data/ dependencies are downloaded by the script at runtime
 omim.ttl:
-	 make data/hgnc/hgnc_complete_set.txt -B
+	 make mondo_exactmatch_omim.sssom.tsv -B
+     make data/hgnc/hgnc_complete_set.txt -B
 	 python3 -m omim2obo
 	 make cleanup
 
