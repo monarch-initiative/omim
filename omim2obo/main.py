@@ -57,6 +57,13 @@ from typing import Optional
 import yaml
 from hashlib import md5
 
+import os
+import csv
+from pathlib import Path
+from collections import defaultdict
+from os import makedirs
+
+
 from rdflib import Graph, RDF, OWL, RDFS, Literal, BNode, URIRef, SKOS
 from rdflib.term import Identifier
 
@@ -77,8 +84,33 @@ LOG.addHandler(logging.StreamHandler(sys.stdout))
 
 
 # Funcs
+def load_omim_to_mondo_from_sssom(sssom_path: Path):
+    """
+    Build a map of OMIM to Mondo CURIEs from SSSOM file.
+    """
+    omim_to_mondo = defaultdict(set)
+    if not sssom_path or not sssom_path.exists():
+        LOG.warning(f"SSSOM file not found: {sssom_path} (will skip MONDO mapping)")
+        return omim_to_mondo
+
+    with sssom_path.open("r", newline="") as f:
+        noncomment_lines = (line for line in f if line.strip() and not line.lstrip().startswith("#"))
+        reader = csv.DictReader(noncomment_lines, delimiter="\t")
+
+        for row in reader:
+            sub = (row.get("subject_id") or "").strip()
+            obj = (row.get("object_id") or "").strip()
+            # Accept either orientation; normalize to OMIM -> MONDO
+            if sub.startswith("OMIM:") and obj.startswith("MONDO:"):
+                omim_to_mondo[sub.split(":", 1)[1]].add(obj)
+            elif obj.startswith("OMIM:") and sub.startswith("MONDO:"):
+                omim_to_mondo[obj.split(":", 1)[1]].add(sub)
+
+    return omim_to_mondo
+
+
 def get_curie_maps():
-    """Rectrieve CURIE to URL info"""
+    """Retrieve CURIE to URL info"""
     map_file = DATA_DIR / 'dipper/curie_map.yaml'
     with open(map_file, "r") as f:
         maps = yaml.safe_load(f)
@@ -196,6 +228,10 @@ def omim2obo(use_cache: bool = False):
     """Run program"""
     graph = OmimGraph.get_graph()
     download_files_tf: bool = not use_cache
+
+    mondo_omim_sssom_path = Path("mondo_exactmatch_omim.sssom.tsv")
+    omim_to_mondo = load_omim_to_mondo_from_sssom(mondo_omim_sssom_path)
+    susceptibility_rows = set()
 
     # Populate prefixes
     for prefix, uri in CURIE_MAP.items():
@@ -388,6 +424,13 @@ def omim2obo(use_cache: bool = False):
         for assoc in assocs:
             gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
                 assoc['mapping_key'], assoc['mapping_label']
+            
+            # Collect OMIM susceptibility entries (https://omim.org/help/faq#1_6)
+            if p_lab and p_lab.strip().startswith("{"):
+                # Map OMIM phenotype MIM -> MONDO IDs via SSSOM
+                for mondo_id in sorted(omim_to_mondo.get(p_mim, [])):
+                    susceptibility_rows.add((mondo_id, f"OMIM:{p_mim}"))
+
             evidence = f'Evidence: ({p_map_key}) {p_map_lab}'
             p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
             protected_digenic_key = (p_mim, gene_mim)
@@ -439,6 +482,16 @@ def omim2obo(use_cache: bool = False):
             ids = str(row[field]).split('|') if row[field] else []
             for _id in ids:
                 graph.add((OMIM[str(row['mim'])], pred, obj_ns[_id]))  # IAO:0000142: 'mentions'
+
+    # Save ROBOT template for susceptibility annotations
+    makedirs("robot_templates", exist_ok=True)
+    susceptibility_out = Path("mondo-omim-susceptibility-subset.robot.tsv")
+    with susceptibility_out.open("w", newline="") as f:
+        w = csv.writer(f, delimiter="\t")
+        w.writerow(["mondo_id", "subset", "omim_id"])
+        w.writerow(["ID", "AI oboInOwl:inSubset", ">A oboInOwl:source"])
+        for mondo_id, omim_curie in sorted(susceptibility_rows):
+            w.writerow([mondo_id, "http://purl.obolibrary.org/obo/mondo#omim_susceptibility", omim_curie])
 
     # Save
     # - Review file

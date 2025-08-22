@@ -40,6 +40,7 @@ jobs:
         files: |
           disease-gene-relationships-qc.tsv
           mondo-omim-genes.robot.tsv
+          mondo-omim-susceptibility-subset.robot.tsv
           omim.owl
           omim.sssom.tsv
           review.tsv
