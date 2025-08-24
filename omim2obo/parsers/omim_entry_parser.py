@@ -84,7 +84,7 @@ def transform_entry(entry) -> Graph:
 
     graph.add((omim_uri, RDF.type, OWL.Class))
 
-    abbrev = label.split(';')[1].strip() if ';' in label else None
+    abbrev = label.split('; ')[1].strip() if ';' in label else None
 
     if omim_type == OmimType.HERITABLE_PHENOTYPIC_MARKER.value:  # %
         graph.add((omim_uri, RDFS.label, Literal(cleanup_title(label))))
@@ -361,9 +361,9 @@ def parse_title_symbol_pairs(title_symbol_pairs_str: str) -> Tuple[List[str], Li
     """
     titles: List[str] = []
     symbols: List[str] = []
-    title_symbol_pairs: List[str] = title_symbol_pairs_str.split(';;')
+    title_symbol_pairs: List[str] = title_symbol_pairs_str.split(';; ')
     for pair_str in title_symbol_pairs:
-        pair: List[str] = [x.strip() for x in pair_str.split(';')]
+        pair: List[str] = [x.strip() for x in pair_str.split('; ')]
         titles.append(pair[0])
         symbols.extend(pair[1:])
     return titles, symbols
