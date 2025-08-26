@@ -57,6 +57,7 @@ def get_omim_data(mim_number: str):
             phenotypes.append({
                 "phenotype": pheno.get("phenotype", ""),
                 "phenotypeMimNumber": pheno.get("phenotypeMimNumber", ""),
+                "geneMimNumber": pheno.get("mimNumber", ""),
                 "omimURL": pheno_url,
                 "phenotypeMappingKey": pheno.get("phenotypeMappingKey", ""),
                 "approvedGeneSymbols": pheno.get("approvedGeneSymbols", "")
@@ -106,6 +107,7 @@ def main():
                     "phenotype": p.get("phenotype", ""),
                     "omim_prefix": omim_data["omimEntryPrefix"],
                     "phenotypeMimNumber": p.get("phenotypeMimNumber", ""),
+                    "geneMimNumber": p.get("geneMimNumber", ""),
                     "omimURL": p.get("omimURL", ""),
                     "phenotypeMappingKey": p.get("phenotypeMappingKey", ""),
                     "approvedGeneSymbols": p.get("approvedGeneSymbols", ""),
