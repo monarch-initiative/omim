@@ -263,7 +263,7 @@ In cases where there is >1 association, the following RO predicate is used inste
 A relationship between an entity (e.g. a genotype, genetic variation, chemical, or environmental exposure) and a 
 condition (a phenotype or disease), where the entity has some causal or contributing role that influences the condition.
 
-#### Necessary conditions for disease-defining associations
+#### Necessary conditions for disease-defining gene associations
 Of the above 3 Gene->Disease association predicates (those with mapping keys (2), (3), and (4)), the one which we 
 consider "disease defining" is (3) (RO:0004013). For these cases, as mentioned above, we also declare an association in 
 the Disease->Gene direction, RO:0004003. However, we only declare these associations if several other conditions are 
