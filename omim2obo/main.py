@@ -254,9 +254,11 @@ def omim2obo(use_cache: bool = False):
     from datetime import datetime
     current_date = datetime.now().strftime('%Y-%m-%d')
     version_iri = URIRef(f'http://purl.obolibrary.org/obo/mondo/releases/{current_date}/omim.owl')
+    version_info = URIRef(f'{current_date}')
     
     graph.add((ontology_iri, RDF.type, OWL.Ontology))
     graph.add((ontology_iri, OWL.versionIRI, version_iri))
+    graph.add((ontology_iri, OWL.versionInfo, Literal(version_info)))
     graph.add((URIRef(oboInOwl.hasSynonymType), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(oboInOwl.source), RDF.type, OWL.AnnotationProperty))
     graph.add((URIRef(MONDONS.omim_included), RDF.type, OWL.AnnotationProperty))
