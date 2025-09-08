@@ -68,7 +68,6 @@ OMIM:147430	MONDO:0958106	"congenital insensitivity to pain syndrome, Marsili ty
 OMIM:614470	MONDO:0013767	"autoimmune lymphoproliferative syndrome type 4"	manually reviewed	OMIM:164790	HGNC:7989	https://orcid.org/0000-0002-4142-7153	somatic, included, not in mondo
 OMIM:608232	MONDO:0011996	"chronic myelogenous leukemia, BCR-ABL1 positive"	manually reviewed	OMIM:151410	HGNC:1014	https://orcid.org/0000-0002-4142-7153	OK, but somatic, should be manually removed
 OMIM:232400	MONDO:0009291	"glycogen storage disease III"	manually reviewed	OMIM:610860	HGNC:321	https://orcid.org/0000-0002-4142-7153	included, note that the Mondo term might need to be split
-OMIM:232400	MONDO:0009291	"glycogen storage disease III"	manually reviewed	OMIM:610860	HGNC:321	https://orcid.org/0000-0002-4142-7153	included, note that the Mondo term might need to be split
 OMIM:602522	MONDO:0011242	"Bartter disease type 4A"	manually reviewed	OMIM:606412	HGNC:16512	https://orcid.org/0000-0002-4142-7153	included entry
 OMIM:610149	MONDO:0012419	"age related macular degeneration 7"	manually reviewed	OMIM:602194	HGNC:9476	https://orcid.org/0000-0002-4142-7153	included entry
 OMIM:192500	MONDO:0100316	"long QT syndrome 1"	manually reviewed	OMIM:607542	HGNC:6294	https://orcid.org/0000-0002-4142-7153	included entry
@@ -82,7 +81,6 @@ OMIM:610644	MONDO:0012530	"palmoplantar keratoderma-XX sex reversal-predispositi
 OMIM:612158	MONDO:0012808	"dilated cardiomyopathy 1AA"	manually reviewed	OMIM:102573	HGNC:164	https://orcid.org/0000-0002-4142-7153	included entry
 OMIM:612838	MONDO:0013015	"Brugada syndrome 5"	manually reviewed	OMIM:600235	HGNC:10586	https://orcid.org/0000-0002-4142-7153	included entry
 OMIM:612852	MONDO:0013021	"sterile multifocal osteomyelitis with periostitis and pustulosis"	manually reviewed	OMIM:147679	HGNC:6000	https://orcid.org/0000-0002-4142-7153	included entry
-OMIM:613490	MONDO:0013282	"alpha 1-antitrypsin deficiency"	manually reviewed	OMIM:107400	HGNC:8941	https://orcid.org/0000-0002-4142-7153	included entry
 OMIM:613490	MONDO:0013282	"alpha 1-antitrypsin deficiency"	manually reviewed	OMIM:107400	HGNC:8941	https://orcid.org/0000-0002-4142-7153	included entry
 OMIM:613679	MONDO:0013361	"congenital prothrombin deficiency"	manually reviewed	OMIM:176930	HGNC:3535	https://orcid.org/0000-0002-4142-7153	included entry
 OMIM:616553	MONDO:0014690	"dyskeratosis congenita, autosomal dominant 6"	manually reviewed	OMIM:609377	HGNC:25070	https://orcid.org/0000-0002-4142-7153	included entry
@@ -103,9 +101,7 @@ OMIM:614844	MONDO:0013916	"nephronophthisis 14"	manually reviewed	OMIM:604557	HG
 OMIM:616553	MONDO:0014690	"dyskeratosis congenita, autosomal dominant 6"	manually reviewed	OMIM:609377	HGNC:25070	https://orcid.org/0000-0002-4142-7153	
 OMIM:192500	MONDO:0100316	"long QT syndrome 1"	manually reviewed	OMIM:607542	HGNC:6294	https://orcid.org/0000-0002-4142-7153	
 OMIM:101000	MONDO:0007039	"NF2-related schwannomatosis"	manually reviewed	OMIM:607379	HGNC:7773	https://orcid.org/0000-0002-4142-7153	
-OMIM:101000	MONDO:0007039	"NF2-related schwannomatosis"	manually reviewed	OMIM:607379	HGNC:7773	https://orcid.org/0000-0002-4142-7153	
 OMIM:102530	MONDO:0007060	"spermatogenic failure 6"	manually reviewed	OMIM:609856	HGNC:29935	https://orcid.org/0000-0002-4142-7153	
-OMIM:102700	MONDO:0007064	"severe combined immunodeficiency, autosomal recessive, T cell-negative, B cell-negative, NK cell-negative, due to adenosine deaminase deficiency"	manually reviewed	OMIM:608958	HGNC:186	https://orcid.org/0000-0002-4142-7153	
 OMIM:102700	MONDO:0007064	"severe combined immunodeficiency, autosomal recessive, T cell-negative, B cell-negative, NK cell-negative, due to adenosine deaminase deficiency"	manually reviewed	OMIM:608958	HGNC:186	https://orcid.org/0000-0002-4142-7153	
 OMIM:102900	MONDO:0007067	"pyruvate kinase hyperactivity"	manually reviewed	OMIM:609712	HGNC:9020	https://orcid.org/0000-0002-4142-7153	
 OMIM:105400	MONDO:0007103	"amyotrophic lateral sclerosis type 1"	manually reviewed	OMIM:147450	HGNC:11179	https://orcid.org/0000-0002-4142-7153	
@@ -114,162 +110,109 @@ OMIM:107600	MONDO:0007145	"aplasia cutis congenita"	manually reviewed	OMIM:61144
 OMIM:108010	MONDO:0007154	"arteriovenous malformations of the brain"	manually reviewed	OMIM:147620	HGNC:6018	https://orcid.org/0000-0002-4142-7153	
 OMIM:108120	MONDO:0007157	"arthrogryposis, distal, type 1A"	manually reviewed	OMIM:190990	HGNC:12011	https://orcid.org/0000-0002-4142-7153	
 OMIM:113900	MONDO:0007240	"progressive familial heart block, type 1A"	manually reviewed	OMIM:600163	HGNC:10593	https://orcid.org/0000-0002-4142-7153	
-OMIM:113900	MONDO:0007240	"progressive familial heart block, type 1A"	manually reviewed	OMIM:600163	HGNC:10593	https://orcid.org/0000-0002-4142-7153	
-OMIM:114290	MONDO:0007251	"campomelic dysplasia"	manually reviewed	OMIM:608160	HGNC:11204	https://orcid.org/0000-0002-4142-7153	
-OMIM:114290	MONDO:0007251	"campomelic dysplasia"	manually reviewed	OMIM:608160	HGNC:11204	https://orcid.org/0000-0002-4142-7153	
 OMIM:114290	MONDO:0007251	"campomelic dysplasia"	manually reviewed	OMIM:608160	HGNC:11204	https://orcid.org/0000-0002-4142-7153	
 OMIM:115300	MONDO:0007272	"hereditary hypercarotenemia and vitamin A deficiency"	manually reviewed	OMIM:605748	HGNC:13815	https://orcid.org/0000-0002-4142-7153	
 OMIM:115900	MONDO:0007283	"cataract 42"	manually reviewed	OMIM:600836	HGNC:2395	https://orcid.org/0000-0002-4142-7153	
 OMIM:116400	MONDO:0007287	"cataract 41"	manually reviewed	OMIM:606201	HGNC:12762	https://orcid.org/0000-0002-4142-7153	
 OMIM:119600	MONDO:0007340	"cleidocranial dysplasia 1"	manually reviewed	OMIM:600211	HGNC:10472	https://orcid.org/0000-0002-4142-7153	
-OMIM:119600	MONDO:0007340	"cleidocranial dysplasia 1"	manually reviewed	OMIM:600211	HGNC:10472	https://orcid.org/0000-0002-4142-7153	
-OMIM:119600	MONDO:0007340	"cleidocranial dysplasia 1"	manually reviewed	OMIM:600211	HGNC:10472	https://orcid.org/0000-0002-4142-7153	
 OMIM:119900	MONDO:0007343	"isolated congenital digital clubbing"	manually reviewed	OMIM:601688	HGNC:5154	https://orcid.org/0000-0002-4142-7153	
 OMIM:120430	MONDO:0007354	"coloboma of optic nerve"	manually reviewed	OMIM:607108	HGNC:8620	https://orcid.org/0000-0002-4142-7153	
-OMIM:120430	MONDO:0007354	"coloboma of optic nerve"	manually reviewed	OMIM:607108	HGNC:8620	https://orcid.org/0000-0002-4142-7153	
-OMIM:121200	MONDO:0007365	"seizures, benign familial neonatal, 1"	manually reviewed	OMIM:602235	HGNC:6296	https://orcid.org/0000-0002-4142-7153	
 OMIM:121200	MONDO:0007365	"seizures, benign familial neonatal, 1"	manually reviewed	OMIM:602235	HGNC:6296	https://orcid.org/0000-0002-4142-7153	
 OMIM:132450	MONDO:0007562	"multiple epiphyseal dysplasia, Beighton type"	manually reviewed	OMIM:120140	HGNC:2200	https://orcid.org/0000-0002-4142-7153	
 OMIM:133020	MONDO:0007571	"primary erythermalgia"	manually reviewed	OMIM:603415	HGNC:10597	https://orcid.org/0000-0002-4142-7153	
-OMIM:133020	MONDO:0007571	"primary erythermalgia"	manually reviewed	OMIM:603415	HGNC:10597	https://orcid.org/0000-0002-4142-7153	
 OMIM:133100	MONDO:0007572	"primary familial polycythemia due to EPO receptor mutation"	manually reviewed	OMIM:133171	HGNC:3416	https://orcid.org/0000-0002-4142-7153	
-OMIM:137440	MONDO:0007656	"Gerstmann-Straussler-Scheinker syndrome"	manually reviewed	OMIM:176640	HGNC:9449	https://orcid.org/0000-0002-4142-7153	
 OMIM:137440	MONDO:0007656	"Gerstmann-Straussler-Scheinker syndrome"	manually reviewed	OMIM:176640	HGNC:9449	https://orcid.org/0000-0002-4142-7153	
 OMIM:139393	MONDO:0007691	"Guillain-Barre syndrome, familial"	manually reviewed	OMIM:601097	HGNC:9118	https://orcid.org/0000-0002-4142-7153	
 OMIM:142623	MONDO:0007723	"Hirschsprung disease, susceptibility to, 1"	manually reviewed	OMIM:164761	HGNC:9967	https://orcid.org/0000-0002-4142-7153	
 OMIM:142669	MONDO:0007726	"hip dysplasia, Beukes type"	manually reviewed	OMIM:611482	HGNC:25640	https://orcid.org/0000-0002-4142-7153	
-OMIM:143470	MONDO:0007744	"cholesterol-ester transfer protein deficiency"	manually reviewed	OMIM:118470	HGNC:1869	https://orcid.org/0000-0002-4142-7153	
 OMIM:143470	MONDO:0007744	"cholesterol-ester transfer protein deficiency"	manually reviewed	OMIM:118470	HGNC:1869	https://orcid.org/0000-0002-4142-7153	
 OMIM:143500	MONDO:0007745	"Gilbert syndrome"	manually reviewed	OMIM:191740	HGNC:12530	https://orcid.org/0000-0002-4142-7153	
 OMIM:145680	MONDO:0007785	"hyperthyroxinemia, dystransthyretinemic"	manually reviewed	OMIM:176300	HGNC:12405	https://orcid.org/0000-0002-4142-7153	
 OMIM:147750	MONDO:0007836	"IVIC syndrome"	manually reviewed	OMIM:607343	HGNC:15924	https://orcid.org/0000-0002-4142-7153	
 OMIM:149700	MONDO:0007871	"familial congenital nasolacrimal duct obstruction"	manually reviewed	OMIM:603491	HGNC:5950	https://orcid.org/0000-0002-4142-7153	
 OMIM:153400	MONDO:0007922	"lymphedema-distichiasis syndrome"	manually reviewed	OMIM:602402	HGNC:3801	https://orcid.org/0000-0002-4142-7153	
-OMIM:153400	MONDO:0007922	"lymphedema-distichiasis syndrome"	manually reviewed	OMIM:602402	HGNC:3801	https://orcid.org/0000-0002-4142-7153	
 OMIM:158350	MONDO:0008021	"Cowden syndrome 1"	manually reviewed	OMIM:601728	HGNC:9588	https://orcid.org/0000-0002-4142-7153	
-OMIM:158350	MONDO:0008021	"Cowden syndrome 1"	manually reviewed	OMIM:601728	HGNC:9588	https://orcid.org/0000-0002-4142-7153	
-OMIM:160800	MONDO:0008055	"myotonia congenita, autosomal dominant"	manually reviewed	OMIM:118425	HGNC:2019	https://orcid.org/0000-0002-4142-7153	
 OMIM:160800	MONDO:0008055	"myotonia congenita, autosomal dominant"	manually reviewed	OMIM:118425	HGNC:2019	https://orcid.org/0000-0002-4142-7153	
 OMIM:161400	MONDO:0008062	"narcolepsy 1"	manually reviewed	OMIM:602358	HGNC:4847	https://orcid.org/0000-0002-4142-7153	
 OMIM:162830	MONDO:0008092	"hereditary neutrophilia"	manually reviewed	OMIM:138971	HGNC:2439	https://orcid.org/0000-0002-4142-7153	
 OMIM:166700	MONDO:0008157	"Buschke-Ollendorff syndrome"	manually reviewed	OMIM:607844	HGNC:28887	https://orcid.org/0000-0002-4142-7153	
 OMIM:176000	MONDO:0008294	"acute intermittent porphyria"	manually reviewed	OMIM:609806	HGNC:4982	https://orcid.org/0000-0002-4142-7153	
-OMIM:176000	MONDO:0008294	"acute intermittent porphyria"	manually reviewed	OMIM:609806	HGNC:4982	https://orcid.org/0000-0002-4142-7153	
 OMIM:176305	MONDO:0008301	"Guttmacher syndrome"	manually reviewed	OMIM:142959	HGNC:5102	https://orcid.org/0000-0002-4142-7153	
 OMIM:176400	MONDO:0008302	"central precocious puberty 1"	manually reviewed	OMIM:604161	HGNC:4510	https://orcid.org/0000-0002-4142-7153	
-OMIM:176410	MONDO:0008303	"familial male-limited precocious puberty"	manually reviewed	OMIM:152790	HGNC:6585	https://orcid.org/0000-0002-4142-7153	
 OMIM:176410	MONDO:0008303	"familial male-limited precocious puberty"	manually reviewed	OMIM:152790	HGNC:6585	https://orcid.org/0000-0002-4142-7153	
 OMIM:176430	MONDO:0008304	"premature chromatid separation trait"	manually reviewed	OMIM:602860	HGNC:1149	https://orcid.org/0000-0002-4142-7153	
 OMIM:180000	MONDO:0008373	"retinal arterial tortuosity"	manually reviewed	OMIM:120130	HGNC:2202	https://orcid.org/0000-0002-4142-7153	
 OMIM:180104	MONDO:0008378	"retinitis pigmentosa 9"	manually reviewed	OMIM:607331	HGNC:10288	https://orcid.org/0000-0002-4142-7153	
 OMIM:182230	MONDO:0008428	"septooptic dysplasia"	manually reviewed	OMIM:601802	HGNC:4877	https://orcid.org/0000-0002-4142-7153	
-OMIM:182230	MONDO:0008428	"septooptic dysplasia"	manually reviewed	OMIM:601802	HGNC:4877	https://orcid.org/0000-0002-4142-7153	
-OMIM:182230	MONDO:0008428	"septooptic dysplasia"	manually reviewed	OMIM:601802	HGNC:4877	https://orcid.org/0000-0002-4142-7153	
 OMIM:183090	MONDO:0008458	"spinocerebellar ataxia type 2"	manually reviewed	OMIM:601517	HGNC:10555	https://orcid.org/0000-0002-4142-7153	
-OMIM:183090	MONDO:0008458	"spinocerebellar ataxia type 2"	manually reviewed	OMIM:601517	HGNC:10555	https://orcid.org/0000-0002-4142-7153	
-OMIM:188055	MONDO:0008560	"thrombophilia due to activated protein C resistance"	manually reviewed	OMIM:612309	HGNC:3542	https://orcid.org/0000-0002-4142-7153	
 OMIM:188055	MONDO:0008560	"thrombophilia due to activated protein C resistance"	manually reviewed	OMIM:612309	HGNC:3542	https://orcid.org/0000-0002-4142-7153	
 OMIM:192950	MONDO:0008652	"congenital vertical talus"	manually reviewed	OMIM:142984	HGNC:5133	https://orcid.org/0000-0002-4142-7153	
 OMIM:193220	MONDO:0008662	"autosomal dominant vitreoretinochoroidopathy"	manually reviewed	OMIM:607854	HGNC:12703	https://orcid.org/0000-0002-4142-7153	
-OMIM:193220	MONDO:0008662	"autosomal dominant vitreoretinochoroidopathy"	manually reviewed	OMIM:607854	HGNC:12703	https://orcid.org/0000-0002-4142-7153	
-OMIM:200990	MONDO:0008708	"acrocallosal syndrome"	manually reviewed	OMIM:611254	HGNC:30497	https://orcid.org/0000-0002-4142-7153	
 OMIM:200990	MONDO:0008708	"acrocallosal syndrome"	manually reviewed	OMIM:611254	HGNC:30497	https://orcid.org/0000-0002-4142-7153	
 OMIM:201250	MONDO:0008717	"acromesomelic dysplasia 2C, Hunter-Thompson type"	manually reviewed	OMIM:601146	HGNC:4220	https://orcid.org/0000-0002-4142-7153	
 OMIM:201910	MONDO:0008728	"classic congenital adrenal hyperplasia due to 21-hydroxylase deficiency"	manually reviewed	OMIM:613815	HGNC:2600	https://orcid.org/0000-0002-4142-7153	
-OMIM:201910	MONDO:0008728	"classic congenital adrenal hyperplasia due to 21-hydroxylase deficiency"	manually reviewed	OMIM:613815	HGNC:2600	https://orcid.org/0000-0002-4142-7153	
-OMIM:202110	MONDO:0008730	"congenital adrenal hyperplasia due to 17-alpha-hydroxylase deficiency"	manually reviewed	OMIM:609300	HGNC:2593	https://orcid.org/0000-0002-4142-7153	
 OMIM:202110	MONDO:0008730	"congenital adrenal hyperplasia due to 17-alpha-hydroxylase deficiency"	manually reviewed	OMIM:609300	HGNC:2593	https://orcid.org/0000-0002-4142-7153	
 OMIM:206500	MONDO:0008791	"anencephaly 1"	manually reviewed	OMIM:609317	HGNC:16280	https://orcid.org/0000-0002-4142-7153	
 OMIM:210100	MONDO:0008860	"beta-aminoisobutyric acid, urinary excretion of"	manually reviewed	OMIM:612471	HGNC:14412	https://orcid.org/0000-0002-4142-7153	
 OMIM:216820	MONDO:0009002	"coloboma, ocular, autosomal recessive"	manually reviewed	OMIM:602219	HGNC:10526	https://orcid.org/0000-0002-4142-7153	
 OMIM:217090	MONDO:0009009	"hypoplasminogenemia"	manually reviewed	OMIM:173350	HGNC:9071	https://orcid.org/0000-0002-4142-7153	
-OMIM:217090	MONDO:0009009	"hypoplasminogenemia"	manually reviewed	OMIM:173350	HGNC:9071	https://orcid.org/0000-0002-4142-7153	
-OMIM:218040	MONDO:0009026	"Costello syndrome"	manually reviewed	OMIM:190020	HGNC:5173	https://orcid.org/0000-0002-4142-7153	
 OMIM:218040	MONDO:0009026	"Costello syndrome"	manually reviewed	OMIM:190020	HGNC:5173	https://orcid.org/0000-0002-4142-7153	
 OMIM:220600	MONDO:0009080	"split hand-foot malformation 1 with sensorineural hearing loss"	manually reviewed	OMIM:600028	HGNC:2918	https://orcid.org/0000-0002-4142-7153	
 OMIM:222600	MONDO:0009107	"diastrophic dysplasia"	manually reviewed	OMIM:606718	HGNC:10994	https://orcid.org/0000-0002-4142-7153	
-OMIM:222600	MONDO:0009107	"diastrophic dysplasia"	manually reviewed	OMIM:606718	HGNC:10994	https://orcid.org/0000-0002-4142-7153	
 OMIM:225060	MONDO:0009151	"cleft lip/palate-ectodermal dysplasia syndrome"	manually reviewed	OMIM:600644	HGNC:9706	https://orcid.org/0000-0002-4142-7153	
-OMIM:225060	MONDO:0009151	"cleft lip/palate-ectodermal dysplasia syndrome"	manually reviewed	OMIM:600644	HGNC:9706	https://orcid.org/0000-0002-4142-7153	
-OMIM:228960	MONDO:0009234	"congenital high-molecular-weight kininogen deficiency"	manually reviewed	OMIM:612358	HGNC:6383	https://orcid.org/0000-0002-4142-7153	
 OMIM:228960	MONDO:0009234	"congenital high-molecular-weight kininogen deficiency"	manually reviewed	OMIM:612358	HGNC:6383	https://orcid.org/0000-0002-4142-7153	
 OMIM:228980	MONDO:0009235	"familial benign flecked retina"	manually reviewed	OMIM:601192	HGNC:9038	https://orcid.org/0000-0002-4142-7153	
 OMIM:229800	MONDO:0009252	"essential fructosuria"	manually reviewed	OMIM:614058	HGNC:6315	https://orcid.org/0000-0002-4142-7153	
 OMIM:231950	MONDO:0009285	"gamma-glutamyl transpeptidase deficiency"	manually reviewed	OMIM:612346	HGNC:4250	https://orcid.org/0000-0002-4142-7153	
 OMIM:235800	MONDO:0009345	"histidinemia"	manually reviewed	OMIM:609457	HGNC:4806	https://orcid.org/0000-0002-4142-7153	
 OMIM:236200	MONDO:0009352	"classic homocystinuria"	manually reviewed	OMIM:613381	HGNC:1550	https://orcid.org/0000-0002-4142-7153	
-OMIM:236200	MONDO:0009352	"classic homocystinuria"	manually reviewed	OMIM:613381	HGNC:1550	https://orcid.org/0000-0002-4142-7153	
 OMIM:236800	MONDO:0009372	"encephalopathy due to hydroxykynureninuria"	manually reviewed	OMIM:605197	HGNC:6469	https://orcid.org/0000-0002-4142-7153	
 OMIM:238320	MONDO:0009384	"Leydig cell hypoplasia, type 1"	manually reviewed	OMIM:152790	HGNC:6585	https://orcid.org/0000-0002-4142-7153	
-OMIM:238320	MONDO:0009384	"Leydig cell hypoplasia, type 1"	manually reviewed	OMIM:152790	HGNC:6585	https://orcid.org/0000-0002-4142-7153	
-OMIM:238320	MONDO:0009384	"Leydig cell hypoplasia, type 1"	manually reviewed	OMIM:152790	HGNC:6585	https://orcid.org/0000-0002-4142-7153	
 OMIM:238600	MONDO:0009387	"familial lipoprotein lipase deficiency"	manually reviewed	OMIM:609708	HGNC:6677	https://orcid.org/0000-0002-4142-7153	
-OMIM:238600	MONDO:0009387	"familial lipoprotein lipase deficiency"	manually reviewed	OMIM:609708	HGNC:6677	https://orcid.org/0000-0002-4142-7153	
-OMIM:243000	MONDO:0009459	"channelopathy-associated congenital insensitivity to pain, autosomal recessive"	manually reviewed	OMIM:603415	HGNC:10597	https://orcid.org/0000-0002-4142-7153	
 OMIM:243000	MONDO:0009459	"channelopathy-associated congenital insensitivity to pain, autosomal recessive"	manually reviewed	OMIM:603415	HGNC:10597	https://orcid.org/0000-0002-4142-7153	
 OMIM:243400	MONDO:0009472	"acetylation, slow"	manually reviewed	OMIM:612182	HGNC:7646	https://orcid.org/0000-0002-4142-7153	
 OMIM:245570	MONDO:0009509	"Landau-Kleffner syndrome"	manually reviewed	OMIM:138253	HGNC:4585	https://orcid.org/0000-0002-4142-7153	
 OMIM:245800	MONDO:0009514	"Laurence-Moon syndrome"	manually reviewed	OMIM:603197	HGNC:16268	https://orcid.org/0000-0002-4142-7153	
 OMIM:248700	MONDO:0009564	"Marden-Walker syndrome"	manually reviewed	OMIM:613629	HGNC:26270	https://orcid.org/0000-0002-4142-7153	
 OMIM:250800	MONDO:0009606	"methemoglobinemia due to deficiency of methemoglobin reductase"	manually reviewed	OMIM:613213	HGNC:2873	https://orcid.org/0000-0002-4142-7153	
-OMIM:250800	MONDO:0009606	"methemoglobinemia due to deficiency of methemoglobin reductase"	manually reviewed	OMIM:613213	HGNC:2873	https://orcid.org/0000-0002-4142-7153	
-OMIM:250850	MONDO:0009607	"methionine adenosyltransferase deficiency"	manually reviewed	OMIM:610550	HGNC:6903	https://orcid.org/0000-0002-4142-7153	
 OMIM:250850	MONDO:0009607	"methionine adenosyltransferase deficiency"	manually reviewed	OMIM:610550	HGNC:6903	https://orcid.org/0000-0002-4142-7153	
 OMIM:255600	MONDO:0009714	"myosclerosis"	manually reviewed	OMIM:120240	HGNC:2212	https://orcid.org/0000-0002-4142-7153	
 OMIM:256050	MONDO:0009727	"atelosteogenesis type II"	manually reviewed	OMIM:606718	HGNC:10994	https://orcid.org/0000-0002-4142-7153	
-OMIM:256050	MONDO:0009727	"atelosteogenesis type II"	manually reviewed	OMIM:606718	HGNC:10994	https://orcid.org/0000-0002-4142-7153	
-OMIM:256550	MONDO:0009738	"sialidosis type 2"	manually reviewed	OMIM:608272	HGNC:7758	https://orcid.org/0000-0002-4142-7153	
 OMIM:256550	MONDO:0009738	"sialidosis type 2"	manually reviewed	OMIM:608272	HGNC:7758	https://orcid.org/0000-0002-4142-7153	
 OMIM:256840	MONDO:0009748	"hereditary sensory and autonomic neuropathy with spastic paraplegia"	manually reviewed	OMIM:610150	HGNC:1618	https://orcid.org/0000-0002-4142-7153	
 OMIM:257220	MONDO:0009757	"Niemann-Pick disease, type C1"	manually reviewed	OMIM:607623	HGNC:7897	https://orcid.org/0000-0002-4142-7153	
-OMIM:257220	MONDO:0009757	"Niemann-Pick disease, type C1"	manually reviewed	OMIM:607623	HGNC:7897	https://orcid.org/0000-0002-4142-7153	
 OMIM:260800	MONDO:0009846	"pentosuria"	manually reviewed	OMIM:608347	HGNC:18985	https://orcid.org/0000-0002-4142-7153	
-OMIM:261600	MONDO:0009861	"phenylketonuria"	manually reviewed	OMIM:612349	HGNC:8582	https://orcid.org/0000-0002-4142-7153	
 OMIM:261600	MONDO:0009861	"phenylketonuria"	manually reviewed	OMIM:612349	HGNC:8582	https://orcid.org/0000-0002-4142-7153	
 OMIM:264800	MONDO:0009925	"autosomal recessive inherited pseudoxanthoma elasticum"	manually reviewed	OMIM:603234	HGNC:57	https://orcid.org/0000-0002-4142-7153	
 OMIM:268900	MONDO:0010008	"sarcosinemia"	manually reviewed	OMIM:604455	HGNC:10536	https://orcid.org/0000-0002-4142-7153	
 OMIM:270960	MONDO:0010052	"spermatogenic failure 4"	manually reviewed	OMIM:604759	HGNC:18130	https://orcid.org/0000-0002-4142-7153	
-OMIM:270960	MONDO:0010052	"spermatogenic failure 4"	manually reviewed	OMIM:604759	HGNC:18130	https://orcid.org/0000-0002-4142-7153	
 OMIM:272800	MONDO:0010100	"Tay-Sachs disease"	manually reviewed	OMIM:606869	HGNC:4878	https://orcid.org/0000-0002-4142-7153	
-OMIM:272800	MONDO:0010100	"Tay-Sachs disease"	manually reviewed	OMIM:606869	HGNC:4878	https://orcid.org/0000-0002-4142-7153	
-OMIM:272800	MONDO:0010100	"Tay-Sachs disease"	manually reviewed	OMIM:606869	HGNC:4878	https://orcid.org/0000-0002-4142-7153	
-OMIM:274270	MONDO:0010130	"dihydropyrimidine dehydrogenase deficiency"	manually reviewed	OMIM:612779	HGNC:3012	https://orcid.org/0000-0002-4142-7153	
 OMIM:274270	MONDO:0010130	"dihydropyrimidine dehydrogenase deficiency"	manually reviewed	OMIM:612779	HGNC:3012	https://orcid.org/0000-0002-4142-7153	
 OMIM:276880	MONDO:0010167	"urocanic aciduria"	manually reviewed	OMIM:613012	HGNC:26444	https://orcid.org/0000-0002-4142-7153	
 OMIM:276901	MONDO:0010169	"Usher syndrome type 2A"	manually reviewed	OMIM:608400	HGNC:12601	https://orcid.org/0000-0002-4142-7153	
 OMIM:277400	MONDO:0010184	"methylmalonic aciduria and homocystinuria type cblC"	manually reviewed	OMIM:609831	HGNC:24525	https://orcid.org/0000-0002-4142-7153	
 OMIM:278150	MONDO:0010206	"hypotrichosis 8"	manually reviewed	OMIM:609239	HGNC:15520	https://orcid.org/0000-0002-4142-7153	
 OMIM:278760	MONDO:0010215	"xeroderma pigmentosum group F"	manually reviewed	OMIM:133520	HGNC:3436	https://orcid.org/0000-0002-4142-7153	
-OMIM:278760	MONDO:0010215	"xeroderma pigmentosum group F"	manually reviewed	OMIM:133520	HGNC:3436	https://orcid.org/0000-0002-4142-7153	
-OMIM:278780	MONDO:0010216	"xeroderma pigmentosum group G"	manually reviewed	OMIM:133530	HGNC:3437	https://orcid.org/0000-0002-4142-7153	
 OMIM:278780	MONDO:0010216	"xeroderma pigmentosum group G"	manually reviewed	OMIM:133530	HGNC:3437	https://orcid.org/0000-0002-4142-7153	
 OMIM:278800	MONDO:0010217	"de Sanctis-Cacchione syndrome"	manually reviewed	OMIM:609413	HGNC:3438	https://orcid.org/0000-0002-4142-7153	
 OMIM:300048	MONDO:0010232	"intestinal pseudoobstruction, neuronal, chronic idiopathic, X-linked"	manually reviewed	OMIM:300017	HGNC:3754	https://orcid.org/0000-0002-4142-7153	
-OMIM:300048	MONDO:0010232	"intestinal pseudoobstruction, neuronal, chronic idiopathic, X-linked"	manually reviewed	OMIM:300017	HGNC:3754	https://orcid.org/0000-0002-4142-7153	
 OMIM:300067	MONDO:0010239	"lissencephaly type 1 due to doublecortin gene mutation"	manually reviewed	OMIM:300121	HGNC:2714	https://orcid.org/0000-0002-4142-7153	
-OMIM:300067	MONDO:0010239	"lissencephaly type 1 due to doublecortin gene mutation"	manually reviewed	OMIM:300121	HGNC:2714	https://orcid.org/0000-0002-4142-7153	
-OMIM:300215	MONDO:0010268	"X-linked lissencephaly with abnormal genitalia"	manually reviewed	OMIM:300382	HGNC:18060	https://orcid.org/0000-0002-4142-7153	
 OMIM:300215	MONDO:0010268	"X-linked lissencephaly with abnormal genitalia"	manually reviewed	OMIM:300382	HGNC:18060	https://orcid.org/0000-0002-4142-7153	
 OMIM:300238	MONDO:0010277	"syndromic X-linked intellectual disability Shashi type"	manually reviewed	OMIM:300199	HGNC:9910	https://orcid.org/0000-0002-4142-7153	
 OMIM:300280	MONDO:0010292	"Uruguay Faciocardiomusculoskeletal syndrome"	manually reviewed	OMIM:300163	HGNC:3702	https://orcid.org/0000-0002-4142-7153	
 OMIM:300321	MONDO:0010297	"FG syndrome 2"	manually reviewed	OMIM:300017	HGNC:3754	https://orcid.org/0000-0002-4142-7153	
 OMIM:300422	MONDO:0010318	"FG syndrome 4"	manually reviewed	OMIM:300172	HGNC:1497	https://orcid.org/0000-0002-4142-7153	
-OMIM:300422	MONDO:0010318	"FG syndrome 4"	manually reviewed	OMIM:300172	HGNC:1497	https://orcid.org/0000-0002-4142-7153	
 OMIM:300424	MONDO:0010320	"retinitis pigmentosa 23"	manually reviewed	OMIM:300170	HGNC:2567	https://orcid.org/0000-0002-4142-7153	
 OMIM:300472	MONDO:0010333	"corpus callosum agenesis-intellectual disability-coloboma-micrognathia syndrome"	manually reviewed	OMIM:300139	HGNC:5461	https://orcid.org/0000-0002-4142-7153	
 OMIM:300425	MONDO:0010340	"Asperger syndrome, X-linked, susceptibility to, 1"	manually reviewed	OMIM:300336	HGNC:14289	https://orcid.org/0000-0002-4142-7153	
 OMIM:300495	MONDO:0010341	"autism, susceptibility to, X-linked 2"	manually reviewed	OMIM:300427	HGNC:14287	https://orcid.org/0000-0002-4142-7153	
-OMIM:300495	MONDO:0010341	"autism, susceptibility to, X-linked 2"	manually reviewed	OMIM:300427	HGNC:14287	https://orcid.org/0000-0002-4142-7153	
-OMIM:300495	MONDO:0010343	"Asperger syndrome, X-linked, susceptibility to, 2"	manually reviewed	OMIM:300427	HGNC:14287	https://orcid.org/0000-0002-4142-7153	
 OMIM:300495	MONDO:0010343	"Asperger syndrome, X-linked, susceptibility to, 2"	manually reviewed	OMIM:300427	HGNC:14287	https://orcid.org/0000-0002-4142-7153	
 OMIM:300510	MONDO:0010349	"ovarian dysgenesis 2"	manually reviewed	OMIM:300247	HGNC:1068	https://orcid.org/0000-0002-4142-7153	
 OMIM:300511	MONDO:0010350	"premature ovarian failure 2A"	manually reviewed	OMIM:300108	HGNC:2877	https://orcid.org/0000-0002-4142-7153	
 OMIM:300604	MONDO:0010373	"premature ovarian failure 2B"	manually reviewed	OMIM:300603	HGNC:13711	https://orcid.org/0000-0002-4142-7153	
 OMIM:300643	MONDO:0010388	"rolandic epilepsy, intellectual disability, and speech dyspraxia, X-linked"	manually reviewed	OMIM:300642	HGNC:30668	https://orcid.org/0000-0002-4142-7153	
 OMIM:300661	MONDO:0010395	"phosphoribosylpyrophosphate synthetase superactivity"	manually reviewed	OMIM:311850	HGNC:9462	https://orcid.org/0000-0002-4142-7153	
-OMIM:300661	MONDO:0010395	"phosphoribosylpyrophosphate synthetase superactivity"	manually reviewed	OMIM:311850	HGNC:9462	https://orcid.org/0000-0002-4142-7153	
 OMIM:300696	MONDO:0010401	"X-linked myopathy with postural muscle atrophy"	manually reviewed	OMIM:300163	HGNC:3702	https://orcid.org/0000-0002-4142-7153	
-OMIM:300807	MONDO:0010432	"thrombophilia, X-linked, due to factor 9 defect"	manually reviewed	OMIM:300746	HGNC:3551	https://orcid.org/0000-0002-4142-7153	
 OMIM:300807	MONDO:0010432	"thrombophilia, X-linked, due to factor 9 defect"	manually reviewed	OMIM:300746	HGNC:3551	https://orcid.org/0000-0002-4142-7153	
 OMIM:300818	MONDO:0010438	"paroxysmal nocturnal hemoglobinuria 1"	manually reviewed	OMIM:311770	HGNC:8957	https://orcid.org/0000-0002-4142-7153	
 OMIM:300863	MONDO:0010463	"X-linked dominant chondrodysplasia, Chassaing-Lacombe type"	manually reviewed	OMIM:300272	HGNC:14064	https://orcid.org/0000-0002-4142-7153	
@@ -283,103 +226,67 @@ OMIM:301500	MONDO:0010526	"Fabry disease"	manually reviewed	OMIM:300644	HGNC:429
 OMIM:302905	MONDO:0010554	"Abruzzo-Erickson syndrome"	manually reviewed	OMIM:300307	HGNC:11600	https://orcid.org/0000-0002-4142-7153	
 OMIM:304100	MONDO:0010569	"X-linked complicated corpus callosum dysgenesis"	manually reviewed	OMIM:308840	HGNC:6470	https://orcid.org/0000-0002-4142-7153	
 OMIM:306955	MONDO:0010607	"heterotaxy, visceral, 1, X-linked"	manually reviewed	OMIM:300265	HGNC:12874	https://orcid.org/0000-0002-4142-7153	
-OMIM:306955	MONDO:0010607	"heterotaxy, visceral, 1, X-linked"	manually reviewed	OMIM:300265	HGNC:12874	https://orcid.org/0000-0002-4142-7153	
 OMIM:309120	MONDO:0010647	"spermatogenic failure, X-linked, 2"	manually reviewed	OMIM:300311	HGNC:11733	https://orcid.org/0000-0002-4142-7153	
 OMIM:310300	MONDO:0010680	"X-linked Emery-Dreifuss muscular dystrophy"	manually reviewed	OMIM:300384	HGNC:3331	https://orcid.org/0000-0002-4142-7153	
 OMIM:310700	MONDO:0010693	"nystagmus 1, congenital, X-linked"	manually reviewed	OMIM:300628	HGNC:8079	https://orcid.org/0000-0002-4142-7153	
 OMIM:312750	MONDO:0010726	"Rett syndrome"	manually reviewed	OMIM:300005	HGNC:6990	https://orcid.org/0000-0002-4142-7153	
-OMIM:312750	MONDO:0010726	"Rett syndrome"	manually reviewed	OMIM:300005	HGNC:6990	https://orcid.org/0000-0002-4142-7153	
-OMIM:312750	MONDO:0010726	"Rett syndrome"	manually reviewed	OMIM:300005	HGNC:6990	https://orcid.org/0000-0002-4142-7153	
-OMIM:313900	MONDO:0010743	"thrombocytopenia 1"	manually reviewed	OMIM:300392	HGNC:12731	https://orcid.org/0000-0002-4142-7153	
 OMIM:313900	MONDO:0010743	"thrombocytopenia 1"	manually reviewed	OMIM:300392	HGNC:12731	https://orcid.org/0000-0002-4142-7153	
 OMIM:600251	MONDO:0010850	"Tessier number 4 facial cleft"	manually reviewed	OMIM:614140	HGNC:29022	https://orcid.org/0000-0002-4142-7153	
 OMIM:600501	MONDO:0010895	"ABCD syndrome"	manually reviewed	OMIM:131244	HGNC:3180	https://orcid.org/0000-0002-4142-7153	
 OMIM:600627	MONDO:0010907	"familial hypertryptophanemia"	manually reviewed	OMIM:191070	HGNC:11708	https://orcid.org/0000-0002-4142-7153	
 OMIM:600919	MONDO:0010958	"cardiac arrhythmia, ankyrin-B-related"	manually reviewed	OMIM:106410	HGNC:493	https://orcid.org/0000-0002-4142-7153	
-OMIM:600919	MONDO:0010958	"cardiac arrhythmia, ankyrin-B-related"	manually reviewed	OMIM:106410	HGNC:493	https://orcid.org/0000-0002-4142-7153	
-OMIM:601071	MONDO:0010986	"autosomal recessive nonsyndromic hearing loss 9"	manually reviewed	OMIM:603681	HGNC:8515	https://orcid.org/0000-0002-4142-7153	
 OMIM:601071	MONDO:0010986	"autosomal recessive nonsyndromic hearing loss 9"	manually reviewed	OMIM:603681	HGNC:8515	https://orcid.org/0000-0002-4142-7153	
 OMIM:601186	MONDO:0011010	"Matthew-Wood syndrome"	manually reviewed	OMIM:610745	HGNC:30650	https://orcid.org/0000-0002-4142-7153	
-OMIM:601186	MONDO:0011010	"Matthew-Wood syndrome"	manually reviewed	OMIM:610745	HGNC:30650	https://orcid.org/0000-0002-4142-7153	
-OMIM:601198	MONDO:0011013	"autosomal dominant hypocalcemia 1"	manually reviewed	OMIM:601199	HGNC:1514	https://orcid.org/0000-0002-4142-7153	
 OMIM:601198	MONDO:0011013	"autosomal dominant hypocalcemia 1"	manually reviewed	OMIM:601199	HGNC:1514	https://orcid.org/0000-0002-4142-7153	
 OMIM:601494	MONDO:0011095	"dilated cardiomyopathy 1D"	manually reviewed	OMIM:191045	HGNC:11949	https://orcid.org/0000-0002-4142-7153	
-OMIM:601494	MONDO:0011095	"dilated cardiomyopathy 1D"	manually reviewed	OMIM:191045	HGNC:11949	https://orcid.org/0000-0002-4142-7153	
-OMIM:601536	MONDO:0011099	"human HOXA1 syndromes"	manually reviewed	OMIM:142955	HGNC:5099	https://orcid.org/0000-0002-4142-7153	
 OMIM:601536	MONDO:0011099	"human HOXA1 syndromes"	manually reviewed	OMIM:142955	HGNC:5099	https://orcid.org/0000-0002-4142-7153	
 OMIM:601744	MONDO:0011138	"systemic lupus erythematosus, susceptibility to, 1"	manually reviewed	OMIM:603031	HGNC:11851	https://orcid.org/0000-0002-4142-7153	
-OMIM:601744	MONDO:0011138	"systemic lupus erythematosus, susceptibility to, 1"	manually reviewed	OMIM:603031	HGNC:11851	https://orcid.org/0000-0002-4142-7153	
-OMIM:602093	MONDO:0011193	"cone dystrophy 3"	manually reviewed	OMIM:600364	HGNC:4678	https://orcid.org/0000-0002-4142-7153	
 OMIM:602093	MONDO:0011193	"cone dystrophy 3"	manually reviewed	OMIM:600364	HGNC:4678	https://orcid.org/0000-0002-4142-7153	
 OMIM:602111	MONDO:0011198	"spondyloepimetaphyseal dysplasia, Missouri type"	manually reviewed	OMIM:600108	HGNC:7159	https://orcid.org/0000-0002-4142-7153	
-OMIM:602111	MONDO:0011198	"spondyloepimetaphyseal dysplasia, Missouri type"	manually reviewed	OMIM:600108	HGNC:7159	https://orcid.org/0000-0002-4142-7153	
-OMIM:602481	MONDO:0011232	"migraine, familial hemiplegic, 2"	manually reviewed	OMIM:182340	HGNC:800	https://orcid.org/0000-0002-4142-7153	
 OMIM:602481	MONDO:0011232	"migraine, familial hemiplegic, 2"	manually reviewed	OMIM:182340	HGNC:800	https://orcid.org/0000-0002-4142-7153	
 OMIM:602522	MONDO:0011242	"Bartter disease type 4A"	manually reviewed	OMIM:606412	HGNC:16512	https://orcid.org/0000-0002-4142-7153	
 OMIM:602588	MONDO:0011258	"branchiootic syndrome 1"	manually reviewed	OMIM:601653	HGNC:3519	https://orcid.org/0000-0002-4142-7153	
-OMIM:602588	MONDO:0011258	"branchiootic syndrome 1"	manually reviewed	OMIM:601653	HGNC:3519	https://orcid.org/0000-0002-4142-7153	
 OMIM:603776	MONDO:0011369	"hypercholesterolemia, autosomal dominant, 3"	manually reviewed	OMIM:607786	HGNC:20001	https://orcid.org/0000-0002-4142-7153	
-OMIM:604232	MONDO:0011415	"Leber congenital amaurosis 3"	manually reviewed	OMIM:609868	HGNC:20423	https://orcid.org/0000-0002-4142-7153	
 OMIM:604232	MONDO:0011415	"Leber congenital amaurosis 3"	manually reviewed	OMIM:609868	HGNC:20423	https://orcid.org/0000-0002-4142-7153	
 OMIM:604273	MONDO:0011421	"mitochondrial complex V (ATP synthase) deficiency, nuclear type 1"	manually reviewed	OMIM:608918	HGNC:18802	https://orcid.org/0000-0002-4142-7153	
 OMIM:604348	MONDO:0011442	"advanced sleep phase syndrome 1"	manually reviewed	OMIM:603426	HGNC:8846	https://orcid.org/0000-0002-4142-7153	
 OMIM:604352	MONDO:0011443	"febrile seizures, familial, 4"	manually reviewed	OMIM:602851	HGNC:17416	https://orcid.org/0000-0002-4142-7153	
 OMIM:604379	MONDO:0011452	"hypotrichosis 7"	manually reviewed	OMIM:607365	HGNC:18483	https://orcid.org/0000-0002-4142-7153	
-OMIM:604379	MONDO:0011452	"hypotrichosis 7"	manually reviewed	OMIM:607365	HGNC:18483	https://orcid.org/0000-0002-4142-7153	
 OMIM:604393	MONDO:0011458	"Leber congenital amaurosis 4"	manually reviewed	OMIM:604392	HGNC:359	https://orcid.org/0000-0002-4142-7153	
-OMIM:604393	MONDO:0011458	"Leber congenital amaurosis 4"	manually reviewed	OMIM:604392	HGNC:359	https://orcid.org/0000-0002-4142-7153	
-OMIM:604393	MONDO:0011458	"Leber congenital amaurosis 4"	manually reviewed	OMIM:604392	HGNC:359	https://orcid.org/0000-0002-4142-7153	
-OMIM:604403	MONDO:0011461	"generalized epilepsy with febrile seizures plus, type 2"	manually reviewed	OMIM:182389	HGNC:10585	https://orcid.org/0000-0002-4142-7153	
 OMIM:604403	MONDO:0011461	"generalized epilepsy with febrile seizures plus, type 2"	manually reviewed	OMIM:182389	HGNC:10585	https://orcid.org/0000-0002-4142-7153	
 OMIM:604715	MONDO:0011479	"postural orthostatic tachycardia syndrome"	manually reviewed	OMIM:163970	HGNC:11048	https://orcid.org/0000-0002-4142-7153	
 OMIM:605362	MONDO:0011541	"dilated cardiomyopathy 1J"	manually reviewed	OMIM:603550	HGNC:3522	https://orcid.org/0000-0002-4142-7153	
 OMIM:606217	MONDO:0011650	"atrioventricular septal defect, susceptibility to, 2"	manually reviewed	OMIM:607170	HGNC:14630	https://orcid.org/0000-0002-4142-7153	
 OMIM:606346	MONDO:0011660	"autosomal dominant nonsyndromic hearing loss 22"	manually reviewed	OMIM:600970	HGNC:7605	https://orcid.org/0000-0002-4142-7153	
-OMIM:606346	MONDO:0011660	"autosomal dominant nonsyndromic hearing loss 22"	manually reviewed	OMIM:600970	HGNC:7605	https://orcid.org/0000-0002-4142-7153	
-OMIM:606482	MONDO:0011674	"Charcot-Marie-Tooth disease dominant intermediate B"	manually reviewed	OMIM:602378	HGNC:2974	https://orcid.org/0000-0002-4142-7153	
 OMIM:606482	MONDO:0011674	"Charcot-Marie-Tooth disease dominant intermediate B"	manually reviewed	OMIM:602378	HGNC:2974	https://orcid.org/0000-0002-4142-7153	
 OMIM:606766	MONDO:0011720	"spermatogenic failure 3"	manually reviewed	OMIM:608480	HGNC:14468	https://orcid.org/0000-0002-4142-7153	
 OMIM:607131	MONDO:0011778	"multiple epiphyseal dysplasia, Al-Gazali type"	manually reviewed	OMIM:611254	HGNC:30497	https://orcid.org/0000-0002-4142-7153	
 OMIM:607250	MONDO:0011801	"spinocerebellar ataxia, autosomal recessive, with axonal neuropathy 1"	manually reviewed	OMIM:607198	HGNC:18884	https://orcid.org/0000-0002-4142-7153	
 OMIM:607271	MONDO:0011804	"autoimmune lymphoproliferative syndrome type 2B"	manually reviewed	OMIM:601763	HGNC:1509	https://orcid.org/0000-0002-4142-7153	
 OMIM:607432	MONDO:0011830	"lissencephaly due to LIS1 mutation"	manually reviewed	OMIM:601545	HGNC:8574	https://orcid.org/0000-0002-4142-7153	
-OMIM:607432	MONDO:0011830	"lissencephaly due to LIS1 mutation"	manually reviewed	OMIM:601545	HGNC:8574	https://orcid.org/0000-0002-4142-7153	
 OMIM:607453	MONDO:0011832	"autosomal dominant nonsyndromic hearing loss 44"	manually reviewed	OMIM:611051	HGNC:18111	https://orcid.org/0000-0002-4142-7153	
 OMIM:607482	MONDO:0011840	"dilated cardiomyopathy 1M"	manually reviewed	OMIM:600824	HGNC:2472	https://orcid.org/0000-0002-4142-7153	
-OMIM:607485	MONDO:0011842	"GRN-related frontotemporal lobar degeneration with Tdp43 inclusions"	manually reviewed	OMIM:138945	HGNC:4601	https://orcid.org/0000-0002-4142-7153	
 OMIM:607485	MONDO:0011842	"GRN-related frontotemporal lobar degeneration with Tdp43 inclusions"	manually reviewed	OMIM:138945	HGNC:4601	https://orcid.org/0000-0002-4142-7153	
 OMIM:607539	MONDO:0011853	"Camptosynpolydactyly, complex"	manually reviewed	OMIM:615416	HGNC:35126	https://orcid.org/0000-0002-4142-7153	
 OMIM:607598	MONDO:0011868	"lethal congenital contracture syndrome 2"	manually reviewed	OMIM:190151	HGNC:3431	https://orcid.org/0000-0002-4142-7153	
 OMIM:607628	MONDO:0011875	"epilepsy, idiopathic generalized, susceptibility to, 11"	manually reviewed	OMIM:600570	HGNC:2020	https://orcid.org/0000-0002-4142-7153	
-OMIM:607628	MONDO:0011875	"epilepsy, idiopathic generalized, susceptibility to, 11"	manually reviewed	OMIM:600570	HGNC:2020	https://orcid.org/0000-0002-4142-7153	
-OMIM:607628	MONDO:0011875	"epilepsy, idiopathic generalized, susceptibility to, 11"	manually reviewed	OMIM:600570	HGNC:2020	https://orcid.org/0000-0002-4142-7153	
-OMIM:607681	MONDO:0011891	"febrile seizures, familial, 8"	manually reviewed	OMIM:137164	HGNC:4087	https://orcid.org/0000-0002-4142-7153	
 OMIM:607681	MONDO:0011891	"febrile seizures, familial, 8"	manually reviewed	OMIM:137164	HGNC:4087	https://orcid.org/0000-0002-4142-7153	
 OMIM:607822	MONDO:0011913	"Alzheimer disease 3"	manually reviewed	OMIM:104311	HGNC:9508	https://orcid.org/0000-0002-4142-7153	
 OMIM:607847	MONDO:0011922	"nonimmune chronic idiopathic neutropenia of adults"	manually reviewed	OMIM:600871	HGNC:4237	https://orcid.org/0000-0002-4142-7153	
 OMIM:607864	MONDO:0011928	"caudal duplication"	manually reviewed	OMIM:603816	HGNC:903	https://orcid.org/0000-0002-4142-7153	
 OMIM:608189	MONDO:0011986	"tropical pancreatitis"	manually reviewed	OMIM:167790	HGNC:11244	https://orcid.org/0000-0002-4142-7153	
-OMIM:608189	MONDO:0011986	"tropical pancreatitis"	manually reviewed	OMIM:167790	HGNC:11244	https://orcid.org/0000-0002-4142-7153	
 OMIM:608236	MONDO:0011998	"autosomal dominant slowed nerve conduction velocity"	manually reviewed	OMIM:608136	HGNC:14103	https://orcid.org/0000-0002-4142-7153	
 OMIM:608361	MONDO:0012019	"spondyloepiphyseal dysplasia, Kimberley type"	manually reviewed	OMIM:155760	HGNC:319	https://orcid.org/0000-0002-4142-7153	
 OMIM:608393	MONDO:0012029	"microcephaly 6, primary, autosomal recessive"	manually reviewed	OMIM:609279	HGNC:17272	https://orcid.org/0000-0002-4142-7153	
 OMIM:609006	MONDO:0012170	"autosomal recessive nonsyndromic hearing loss 36"	manually reviewed	OMIM:606351	HGNC:13281	https://orcid.org/0000-0002-4142-7153	
-OMIM:609006	MONDO:0012170	"autosomal recessive nonsyndromic hearing loss 36"	manually reviewed	OMIM:606351	HGNC:13281	https://orcid.org/0000-0002-4142-7153	
-OMIM:609016	MONDO:0012173	"long chain 3-hydroxyacyl-CoA dehydrogenase deficiency"	manually reviewed	OMIM:600890	HGNC:4801	https://orcid.org/0000-0002-4142-7153	
-OMIM:609016	MONDO:0012173	"long chain 3-hydroxyacyl-CoA dehydrogenase deficiency"	manually reviewed	OMIM:600890	HGNC:4801	https://orcid.org/0000-0002-4142-7153	
 OMIM:609016	MONDO:0012173	"long chain 3-hydroxyacyl-CoA dehydrogenase deficiency"	manually reviewed	OMIM:600890	HGNC:4801	https://orcid.org/0000-0002-4142-7153	
 OMIM:609152	MONDO:0012203	"familial hyperthyroidism due to mutations in TSH receptor"	manually reviewed	OMIM:603372	HGNC:12373	https://orcid.org/0000-0002-4142-7153	
-OMIM:609152	MONDO:0012203	"familial hyperthyroidism due to mutations in TSH receptor"	manually reviewed	OMIM:603372	HGNC:12373	https://orcid.org/0000-0002-4142-7153	
-OMIM:609152	MONDO:0012203	"familial hyperthyroidism due to mutations in TSH receptor"	manually reviewed	OMIM:603372	HGNC:12373	https://orcid.org/0000-0002-4142-7153	
-OMIM:609241	MONDO:0012221	"alpha-N-acetylgalactosaminidase deficiency type 1"	manually reviewed	OMIM:104170	HGNC:7631	https://orcid.org/0000-0002-4142-7153	
 OMIM:609241	MONDO:0012221	"alpha-N-acetylgalactosaminidase deficiency type 1"	manually reviewed	OMIM:104170	HGNC:7631	https://orcid.org/0000-0002-4142-7153	
 OMIM:609306	MONDO:0012246	"spinocerebellar ataxia type 26"	manually reviewed	OMIM:130610	HGNC:3214	https://orcid.org/0000-0002-4142-7153	
-OMIM:609322	MONDO:0012252	"rhabdoid tumor predisposition syndrome 1"	manually reviewed	OMIM:601607	HGNC:11103	https://orcid.org/0000-0002-4142-7153	
 OMIM:609322	MONDO:0012252	"rhabdoid tumor predisposition syndrome 1"	manually reviewed	OMIM:601607	HGNC:11103	https://orcid.org/0000-0002-4142-7153	
 OMIM:609579	MONDO:0012307	"familial scaphocephaly syndrome, McGillivray type"	manually reviewed	OMIM:176943	HGNC:3689	https://orcid.org/0000-0002-4142-7153	
 OMIM:610024	MONDO:0012398	"retinal cone dystrophy 3A"	manually reviewed	OMIM:601190	HGNC:8790	https://orcid.org/0000-0002-4142-7153	
 OMIM:610100	MONDO:0012411	"giant axonal neuropathy 2"	manually reviewed	OMIM:615820	HGNC:24891	https://orcid.org/0000-0002-4142-7153	
-OMIM:610125	MONDO:0012413	"syndromic microphthalmia type 5"	manually reviewed	OMIM:600037	HGNC:8522	https://orcid.org/0000-0002-4142-7153	
 OMIM:610125	MONDO:0012413	"syndromic microphthalmia type 5"	manually reviewed	OMIM:600037	HGNC:8522	https://orcid.org/0000-0002-4142-7153	
 OMIM:610154	MONDO:0012421	"autosomal recessive nonsyndromic hearing loss 44"	manually reviewed	OMIM:103072	HGNC:232	https://orcid.org/0000-0002-4142-7153	
 OMIM:610163	MONDO:0012426	"immunodeficiency 25"	manually reviewed	OMIM:186780	HGNC:1677	https://orcid.org/0000-0002-4142-7153	
@@ -387,8 +294,6 @@ OMIM:610204	MONDO:0012438	"pontocerebellar hypoplasia type 5"	manually reviewed	
 OMIM:610212	MONDO:0012442	"autosomal recessive nonsyndromic hearing loss 66"	manually reviewed	OMIM:605755	HGNC:18141	https://orcid.org/0000-0002-4142-7153	
 OMIM:610227	MONDO:0012446	"seborrhea-like dermatitis with psoriasiform elements"	manually reviewed	OMIM:610226	HGNC:25843	https://orcid.org/0000-0002-4142-7153	
 OMIM:610251	MONDO:0012454	"alcohol sensitivity, acute"	manually reviewed	OMIM:100650	HGNC:404	https://orcid.org/0000-0002-4142-7153	
-OMIM:610251	MONDO:0012454	"alcohol sensitivity, acute"	manually reviewed	OMIM:100650	HGNC:404	https://orcid.org/0000-0002-4142-7153	
-OMIM:610476	MONDO:0012506	"arrhythmogenic right ventricular dysplasia 11"	manually reviewed	OMIM:125645	HGNC:3036	https://orcid.org/0000-0002-4142-7153	
 OMIM:610476	MONDO:0012506	"arrhythmogenic right ventricular dysplasia 11"	manually reviewed	OMIM:125645	HGNC:3036	https://orcid.org/0000-0002-4142-7153	
 OMIM:610623	MONDO:0012527	"cataract 11 multiple types"	manually reviewed	OMIM:602669	HGNC:9006	https://orcid.org/0000-0002-4142-7153	
 OMIM:610644	MONDO:0012530	"palmoplantar keratoderma-XX sex reversal-predisposition to squamous cell carcinoma syndrome"	manually reviewed	OMIM:609595	HGNC:21679	https://orcid.org/0000-0002-4142-7153	
@@ -396,63 +301,42 @@ OMIM:610713	MONDO:0012544	"brachydactyly-syndactyly syndrome"	manually reviewed	
 OMIM:610756	MONDO:0012553	"cerebrooculofacioskeletal syndrome 2"	manually reviewed	OMIM:126340	HGNC:3434	https://orcid.org/0000-0002-4142-7153	
 OMIM:610852	MONDO:0012571	"primary ciliary dyskinesia 6"	manually reviewed	OMIM:607421	HGNC:16473	https://orcid.org/0000-0002-4142-7153	
 OMIM:611136	MONDO:0012627	"epilepsy, idiopathic generalized, susceptibility to, 13"	manually reviewed	OMIM:137160	HGNC:4075	https://orcid.org/0000-0002-4142-7153	
-OMIM:611136	MONDO:0012627	"epilepsy, idiopathic generalized, susceptibility to, 13"	manually reviewed	OMIM:137160	HGNC:4075	https://orcid.org/0000-0002-4142-7153	
 OMIM:611528	MONDO:0012684	"arrhythmogenic right ventricular dysplasia 12"	manually reviewed	OMIM:173325	HGNC:6207	https://orcid.org/0000-0002-4142-7153	
 OMIM:611718	MONDO:0012717	"renal hypomagnesemia 4"	manually reviewed	OMIM:131530	HGNC:3229	https://orcid.org/0000-0002-4142-7153	
 OMIM:611812	MONDO:0012734	"SERKAL syndrome"	manually reviewed	OMIM:603490	HGNC:12783	https://orcid.org/0000-0002-4142-7153	
 OMIM:611819	MONDO:0012737	"long QT syndrome 10"	manually reviewed	OMIM:608256	HGNC:10592	https://orcid.org/0000-0002-4142-7153	
-OMIM:611819	MONDO:0012737	"long QT syndrome 10"	manually reviewed	OMIM:608256	HGNC:10592	https://orcid.org/0000-0002-4142-7153	
 OMIM:611820	MONDO:0012738	"long QT syndrome 11"	manually reviewed	OMIM:604001	HGNC:379	https://orcid.org/0000-0002-4142-7153	
-OMIM:611878	MONDO:0012744	"dilated cardiomyopathy 1Y"	manually reviewed	OMIM:191010	HGNC:12010	https://orcid.org/0000-0002-4142-7153	
 OMIM:611878	MONDO:0012744	"dilated cardiomyopathy 1Y"	manually reviewed	OMIM:191010	HGNC:12010	https://orcid.org/0000-0002-4142-7153	
 OMIM:611880	MONDO:0012746	"dilated cardiomyopathy 2A"	manually reviewed	OMIM:191044	HGNC:11947	https://orcid.org/0000-0002-4142-7153	
 OMIM:611942	MONDO:0012763	"epilepsy, childhood absence, susceptibility to, 6"	manually reviewed	OMIM:607904	HGNC:1395	https://orcid.org/0000-0002-4142-7153	
-OMIM:611942	MONDO:0012763	"epilepsy, childhood absence, susceptibility to, 6"	manually reviewed	OMIM:607904	HGNC:1395	https://orcid.org/0000-0002-4142-7153	
-OMIM:612069	MONDO:0012790	"amyotrophic lateral sclerosis type 10"	manually reviewed	OMIM:605078	HGNC:11571	https://orcid.org/0000-0002-4142-7153	
 OMIM:612069	MONDO:0012790	"amyotrophic lateral sclerosis type 10"	manually reviewed	OMIM:605078	HGNC:11571	https://orcid.org/0000-0002-4142-7153	
 OMIM:612075	MONDO:0012792	"mitochondrial DNA depletion syndrome 8a"	manually reviewed	OMIM:604712	HGNC:17296	https://orcid.org/0000-0002-4142-7153	
-OMIM:612075	MONDO:0012792	"mitochondrial DNA depletion syndrome 8a"	manually reviewed	OMIM:604712	HGNC:17296	https://orcid.org/0000-0002-4142-7153	
-OMIM:612076	MONDO:0012793	"hypouricemia, renal, 2"	manually reviewed	OMIM:606142	HGNC:13446	https://orcid.org/0000-0002-4142-7153	
 OMIM:612076	MONDO:0012793	"hypouricemia, renal, 2"	manually reviewed	OMIM:606142	HGNC:13446	https://orcid.org/0000-0002-4142-7153	
 OMIM:612079	MONDO:0012794	"ANE syndrome"	manually reviewed	OMIM:612074	HGNC:21863	https://orcid.org/0000-0002-4142-7153	
 OMIM:612158	MONDO:0012808	"dilated cardiomyopathy 1AA"	manually reviewed	OMIM:102573	HGNC:164	https://orcid.org/0000-0002-4142-7153	
 OMIM:612219	MONDO:0012817	"Ewing sarcoma"	manually reviewed	OMIM:133450	HGNC:3508	https://orcid.org/0000-0002-4142-7153	
-OMIM:612219	MONDO:0012817	"Ewing sarcoma"	manually reviewed	OMIM:133450	HGNC:3508	https://orcid.org/0000-0002-4142-7153	
-OMIM:612290	MONDO:0012854	"bilateral microtia-deafness-cleft palate syndrome"	manually reviewed	OMIM:604685	HGNC:5103	https://orcid.org/0000-0002-4142-7153	
 OMIM:612290	MONDO:0012854	"bilateral microtia-deafness-cleft palate syndrome"	manually reviewed	OMIM:604685	HGNC:5103	https://orcid.org/0000-0002-4142-7153	
 OMIM:612390	MONDO:0012891	"pontocerebellar hypoplasia type 2C"	manually reviewed	OMIM:608754	HGNC:15506	https://orcid.org/0000-0002-4142-7153	
 OMIM:612416	MONDO:0012897	"congenital factor XI deficiency"	manually reviewed	OMIM:264900	HGNC:3529	https://orcid.org/0000-0002-4142-7153	
-OMIM:612416	MONDO:0012897	"congenital factor XI deficiency"	manually reviewed	OMIM:264900	HGNC:3529	https://orcid.org/0000-0002-4142-7153	
-OMIM:612541	MONDO:0012930	"autosomal recessive severe congenital neutropenia due to G6PC3 deficiency"	manually reviewed	OMIM:611045	HGNC:24861	https://orcid.org/0000-0002-4142-7153	
 OMIM:612541	MONDO:0012930	"autosomal recessive severe congenital neutropenia due to G6PC3 deficiency"	manually reviewed	OMIM:611045	HGNC:24861	https://orcid.org/0000-0002-4142-7153	
 OMIM:612691	MONDO:0012986	"bilateral parasagittal parieto-occipital polymicrogyria"	manually reviewed	OMIM:609390	HGNC:16873	https://orcid.org/0000-0002-4142-7153	
 OMIM:612740	MONDO:0013000	"porphyria due to ALA dehydratase deficiency"	manually reviewed	OMIM:125270	HGNC:395	https://orcid.org/0000-0002-4142-7153	
-OMIM:612740	MONDO:0013000	"porphyria due to ALA dehydratase deficiency"	manually reviewed	OMIM:125270	HGNC:395	https://orcid.org/0000-0002-4142-7153	
 OMIM:612838	MONDO:0013015	"Brugada syndrome 5"	manually reviewed	OMIM:600235	HGNC:10586	https://orcid.org/0000-0002-4142-7153	
-OMIM:612964	MONDO:0013065	"premature ovarian failure 7"	manually reviewed	OMIM:184757	HGNC:7983	https://orcid.org/0000-0002-4142-7153	
 OMIM:612964	MONDO:0013065	"premature ovarian failure 7"	manually reviewed	OMIM:184757	HGNC:7983	https://orcid.org/0000-0002-4142-7153	
 OMIM:613080	MONDO:0013120	"46,XY sex reversal 5"	manually reviewed	OMIM:602770	HGNC:1552	https://orcid.org/0000-0002-4142-7153	
 OMIM:613119	MONDO:0013145	"Brugada syndrome 6"	manually reviewed	OMIM:604433	HGNC:6243	https://orcid.org/0000-0002-4142-7153	
 OMIM:613120	MONDO:0013146	"Brugada syndrome 7"	manually reviewed	OMIM:608214	HGNC:20665	https://orcid.org/0000-0002-4142-7153	
-OMIM:613120	MONDO:0013146	"Brugada syndrome 7"	manually reviewed	OMIM:608214	HGNC:20665	https://orcid.org/0000-0002-4142-7153	
-OMIM:613194	MONDO:0013175	"retinitis pigmentosa 50"	manually reviewed	OMIM:607854	HGNC:12703	https://orcid.org/0000-0002-4142-7153	
 OMIM:613194	MONDO:0013175	"retinitis pigmentosa 50"	manually reviewed	OMIM:607854	HGNC:12703	https://orcid.org/0000-0002-4142-7153	
 OMIM:613206	MONDO:0013179	"hereditary spastic paraplegia 44"	manually reviewed	OMIM:608803	HGNC:17494	https://orcid.org/0000-0002-4142-7153	
 OMIM:613223	MONDO:0013185	"leprosy, susceptibility to, 5"	manually reviewed	OMIM:601194	HGNC:11847	https://orcid.org/0000-0002-4142-7153	
-OMIM:613223	MONDO:0013185	"leprosy, susceptibility to, 5"	manually reviewed	OMIM:601194	HGNC:11847	https://orcid.org/0000-0002-4142-7153	
 OMIM:613229	MONDO:0013189	"trichotillomania"	manually reviewed	OMIM:609678	HGNC:20297	https://orcid.org/0000-0002-4142-7153	
 OMIM:613291	MONDO:0013214	"bile acid malabsorption, primary, 1"	manually reviewed	OMIM:601295	HGNC:10906	https://orcid.org/0000-0002-4142-7153	
-OMIM:613341	MONDO:0013231	"Leber congenital amaurosis 14"	manually reviewed	OMIM:604863	HGNC:6685	https://orcid.org/0000-0002-4142-7153	
-OMIM:613341	MONDO:0013231	"Leber congenital amaurosis 14"	manually reviewed	OMIM:604863	HGNC:6685	https://orcid.org/0000-0002-4142-7153	
 OMIM:613341	MONDO:0013231	"Leber congenital amaurosis 14"	manually reviewed	OMIM:604863	HGNC:6685	https://orcid.org/0000-0002-4142-7153	
 OMIM:613376	MONDO:0013243	"neuronopathy, distal hereditary motor, type 2C"	manually reviewed	OMIM:604624	HGNC:5248	https://orcid.org/0000-0002-4142-7153	
 OMIM:613388	MONDO:0013247	"Fanconi renotubular syndrome 2"	manually reviewed	OMIM:182309	HGNC:11019	https://orcid.org/0000-0002-4142-7153	
 OMIM:613393	MONDO:0013251	"Birbeck granule deficiency"	manually reviewed	OMIM:604862	HGNC:17935	https://orcid.org/0000-0002-4142-7153	
 OMIM:613424	MONDO:0013261	"dilated cardiomyopathy 1R"	manually reviewed	OMIM:102540	HGNC:143	https://orcid.org/0000-0002-4142-7153	
-OMIM:613424	MONDO:0013261	"dilated cardiomyopathy 1R"	manually reviewed	OMIM:102540	HGNC:143	https://orcid.org/0000-0002-4142-7153	
 OMIM:613426	MONDO:0013262	"dilated cardiomyopathy 1S"	manually reviewed	OMIM:160760	HGNC:7577	https://orcid.org/0000-0002-4142-7153	
-OMIM:613426	MONDO:0013262	"dilated cardiomyopathy 1S"	manually reviewed	OMIM:160760	HGNC:7577	https://orcid.org/0000-0002-4142-7153	
-OMIM:613443	MONDO:0013266	"neurodevelopmental disorder with hypotonia, stereotypic hand movements, and impaired language"	manually reviewed	OMIM:600662	HGNC:6996	https://orcid.org/0000-0002-4142-7153	
 OMIM:613443	MONDO:0013266	"neurodevelopmental disorder with hypotonia, stereotypic hand movements, and impaired language"	manually reviewed	OMIM:600662	HGNC:6996	https://orcid.org/0000-0002-4142-7153	
 OMIM:613453	MONDO:0013269	"autosomal recessive nonsyndromic hearing loss 91"	manually reviewed	OMIM:173321	HGNC:8950	https://orcid.org/0000-0002-4142-7153	
 OMIM:613464	MONDO:0013274	"retinitis pigmentosa 51"	manually reviewed	OMIM:608132	HGNC:20087	https://orcid.org/0000-0002-4142-7153	
@@ -464,8 +348,6 @@ OMIM:613507	MONDO:0013291	"glycogen storage disease XV"	manually reviewed	OMIM:6
 OMIM:613617	MONDO:0013328	"retinitis pigmentosa 58"	manually reviewed	OMIM:613598	HGNC:26498	https://orcid.org/0000-0002-4142-7153	
 OMIM:613630	MONDO:0013334	"cocoon syndrome"	manually reviewed	OMIM:600664	HGNC:1974	https://orcid.org/0000-0002-4142-7153	
 OMIM:613641	MONDO:0013338	"Charcot-Marie-Tooth disease recessive intermediate B"	manually reviewed	OMIM:601421	HGNC:6215	https://orcid.org/0000-0002-4142-7153	
-OMIM:613660	MONDO:0013348	"cone-rod dystrophy 15"	manually reviewed	OMIM:609502	HGNC:14550	https://orcid.org/0000-0002-4142-7153	
-OMIM:613660	MONDO:0013348	"cone-rod dystrophy 15"	manually reviewed	OMIM:609502	HGNC:14550	https://orcid.org/0000-0002-4142-7153	
 OMIM:613660	MONDO:0013348	"cone-rod dystrophy 15"	manually reviewed	OMIM:609502	HGNC:14550	https://orcid.org/0000-0002-4142-7153	
 OMIM:613671	MONDO:0013353	"intellectual disability, anterior maxillary protrusion, and strabismus"	manually reviewed	OMIM:613667	HGNC:29256	https://orcid.org/0000-0002-4142-7153	
 OMIM:613672	MONDO:0013354	"spastic ataxia 4"	manually reviewed	OMIM:613669	HGNC:25532	https://orcid.org/0000-0002-4142-7153	
@@ -481,7 +363,6 @@ OMIM:613850	MONDO:0013461	"inosine triphosphatase deficiency"	manually reviewed	
 OMIM:613852	MONDO:0013462	"fucosyltransferase 6 deficiency"	manually reviewed	OMIM:136836	HGNC:4017	https://orcid.org/0000-0002-4142-7153	
 OMIM:613855	MONDO:0013464	"episodic ataxia type 5"	manually reviewed	OMIM:601949	HGNC:1404	https://orcid.org/0000-0002-4142-7153	
 OMIM:613861	MONDO:0013468	"retinitis pigmentosa 59"	manually reviewed	OMIM:608172	HGNC:20603	https://orcid.org/0000-0002-4142-7153	
-OMIM:613861	MONDO:0013468	"retinitis pigmentosa 59"	manually reviewed	OMIM:608172	HGNC:20603	https://orcid.org/0000-0002-4142-7153	
 OMIM:613865	MONDO:0013471	"autosomal recessive nonsyndromic hearing loss 61"	manually reviewed	OMIM:604943	HGNC:9359	https://orcid.org/0000-0002-4142-7153	
 OMIM:613870	MONDO:0013473	"Hirschsprung disease, cardiac defects, and autonomic dysfunction"	manually reviewed	OMIM:600423	HGNC:3146	https://orcid.org/0000-0002-4142-7153	
 OMIM:613885	MONDO:0013482	"Meckel syndrome, type 8"	manually reviewed	OMIM:613846	HGNC:25774	https://orcid.org/0000-0002-4142-7153	
@@ -492,12 +373,10 @@ OMIM:613958	MONDO:0013505	"spermatogenic failure 9"	manually reviewed	OMIM:61389
 OMIM:613981	MONDO:0013514	"hypotrichosis 3"	manually reviewed	OMIM:608248	HGNC:28929	https://orcid.org/0000-0002-4142-7153	
 OMIM:613985	MONDO:0013517	"beta-thalassemia HBB/LCRB"	manually reviewed	OMIM:141900	HGNC:4827	https://orcid.org/0000-0002-4142-7153	
 OMIM:613989	MONDO:0013521	"dyskeratosis congenita, autosomal dominant 2"	manually reviewed	OMIM:187270	HGNC:11730	https://orcid.org/0000-0002-4142-7153	
-OMIM:613989	MONDO:0013521	"dyskeratosis congenita, autosomal dominant 2"	manually reviewed	OMIM:187270	HGNC:11730	https://orcid.org/0000-0002-4142-7153	
 OMIM:614024	MONDO:0013532	"protein Z deficiency"	manually reviewed	OMIM:176895	HGNC:9460	https://orcid.org/0000-0002-4142-7153	
 OMIM:614050	MONDO:0013545	"atrial fibrillation, familial, 12"	manually reviewed	OMIM:601439	HGNC:60	https://orcid.org/0000-0002-4142-7153	
 OMIM:614063	MONDO:0013549	"N-acetylaspartate deficiency"	manually reviewed	OMIM:610647	HGNC:26742	https://orcid.org/0000-0002-4142-7153	
 OMIM:614079	MONDO:0013562	"aspergillosis, susceptibility to"	manually reviewed	OMIM:606264	HGNC:14558	https://orcid.org/0000-0002-4142-7153	
-OMIM:614081	MONDO:0013564	"anhaptoglobinemia"	manually reviewed	OMIM:140100	HGNC:5141	https://orcid.org/0000-0002-4142-7153	
 OMIM:614081	MONDO:0013564	"anhaptoglobinemia"	manually reviewed	OMIM:140100	HGNC:5141	https://orcid.org/0000-0002-4142-7153	
 OMIM:614089	MONDO:0013567	"atrial septal defect 3"	manually reviewed	OMIM:160710	HGNC:7576	https://orcid.org/0000-0002-4142-7153	
 OMIM:614099	MONDO:0013573	"cranioectodermal dysplasia 3"	manually reviewed	OMIM:614068	HGNC:29669	https://orcid.org/0000-0002-4142-7153	
@@ -505,7 +384,6 @@ OMIM:614120	MONDO:0013585	"hydrolethalus syndrome 2"	manually reviewed	OMIM:6112
 OMIM:614128	MONDO:0013587	"glycogen storage disease due to lactate dehydrogenase H-subunit deficiency"	manually reviewed	OMIM:150100	HGNC:6541	https://orcid.org/0000-0002-4142-7153	
 OMIM:614135	MONDO:0013591	"epiphyseal dysplasia, multiple, 6"	manually reviewed	OMIM:120210	HGNC:2217	https://orcid.org/0000-0002-4142-7153	
 OMIM:614160	MONDO:0013598	"myostatin-related muscle hypertrophy"	manually reviewed	OMIM:601788	HGNC:4223	https://orcid.org/0000-0002-4142-7153	
-OMIM:614175	MONDO:0013609	"Meckel syndrome, type 10"	manually reviewed	OMIM:611951	HGNC:28636	https://orcid.org/0000-0002-4142-7153	
 OMIM:614175	MONDO:0013609	"Meckel syndrome, type 10"	manually reviewed	OMIM:611951	HGNC:28636	https://orcid.org/0000-0002-4142-7153	
 OMIM:614195	MONDO:0013618	"craniofacial anomalies and anterior segment dysgenesis syndrome"	manually reviewed	OMIM:605020	HGNC:12723	https://orcid.org/0000-0002-4142-7153	
 OMIM:614209	MONDO:0013630	"Meckel syndrome, type 9"	manually reviewed	OMIM:614144	HGNC:24123	https://orcid.org/0000-0002-4142-7153	
@@ -523,7 +401,6 @@ OMIM:614402	MONDO:0013734	"microphthalmia, syndromic 11"	manually reviewed	OMIM:
 OMIM:614415	MONDO:0013739	"chilblain lupus 2"	manually reviewed	OMIM:606754	HGNC:15925	https://orcid.org/0000-0002-4142-7153	
 OMIM:614434	MONDO:0013751	"cutis laxa, autosomal dominant 2"	manually reviewed	OMIM:604580	HGNC:3602	https://orcid.org/0000-0002-4142-7153	
 OMIM:614500	MONDO:0013786	"cone-rod dystrophy 16"	manually reviewed	OMIM:614477	HGNC:27232	https://orcid.org/0000-0002-4142-7153	
-OMIM:614500	MONDO:0013786	"cone-rod dystrophy 16"	manually reviewed	OMIM:614477	HGNC:27232	https://orcid.org/0000-0002-4142-7153	
 OMIM:614564	MONDO:0013806	"familial cutaneous telangiectasia and oropharyngeal predisposition cancer syndrome"	manually reviewed	OMIM:601215	HGNC:882	https://orcid.org/0000-0002-4142-7153	
 OMIM:614672	MONDO:0013848	"dilated cardiomyopathy 2B"	manually reviewed	OMIM:614518	HGNC:29941	https://orcid.org/0000-0002-4142-7153	
 OMIM:614699	MONDO:0013862	"immunodeficiency, common variable, 7"	manually reviewed	OMIM:120650	HGNC:2336	https://orcid.org/0000-0002-4142-7153	
@@ -538,15 +415,12 @@ OMIM:614861	MONDO:0013929	"autosomal recessive nonsyndromic hearing loss 98"	man
 OMIM:614900	MONDO:0013964	"Diamond-Blackfan anemia 11"	manually reviewed	OMIM:603704	HGNC:10327	https://orcid.org/0000-0002-4142-7153	
 OMIM:614929	MONDO:0013975	"ectodermal dysplasia 7, hair/nail type"	manually reviewed	OMIM:608248	HGNC:28929	https://orcid.org/0000-0002-4142-7153	
 OMIM:615008	MONDO:0014005	"immunoglobulin-mediated membranoproliferative glomerulonephritis"	manually reviewed	OMIM:601440	HGNC:2852	https://orcid.org/0000-0002-4142-7153	
-OMIM:615008	MONDO:0014005	"immunoglobulin-mediated membranoproliferative glomerulonephritis"	manually reviewed	OMIM:601440	HGNC:2852	https://orcid.org/0000-0002-4142-7153	
 OMIM:615011	MONDO:0014008	"phosphohydroxylysinuria"	manually reviewed	OMIM:614683	HGNC:28249	https://orcid.org/0000-0002-4142-7153	
 OMIM:615025	MONDO:0014012	"Charcot-Marie-Tooth disease axonal type 2Q"	manually reviewed	OMIM:614984	HGNC:23537	https://orcid.org/0000-0002-4142-7153	
 OMIM:615040	MONDO:0014021	"familial episodic pain syndrome with predominantly upper body involvement"	manually reviewed	OMIM:604775	HGNC:497	https://orcid.org/0000-0002-4142-7153	
 OMIM:615043	MONDO:0014024	"hereditary spastic paraplegia 43"	manually reviewed	OMIM:614297	HGNC:25443	https://orcid.org/0000-0002-4142-7153	
 OMIM:615081	MONDO:0014037	"spermatogenic failure 11"	manually reviewed	OMIM:608778	HGNC:18829	https://orcid.org/0000-0002-4142-7153	
 OMIM:615145	MONDO:0014059	"microphthalmia, isolated, with coloboma 9"	manually reviewed	OMIM:610083	HGNC:29944	https://orcid.org/0000-0002-4142-7153	
-OMIM:615145	MONDO:0014059	"microphthalmia, isolated, with coloboma 9"	manually reviewed	OMIM:610083	HGNC:29944	https://orcid.org/0000-0002-4142-7153	
-OMIM:615190	MONDO:0014076	"dyskeratosis congenita, autosomal recessive 5"	manually reviewed	OMIM:608833	HGNC:15888	https://orcid.org/0000-0002-4142-7153	
 OMIM:615190	MONDO:0014076	"dyskeratosis congenita, autosomal recessive 5"	manually reviewed	OMIM:608833	HGNC:15888	https://orcid.org/0000-0002-4142-7153	
 OMIM:615226	MONDO:0014090	"polydactyly, postaxial, type A6"	manually reviewed	OMIM:194648	HGNC:12926	https://orcid.org/0000-0002-4142-7153	
 OMIM:615228	MONDO:0014091	"mitochondrial complex V (ATP synthase) deficiency, nuclear type 4B"	manually reviewed	OMIM:164360	HGNC:823	https://orcid.org/0000-0002-4142-7153	
@@ -554,12 +428,8 @@ OMIM:615233	MONDO:0014093	"retinitis pigmentosa 66"	manually reviewed	OMIM:18029
 OMIM:615234	MONDO:0014094	"severe congenital hypochromic anemia with ringed sideroblasts"	manually reviewed	OMIM:609671	HGNC:24592	https://orcid.org/0000-0002-4142-7153	
 OMIM:615238	MONDO:0014098	"CIDEC-related familial partial lipodystrophy"	manually reviewed	OMIM:612120	HGNC:24229	https://orcid.org/0000-0002-4142-7153	
 OMIM:615248	MONDO:0014100	"dilated cardiomyopathy 1KK"	manually reviewed	OMIM:608517	HGNC:23246	https://orcid.org/0000-0002-4142-7153	
-OMIM:615248	MONDO:0014100	"dilated cardiomyopathy 1KK"	manually reviewed	OMIM:608517	HGNC:23246	https://orcid.org/0000-0002-4142-7153	
-OMIM:615248	MONDO:0014100	"dilated cardiomyopathy 1KK"	manually reviewed	OMIM:608517	HGNC:23246	https://orcid.org/0000-0002-4142-7153	
 OMIM:615293	MONDO:0014122	"myofibromatosis, infantile, 2"	manually reviewed	OMIM:600276	HGNC:7883	https://orcid.org/0000-0002-4142-7153	
 OMIM:615373	MONDO:0014152	"left ventricular noncompaction 8"	manually reviewed	OMIM:605557	HGNC:14000	https://orcid.org/0000-0002-4142-7153	
-OMIM:615373	MONDO:0014152	"left ventricular noncompaction 8"	manually reviewed	OMIM:605557	HGNC:14000	https://orcid.org/0000-0002-4142-7153	
-OMIM:615396	MONDO:0014163	"left ventricular noncompaction 10"	manually reviewed	OMIM:600958	HGNC:7551	https://orcid.org/0000-0002-4142-7153	
 OMIM:615396	MONDO:0014163	"left ventricular noncompaction 10"	manually reviewed	OMIM:600958	HGNC:7551	https://orcid.org/0000-0002-4142-7153	
 OMIM:615399	MONDO:0014166	"paroxysmal nocturnal hemoglobinuria 2"	manually reviewed	OMIM:610272	HGNC:14938	https://orcid.org/0000-0002-4142-7153	
 OMIM:615413	MONDO:0014172	"spermatogenic failure 12"	manually reviewed	OMIM:608226	HGNC:23044	https://orcid.org/0000-0002-4142-7153	
@@ -571,14 +441,12 @@ OMIM:615517	MONDO:0014225	"hemochromatosis type 5"	manually reviewed	OMIM:134770
 OMIM:615518	MONDO:0014226	"idiopathic CD4 lymphocytopenia"	manually reviewed	OMIM:604011	HGNC:12565	https://orcid.org/0000-0002-4142-7153	
 OMIM:615527	MONDO:0014230	"candidiasis, familial, 8"	manually reviewed	OMIM:607043	HGNC:1343	https://orcid.org/0000-0002-4142-7153	
 OMIM:615528	MONDO:0014231	"juvenile onset Parkinson disease 19A"	manually reviewed	OMIM:608375	HGNC:15469	https://orcid.org/0000-0002-4142-7153	
-OMIM:615528	MONDO:0014231	"juvenile onset Parkinson disease 19A"	manually reviewed	OMIM:608375	HGNC:15469	https://orcid.org/0000-0002-4142-7153	
 OMIM:615542	MONDO:0014239	"testicular anomalies with or without congenital heart disease"	manually reviewed	OMIM:600576	HGNC:4173	https://orcid.org/0000-0002-4142-7153	
 OMIM:615544	MONDO:0014240	"periventricular nodular heterotopia 6"	manually reviewed	OMIM:615532	HGNC:21056	https://orcid.org/0000-0002-4142-7153	
 OMIM:615565	MONDO:0014256	"retinitis pigmentosa 67"	manually reviewed	OMIM:604043	HGNC:7745	https://orcid.org/0000-0002-4142-7153	
 OMIM:615593	MONDO:0014268	"combined immunodeficiency due to OX40 deficiency"	manually reviewed	OMIM:600315	HGNC:11918	https://orcid.org/0000-0002-4142-7153	
 OMIM:615595	MONDO:0014269	"combined oxidative phosphorylation deficiency 19"	manually reviewed	OMIM:613311	HGNC:21365	https://orcid.org/0000-0002-4142-7153	
 OMIM:615605	MONDO:0014275	"Fanconi renotubular syndrome 3"	manually reviewed	OMIM:607037	HGNC:3247	https://orcid.org/0000-0002-4142-7153	
-OMIM:615615	MONDO:0014278	"immunodeficiency 18"	manually reviewed	OMIM:186830	HGNC:1674	https://orcid.org/0000-0002-4142-7153	
 OMIM:615615	MONDO:0014278	"immunodeficiency 18"	manually reviewed	OMIM:186830	HGNC:1674	https://orcid.org/0000-0002-4142-7153	
 OMIM:615658	MONDO:0014295	"hereditary spastic paraplegia 57"	manually reviewed	OMIM:602498	HGNC:11758	https://orcid.org/0000-0002-4142-7153	
 OMIM:615686	MONDO:0014305	"hereditary spastic paraplegia 63"	manually reviewed	OMIM:102771	HGNC:469	https://orcid.org/0000-0002-4142-7153	
@@ -595,7 +463,6 @@ OMIM:615926	MONDO:0014404	"Webb-Dattani syndrome"	manually reviewed	OMIM:606036	
 OMIM:615953	MONDO:0014415	"kallikrein, decreased urinary activity of"	manually reviewed	OMIM:147910	HGNC:6357	https://orcid.org/0000-0002-4142-7153	
 OMIM:615974	MONDO:0014428	"autosomal recessive nonsyndromic hearing loss 102"	manually reviewed	OMIM:600206	HGNC:3420	https://orcid.org/0000-0002-4142-7153	
 OMIM:615979	MONDO:0014430	"intellectual disability, autosomal recessive 45"	manually reviewed	OMIM:609102	HGNC:16510	https://orcid.org/0000-0002-4142-7153	
-OMIM:615999	MONDO:0014448	"hyperthyroxinemia, familial dysalbuminemic"	manually reviewed	OMIM:103600	HGNC:399	https://orcid.org/0000-0002-4142-7153	
 OMIM:615999	MONDO:0014448	"hyperthyroxinemia, familial dysalbuminemic"	manually reviewed	OMIM:103600	HGNC:399	https://orcid.org/0000-0002-4142-7153	
 OMIM:616001	MONDO:0014450	"breasts and/or nipples, aplasia or hypoplasia of, 2"	manually reviewed	OMIM:179590	HGNC:9670	https://orcid.org/0000-0002-4142-7153	
 OMIM:616042	MONDO:0014469	"autosomal recessive nonsyndromic hearing loss 103"	manually reviewed	OMIM:607293	HGNC:13517	https://orcid.org/0000-0002-4142-7153	
@@ -663,8 +530,6 @@ OMIM:616968	MONDO:0014853	"autosomal dominant nonsyndromic hearing loss 70"	manu
 OMIM:616969	MONDO:0014854	"autosomal dominant nonsyndromic hearing loss 66"	manually reviewed	OMIM:603356	HGNC:1632	https://orcid.org/0000-0002-4142-7153	
 OMIM:617018	MONDO:0014867	"spinocerebellar ataxia 43"	manually reviewed	OMIM:120520	HGNC:7154	https://orcid.org/0000-0002-4142-7153	
 OMIM:617047	MONDO:0014883	"hypertrophic cardiomyopathy 26"	manually reviewed	OMIM:102565	HGNC:3756	https://orcid.org/0000-0002-4142-7153	
-OMIM:617047	MONDO:0014883	"hypertrophic cardiomyopathy 26"	manually reviewed	OMIM:102565	HGNC:3756	https://orcid.org/0000-0002-4142-7153	
-OMIM:617047	MONDO:0014883	"hypertrophic cardiomyopathy 26"	manually reviewed	OMIM:102565	HGNC:3756	https://orcid.org/0000-0002-4142-7153	
 OMIM:617050	MONDO:0014885	"Hermansky-Pudlak syndrome 10"	manually reviewed	OMIM:607246	HGNC:568	https://orcid.org/0000-0002-4142-7153	
 OMIM:617065	MONDO:0014895	"developmental and epileptic encephalopathy, 40"	manually reviewed	OMIM:617064	HGNC:25799	https://orcid.org/0000-0002-4142-7153	
 OMIM:617066	MONDO:0014896	"congenital muscular dystrophy-respiratory failure-skin abnormalities-joint hyperlaxity syndrome"	manually reviewed	OMIM:604501	HGNC:12310	https://orcid.org/0000-0002-4142-7153	
@@ -688,34 +553,22 @@ OMIM:617280	MONDO:0015001	"atrial fibrillation, familial, 18"	manually reviewed	
 OMIM:617302	MONDO:0015011	"optic atrophy 11"	manually reviewed	OMIM:607472	HGNC:12843	https://orcid.org/0000-0002-4142-7153	
 OMIM:617337	MONDO:0015024	"ectodermal dysplasia 12, hypohidrotic/hair/tooth/nail type"	manually reviewed	OMIM:616758	HGNC:26624	https://orcid.org/0000-0002-4142-7153	
 OMIM:180200	MONDO:0018160	"hereditary retinoblastoma"	manually reviewed	OMIM:614041	HGNC:9884	https://orcid.org/0000-0002-4142-7153	
-OMIM:180200	MONDO:0018160	"hereditary retinoblastoma"	manually reviewed	OMIM:614041	HGNC:9884	https://orcid.org/0000-0002-4142-7153	
 OMIM:604093	MONDO:0018855	"keratosis pilaris atrophicans"	manually reviewed	OMIM:107770	HGNC:6692	https://orcid.org/0000-0002-4142-7153	
 OMIM:167030	MONDO:0020722	"nephrolithiasis susceptibility caused by SLC26A1"	manually reviewed	OMIM:610130	HGNC:10993	https://orcid.org/0000-0002-4142-7153	
 OMIM:116860	MONDO:0020724	"cerebral cavernous malformation 1"	manually reviewed	OMIM:604214	HGNC:1573	https://orcid.org/0000-0002-4142-7153	
-OMIM:116860	MONDO:0020724	"cerebral cavernous malformation 1"	manually reviewed	OMIM:604214	HGNC:1573	https://orcid.org/0000-0002-4142-7153	
-OMIM:116860	MONDO:0020724	"cerebral cavernous malformation 1"	manually reviewed	OMIM:604214	HGNC:1573	https://orcid.org/0000-0002-4142-7153	
-OMIM:141500	MONDO:0020756	"migraine, familial hemiplegic, 1"	manually reviewed	OMIM:601011	HGNC:1388	https://orcid.org/0000-0002-4142-7153	
 OMIM:141500	MONDO:0020756	"migraine, familial hemiplegic, 1"	manually reviewed	OMIM:601011	HGNC:1388	https://orcid.org/0000-0002-4142-7153	
 OMIM:175100	MONDO:0021056	"familial adenomatous polyposis 1"	manually reviewed	OMIM:611731	HGNC:583	https://orcid.org/0000-0002-4142-7153	
-OMIM:175100	MONDO:0021056	"familial adenomatous polyposis 1"	manually reviewed	OMIM:611731	HGNC:583	https://orcid.org/0000-0002-4142-7153	
-OMIM:175100	MONDO:0021056	"familial adenomatous polyposis 1"	manually reviewed	OMIM:611731	HGNC:583	https://orcid.org/0000-0002-4142-7153	
-OMIM:175100	MONDO:0021056	"familial adenomatous polyposis 1"	manually reviewed	OMIM:611731	HGNC:583	https://orcid.org/0000-0002-4142-7153	
-OMIM:135700	MONDO:0021083	"congenital fibrosis of extraocular muscles type 1"	manually reviewed	OMIM:608283	HGNC:19349	https://orcid.org/0000-0002-4142-7153	
 OMIM:135700	MONDO:0021083	"congenital fibrosis of extraocular muscles type 1"	manually reviewed	OMIM:608283	HGNC:19349	https://orcid.org/0000-0002-4142-7153	
 OMIM:166780	MONDO:0024532	"otofaciocervical syndrome 1"	manually reviewed	OMIM:601653	HGNC:3519	https://orcid.org/0000-0002-4142-7153	
 OMIM:178600	MONDO:0024533	"pulmonary hypertension, primary, 1"	manually reviewed	OMIM:600799	HGNC:1078	https://orcid.org/0000-0002-4142-7153	
-OMIM:178600	MONDO:0024533	"pulmonary hypertension, primary, 1"	manually reviewed	OMIM:600799	HGNC:1078	https://orcid.org/0000-0002-4142-7153	
 OMIM:215500	MONDO:0024539	"choroidal dystrophy, central areolar, 1"	manually reviewed	OMIM:600179	HGNC:4689	https://orcid.org/0000-0002-4142-7153	
-OMIM:259100	MONDO:0024546	"hypertrophic osteoarthropathy, primary, autosomal recessive, 1"	manually reviewed	OMIM:601688	HGNC:5154	https://orcid.org/0000-0002-4142-7153	
 OMIM:259100	MONDO:0024546	"hypertrophic osteoarthropathy, primary, autosomal recessive, 1"	manually reviewed	OMIM:601688	HGNC:5154	https://orcid.org/0000-0002-4142-7153	
 OMIM:615438	MONDO:0024568	"infantile liver failure syndrome 1"	manually reviewed	OMIM:151350	HGNC:6512	https://orcid.org/0000-0002-4142-7153	
 OMIM:614674	MONDO:0044660	"menstrual cycle-dependent periodic fever"	manually reviewed	OMIM:109760	HGNC:5286	https://orcid.org/0000-0002-4142-7153	
-OMIM:107480	MONDO:0054581	"Townes-Brocks syndrome 1"	manually reviewed	OMIM:602218	HGNC:10524	https://orcid.org/0000-0002-4142-7153	
 OMIM:107480	MONDO:0054581	"Townes-Brocks syndrome 1"	manually reviewed	OMIM:602218	HGNC:10524	https://orcid.org/0000-0002-4142-7153	
 OMIM:273395	MONDO:0060764	"tetraamelia syndrome 1"	manually reviewed	OMIM:165330	HGNC:12782	https://orcid.org/0000-0002-4142-7153	
 OMIM:614937	MONDO:0100093	"myoclonus, familial, 1"	manually reviewed	OMIM:605235	HGNC:7869	https://orcid.org/0000-0002-4142-7153	
 OMIM:400045	MONDO:0100250	"46,XX sex reversal 1"	manually reviewed	OMIM:480000	HGNC:11311	https://orcid.org/0000-0002-4142-7153	
 OMIM:611465	MONDO:1010151	"gallbladder disease 4"	manually reviewed	OMIM:605460	HGNC:13887	https://orcid.org/0000-0002-4142-7153	
-OMIM:193670	MONDO:8000006	"WHIM syndrome 1"	manually reviewed	OMIM:162643	HGNC:2561	https://orcid.org/0000-0002-4142-7153	
 OMIM:193670	MONDO:8000006	"WHIM syndrome 1"	manually reviewed	OMIM:162643	HGNC:2561	https://orcid.org/0000-0002-4142-7153	
 OMIM:617925	MONDO:0044328	"short-rib thoracic dysplasia 20 with polydactyly"	provisional	OMIM:610621	HGNC:29239	https://orcid.org/0000-0002-7638-4659	
