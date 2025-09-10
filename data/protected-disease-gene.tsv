@@ -65,7 +65,6 @@ OMIM:615988	MONDO:0014439	"Bardet-Biedl syndrome 11"	provisional	OMIM:602290	HGN
 OMIM:500014	MONDO:0027068	"mitochondrial complex I deficiency, mitochondrial type 1"	confirmed	OMIM:516002	HGNC:7458	https://orcid.org/0000-0002-4142-7153	
 OMIM:619059	MONDO:0033650	"mitochondrial complex IV deficiency, nuclear type 15"	provisional	OMIM:123870	HGNC:2294	https://orcid.org/0000-0002-4142-7153	
 OMIM:147430	MONDO:0958106	"congenital insensitivity to pain syndrome, Marsili type"	provisional	OMIM:617828	HGNC:20152	https://orcid.org/0000-0002-4142-7153	
-OMIM:614470	MONDO:0013767	"autoimmune lymphoproliferative syndrome type 4"	manually reviewed	OMIM:164790	HGNC:7989	https://orcid.org/0000-0002-4142-7153	somatic, included, not in mondo
 OMIM:608232	MONDO:0011996	"chronic myelogenous leukemia, BCR-ABL1 positive"	manually reviewed	OMIM:151410	HGNC:1014	https://orcid.org/0000-0002-4142-7153	OK, but somatic, should be manually removed
 OMIM:232400	MONDO:0009291	"glycogen storage disease III"	manually reviewed	OMIM:610860	HGNC:321	https://orcid.org/0000-0002-4142-7153	included, note that the Mondo term might need to be split
 OMIM:602522	MONDO:0011242	"Bartter disease type 4A"	manually reviewed	OMIM:606412	HGNC:16512	https://orcid.org/0000-0002-4142-7153	included entry
@@ -107,7 +106,6 @@ OMIM:102900	MONDO:0007067	"pyruvate kinase hyperactivity"	manually reviewed	OMIM
 OMIM:105400	MONDO:0007103	"amyotrophic lateral sclerosis type 1"	manually reviewed	OMIM:147450	HGNC:11179	https://orcid.org/0000-0002-4142-7153	
 OMIM:106190	MONDO:0007118	"isolated anhidrosis with normal sweat glands"	manually reviewed	OMIM:600144	HGNC:6181	https://orcid.org/0000-0002-4142-7153	
 OMIM:107600	MONDO:0007145	"aplasia cutis congenita"	manually reviewed	OMIM:611448	HGNC:23505	https://orcid.org/0000-0002-4142-7153	
-OMIM:108010	MONDO:0007154	"arteriovenous malformations of the brain"	manually reviewed	OMIM:147620	HGNC:6018	https://orcid.org/0000-0002-4142-7153	
 OMIM:108120	MONDO:0007157	"arthrogryposis, distal, type 1A"	manually reviewed	OMIM:190990	HGNC:12011	https://orcid.org/0000-0002-4142-7153	
 OMIM:113900	MONDO:0007240	"progressive familial heart block, type 1A"	manually reviewed	OMIM:600163	HGNC:10593	https://orcid.org/0000-0002-4142-7153	
 OMIM:114290	MONDO:0007251	"campomelic dysplasia"	manually reviewed	OMIM:608160	HGNC:11204	https://orcid.org/0000-0002-4142-7153	
@@ -214,7 +212,6 @@ OMIM:300643	MONDO:0010388	"rolandic epilepsy, intellectual disability, and speec
 OMIM:300661	MONDO:0010395	"phosphoribosylpyrophosphate synthetase superactivity"	manually reviewed	OMIM:311850	HGNC:9462	https://orcid.org/0000-0002-4142-7153	
 OMIM:300696	MONDO:0010401	"X-linked myopathy with postural muscle atrophy"	manually reviewed	OMIM:300163	HGNC:3702	https://orcid.org/0000-0002-4142-7153	
 OMIM:300807	MONDO:0010432	"thrombophilia, X-linked, due to factor 9 defect"	manually reviewed	OMIM:300746	HGNC:3551	https://orcid.org/0000-0002-4142-7153	
-OMIM:300818	MONDO:0010438	"paroxysmal nocturnal hemoglobinuria 1"	manually reviewed	OMIM:311770	HGNC:8957	https://orcid.org/0000-0002-4142-7153	
 OMIM:300863	MONDO:0010463	"X-linked dominant chondrodysplasia, Chassaing-Lacombe type"	manually reviewed	OMIM:300272	HGNC:14064	https://orcid.org/0000-0002-4142-7153	
 OMIM:300911	MONDO:0010482	"X-linked parkinsonism-spasticity syndrome"	manually reviewed	OMIM:300556	HGNC:18305	https://orcid.org/0000-0002-4142-7153	
 OMIM:300914	MONDO:0010484	"hearing loss, X-linked 6"	manually reviewed	OMIM:303631	HGNC:2208	https://orcid.org/0000-0002-4142-7153	
@@ -431,7 +428,6 @@ OMIM:615248	MONDO:0014100	"dilated cardiomyopathy 1KK"	manually reviewed	OMIM:60
 OMIM:615293	MONDO:0014122	"myofibromatosis, infantile, 2"	manually reviewed	OMIM:600276	HGNC:7883	https://orcid.org/0000-0002-4142-7153	
 OMIM:615373	MONDO:0014152	"left ventricular noncompaction 8"	manually reviewed	OMIM:605557	HGNC:14000	https://orcid.org/0000-0002-4142-7153	
 OMIM:615396	MONDO:0014163	"left ventricular noncompaction 10"	manually reviewed	OMIM:600958	HGNC:7551	https://orcid.org/0000-0002-4142-7153	
-OMIM:615399	MONDO:0014166	"paroxysmal nocturnal hemoglobinuria 2"	manually reviewed	OMIM:610272	HGNC:14938	https://orcid.org/0000-0002-4142-7153	
 OMIM:615413	MONDO:0014172	"spermatogenic failure 12"	manually reviewed	OMIM:608226	HGNC:23044	https://orcid.org/0000-0002-4142-7153	
 OMIM:615414	MONDO:0014173	"microcephaly 11, primary, autosomal recessive"	manually reviewed	OMIM:602978	HGNC:3182	https://orcid.org/0000-0002-4142-7153	
 OMIM:615422	MONDO:0014178	"inclusion body myopathy with early-onset Paget disease with or without frontotemporal dementia 2"	manually reviewed	OMIM:600124	HGNC:5033	https://orcid.org/0000-0002-4142-7153	

@@ -10,3 +10,7 @@ OMIM:219080	MONDO:0009049	Cushing syndrome due to macronodular adrenal hyperplas
 OMIM:219090	MONDO:0020528	ACTH-dependent Cushing syndrome	https://orcid.org/0000-0002-4142-7153	"disease caused by somatic mutations, therefore a gene association stating this is due to a germline mutation should not be added"
 OMIM:606232	MONDO:0011652	Phelan-McDermid syndrome	https://orcid.org/0000-0002-4142-7153	"the omim record is both for the disease caused by a variation in a gene and by a microdeletion, therefore a gene association stating this is due to a germline mutation should not be added"
 OMIM:130060	MONDO:0007525	Ehlers-Danlos syndrome, arthrochalasia type	https://orcid.org/0000-0002-4142-7153	"gene association remove by curator"
+OMIM:614470	MONDO:0013767	autoimmune lymphoproliferative syndrome type 4	https://orcid.org/0000-0002-4142-7153	somatic
+OMIM:108010	MONDO:0007154	arteriovenous malformations of the brain	https://orcid.org/0000-0002-4142-7153	somatic
+OMIM:300818	MONDO:0010438	paroxysmal nocturnal hemoglobinuria 1	https://orcid.org/0000-0002-4142-7153	somatic
+OMIM:615399	MONDO:0014166	paroxysmal nocturnal hemoglobinuria 2	https://orcid.org/0000-0002-4142-7153	somatic
