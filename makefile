@@ -13,7 +13,30 @@ omim.ttl:
 	 make cleanup
 
 data/hgnc/hgnc_complete_set.txt:
-	wget "https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt" -O $@
+	@echo "Downloading HGNC complete set..."
+	@mkdir -p data/hgnc
+	wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 --tries=3 \
+		--continue --progress=bar:force \
+		"https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt" -O $@.tmp
+	@echo "Verifying download..."
+	@if [ ! -s $@.tmp ]; then \
+		echo "ERROR: Downloaded file is empty!"; \
+		rm -f $@.tmp; \
+		exit 1; \
+	fi
+	@line_count=$$(wc -l < $@.tmp | tr -d ' '); \
+	if [ $$line_count -lt 40000 ]; then \
+		echo "ERROR: Downloaded file has only $$line_count lines (expected >40000)"; \
+		rm -f $@.tmp; \
+		exit 1; \
+	fi
+	@if ! head -1 $@.tmp | grep -q "hgnc_id"; then \
+		echo "ERROR: Downloaded file doesn't have expected header"; \
+		rm -f $@.tmp; \
+		exit 1; \
+	fi
+	@mv $@.tmp $@
+	@echo "✓ Successfully downloaded and verified HGNC file ($$line_count lines)"
 
 omim.sssom.tsv: omim.json
 	sssom parse omim.json -I obographs-json -m data/metadata.sssom.yml -o omim.sssom.tsv
