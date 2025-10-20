@@ -611,8 +611,23 @@ def get_hgnc_id_symbol_map(input_path=HGNC_DATA_PATH) -> Dict[str, str]:
     """Get mapping between HGNC IDs (prefixed) and symbols"""
     d = {}
     df = pd.read_csv(input_path, sep='\t')
+    skipped_rows = 0
     for index, row in df.iterrows():
+        # Skip rows where hgnc_id or symbol is NaN/missing
+        if pd.isna(row['hgnc_id']) or pd.isna(row['symbol']):
+            skipped_rows += 1
+            LOG.warning(f"Skipping row {index + 2} in HGNC file: missing hgnc_id or symbol")
+            continue
         d[row['hgnc_id']] = row['symbol']
+    
+    if skipped_rows > 0:
+        LOG.warning(f"HGNC file quality issue: Skipped {skipped_rows} rows with missing data")
+        # Fail if more than 1% of rows are bad
+        if skipped_rows > len(df) * 0.01:
+            raise RuntimeError(
+                f"HGNC file has too many invalid rows: {skipped_rows}/{len(df)} "
+                f"({skipped_rows/len(df)*100:.1f}%). File may be corrupted."
+            )
     return d
 
 
@@ -620,8 +635,23 @@ def get_hgnc_symbol_id_map(input_path=HGNC_DATA_PATH) -> Dict[str, str]:
     """Get mapping between HGNC symbols (unprefixed) and IDs"""
     d = {}
     df = pd.read_csv(input_path, sep='\t')
+    skipped_rows = 0
     for index, row in df.iterrows():
+        # Skip rows where hgnc_id or symbol is NaN/missing
+        if pd.isna(row['hgnc_id']) or pd.isna(row['symbol']):
+            skipped_rows += 1
+            LOG.warning(f"Skipping row {index + 2} in HGNC file: missing hgnc_id or symbol")
+            continue
         d[row['symbol']] = row['hgnc_id'].split(':')[1]  # split: hgnc_id is formatted as "hgnc:<id>"
+    
+    if skipped_rows > 0:
+        LOG.warning(f"HGNC file quality issue: Skipped {skipped_rows} rows with missing data")
+        # Fail if more than 1% of rows are bad
+        if skipped_rows > len(df) * 0.01:
+            raise RuntimeError(
+                f"HGNC file has too many invalid rows: {skipped_rows}/{len(df)} "
+                f"({skipped_rows/len(df)*100:.1f}%). File may be corrupted."
+            )
     return d
 
 def p2g_is_definitive(label: str) -> bool:
