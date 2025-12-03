@@ -610,7 +610,7 @@ def get_pubmed_refs_and_mappings(
 def get_hgnc_id_symbol_map(input_path=HGNC_DATA_PATH) -> Dict[str, str]:
     """Get mapping between HGNC IDs (prefixed) and symbols"""
     d = {}
-    df = pd.read_csv(input_path, sep='\t')
+    df = pd.read_csv(input_path, sep='\t', low_memory=False)
     skipped_rows = 0
     for index, row in df.iterrows():
         # Skip rows where hgnc_id or symbol is NaN/missing
@@ -634,7 +634,7 @@ def get_hgnc_id_symbol_map(input_path=HGNC_DATA_PATH) -> Dict[str, str]:
 def get_hgnc_symbol_id_map(input_path=HGNC_DATA_PATH) -> Dict[str, str]:
     """Get mapping between HGNC symbols (unprefixed) and IDs"""
     d = {}
-    df = pd.read_csv(input_path, sep='\t')
+    df = pd.read_csv(input_path, sep='\t', low_memory=False)
     skipped_rows = 0
     for index, row in df.iterrows():
         # Skip rows where hgnc_id or symbol is NaN/missing
