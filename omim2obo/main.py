@@ -52,7 +52,7 @@ todo's
 Assumptions
 1. Mappings obtained from official OMIM files as described above are interpreted correctly (e.g. skos:exactMatch).
 """
-from typing import Optional
+from typing import Optional, Set
 
 import yaml
 from hashlib import md5
@@ -72,7 +72,7 @@ from omim2obo.namespaces import *
 from omim2obo.parsers.omim_entry_parser import REVIEW_CASES, cleanup_title, get_alt_and_included_titles_and_symbols, \
     get_pubs, get_mapped_ids, log_review_cases, recapitalize_acronyms_in_titles
 from omim2obo.parsers.omim_txt_parser import *  # todo: change to specific imports
-from omim2obo.utils.utils import get_d2g_exclusions_by_curator, get_d2g_digenic_protections
+from omim2obo.utils.utils import get_d2g_exclusions_by_curator, get_d2g_protected, get_protected_mondo_mappings
 
 # Vars
 OUTPATH = os.path.join(ROOT_DIR / 'omim.ttl')
@@ -420,8 +420,12 @@ def omim2obo(use_cache: bool = False):
 
     # - Add relations (subclass restrictions)
     exclusions_p_mim_orcid_map: Dict[str, Optional[URIRef]] = get_d2g_exclusions_by_curator()
-    protections_gene_pheno__hgnc_orcid_map: Dict[Tuple[str, str], Tuple[str, Optional[URIRef]]] = \
-        get_d2g_digenic_protections()
+    protected_gene_pheno__hgnc_orcid_map: Dict[Tuple[str, str], Tuple[str, Optional[URIRef]]] = \
+        get_d2g_protected()
+    
+    # Track which protected associations have been processed from morbidmap
+    processed_protected_assocs: Set[Tuple[str, str]] = set()
+    
     for p_mim, assocs in phenotype_genes.items():
         for assoc in assocs:
             gene_mim, p_lab, p_map_key, p_map_lab = assoc['gene_id'], assoc['phenotype_label'], \
@@ -437,13 +441,14 @@ def omim2obo(use_cache: bool = False):
             p_mim_excluded = p_mim in exclusions_p_mim_orcid_map
             protected_digenic_key = (p_mim, gene_mim)
 
-            protected_digenic_assoc: bool = protected_digenic_key in protections_gene_pheno__hgnc_orcid_map
+            protected_digenic_assoc: bool = protected_digenic_key in protected_gene_pheno__hgnc_orcid_map
             if protected_digenic_assoc:
                 hgnc_id_protected: str
                 orcid_protected: Optional[URIRef]
-                hgnc_id_protected, orcid_protected = protections_gene_pheno__hgnc_orcid_map[protected_digenic_key]
+                hgnc_id_protected, orcid_protected = protected_gene_pheno__hgnc_orcid_map[protected_digenic_key]
                 add_gene_disease_associations(graph, gene_mim, p_mim, evidence, orcid_protected)
                 graph.add((OMIM[gene_mim], SKOS.exactMatch, HGNC[hgnc_id_protected]))
+                processed_protected_assocs.add(protected_digenic_key)
                 continue
 
             # Skip: No phenotype or unknown defect
@@ -472,6 +477,24 @@ def omim2obo(use_cache: bool = False):
 
             log_review_cases(p_mim, p_lab, p_map_key, gene_mim, gene_phenotypes, omim_types)
             add_gene_disease_associations(graph, gene_mim, p_mim, evidence)
+    
+    # Add curator protected associations that were not in morbidmap
+    # This ensures all protected associations are maintained, even if they don't appear in the source data
+    for (p_mim, gene_mim), (hgnc_id_protected, orcid_protected) in protected_gene_pheno__hgnc_orcid_map.items():
+        if (p_mim, gene_mim) not in processed_protected_assocs:
+            # Use mapping key 3 (disease-defining) as default evidence for protected associations
+            evidence = 'Evidence: (3) disease-defining (protected association)'
+            add_gene_disease_associations(graph, gene_mim, p_mim, evidence, orcid_protected)
+            graph.add((OMIM[gene_mim], SKOS.exactMatch, HGNC[hgnc_id_protected]))
+    
+    # Add MONDO mappings from protected file
+    # This ensures all MONDO IDs listed in protected associations are available for SPARQL queries
+    protected_mondo_mappings = get_protected_mondo_mappings()
+    for p_mim, mondo_ids in protected_mondo_mappings.items():
+        for mondo_curie in mondo_ids:
+            # Extract MONDO ID from CURIE (e.g., "MONDO:0100537" -> "0100537")
+            mondo_id = mondo_curie.split(':')[1] if ':' in mondo_curie else mondo_curie
+            graph.add((OMIM[p_mim], SKOS.exactMatch, MONDO[mondo_id]))
 
     # PubMed refs, UMLS mappings, Orphanet mappings
     pubmed_links_df, mappings_df = get_pubmed_refs_and_mappings()
