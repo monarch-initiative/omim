@@ -223,7 +223,7 @@ def get_mim_file(
 
     if download:
         print(f'Downloading {file_name} from OMIM...')
-        url = f'https://data.omim.org/downloads/{CONFIG["API_KEY"]}/{file_name}'
+        url = f'https://data.omim.org/downloads/{CONFIG["DOWNLOAD_KEY"]}/{file_name}'
         # todo: This doesn't work for genemap2.txt. But does the previous URL work? If so, why not just use that?
         if file_name == 'mim2gene.txt':
             url = f'https://omim.org/static/omim/data/{file_name}'
