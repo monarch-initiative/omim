@@ -20,6 +20,7 @@ jobs:
     - name: Create .env file
       run: |
         echo "API_KEY=${{ secrets.MONARCH_OMIM_API_KEY }}" > .env
+        echo "DOWNLOAD_KEY=${{ secrets.MONARCH_OMIM_DOWNLOAD_KEY }}" >> .env
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
       id: current-time
