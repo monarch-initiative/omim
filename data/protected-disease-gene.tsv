@@ -576,6 +576,9 @@ OMIM:614033	MONDO:0013535	"hydroxyacyl glutathione hydrolase deficiency"	manuall
 OMIM:614037	MONDO:0013539	"hypotonia-failure to thrive-microcephaly syndrome"	manually reviewed	OMIM:246530	HGNC:6719	https://orcid.org/0000-0002-4142-7153	
 OMIM:614055	MONDO:0013548	"acetyl-CoA acetyltransferase-2 deficiency"	manually reviewed	OMIM:100678	HGNC:94	https://orcid.org/0000-0002-4142-7153	
 OMIM:612541	MONDO:0012930	"autosomal recessive severe congenital neutropenia due to G6PC3 deficiency"	manually reviewed	OMIM:611045	HGNC:24861	https://orcid.org/0000-0002-4142-7153	
-OMIM:231200	MONDO:1060237	"GP9-related Bernard-Soulier syndrome"	manually reviewed	OMIM:231200	HGNC:4444	https://orcid.org/0000-0002-7638-4659	
-OMIM:231200	MONDO:1060238	"GP1BA-related Bernard-Soulier syndrome"	manually reviewed	OMIM:231200	HGNC:4439	https://orcid.org/0000-0002-7638-4659	
-OMIM:231200	MONDO:1060239	"GP1BB-related Bernard-Soulier syndrome"	manually reviewed	OMIM:231200	HGNC:4440	https://orcid.org/0000-0002-7638-4659	
+OMIM:231200	MONDO:1060237	"GP9-related Bernard-Soulier syndrome"	manually reviewed	OMIM:173515	HGNC:4444	https://orcid.org/0000-0002-7638-4659	
+OMIM:231200	MONDO:1060238	"GP1BA-related Bernard-Soulier syndrome"	manually reviewed	OMIM:606672	HGNC:4439	https://orcid.org/0000-0002-7638-4659	
+OMIM:231200	MONDO:1060239	"GP1BB-related Bernard-Soulier syndrome"	manually reviewed	OMIM:138720	HGNC:4440	https://orcid.org/0000-0002-7638-4659	
+OMIM:612541	MONDO:0023124	"Dursun syndrome"	manually reviewed	OMIM:611045	HGNC:24861	https://orcid.org/0000-0002-7638-4659	
+OMIM:612541	MONDO:0012930	"autosomal recessive severe congenital neutropenia due to G6PC3 deficiency"	manually reviewed	OMIM:611045	HGNC:24861	https://orcid.org/0000-0002-7638-4659	
+OMIM:220290	MONDO:0009076	"autosomal recessive nonsyndromic hearing loss 1A"	manually reviewed	OMIM:121011	HGNC:4284	https://orcid.org/0000-0002-7638-4659	
