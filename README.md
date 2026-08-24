@@ -7,6 +7,17 @@ catalog of human genes and genetic disorders. The official site is: https://omim
 This purpose of this repository is for data transformations for ingest into Mondo. Mainly, 
 it is for generating an `omim.ttl` and other release artefacts.
 
+### Two pipelines
+
+| Path | How to run | Primary outputs |
+|------|------------|-----------------|
+| **Legacy** (current Mondo consumers) | `sh run.sh make all` | `omim.ttl`, **`omim.owl`**, `omim.sssom.tsv`, gene ROBOT TSVs, `review.tsv`, … |
+| **Parallel LinkML** (additive; doid/ordo-like extras) | `make linkml-install` then `make linkml` / `make linkml-test` / `make linkml-release` (or `just …`) | `omim.linkml.yml`, **`omim.linkml.owl`**, `mirror-omim.owl`, `omim.db`, signatures, `mappings/omim.sssom.tsv` |
+
+Legacy behaviour is unchanged. Parallel path uses a separate OMIM JSON API acquire (duplicate fetch vs legacy bulk/API cache is accepted for now). It never overwrites **`omim.owl`**.
+
+Auth: reuse legacy root **`.env`** (`API_KEY` / `DOWNLOAD_KEY`) — same as `make all` / CI secret `MONARCH_OMIM_API_KEY`. No rename in GitHub settings. Optional `env/.env` only if you want LinkML-specific overrides (`OMIM_API_KEY` aliases `API_KEY`).
+
 Disclaimer: This repository and its created data artefacts are unnofficial. For 
 official, up-to-date OMIM data, please visit [omim.org](https://omim.org).
 

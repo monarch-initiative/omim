@@ -1,7 +1,9 @@
-.PHONY: all help install test scrape get-pmids cleanup
+.PHONY: all help install test scrape get-pmids cleanup \
+	linkml-install linkml linkml-test linkml-iterate linkml-release linkml-reports
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
+# Legacy release path (unchanged). Parallel LinkML path: make linkml* / just — see README.
 all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv disease-gene-relationships-qc.tsv
 
 # build: Create new omim.ttl
@@ -104,13 +106,35 @@ install:
 test:
 	 python3 -m unittest discover -v
 
+# PARALLEL LINKML PATH (additive; does not replace `all`) -------------------------------------------------------------
+# Requires: uv, just, Docker (odkfull) for OWL/QC/release bundle.
+# Auth: legacy root .env API_KEY (same as omim2obo / MONARCH_OMIM_API_KEY in CI).
+# Outputs use distinct names (omim.linkml.yml / omim.linkml.owl) so legacy omim.owl is never overwritten.
+linkml-install:
+	uv sync
+
+linkml:
+	just build
+
+linkml-test:
+	just build-test
+
+linkml-iterate:
+	just iterate
+
+linkml-reports:
+	just reports
+
+linkml-release:
+	just build-release
+
 # HELP -----------------------------------------------------------------------------------------------------------------
 help:
 	@echo "----------------------------------------"
 	@echo "	Command reference: OMIM"
 	@echo "----------------------------------------"
 	@echo "all"
-	@echo "Creates all release artefacts.\n"
+	@echo "Creates all legacy release artefacts.\n"
 	@echo "omim.ttl"
 	@echo "Creates main release artefact: omim.ttl\n"
 	@echo "omim.sssom.tsv"
@@ -123,3 +147,5 @@ help:
 	@echo "Does web scraping to get information about some OMIM terms.\n"
 	@echo "get-pmids"
 	@echo "Gets PMIDs for all terms.\n"
+	@echo "linkml-install / linkml / linkml-test / linkml-release"
+	@echo "Parallel API→LinkML path (see README). Does not change legacy all.\n"

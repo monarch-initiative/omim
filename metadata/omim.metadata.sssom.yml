@@ -1,0 +1,12 @@
+mapping_set_id: http://purl.obolibrary.org/obo/mondo/sources/mappings/omim.sssom.tsv
+mapping_set_description: >
+  The file `omim.sssom.tsv` is generated within the OMIM source repository
+  by running the justfile target `build-release` (SSSOM export step).
+license: https://creativecommons.org/licenses/by/4.0/
+creator_id: https://orcid.org/0000-0002-2906-7319
+curie_map:
+  OMIM: http://purl.obolibrary.org/obo/OMIM_
+  OMIMPS: http://purl.obolibrary.org/obo/OMIMPS_
+  UMLS: http://linkedlifedata.com/resource/umls/id/
+  HGNC: https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/
+  CHR: http://purl.obolibrary.org/obo/CHR_
