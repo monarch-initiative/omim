@@ -1,0 +1,60 @@
+# Parallel LinkML path (optional; does not replace legacy build_and_release)
+# Reuses the same repo secret as legacy: MONARCH_OMIM_API_KEY → API_KEY in .env
+
+name: LinkML parallel path
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_mims:
+        description: "Cap MIMs for a short test run (empty = full catalog)"
+        required: false
+        type: string
+        default: "1000"
+
+jobs:
+  linkml:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: pipx install uv
+
+      - name: Install just
+        uses: extractions/setup-just@v2
+
+      - name: Install dependencies
+        run: uv sync
+
+      # Same secret + variable name as .github/workflows/build_and_release.yml (no rename in settings).
+      - name: Create .env file
+        run: |
+          echo "API_KEY=${{ secrets.MONARCH_OMIM_API_KEY }}" > .env
+          echo "DOWNLOAD_KEY=${{ secrets.MONARCH_OMIM_DOWNLOAD_KEY }}" >> .env
+
+      - name: Acquire (test cap or full)
+        env:
+          OMIM_SLEEP_SECONDS: "0.5"
+        run: |
+          if [ -n "${{ inputs.max_mims }}" ]; then
+            uv run python scripts/acquire.py --output tmp/omim_raw.json --max-mims "${{ inputs.max_mims }}"
+          else
+            uv run python scripts/acquire.py --output tmp/omim_raw.json
+          fi
+
+      - name: Extract / validate / verify
+        run: just iterate
+
+      - name: Upload LinkML YAML
+        uses: actions/upload-artifact@v4
+        with:
+          name: omim-linkml-yml
+          path: omim.linkml.yml
+          if-no-files-found: error
