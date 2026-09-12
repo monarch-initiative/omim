@@ -16,7 +16,7 @@ on:
 jobs:
   linkml:
     runs-on: ubuntu-latest
-    container: obolibrary/odkfull:v1.5.3
+    container: obolibrary/odkfull:v1.6
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
