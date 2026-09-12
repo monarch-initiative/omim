@@ -1,5 +1,5 @@
 .PHONY: all help install test scrape get-pmids cleanup \
-	linkml-install acquire acquire-test extract validate verify data2owl \
+	acquire acquire-test extract validate verify data2owl \
 	linkml linkml-test linkml-iterate linkml-reports linkml-release linkml-clean
 
 
@@ -117,9 +117,6 @@ OMIM_JSON := tmp/omim_raw.json
 OMIM_YAML := omim.linkml.yml
 OMIM_OWL := omim.linkml.owl
 
-linkml-install:
-	pip install -e .
-
 acquire:
 	python3 scripts/acquire.py --output $(OMIM_JSON)
 
@@ -127,7 +124,7 @@ acquire-test:
 	python3 scripts/acquire.py --output $(OMIM_JSON) --max-mims 1000
 
 extract:
-	python3 scripts/extract.py --input $(OMIM_JSON) --output $(OMIM_YAML)
+	PYTHONPATH=src python3 scripts/extract.py --input $(OMIM_JSON) --output $(OMIM_YAML)
 
 validate:
 	python3 -m linkml.validator.cli -s $(OMIM_SCHEMA) -C OntologyDocument $(OMIM_YAML)
@@ -203,5 +200,5 @@ help:
 	@echo "Does web scraping to get information about some OMIM terms.\n"
 	@echo "get-pmids"
 	@echo "Gets PMIDs for all terms.\n"
-	@echo "linkml-install / linkml / linkml-test / linkml-release"
-	@echo "Parallel API→LinkML path (see README). Does not change legacy all.\n"
+	@echo "linkml / linkml-test / linkml-release"
+	@echo "Parallel API→LinkML path via ./run.sh make (see README). Does not change legacy all.\n"

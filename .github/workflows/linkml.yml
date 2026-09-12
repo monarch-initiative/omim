@@ -1,5 +1,6 @@
 # Parallel LinkML path (optional; does not replace legacy build_and_release)
 # Reuses the same repo secret as legacy: MONARCH_OMIM_API_KEY → API_KEY in .env
+# Runs inside odkfull, same as build_and_release.yml (no host pip / uv).
 
 name: LinkML parallel path
 
@@ -15,17 +16,10 @@ on:
 jobs:
   linkml:
     runs-on: ubuntu-latest
+    container: obolibrary/odkfull:v1.5.3
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: pip install -e .
 
       # Same secret + variable name as .github/workflows/build_and_release.yml (no rename in settings).
       - name: Create .env file
