@@ -137,6 +137,7 @@ verify:
 
 data2owl:
 	mkdir -p tmp
+	# Assumes linkml-owl is on ODK's python (same as ./run.sh).
 	python3 -m linkml_owl.dumpers.owl_dumper \
 		--schema $(OMIM_SCHEMA) -f yaml -o tmp/omim.functional.owl $(OMIM_YAML)
 	robot convert -i tmp/omim.functional.owl -o $(OMIM_OWL)
