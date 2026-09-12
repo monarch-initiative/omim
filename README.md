@@ -12,7 +12,7 @@ it is for generating an `omim.ttl` and other release artefacts.
 | Path | How to run | Primary outputs |
 |------|------------|-----------------|
 | **Legacy** (current Mondo consumers) | `sh run.sh make all` | `omim.ttl`, **`omim.owl`**, `omim.sssom.tsv`, gene ROBOT TSVs, `review.tsv`, … |
-| **Parallel LinkML** (additive; doid/ordo-like extras) | `./run.sh make linkml` / `linkml-test` / `linkml-release` | `omim.linkml.yml`, **`omim.linkml.owl`**, `mirror-omim.owl`, `omim.db`, signatures, `mappings/omim.sssom.tsv` |
+| **Parallel LinkML** (additive; doid/ordo-like extras) | `./run.sh make omim.linkml.owl` (`OMIM_TEST=1` to cap acquire) / `linkml-release` | `omim.linkml.yml`, **`omim.linkml.owl`**, `mirror-omim.owl`, `omim.db`, signatures, `mappings/omim.sssom.tsv` |
 
 Legacy behaviour is unchanged. Parallel path uses a separate OMIM JSON API acquire (duplicate fetch vs legacy bulk/API cache is accepted for now). It never overwrites **`omim.owl`**.
 

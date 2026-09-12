@@ -1,10 +1,9 @@
 .PHONY: all help install test scrape get-pmids cleanup \
-	acquire acquire-test extract validate verify data2owl \
-	linkml linkml-test linkml-iterate linkml-reports linkml-release linkml-clean
+	validate verify linkml-reports linkml-release linkml-clean
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
-# Legacy release path (unchanged). Parallel LinkML path: make linkml* — see README.
+# Legacy release path (unchanged). Parallel LinkML path: make omim.linkml.owl — see README.
 all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv disease-gene-relationships-qc.tsv
 
 # build: Create new omim.ttl
@@ -108,54 +107,53 @@ test:
 	 python3 -m unittest discover -v
 
 # PARALLEL LINKML PATH (additive; does not replace `all`) -------------------------------------------------------------
-# Run via ./run.sh make … (same ODK wrapper as legacy `all`). Recipes call robot/semsql/sssom
-# directly; do not spawn docker from make.
+# Run via ./run.sh make omim.linkml.owl (same ODK wrapper as legacy `all`).
+# File deps: JSON → YAML → OWL. OMIM_TEST=1 caps acquire at 1000 MIMs.
 # Auth: legacy root .env API_KEY (same as omim2obo / MONARCH_OMIM_API_KEY in CI).
 # Outputs use distinct names (omim.linkml.yml / omim.linkml.owl) so legacy omim.owl is never overwritten.
 OMIM_SCHEMA := linkml/mondo_source_schema.yaml
 OMIM_JSON := tmp/omim_raw.json
 OMIM_YAML := omim.linkml.yml
 OMIM_OWL := omim.linkml.owl
+OMIM_FUNCT := tmp/omim.functional.owl
+OMIM_TEST ?=
+OMIM_MAX_MIMS ?= $(if $(OMIM_TEST),1000,)
 
-acquire:
-	python3 scripts/acquire.py --output $(OMIM_JSON)
+$(OMIM_JSON):
+	mkdir -p tmp
+	python3 scripts/acquire.py $(if $(OMIM_MAX_MIMS),--max-mims $(OMIM_MAX_MIMS),) --output $@
 
-acquire-test:
-	python3 scripts/acquire.py --output $(OMIM_JSON) --max-mims 1000
+$(OMIM_YAML): $(OMIM_JSON)
+	PYTHONPATH=src python3 scripts/extract.py --input $< --output $@
 
-extract:
-	PYTHONPATH=src python3 scripts/extract.py --input $(OMIM_JSON) --output $(OMIM_YAML)
+validate: $(OMIM_YAML)
+	python3 -m linkml.validator.cli -s $(OMIM_SCHEMA) -C OntologyDocument $<
 
-validate:
-	python3 -m linkml.validator.cli -s $(OMIM_SCHEMA) -C OntologyDocument $(OMIM_YAML)
-
-verify:
+verify: $(OMIM_YAML) $(OMIM_JSON)
 	python3 scripts/verify.py --yaml $(OMIM_YAML) --raw-json $(OMIM_JSON)
 
-data2owl:
+$(OMIM_OWL): $(OMIM_SCHEMA) $(OMIM_YAML) validate verify
 	mkdir -p tmp
 	# Assumes linkml-owl is on ODK's python (same as ./run.sh).
 	python3 -m linkml_owl.dumpers.owl_dumper \
-		--schema $(OMIM_SCHEMA) -f yaml -o tmp/omim.functional.owl $(OMIM_YAML)
-	robot convert -i tmp/omim.functional.owl -o $(OMIM_OWL)
+		--schema $(OMIM_SCHEMA) -f yaml -o $(OMIM_FUNCT) $(OMIM_YAML)
+	robot convert -i $(OMIM_FUNCT) -o $@
 
-linkml: acquire extract validate verify data2owl
-
-linkml-test: acquire-test extract validate verify data2owl
-
-linkml-iterate: extract validate verify
-
-linkml-reports:
-	@test -f "$(OMIM_OWL)" || { echo "Missing $(OMIM_OWL) — run make data2owl or make linkml first." >&2; exit 1; }
+reports/metrics.json: $(OMIM_OWL)
 	mkdir -p reports
 	robot measure \
 		--prefix "OMIM: http://purl.obolibrary.org/obo/OMIM_" \
 		--prefix "OMIMPS: http://purl.obolibrary.org/obo/OMIMPS_" \
-		-i $(OMIM_OWL) --format json --metrics extended --output reports/metrics.json
-	robot query -i $(OMIM_OWL) \
-		--query sparql/count_classes_by_top_level.sparql reports/top-level-counts.tsv
+		-i $< --format json --metrics extended --output $@
 
-linkml-release: linkml linkml-reports
+reports/top-level-counts.tsv: $(OMIM_OWL)
+	mkdir -p reports
+	robot query -i $< \
+		--query sparql/count_classes_by_top_level.sparql $@
+
+linkml-reports: reports/metrics.json reports/top-level-counts.tsv
+
+linkml-release: $(OMIM_OWL) linkml-reports
 	mkdir -p tmp mappings metadata reports
 	cp -f $(OMIM_OWL) mirror-omim.owl
 	python3 scripts/extract_prefixes.py --input tmp/omim.functional.owl --output tmp/prefixes.csv
@@ -200,5 +198,5 @@ help:
 	@echo "Does web scraping to get information about some OMIM terms.\n"
 	@echo "get-pmids"
 	@echo "Gets PMIDs for all terms.\n"
-	@echo "linkml / linkml-test / linkml-release"
-	@echo "Parallel API→LinkML path via ./run.sh make (see README). Does not change legacy all.\n"
+	@echo "omim.linkml.owl / linkml-release"
+	@echo "Parallel API→LinkML path: ./run.sh make omim.linkml.owl (OMIM_TEST=1 to cap). Does not change legacy all.\n"

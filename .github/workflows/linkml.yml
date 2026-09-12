@@ -27,18 +27,10 @@ jobs:
           echo "API_KEY=${{ secrets.MONARCH_OMIM_API_KEY }}" > .env
           echo "DOWNLOAD_KEY=${{ secrets.MONARCH_OMIM_DOWNLOAD_KEY }}" >> .env
 
-      - name: Acquire (test cap or full)
+      - name: Acquire / extract / validate / verify
         env:
           OMIM_SLEEP_SECONDS: "0.5"
-        run: |
-          if [ -n "${{ inputs.max_mims }}" ]; then
-            python3 scripts/acquire.py --output tmp/omim_raw.json --max-mims "${{ inputs.max_mims }}"
-          else
-            python3 scripts/acquire.py --output tmp/omim_raw.json
-          fi
-
-      - name: Extract / validate / verify
-        run: make linkml-iterate
+        run: make OMIM_MAX_MIMS="${{ inputs.max_mims }}" omim.linkml.yml validate verify
 
       - name: Upload LinkML YAML
         uses: actions/upload-artifact@v4
