@@ -24,14 +24,8 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install uv
-        run: pipx install uv
-
-      - name: Install just
-        uses: extractions/setup-just@v2
-
       - name: Install dependencies
-        run: uv sync
+        run: pip install -e .
 
       # Same secret + variable name as .github/workflows/build_and_release.yml (no rename in settings).
       - name: Create .env file
@@ -44,13 +38,13 @@ jobs:
           OMIM_SLEEP_SECONDS: "0.5"
         run: |
           if [ -n "${{ inputs.max_mims }}" ]; then
-            uv run python scripts/acquire.py --output tmp/omim_raw.json --max-mims "${{ inputs.max_mims }}"
+            python3 scripts/acquire.py --output tmp/omim_raw.json --max-mims "${{ inputs.max_mims }}"
           else
-            uv run python scripts/acquire.py --output tmp/omim_raw.json
+            python3 scripts/acquire.py --output tmp/omim_raw.json
           fi
 
       - name: Extract / validate / verify
-        run: just iterate
+        run: make linkml-iterate
 
       - name: Upload LinkML YAML
         uses: actions/upload-artifact@v4

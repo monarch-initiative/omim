@@ -1,9 +1,10 @@
 .PHONY: all help install test scrape get-pmids cleanup \
-	linkml-install linkml linkml-test linkml-iterate linkml-release linkml-reports
+	linkml-install acquire acquire-test extract validate verify data2owl \
+	linkml linkml-test linkml-iterate linkml-reports linkml-release linkml-clean
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
-# Legacy release path (unchanged). Parallel LinkML path: make linkml* / just — see README.
+# Legacy release path (unchanged). Parallel LinkML path: make linkml* — see README.
 all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv disease-gene-relationships-qc.tsv
 
 # build: Create new omim.ttl
@@ -107,26 +108,84 @@ test:
 	 python3 -m unittest discover -v
 
 # PARALLEL LINKML PATH (additive; does not replace `all`) -------------------------------------------------------------
-# Requires: uv, just, Docker (odkfull) for OWL/QC/release bundle.
+# Requires: Docker (odkfull) for OWL/QC/release bundle.
 # Auth: legacy root .env API_KEY (same as omim2obo / MONARCH_OMIM_API_KEY in CI).
 # Outputs use distinct names (omim.linkml.yml / omim.linkml.owl) so legacy omim.owl is never overwritten.
+OMIM_SCHEMA := linkml/mondo_source_schema.yaml
+OMIM_JSON := tmp/omim_raw.json
+OMIM_YAML := omim.linkml.yml
+OMIM_OWL := omim.linkml.owl
+
 linkml-install:
-	uv sync
+	pip install -e .
 
-linkml:
-	just build
+acquire:
+	python3 scripts/acquire.py --output $(OMIM_JSON)
 
-linkml-test:
-	just build-test
+acquire-test:
+	python3 scripts/acquire.py --output $(OMIM_JSON) --max-mims 1000
 
-linkml-iterate:
-	just iterate
+extract:
+	python3 scripts/extract.py --input $(OMIM_JSON) --output $(OMIM_YAML)
+
+validate:
+	python3 -m linkml.validator.cli -s $(OMIM_SCHEMA) -C OntologyDocument $(OMIM_YAML)
+
+verify:
+	python3 scripts/verify.py --yaml $(OMIM_YAML) --raw-json $(OMIM_JSON)
+
+data2owl:
+	python3 -m linkml_owl.dumpers.owl_dumper \
+		--schema $(OMIM_SCHEMA) -f yaml -o tmp/omim.functional.owl $(OMIM_YAML)
+	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
+		bash -lc 'robot convert -i tmp/omim.functional.owl -o tmp/omim.rdfxml.owl'
+	mv tmp/omim.rdfxml.owl $(OMIM_OWL)
+
+linkml: acquire extract validate verify data2owl
+
+linkml-test: acquire-test extract validate verify data2owl
+
+linkml-iterate: extract validate verify
 
 linkml-reports:
-	just reports
+	@test -f "$(OMIM_OWL)" || { echo "Missing $(OMIM_OWL) — run make data2owl or make linkml first." >&2; exit 1; }
+	mkdir -p reports
+	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
+		bash -lc 'mkdir -p reports && robot measure \
+			--prefix "OMIM: http://purl.obolibrary.org/obo/OMIM_" \
+			--prefix "OMIMPS: http://purl.obolibrary.org/obo/OMIMPS_" \
+			-i omim.linkml.owl --format json --metrics extended --output reports/metrics.json && \
+		robot query -i omim.linkml.owl \
+			--query sparql/count_classes_by_top_level.sparql reports/top-level-counts.tsv'
 
-linkml-release:
-	just build-release
+linkml-release: linkml linkml-reports
+	mkdir -p mappings metadata reports
+	cp -f $(OMIM_OWL) mirror-omim.owl
+	python3 scripts/extract_prefixes.py --input tmp/omim.functional.owl --output tmp/prefixes.csv
+	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
+		bash -lc 'cp -f omim.linkml.owl tmp/omim-semsql.owl && \
+			RUST_BACKTRACE=full semsql make tmp/omim-semsql.db -P tmp/prefixes.csv && \
+			mv tmp/omim-semsql.db omim.db'
+	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
+		bash -lc 'robot query -i mirror-omim.owl --query sparql/classes.sparql reports/mirror_signature-omim.tsv && \
+			(head -n 1 reports/mirror_signature-omim.tsv && tail -n +2 reports/mirror_signature-omim.tsv | sort) > reports/mirror_signature-omim.tsv-temp && \
+			mv reports/mirror_signature-omim.tsv-temp reports/mirror_signature-omim.tsv && \
+			robot query -i omim.linkml.owl --query sparql/classes.sparql reports/component_signature-omim.tsv && \
+			(head -n 1 reports/component_signature-omim.tsv && tail -n +2 reports/component_signature-omim.tsv | sort) > reports/component_signature-omim.tsv-temp && \
+			mv reports/component_signature-omim.tsv-temp reports/component_signature-omim.tsv'
+	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
+		bash -lc 'robot convert -i omim.linkml.owl -f json -o tmp/component-omim.json && \
+			sssom parse tmp/component-omim.json -I obographs-json --prefix-map-mode merged -m metadata/omim.metadata.sssom.yml -o mappings/omim.sssom.tsv 2> reports/sssom-parse-warnings.log && \
+			echo "sssom parse: $$(wc -l < reports/sssom-parse-warnings.log) warning line(s) → reports/sssom-parse-warnings.log" && \
+			sssom sort mappings/omim.sssom.tsv -o mappings/omim.sssom.tsv'
+	cp -f reports/metrics.json metadata/omim-metrics.json
+	@echo "External bundle complete."
+
+linkml-clean:
+	rm -f $(OMIM_YAML) $(OMIM_OWL) mirror-omim.owl omim.db
+	rm -rf tmp/
+	rm -f reports/metrics.json reports/top-level-counts.tsv reports/mirror_signature-omim.tsv reports/component_signature-omim.tsv reports/sssom-parse-warnings.log
+	rm -f mappings/omim.sssom.tsv metadata/omim-metrics.json
 
 # HELP -----------------------------------------------------------------------------------------------------------------
 help:

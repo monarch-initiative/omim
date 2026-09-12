@@ -20,6 +20,3 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["scripts", "src/omim"]
-
-[tool.uv.sources]
-linkml-runtime = { git = "https://github.com/linkml/linkml.git", subdirectory = "packages/linkml_runtime", rev = "main" }
