@@ -108,7 +108,8 @@ test:
 	 python3 -m unittest discover -v
 
 # PARALLEL LINKML PATH (additive; does not replace `all`) -------------------------------------------------------------
-# Requires: Docker (odkfull) for OWL/QC/release bundle.
+# Run via ./run.sh make … (same ODK wrapper as legacy `all`). Recipes call robot/semsql/sssom
+# directly; do not spawn docker from make.
 # Auth: legacy root .env API_KEY (same as omim2obo / MONARCH_OMIM_API_KEY in CI).
 # Outputs use distinct names (omim.linkml.yml / omim.linkml.owl) so legacy omim.owl is never overwritten.
 OMIM_SCHEMA := linkml/mondo_source_schema.yaml
@@ -135,11 +136,10 @@ verify:
 	python3 scripts/verify.py --yaml $(OMIM_YAML) --raw-json $(OMIM_JSON)
 
 data2owl:
+	mkdir -p tmp
 	python3 -m linkml_owl.dumpers.owl_dumper \
 		--schema $(OMIM_SCHEMA) -f yaml -o tmp/omim.functional.owl $(OMIM_YAML)
-	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
-		bash -lc 'robot convert -i tmp/omim.functional.owl -o tmp/omim.rdfxml.owl'
-	mv tmp/omim.rdfxml.owl $(OMIM_OWL)
+	robot convert -i tmp/omim.functional.owl -o $(OMIM_OWL)
 
 linkml: acquire extract validate verify data2owl
 
@@ -150,34 +150,30 @@ linkml-iterate: extract validate verify
 linkml-reports:
 	@test -f "$(OMIM_OWL)" || { echo "Missing $(OMIM_OWL) — run make data2owl or make linkml first." >&2; exit 1; }
 	mkdir -p reports
-	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
-		bash -lc 'mkdir -p reports && robot measure \
-			--prefix "OMIM: http://purl.obolibrary.org/obo/OMIM_" \
-			--prefix "OMIMPS: http://purl.obolibrary.org/obo/OMIMPS_" \
-			-i omim.linkml.owl --format json --metrics extended --output reports/metrics.json && \
-		robot query -i omim.linkml.owl \
-			--query sparql/count_classes_by_top_level.sparql reports/top-level-counts.tsv'
+	robot measure \
+		--prefix "OMIM: http://purl.obolibrary.org/obo/OMIM_" \
+		--prefix "OMIMPS: http://purl.obolibrary.org/obo/OMIMPS_" \
+		-i $(OMIM_OWL) --format json --metrics extended --output reports/metrics.json
+	robot query -i $(OMIM_OWL) \
+		--query sparql/count_classes_by_top_level.sparql reports/top-level-counts.tsv
 
 linkml-release: linkml linkml-reports
-	mkdir -p mappings metadata reports
+	mkdir -p tmp mappings metadata reports
 	cp -f $(OMIM_OWL) mirror-omim.owl
 	python3 scripts/extract_prefixes.py --input tmp/omim.functional.owl --output tmp/prefixes.csv
-	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
-		bash -lc 'cp -f omim.linkml.owl tmp/omim-semsql.owl && \
-			RUST_BACKTRACE=full semsql make tmp/omim-semsql.db -P tmp/prefixes.csv && \
-			mv tmp/omim-semsql.db omim.db'
-	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
-		bash -lc 'robot query -i mirror-omim.owl --query sparql/classes.sparql reports/mirror_signature-omim.tsv && \
-			(head -n 1 reports/mirror_signature-omim.tsv && tail -n +2 reports/mirror_signature-omim.tsv | sort) > reports/mirror_signature-omim.tsv-temp && \
-			mv reports/mirror_signature-omim.tsv-temp reports/mirror_signature-omim.tsv && \
-			robot query -i omim.linkml.owl --query sparql/classes.sparql reports/component_signature-omim.tsv && \
-			(head -n 1 reports/component_signature-omim.tsv && tail -n +2 reports/component_signature-omim.tsv | sort) > reports/component_signature-omim.tsv-temp && \
-			mv reports/component_signature-omim.tsv-temp reports/component_signature-omim.tsv'
-	docker run --rm -v "$$PWD:/work" -w /work obolibrary/odkfull:v1.6 \
-		bash -lc 'robot convert -i omim.linkml.owl -f json -o tmp/component-omim.json && \
-			sssom parse tmp/component-omim.json -I obographs-json --prefix-map-mode merged -m metadata/omim.metadata.sssom.yml -o mappings/omim.sssom.tsv 2> reports/sssom-parse-warnings.log && \
-			echo "sssom parse: $$(wc -l < reports/sssom-parse-warnings.log) warning line(s) → reports/sssom-parse-warnings.log" && \
-			sssom sort mappings/omim.sssom.tsv -o mappings/omim.sssom.tsv'
+	cp -f $(OMIM_OWL) tmp/omim-semsql.owl
+	RUST_BACKTRACE=full semsql make tmp/omim-semsql.db -P tmp/prefixes.csv
+	mv tmp/omim-semsql.db omim.db
+	robot query -i mirror-omim.owl --query sparql/classes.sparql reports/mirror_signature-omim.tsv
+	(head -n 1 reports/mirror_signature-omim.tsv && tail -n +2 reports/mirror_signature-omim.tsv | sort) > reports/mirror_signature-omim.tsv-temp
+	mv reports/mirror_signature-omim.tsv-temp reports/mirror_signature-omim.tsv
+	robot query -i $(OMIM_OWL) --query sparql/classes.sparql reports/component_signature-omim.tsv
+	(head -n 1 reports/component_signature-omim.tsv && tail -n +2 reports/component_signature-omim.tsv | sort) > reports/component_signature-omim.tsv-temp
+	mv reports/component_signature-omim.tsv-temp reports/component_signature-omim.tsv
+	robot convert -i $(OMIM_OWL) -f json -o tmp/component-omim.json
+	sssom parse tmp/component-omim.json -I obographs-json --prefix-map-mode merged -m metadata/omim.metadata.sssom.yml -o mappings/omim.sssom.tsv 2> reports/sssom-parse-warnings.log
+	@echo "sssom parse: $$(wc -l < reports/sssom-parse-warnings.log) warning line(s) → reports/sssom-parse-warnings.log"
+	sssom sort mappings/omim.sssom.tsv -o mappings/omim.sssom.tsv
 	cp -f reports/metrics.json metadata/omim-metrics.json
 	@echo "External bundle complete."
 
