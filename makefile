@@ -1,5 +1,5 @@
 .PHONY: all help install test scrape get-pmids cleanup \
-	validate verify linkml-reports linkml-release linkml-clean
+	validate verify linkml-owl linkml-reports linkml-release linkml-clean
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
@@ -132,9 +132,12 @@ validate: $(OMIM_YAML)
 verify: $(OMIM_YAML) $(OMIM_JSON)
 	python3 scripts/verify.py --yaml $(OMIM_YAML) --raw-json $(OMIM_JSON)
 
-$(OMIM_OWL): $(OMIM_SCHEMA) $(OMIM_YAML) validate verify
+# ODK does not ship linkml-owl. Install into the container Python before dump.
+linkml-owl:
+	python -m pip install --break-system-packages linkml-owl==0.5.0
+
+$(OMIM_OWL): $(OMIM_SCHEMA) $(OMIM_YAML) validate verify linkml-owl
 	mkdir -p tmp
-	# Assumes linkml-owl is on ODK's python (same as ./run.sh).
 	python3 -m linkml_owl.dumpers.owl_dumper \
 		--schema $(OMIM_SCHEMA) -f yaml -o $(OMIM_FUNCT) $(OMIM_YAML)
 	robot convert -i $(OMIM_FUNCT) -o $@
