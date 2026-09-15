@@ -136,11 +136,13 @@ verify: $(OMIM_YAML) $(OMIM_JSON)
 linkml-owl:
 	python -m pip install --break-system-packages linkml-owl==0.5.0
 
-$(OMIM_OWL): $(OMIM_SCHEMA) $(OMIM_YAML) validate verify linkml-owl
+$(OMIM_FUNCT): $(OMIM_SCHEMA) $(OMIM_YAML) validate verify linkml-owl
 	mkdir -p tmp
 	python3 -m linkml_owl.dumpers.owl_dumper \
-		--schema $(OMIM_SCHEMA) -f yaml -o $(OMIM_FUNCT) $(OMIM_YAML)
-	robot convert -i $(OMIM_FUNCT) -o $@
+		--schema $(OMIM_SCHEMA) -f yaml -o $@ $(OMIM_YAML)
+
+$(OMIM_OWL): $(OMIM_FUNCT)
+	robot convert -i $< -o $@
 
 reports/metrics.json: $(OMIM_OWL)
 	mkdir -p reports
@@ -156,25 +158,53 @@ reports/top-level-counts.tsv: $(OMIM_OWL)
 
 linkml-reports: reports/metrics.json reports/top-level-counts.tsv
 
-linkml-release: $(OMIM_OWL) linkml-reports
-	mkdir -p tmp mappings metadata reports
-	cp -f $(OMIM_OWL) mirror-omim.owl
-	python3 scripts/extract_prefixes.py --input tmp/omim.functional.owl --output tmp/prefixes.csv
-	cp -f $(OMIM_OWL) tmp/omim-semsql.owl
+mirror-omim.owl: $(OMIM_OWL)
+	cp -f $< $@
+
+tmp/prefixes.csv: $(OMIM_FUNCT)
+	mkdir -p tmp
+	python3 scripts/extract_prefixes.py --input $< --output $@
+
+omim.db: $(OMIM_OWL) tmp/prefixes.csv
+	mkdir -p tmp
+	cp -f $< tmp/omim-semsql.owl
 	RUST_BACKTRACE=full semsql make tmp/omim-semsql.db -P tmp/prefixes.csv
-	mv tmp/omim-semsql.db omim.db
-	robot query -i mirror-omim.owl --query sparql/classes.sparql reports/mirror_signature-omim.tsv
-	(head -n 1 reports/mirror_signature-omim.tsv && tail -n +2 reports/mirror_signature-omim.tsv | sort) > reports/mirror_signature-omim.tsv-temp
-	mv reports/mirror_signature-omim.tsv-temp reports/mirror_signature-omim.tsv
-	robot query -i $(OMIM_OWL) --query sparql/classes.sparql reports/component_signature-omim.tsv
-	(head -n 1 reports/component_signature-omim.tsv && tail -n +2 reports/component_signature-omim.tsv | sort) > reports/component_signature-omim.tsv-temp
-	mv reports/component_signature-omim.tsv-temp reports/component_signature-omim.tsv
-	robot convert -i $(OMIM_OWL) -f json -o tmp/component-omim.json
-	sssom parse tmp/component-omim.json -I obographs-json --prefix-map-mode merged -m metadata/omim.metadata.sssom.yml -o mappings/omim.sssom.tsv 2> reports/sssom-parse-warnings.log
+	mv tmp/omim-semsql.db $@
+
+define sort_class_signature
+	mkdir -p reports
+	robot query -i $< --query sparql/classes.sparql $@
+	(head -n 1 $@ && tail -n +2 $@ | sort) > $@-temp
+	mv $@-temp $@
+endef
+
+reports/mirror_signature-omim.tsv: mirror-omim.owl sparql/classes.sparql
+	$(sort_class_signature)
+
+reports/component_signature-omim.tsv: $(OMIM_OWL) sparql/classes.sparql
+	$(sort_class_signature)
+
+tmp/component-omim.json: $(OMIM_OWL)
+	mkdir -p tmp
+	robot convert -i $< -f json -o $@
+
+mappings/omim.sssom.tsv: tmp/component-omim.json metadata/omim.metadata.sssom.yml
+	mkdir -p mappings reports
+	sssom parse $< -I obographs-json --prefix-map-mode merged \
+		-m metadata/omim.metadata.sssom.yml -o $@ 2> reports/sssom-parse-warnings.log
 	@echo "sssom parse: $$(wc -l < reports/sssom-parse-warnings.log) warning line(s) → reports/sssom-parse-warnings.log"
-	sssom sort mappings/omim.sssom.tsv -o mappings/omim.sssom.tsv
-	cp -f reports/metrics.json metadata/omim-metrics.json
-	@echo "External bundle complete."
+	sssom sort $@ -o $@
+
+metadata/omim-metrics.json: reports/metrics.json
+	mkdir -p metadata
+	cp -f $< $@
+
+OMIM_RELEASE := $(OMIM_OWL) reports/metrics.json reports/top-level-counts.tsv \
+	mirror-omim.owl omim.db \
+	reports/mirror_signature-omim.tsv reports/component_signature-omim.tsv \
+	mappings/omim.sssom.tsv metadata/omim-metrics.json
+
+linkml-release: $(OMIM_RELEASE)
 
 linkml-clean:
 	rm -f $(OMIM_YAML) $(OMIM_OWL) mirror-omim.owl omim.db
