@@ -136,7 +136,7 @@ verify: $(OMIM_YAML) $(OMIM_JSON)
 linkml-owl:
 	python -m pip install --break-system-packages linkml-owl==0.5.0
 
-$(OMIM_FUNCT): $(OMIM_SCHEMA) $(OMIM_YAML) validate verify linkml-owl
+$(OMIM_FUNCT): $(OMIM_SCHEMA) $(OMIM_YAML) | validate verify linkml-owl
 	mkdir -p tmp
 	python3 -m linkml_owl.dumpers.owl_dumper \
 		--schema $(OMIM_SCHEMA) -f yaml -o $@ $(OMIM_YAML)
