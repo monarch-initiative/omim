@@ -5,6 +5,10 @@ __pycache__/
 .idea/
 .DS_Store
 .env
+env/.env
+.venv/
+tmp/
+.ruff_cache/
 
 # Specialized
 .ipynb_checkpoints/omim-checkpoint.ipynb
@@ -15,6 +19,14 @@ analyses/**/*.tsv
 analyses/**/*.csv
 analyses/**/*.xls
 /*.diff
+
+# Parallel LinkML path outputs (do not commit; distinct from legacy omim.owl)
+/omim.linkml.yml
+/omim.linkml.owl
+/mirror-omim.owl
+/omim.db
+/mappings/
+/reports/
 
 # Inputs
 mim2gene.txt

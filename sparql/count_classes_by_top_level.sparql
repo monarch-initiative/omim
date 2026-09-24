@@ -1,0 +1,9 @@
+# linkml-owl output uses AnnotationAssertion on OMIM IRIs without owl:Class declarations,
+# so "?x a owl:Class" is not usable here. Count distinct OMIM entry IRIs that carry rdfs:label.
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ("TOTAL" AS ?top_level_id) ("" AS ?top_level_label) (COUNT(DISTINCT ?term) AS ?count)
+WHERE {
+  ?term rdfs:label ?l .
+  FILTER(STRSTARTS(STR(?term), "http://purl.obolibrary.org/obo/OMIM_"))
+}

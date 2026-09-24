@@ -1,7 +1,9 @@
-.PHONY: all help install test scrape get-pmids cleanup
+.PHONY: all help install test scrape get-pmids cleanup \
+	validate verify linkml-owl linkml-reports linkml-release linkml-clean
 
 
 # MAIN COMMANDS / GOALS ------------------------------------------------------------------------------------------------
+# Legacy release path (unchanged). Parallel LinkML path: make omim.linkml.owl — see README.
 all: omim.ttl omim.sssom.tsv omim.owl mondo-omim-genes.robot.tsv disease-gene-relationships-qc.tsv
 
 # build: Create new omim.ttl
@@ -104,13 +106,119 @@ install:
 test:
 	 python3 -m unittest discover -v
 
+# PARALLEL LINKML PATH (additive; does not replace `all`) -------------------------------------------------------------
+# Run via ./run.sh make omim.linkml.owl (same ODK wrapper as legacy `all`).
+# File deps: JSON → YAML → OWL. OMIM_TEST=1 caps acquire at 1000 MIMs.
+# Auth: legacy root .env API_KEY (same as omim2obo / MONARCH_OMIM_API_KEY in CI).
+# Outputs use distinct names (omim.linkml.yml / omim.linkml.owl) so legacy omim.owl is never overwritten.
+OMIM_SCHEMA := linkml/mondo_source_schema.yaml
+OMIM_JSON := tmp/omim_raw.json
+OMIM_YAML := omim.linkml.yml
+OMIM_OWL := omim.linkml.owl
+OMIM_FUNCT := tmp/omim.functional.owl
+OMIM_TEST ?=
+OMIM_MAX_MIMS ?= $(if $(OMIM_TEST),1000,)
+
+$(OMIM_JSON):
+	mkdir -p tmp
+	python3 scripts/acquire.py $(if $(OMIM_MAX_MIMS),--max-mims $(OMIM_MAX_MIMS),) --output $@
+
+$(OMIM_YAML): $(OMIM_JSON)
+	PYTHONPATH=src python3 scripts/extract.py --input $< --output $@
+
+validate: $(OMIM_YAML)
+	python3 -m linkml.validator.cli -s $(OMIM_SCHEMA) -C OntologyDocument $<
+
+verify: $(OMIM_YAML) $(OMIM_JSON)
+	python3 scripts/verify.py --yaml $(OMIM_YAML) --raw-json $(OMIM_JSON)
+
+# ODK does not ship linkml-owl. Install into the container Python before dump.
+linkml-owl:
+	python -m pip install --break-system-packages linkml-owl==0.5.0
+
+$(OMIM_FUNCT): $(OMIM_SCHEMA) $(OMIM_YAML) | validate verify linkml-owl
+	mkdir -p tmp
+	python3 -m linkml_owl.dumpers.owl_dumper \
+		--schema $(OMIM_SCHEMA) -f yaml -o $@ $(OMIM_YAML)
+
+$(OMIM_OWL): $(OMIM_FUNCT)
+	robot convert -i $< -o $@
+
+reports/metrics.json: $(OMIM_OWL)
+	mkdir -p reports
+	robot measure \
+		--prefix "OMIM: http://purl.obolibrary.org/obo/OMIM_" \
+		--prefix "OMIMPS: http://purl.obolibrary.org/obo/OMIMPS_" \
+		-i $< --format json --metrics extended --output $@
+
+reports/top-level-counts.tsv: $(OMIM_OWL)
+	mkdir -p reports
+	robot query -i $< \
+		--query sparql/count_classes_by_top_level.sparql $@
+
+linkml-reports: reports/metrics.json reports/top-level-counts.tsv
+
+mirror-omim.owl: $(OMIM_OWL)
+	cp -f $< $@
+
+tmp/prefixes.csv: $(OMIM_FUNCT)
+	mkdir -p tmp
+	python3 scripts/extract_prefixes.py --input $< --output $@
+
+omim.db: $(OMIM_OWL) tmp/prefixes.csv
+	mkdir -p tmp
+	cp -f $< tmp/omim-semsql.owl
+	RUST_BACKTRACE=full semsql make tmp/omim-semsql.db -P tmp/prefixes.csv
+	mv tmp/omim-semsql.db $@
+
+define sort_class_signature
+	mkdir -p reports
+	robot query -i $< --query sparql/classes.sparql $@
+	(head -n 1 $@ && tail -n +2 $@ | sort) > $@-temp
+	mv $@-temp $@
+endef
+
+reports/mirror_signature-omim.tsv: mirror-omim.owl sparql/classes.sparql
+	$(sort_class_signature)
+
+reports/component_signature-omim.tsv: $(OMIM_OWL) sparql/classes.sparql
+	$(sort_class_signature)
+
+tmp/component-omim.json: $(OMIM_OWL)
+	mkdir -p tmp
+	robot convert -i $< -f json -o $@
+
+mappings/omim.sssom.tsv: tmp/component-omim.json metadata/omim.metadata.sssom.yml
+	mkdir -p mappings reports
+	sssom parse $< -I obographs-json --prefix-map-mode merged \
+		-m metadata/omim.metadata.sssom.yml -o $@ 2> reports/sssom-parse-warnings.log
+	@echo "sssom parse: $$(wc -l < reports/sssom-parse-warnings.log) warning line(s) → reports/sssom-parse-warnings.log"
+	sssom sort $@ -o $@
+
+metadata/omim-metrics.json: reports/metrics.json
+	mkdir -p metadata
+	cp -f $< $@
+
+OMIM_RELEASE := $(OMIM_OWL) reports/metrics.json reports/top-level-counts.tsv \
+	mirror-omim.owl omim.db \
+	reports/mirror_signature-omim.tsv reports/component_signature-omim.tsv \
+	mappings/omim.sssom.tsv metadata/omim-metrics.json
+
+linkml-release: $(OMIM_RELEASE)
+
+linkml-clean:
+	rm -f $(OMIM_YAML) $(OMIM_OWL) mirror-omim.owl omim.db
+	rm -rf tmp/
+	rm -f reports/metrics.json reports/top-level-counts.tsv reports/mirror_signature-omim.tsv reports/component_signature-omim.tsv reports/sssom-parse-warnings.log
+	rm -f mappings/omim.sssom.tsv metadata/omim-metrics.json
+
 # HELP -----------------------------------------------------------------------------------------------------------------
 help:
 	@echo "----------------------------------------"
 	@echo "	Command reference: OMIM"
 	@echo "----------------------------------------"
 	@echo "all"
-	@echo "Creates all release artefacts.\n"
+	@echo "Creates all legacy release artefacts.\n"
 	@echo "omim.ttl"
 	@echo "Creates main release artefact: omim.ttl\n"
 	@echo "omim.sssom.tsv"
@@ -123,3 +231,5 @@ help:
 	@echo "Does web scraping to get information about some OMIM terms.\n"
 	@echo "get-pmids"
 	@echo "Gets PMIDs for all terms.\n"
+	@echo "omim.linkml.owl / linkml-release"
+	@echo "Parallel API→LinkML path: ./run.sh make omim.linkml.owl (OMIM_TEST=1 to cap). Does not change legacy all.\n"
