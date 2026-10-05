@@ -1,0 +1,179 @@
+id: https://w3id.org/monarch-initiative/mondo-source-schema
+name: mondo_source_schema
+version: 0.4.0
+
+prefixes:
+  linkml:    https://w3id.org/linkml/
+  mondo_src: https://w3id.org/monarch-initiative/mondo-source-schema/
+  rdfs:      http://www.w3.org/2000/01/rdf-schema#
+  skos:      http://www.w3.org/2004/02/skos/core#
+  dcterms:   http://purl.org/dc/terms/
+  obo:       http://purl.obolibrary.org/obo/
+  oboInOwl:  http://www.geneontology.org/formats/oboInOwl#
+  owl:       http://www.w3.org/2002/07/owl#
+  MONDO:     http://purl.obolibrary.org/obo/mondo#
+  OMIM:      http://purl.obolibrary.org/obo/OMIM_
+  OMIMPS:    http://purl.obolibrary.org/obo/OMIMPS_
+
+imports:
+  - linkml:types
+
+default_prefix: mondo_src
+default_range: string
+
+
+enums:
+
+  SynonymTypeEnum:
+    description: Types of synonyms used in Mondo source ingests.
+    permissible_values:
+      omim_included:
+        meaning: MONDO:omim_included
+      generated_from_label:
+        meaning: MONDO:GENERATED_FROM_LABEL
+      generated:
+        meaning: MONDO:GENERATED
+      omim_formerly:
+        meaning: MONDO:omim_formerly
+      abbreviation:
+        meaning: MONDO:ABBREVIATION
+
+
+classes:
+
+  OntologyDocument:
+    tree_root: true
+    class_uri: owl:Ontology
+    slots:
+      - title
+      - version
+      - terms
+
+  Synonym:
+    description: A synonym value with an optional type annotation.
+    slots:
+      - synonym_text
+      - synonym_type
+
+  OntologyTerm:
+    class_uri: owl:Class
+    slots:
+      - id
+      - label
+      - definition
+      - exact_synonyms
+      - related_synonyms
+      - narrow_synonyms
+      - broad_synonyms
+      - skos_exact_match
+      - parents
+      - deprecated
+    slot_usage:
+      exact_synonyms:
+        annotations:
+          owl.template: |-
+            {% for s in exact_synonyms %}
+            AnnotationAssertion({% if s.synonym_type %}Annotation(oboInOwl:hasSynonymType {{s.synonym_type.meaning}}) {% endif %}oboInOwl:hasExactSynonym {{id}} "{{s.synonym_text|replace('"', '\\"')}}")
+            {% endfor %}
+      related_synonyms:
+        annotations:
+          owl.template: |-
+            {% for s in related_synonyms %}
+            AnnotationAssertion({% if s.synonym_type %}Annotation(oboInOwl:hasSynonymType {{s.synonym_type.meaning}}) {% endif %}oboInOwl:hasRelatedSynonym {{id}} "{{s.synonym_text|replace('"', '\\"')}}")
+            {% endfor %}
+      narrow_synonyms:
+        annotations:
+          owl.template: |-
+            {% for s in narrow_synonyms %}
+            AnnotationAssertion({% if s.synonym_type %}Annotation(oboInOwl:hasSynonymType {{s.synonym_type.meaning}}) {% endif %}oboInOwl:hasNarrowSynonym {{id}} "{{s.synonym_text|replace('"', '\\"')}}")
+            {% endfor %}
+      broad_synonyms:
+        annotations:
+          owl.template: |-
+            {% for s in broad_synonyms %}
+            AnnotationAssertion({% if s.synonym_type %}Annotation(oboInOwl:hasSynonymType {{s.synonym_type.meaning}}) {% endif %}oboInOwl:hasBroadSynonym {{id}} "{{s.synonym_text|replace('"', '\\"')}}")
+            {% endfor %}
+
+
+slots:
+
+  title:
+    slot_uri: rdfs:label
+    required: true
+
+  version:
+    slot_uri: owl:versionInfo
+    required: true
+
+  terms:
+    range: OntologyTerm
+    multivalued: true
+    inlined_as_list: true
+    required: true
+
+  synonym_text:
+    required: true
+
+  synonym_type:
+    range: SynonymTypeEnum
+
+  id:
+    identifier: true
+    slot_uri: dcterms:identifier
+    range: uriorcurie
+    required: true
+
+  label:
+    slot_uri: rdfs:label
+    required: true
+    annotations:
+      owl: AnnotationAssertion
+
+  definition:
+    slot_uri: obo:IAO_0000115
+    annotations:
+      owl: AnnotationAssertion
+
+  exact_synonyms:
+    slot_uri: oboInOwl:hasExactSynonym
+    multivalued: true
+    range: Synonym
+    inlined_as_list: true
+
+  related_synonyms:
+    slot_uri: oboInOwl:hasRelatedSynonym
+    multivalued: true
+    range: Synonym
+    inlined_as_list: true
+
+  narrow_synonyms:
+    slot_uri: oboInOwl:hasNarrowSynonym
+    multivalued: true
+    range: Synonym
+    inlined_as_list: true
+
+  broad_synonyms:
+    slot_uri: oboInOwl:hasBroadSynonym
+    multivalued: true
+    range: Synonym
+    inlined_as_list: true
+
+  skos_exact_match:
+    slot_uri: skos:exactMatch
+    multivalued: true
+    range: uriorcurie
+    annotations:
+      owl: AnnotationAssertion
+
+  parents:
+    slot_uri: rdfs:subClassOf
+    range: OntologyTerm
+    multivalued: true
+    annotations:
+      owl: SubClassOf
+
+  deprecated:
+    slot_uri: owl:deprecated
+    range: boolean
+    annotations:
+      owl: AnnotationAssertion

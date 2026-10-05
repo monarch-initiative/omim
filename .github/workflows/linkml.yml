@@ -1,0 +1,40 @@
+# Parallel LinkML path (optional; does not replace legacy build_and_release)
+# Reuses the same repo secret as legacy: MONARCH_OMIM_API_KEY → API_KEY in .env
+# Runs inside odkfull, same as build_and_release.yml (no host pip / uv).
+
+name: LinkML parallel path
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_mims:
+        description: "Cap MIMs for a short test run (empty = full catalog)"
+        required: false
+        type: string
+        default: "1000"
+
+jobs:
+  linkml:
+    runs-on: ubuntu-latest
+    container: obolibrary/odkfull:v1.6.1
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      # Same secret + variable name as .github/workflows/build_and_release.yml (no rename in settings).
+      - name: Create .env file
+        run: |
+          echo "API_KEY=${{ secrets.MONARCH_OMIM_API_KEY }}" > .env
+          echo "DOWNLOAD_KEY=${{ secrets.MONARCH_OMIM_DOWNLOAD_KEY }}" >> .env
+
+      - name: Acquire / extract / validate / verify
+        env:
+          OMIM_SLEEP_SECONDS: "0.5"
+        run: make OMIM_MAX_MIMS="${{ inputs.max_mims }}" omim.linkml.yml validate verify
+
+      - name: Upload LinkML YAML
+        uses: actions/upload-artifact@v4
+        with:
+          name: omim-linkml-yml
+          path: omim.linkml.yml
+          if-no-files-found: error
