@@ -288,7 +288,7 @@ def omim2obo(use_cache: bool = False):
         # - Non-deprecated
         # Parse titles & symbols
         omim_type, pref_titles_str, alt_titles_str, inc_titles_str = omim_type_and_titles[omim_id]
-        pref_titles_and_symbols: List[str] = [x.strip() for x in pref_titles_str.split(';')]
+        pref_titles_and_symbols: List[str] = [x.strip() for x in pref_titles_str.split('; ')]
         pref_title, pref_symbols = cleanup_title(pref_titles_and_symbols[0]), pref_titles_and_symbols[1:]
         alt_titles, alt_symbols, former_alt_titles, former_alt_symbols = \
             get_alt_and_included_titles_and_symbols(alt_titles_str)
